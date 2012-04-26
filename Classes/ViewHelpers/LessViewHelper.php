@@ -1,5 +1,5 @@
 <?php
-namespace Admin\ViewHelpers;
+namespace Foo\ContentManagement\ViewHelpers;
 
 /*                                                                        *
  * This script belongs to the FLOW3 package "Fluid".                      *
@@ -19,7 +19,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  */
 class LessViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper {
 	/**
-	 * @var \Admin\Core\CacheManager
+	 * @var \Foo\ContentManagement\Core\CacheManager
 	 * @FLOW3\Inject
 	 */
 	protected $cacheManager;

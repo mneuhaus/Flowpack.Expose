@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\Core\Actions;
+namespace Foo\ContentManagement\Core\Actions;
 
 /* *
  * This script belongs to the FLOW3 framework.                            *
@@ -32,14 +32,14 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  */
 abstract class AbstractAction implements ActionInterface {
 	/**
-	 * @var \Admin\Core\Helper
+	 * @var \Foo\ContentManagement\Core\Helper
 	 * @author Marc Neuhaus <apocalip@gmail.com>
 	 * @FLOW3\Inject
 	 */
 	protected $helper;
 	
 	/**
-	 * @var \Admin\Core\Adapters\AdapterInterface
+	 * @var \Foo\ContentManagement\Core\Adapters\AdapterInterface
 	 * @author Marc Neuhaus <mneuhaus@famelo.com>
 	 * */
 	protected $adapter;
@@ -76,7 +76,7 @@ abstract class AbstractAction implements ActionInterface {
 	}
 
 	public function __toString() {
-		$action = \Admin\Core\Helper::getShortName($this);
+		$action = \Foo\ContentManagement\Core\Helper::getShortName($this);
 		$action = str_replace("Action", "", $action);
 		return $action;
 	}

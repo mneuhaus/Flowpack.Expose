@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\Core;
+namespace Foo\ContentManagement\Core;
 
 /*                                                                        *
  * This script belongs to the FLOW3 package "Fluid".                      *

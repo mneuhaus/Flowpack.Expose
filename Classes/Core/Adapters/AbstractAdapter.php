@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\Core\Adapters;
+namespace Foo\ContentManagement\Core\Adapters;
 
 /*                                                                        *
  * This script belongs to the FLOW3 package "Contacts".                   *
@@ -31,7 +31,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * @version $Id: AbstractValidator.php 3837 2010-02-22 15:17:24Z robert $
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-abstract class AbstractAdapter implements \Admin\Core\Adapters\AdapterInterface {
+abstract class AbstractAdapter implements \Foo\ContentManagement\Core\Adapters\AdapterInterface {
 	/**
 	 * @var TYPO3\FLOW3\Cache\CacheManager
 	 * @FLOW3\Inject
@@ -39,13 +39,13 @@ abstract class AbstractAdapter implements \Admin\Core\Adapters\AdapterInterface 
 	protected $cacheManager;
 	
 	/**
-	 * @var \Admin\Core\ConfigurationManager
+	 * @var \Foo\ContentManagement\Core\ConfigurationManager
 	 * @FLOW3\Inject
 	 */
 	protected $configurationManager;
 	
 	/**
-	 * @var \Admin\Core\Helper
+	 * @var \Foo\ContentManagement\Core\Helper
 	 * @author Marc Neuhaus <apocalip@gmail.com>
 	 * @FLOW3\Inject
 	 */
@@ -101,7 +101,7 @@ abstract class AbstractAdapter implements \Admin\Core\Adapters\AdapterInterface 
 	public function getBeing($being, $id = null) {
 		$being = ltrim($being, "\\");
 		
-		$b = new \Admin\Core\Being($this);
+		$b = new \Foo\ContentManagement\Core\Being($this);
 		$b->setObject($this->getObject($being, $id));
 		$b->setClass($being);
 		
@@ -139,7 +139,7 @@ abstract class AbstractAdapter implements \Admin\Core\Adapters\AdapterInterface 
 			foreach($properties as $property){
 				if($property->isFilter()){
 					if(!isset($filters[$property->getName()]))
-						$filters[$property->getName()] = new \Admin\Core\Filter();
+						$filters[$property->getName()] = new \Foo\ContentManagement\Core\Filter();
 
 					if(isset($selected[$property->getName()]) && $selected[$property->getName()] == $property->getString()){
 						$property->setSelected(true);

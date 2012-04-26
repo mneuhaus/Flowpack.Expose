@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\Core;
+namespace Foo\ContentManagement\Core;
 
 /*																		*
  * This script belongs to the FLOW3 package "Fluid".					  *
@@ -38,7 +38,7 @@ class Property{
 	const INLINE_MULTIPLE_MODE = "multiple";
 	
 	/**
-	 * @var \Admin\Core\Helper
+	 * @var \Foo\ContentManagement\Core\Helper
 	 * @FLOW3\Inject
 	 */
 	protected $helper;
@@ -162,10 +162,10 @@ class Property{
 	public function setConfiguration($configuration){
 		$this->configuration = $configuration;
 		
-		$this->value = new \Admin\Core\Value($this);
+		$this->value = new \Foo\ContentManagement\Core\Value($this);
 		
 		$this->label = ucfirst($this->name);
-		$this->variant = new \Admin\Annotations\Variant();
+		$this->variant = new \Foo\ContentManagement\Annotations\Variant();
 		
 		foreach ($configuration as $key => $values) {
 			switch ($key) {
@@ -236,9 +236,9 @@ class Property{
 			$values = $this->getValue();
 			$beings = array();
 			$amountOfInlines = 0;
-			$realAction = \Admin\Core\API::get("action");
-			\Admin\Core\API::set("action", "inline");
-			if(\Admin\Core\Helper::isIteratable($values)){
+			$realAction = \Foo\ContentManagement\Core\API::get("action");
+			\Foo\ContentManagement\Core\API::set("action", "inline");
+			if(\Foo\ContentManagement\Core\Helper::isIteratable($values)){
 				foreach($values as $value){
 					if(is_object($value)){
 						$id = $this->adapter->getId($value);
@@ -275,7 +275,7 @@ class Property{
 				$beings[$key]->parentProperty = $this;
 			}
 			
-			\Admin\Core\API::set("action", $realAction);
+			\Foo\ContentManagement\Core\API::set("action", $realAction);
 			$this->children = $beings;
 		}
 		return $this->children;
@@ -286,10 +286,10 @@ class Property{
 	}
 
 	public function createBeing($being, $id = null){
-		$realAction = \Admin\Core\API::get("action");
-		\Admin\Core\API::set("action", "inline");
+		$realAction = \Foo\ContentManagement\Core\API::get("action");
+		\Foo\ContentManagement\Core\API::set("action", "inline");
 		$b = $this->adapter->getBeing($this->being, $id);
-		\Admin\Core\API::set("action", $realAction);
+		\Foo\ContentManagement\Core\API::set("action", $realAction);
 		$b->prefix = $this->getPrefix();
 		
 		if(!empty($id)){

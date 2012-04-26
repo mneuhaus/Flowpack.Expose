@@ -1,7 +1,7 @@
-{namespace a=Admin\ViewHelpers}
+{namespace cm=Foo\ContentManagement\ViewHelpers}
 <ul>
 <f:if condition="{pagination.prevPage}">
-	<li class="prev"><a:link action="list" addQueryString="true" shortcut="←" arguments="{page: pagination.prevPage}">prev</a:link></li>
+	<li class="prev"><cm:link action="list" addQueryString="true" shortcut="←" arguments="{page: pagination.prevPage}">prev</cm:link></li>
 </f:if>
 <f:for each="{pagination.pages}" as="page">
 	<f:if condition="{pagination.currentPage} == {page}" ><f:then><li class="active"></f:then><f:else><li></f:else></f:if>
@@ -9,6 +9,6 @@
 	</li>
 </f:for>
 <f:if condition="{pagination.nextPage}">
-	<li class="next"><a:link action="list" addQueryString="true" shortcut="→" arguments="{page: pagination.nextPage}">next</a:link></li>
+	<li class="next"><cm:link action="list" addQueryString="true" shortcut="→" arguments="{page: pagination.nextPage}">next</cm:link></li>
 </f:if>
 </ul>

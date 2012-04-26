@@ -1,10 +1,10 @@
 <f:layout name="bootstrap" />
 
-{namespace a=Admin\ViewHelpers}
+{namespace cm=Foo\ContentManagement\ViewHelpers}
 <f:section name="sidebar">
 	<h5>System</h5>
 	<ul>
-	<a:navigation position="system:left">
+	<cm:navigation position="system:left">
 		<f:if condition="{navBar.hasChildren}">
 			<f:then>
 			<li>
@@ -18,7 +18,7 @@
 				</li>
 			</f:else>
 		</f:if>
-	</a:navigation>
+	</cm:navigation>
 	</ul>
 </f:section>
 

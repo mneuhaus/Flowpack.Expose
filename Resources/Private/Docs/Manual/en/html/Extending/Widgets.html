@@ -1,6 +1,6 @@
 
 <f:layout name="bootstrap" />
-{namespace a=Admin\ViewHelpers}
+{namespace cm=Foo\ContentManagement\ViewHelpers}
 
 <f:section name="header">
 </f:section>
@@ -91,7 +91,7 @@ In most cases you should simply use the {property.string} option to get an Strin
 			</div>
 	</div>
 	
-	<a:widgetResources add="Prettify">
+	<cm:widgetResources add="Prettify">
 		<link href="{f:uri.resource(path: 'prettify/prettify.css', package: 'Admin')}" rel="stylesheet">
 		<script src="{f:uri.resource(path: 'prettify/prettify.js', package: 'Admin')}"></script>
 		<script type="text/javascript" charset="utf-8">
@@ -107,6 +107,6 @@ In most cases you should simply use the {property.string} option to get an Strin
 				window.location.hash = hash;
 			});
 		</script>
-	</a:widgetResources>
+	</cm:widgetResources>
 	
 	</f:section>

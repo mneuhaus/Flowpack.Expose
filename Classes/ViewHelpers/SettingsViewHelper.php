@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\ViewHelpers;
+namespace Foo\ContentManagement\ViewHelpers;
 
 /*                                                                        *
  * This script belongs to the FLOW3 framework.                            *
@@ -33,7 +33,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  */
 class SettingsViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 	/**
-	 * @var Admin\Core\Helper
+	 * @var Foo\ContentManagement\Core\Helper
 	 * @FLOW3\Inject
 	 */
 	protected $helper;

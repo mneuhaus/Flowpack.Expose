@@ -1,6 +1,6 @@
 
 <f:layout name="bootstrap" />
-{namespace a=Admin\ViewHelpers}
+{namespace cm=Foo\ContentManagement\ViewHelpers}
 
 <f:section name="header">
 </f:section>
@@ -48,8 +48,8 @@
 resource://@package/Private/Templates/Admin/@action/@variant.html
 resource://@package/Private/Templates/@being/@action.html
 resource://@package/Private/Templates/Admin/@action.html
-resource://Admin/Private/Templates/Standard/@action/@variant.html
-resource://Admin/Private/Templates/Standard/@action.html</pre>
+resource://Foo.ContentManagement/Private/Templates/Standard/@action/@variant.html
+resource://Foo.ContentManagement/Private/Templates/Standard/@action.html</pre>
 </div>
 <dl class="docutils">
 <dt>&#64;package</dt>
@@ -73,11 +73,11 @@ resource://@package/Private/Partials/@action/@partial/@variant.html
 resource://@package/Private/Partials/@action/@partial.html
 resource://@package/Private/Partials/@partial/@variant.html
 resource://@package/Private/Partials/@partial.html
-resource://Admin/Private/Partials/@action/@partial.html
-resource://Admin/Private/Partials/@action/@partial/@variant.html
-resource://Admin/Private/Partials/@partial/@variant.html
-resource://Admin/Private/Partials/@partial.html
-resource://Admin/Private/Partials/@partial/Default.html</pre>
+resource://Foo.ContentManagement/Private/Partials/@action/@partial.html
+resource://Foo.ContentManagement/Private/Partials/@action/@partial/@variant.html
+resource://Foo.ContentManagement/Private/Partials/@partial/@variant.html
+resource://Foo.ContentManagement/Private/Partials/@partial.html
+resource://Foo.ContentManagement/Private/Partials/@partial/Default.html</pre>
 </div>
 <dl class="docutils">
 <dt>&#64;package</dt>
@@ -92,7 +92,7 @@ resource://Admin/Private/Partials/@partial/Default.html</pre>
 <h2>Widgets<a class="headerlink" href="#widgets" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python"><pre>resource://@package/Private/Partials/@being/Widgets/@partial.html
 resource://@package/Private/Partials/Widgets/@partial.html
-resource://Admin/Private/Partials/Widgets/@partial.html</pre>
+resource://Foo.ContentManagement/Private/Partials/Widgets/@partial.html</pre>
 </div>
 <dl class="docutils">
 <dt>&#64;package</dt>
@@ -107,7 +107,7 @@ resource://Admin/Private/Partials/Widgets/@partial.html</pre>
 <h2>DashboardWidgets<a class="headerlink" href="#dashboardwidgets" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python"><pre>resource://@package/Private/Partials/@being/DashboardWidgets/@partial.html
 resource://@package/Private/Partials/DashboardWidgets/@partial.html
-resource://Admin/Private/Partials/DashboardWidgets/@partial.html</pre>
+resource://Foo.ContentManagement/Private/Partials/DashboardWidgets/@partial.html</pre>
 </div>
 <dl class="docutils">
 <dt>&#64;package</dt>
@@ -124,7 +124,7 @@ resource://Admin/Private/Partials/DashboardWidgets/@partial.html</pre>
 			</div>
 	</div>
 	
-	<a:widgetResources add="Prettify">
+	<cm:widgetResources add="Prettify">
 		<link href="{f:uri.resource(path: 'prettify/prettify.css', package: 'Admin')}" rel="stylesheet">
 		<script src="{f:uri.resource(path: 'prettify/prettify.js', package: 'Admin')}"></script>
 		<script type="text/javascript" charset="utf-8">
@@ -140,6 +140,6 @@ resource://Admin/Private/Partials/DashboardWidgets/@partial.html</pre>
 				window.location.hash = hash;
 			});
 		</script>
-	</a:widgetResources>
+	</cm:widgetResources>
 	
 	</f:section>

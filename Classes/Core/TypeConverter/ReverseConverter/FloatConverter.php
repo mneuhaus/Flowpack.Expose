@@ -1,5 +1,5 @@
 <?php
-namespace Admin\Core\TypeConverter\ReverseConverter;
+namespace Foo\ContentManagement\Core\TypeConverter\ReverseConverter;
 
 /*                                                                        *
  * This script belongs to the FLOW3 framework.                            *

@@ -2,10 +2,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	{namespace a=Admin\ViewHelpers}
+	{namespace cm=Foo\ContentManagement\ViewHelpers}
 	
 	<meta charset="utf-8">
-	<title><a:api get="title">{title}</a:api></title>
+	<title><cm:api get="title">{title}</cm:api></title>
 	
 	<f:base />
 	
@@ -34,7 +34,7 @@
 			<div id="login" class="box">
 				<h3 class="box-header">Login</h3>
 				<f:form actionUri="/admin/login/authenticate" method="post" class="form-horizontal">
-					<a:form.redirect />
+					<cm:form.redirect />
 					<div class="control-group">
 						<label for="username" >Username</label>
 						<div class="controls">
@@ -48,7 +48,7 @@
 						</div>
 					</div>
 					<div class="whitespace">
-						<a:flashMessages class="alert-message" />
+						<cm:flashMessages class="alert-message" />
 					</div>
 					<div class="pull-right whitespace">
 						<f:form.submit value="Login" class="btn"/>

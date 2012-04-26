@@ -1,5 +1,5 @@
 <?php
-namespace Admin\Adapters;
+namespace Foo\ContentManagement\Adapters;
 
 /*                                                                        *
  * This script belongs to the FLOW3 package "Contacts".                   *
@@ -32,7 +32,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  *
  * @FLOW3\Scope("singleton")
  */
-class DoctrineAdapter extends \Admin\Core\Adapters\AbstractAdapter {
+class DoctrineAdapter extends \Foo\ContentManagement\Core\Adapters\AbstractAdapter {
     /**
      * @var \TYPO3\FLOW3\Persistence\PersistenceManagerInterface
      * @author Marc Neuhaus <apocalip@gmail.com>
@@ -107,7 +107,7 @@ class DoctrineAdapter extends \Admin\Core\Adapters\AbstractAdapter {
 
             if (class_exists($repository)) {
                 $group = $packageName;
-                $name = \Admin\Core\Helper::getShortName($class);
+                $name = \Foo\ContentManagement\Core\Helper::getShortName($class);
 
                 if (isset($configuration["group"]))
                     $group = strval(current($configuration["group"]));
@@ -168,7 +168,7 @@ class DoctrineAdapter extends \Admin\Core\Adapters\AbstractAdapter {
             $annotation = current($configuration["repository"]);
             $repository = $annotation->class;
         } else {
-            $repository = \Admin\Core\Helper::getModelRepository($model);
+            $repository = \Foo\ContentManagement\Core\Helper::getModelRepository($model);
         }
 
         return $repository;
@@ -217,7 +217,7 @@ class DoctrineAdapter extends \Admin\Core\Adapters\AbstractAdapter {
     public function transform($data, $target) {
         $data = $this->cleanUpBlanks($data);
 
-        $value = $this->propertyMapper->convert($data, $target, \Admin\Core\PropertyMappingConfiguration::getConfiguration());
+        $value = $this->propertyMapper->convert($data, $target, \Foo\ContentManagement\Core\PropertyMappingConfiguration::getConfiguration());
 
         $this->validationResults = $this->propertyMapper->getMessages();
 

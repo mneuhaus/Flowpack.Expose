@@ -1,5 +1,5 @@
 <f:layout name="bootstrap" />
-{namespace a=Admin\ViewHelpers}
+{namespace cm=Foo\ContentManagement\ViewHelpers}
 <f:section name="actionbar-left"></f:section>
 
 <f:section name="actionbar-right">
@@ -24,7 +24,7 @@
                         <h3 class="ui-header">
                             {object}
                             <div class="actions">
-                                <a:render partial="Table" fallbacks="Actions" vars="{being:object}" />
+                                <cm:render partial="Table" fallbacks="Actions" vars="{being:object}" />
                             </div>
                         </h3>
                     <f:for each="{object.__properties}" as="value" key="property">

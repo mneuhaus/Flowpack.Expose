@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\Actions;
+namespace Foo\ContentManagement\Actions;
 
 /* *
  * This script belongs to the FLOW3 framework.                            *
@@ -32,7 +32,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  * @FLOW3\Scope("prototype")
  */
-class ListAction extends \Admin\Core\Actions\AbstractAction {
+class ListAction extends \Foo\ContentManagement\Core\Actions\AbstractAction {
 
 	/**
 	 * Function to Check if this Requested Action is supported
@@ -63,7 +63,7 @@ class ListAction extends \Admin\Core\Actions\AbstractAction {
 		
 		// Redirect to creating a new Object if there aren't any (Clean Slate)
 		if( $results->count() < 1 ) {
-			$arguments = array("being" => \Admin\Core\API::get("classShortNames", $being));
+			$arguments = array("being" => \Foo\ContentManagement\Core\API::get("classShortNames", $being));
 			$this->controller->redirect("create", NULL, NULL, $arguments);
 		}
 		

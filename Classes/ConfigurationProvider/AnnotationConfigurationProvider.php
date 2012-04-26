@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\ConfigurationProvider;
+namespace Foo\ContentManagement\ConfigurationProvider;
 
 /* *
  * This script belongs to the FLOW3 framework.                            *
@@ -31,7 +31,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * @version $Id: ReflectionConfigurationProvider.php 3837 2010-02-22 15:17:24Z robert $
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-class AnnotationConfigurationProvider extends \Admin\Core\ConfigurationProvider\AbstractConfigurationProvider {
+class AnnotationConfigurationProvider extends \Foo\ContentManagement\Core\ConfigurationProvider\AbstractConfigurationProvider {
 	/**
 	 * @var \TYPO3\FLOW3\Reflection\ReflectionService
 	 * @api
@@ -56,7 +56,7 @@ class AnnotationConfigurationProvider extends \Admin\Core\ConfigurationProvider\
 			$schema = $this->reflectionService->getClassSchema($class);
 			if(is_object($schema)){
 				if(!isset($c["repository"]))
-					$c["repository"] = array(new \Admin\Annotations\Repository(array("class" => $schema->getRepositoryClassName())));
+					$c["repository"] = array(new \Foo\ContentManagement\Annotations\Repository(array("class" => $schema->getRepositoryClassName())));
 				$properties = $schema->getProperties();
 			}else{
 				$properties = array_flip($this->reflectionService->getClassPropertyNames($class));
@@ -75,7 +75,7 @@ class AnnotationConfigurationProvider extends \Admin\Core\ConfigurationProvider\
 				
 				
 				// $c["properties"][$property]["type"] = array(
-				// 	new \Admin\Annotations\Type(array(
+				// 	new \Foo\ContentManagement\Annotations\Type(array(
 				// 		"name" => $meta["type"],
 				// 		"subtype" => $meta["elementType"],
 				// 	))

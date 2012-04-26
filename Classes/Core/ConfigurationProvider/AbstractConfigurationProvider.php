@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\Core\ConfigurationProvider;
+namespace Foo\ContentManagement\Core\ConfigurationProvider;
 
 /* *
  * This script belongs to the FLOW3 framework.                            *
@@ -47,7 +47,7 @@ abstract class AbstractConfigurationProvider implements ConfigurationProviderInt
 	protected $objectManager;
 
 	/**
-	 * @var \Admin\Core\Helper
+	 * @var \Foo\ContentManagement\Core\Helper
 	 * @author Marc Neuhaus <apocalip@gmail.com>
 	 * @FLOW3\Inject
 	 */

@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\ViewHelpers;
+namespace Foo\ContentManagement\ViewHelpers;
 
 /*                                                                        *
  * This script belongs to the FLOW3 framework.                            *
@@ -34,7 +34,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 class BeingViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 	
 	/**
-	 * @var \Admin\Core\Helper
+	 * @var \Foo\ContentManagement\Core\Helper
 	 * @author Marc Neuhaus <apocalip@gmail.com>
 	 * @FLOW3\Inject
 	 */
@@ -54,7 +54,7 @@ class BeingViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 		if(is_null($object) && !is_null($className))
 			$object = new $className;
 		
-		$being = new \Admin\Core\Being($this->helper->getAdapterByBeing(get_class($object)));
+		$being = new \Foo\ContentManagement\Core\Being($this->helper->getAdapterByBeing(get_class($object)));
 		$being->ignoredProperties = $ignore;
 		$being->setClass(get_class($object));
 		$being->setObject($object);
@@ -62,8 +62,8 @@ class BeingViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 		if($this->viewHelperVariableContainer->exists('TYPO3\Fluid\ViewHelpers\FormViewHelper', 'fieldNamePrefix'))
 			$being->prefix = $this->viewHelperVariableContainer->get('TYPO3\Fluid\ViewHelpers\FormViewHelper', 'fieldNamePrefix');
 		
-		$validationResults = $this->controllerContext->getRequest()->getOriginalRequestMappingResults();
-		$being->setErrors($validationResults->forProperty($being->prefix));
+		#$validationResults = $this->controllerContext->getRequest()->getOriginalRequestMappingResults();
+		#$being->setErrors($validationResults->forProperty($being->prefix));
 		
 		$this->templateVariableContainer->add($as, $being);
 		$content = $this->renderChildren();

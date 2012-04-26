@@ -1,5 +1,5 @@
 <f:layout name="bootstrap" />
-{namespace a=Admin\ViewHelpers}
+{namespace cm=Foo\ContentManagement\ViewHelpers}
 
 <f:section name="pre-container">
 	<form method="post">
@@ -10,7 +10,7 @@
 
 <f:section name="actionbar-right">
 	<f:for each="{topBarActions}" as="action">
-		<a:link
+		<cm:link
 			class=" {action.class}"
 			action="{action.action}"
 			controller="{action.controller}"
@@ -18,16 +18,16 @@
 			target="{action.target}"
 			being="{className}">
 			{action}
-		</a:link>
+		</cm:link>
 	</f:for>
 </f:section>
 
 <f:section name="content">
-	<a:widgetResources add="jQueryUi">
+	<cm:widgetResources add="jQueryUi">
 		<link href="{f:uri.resource(path: 'jquery-ui/css/smoothness/jquery-ui-1.8.16.custom.css', package: 'Admin')}" rel="stylesheet">
 		<script src="{f:uri.resource(path: 'jquery-ui/js/jquery-ui-1.8.16.custom.min.js', package: 'Admin')}"></script>
-	</a:widgetResources>
-	<a:widgetResources add="List:Calendar">
+	</cm:widgetResources>
+	<cm:widgetResources add="List:Calendar">
 		<link rel='stylesheet' type='text/css' href="{f:uri.resource(path: 'fullcalendar/fullcalendar.css', package: 'Admin')}" />
 		<link rel='stylesheet' type='text/css' href="{f:uri.resource(path: 'fullcalendar/fullcalendar.print.css', package: 'Admin')}" media='print' />
 		<script type='text/javascript' src="{f:uri.resource(path: 'fullcalendar/fullcalendar.min.js', package: 'Admin')}"></script>
@@ -49,7 +49,7 @@
 					editable: true,
 					events: [
 					    <f:for each="{objects}" as="object" iteration="iterator">
-						<a:being object="{object}">
+						<cm:being object="{object}">
 					    {
 					    	title: '<f:format.raw value="{being.variantMapping.title}" />',
 					    	
@@ -71,7 +71,7 @@
 					    		<f:then>}</f:then>
 					    		<f:else>},</f:else>
 					    	</f:if>
-						</a:being>
+						</cm:being>
 					    </f:for>
 					]
 				});
@@ -82,12 +82,12 @@
 		<style type="text/css" media="screen">
 			.fc-header td { border-top:none; }
 		</style>
-	</a:widgetResources>
+	</cm:widgetResources>
 	<div id='calendar'></div>
 	<div class="pagination pull-left">
-		<a:being className="{className}">
-			<a:render partial="VariantsSelector" fallbacks="Partials" vars="{variant: being.variant, current: 'Calendar'}"/>
-		</a:being>
+		<cm:being className="{className}">
+			<cm:render partial="VariantsSelector" fallbacks="Partials" vars="{variant: being.variant, current: 'Calendar'}"/>
+		</cm:being>
 	</div>
 </f:section>
 

@@ -1,5 +1,5 @@
 <?php
-namespace Admin\ViewHelpers;
+namespace Foo\ContentManagement\ViewHelpers;
 
 /*                                                                        *
  * This script belongs to the FLOW3 package "Fluid".                      *
@@ -87,13 +87,13 @@ class LinkViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractTagBasedViewHe
 		$uriBuilder = $this->controllerContext->getUriBuilder();
 		
 		if($object !== NULL){
-			$arguments["being"] = \Admin\Core\API::get("classShortNames", get_class($object));
-			$adapter = $this->objectManager->get(\Admin\Core\API::get("adapter"));
+			$arguments["being"] = \Foo\ContentManagement\Core\API::get("classShortNames", get_class($object));
+			$adapter = $this->objectManager->get(\Foo\ContentManagement\Core\API::get("adapter"));
 			$arguments["id"] = $adapter->getId($object);
 		}
 
 		if($being !== NULL)
-			$arguments["being"] = \Admin\Core\API::get("classShortNames", $being);
+			$arguments["being"] = \Foo\ContentManagement\Core\API::get("classShortNames", $being);
 
 		try {
 			$uri = $uriBuilder

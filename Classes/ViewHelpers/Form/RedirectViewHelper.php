@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\ViewHelpers\Form;
+namespace Foo\ContentManagement\ViewHelpers\Form;
 
 /*                                                                        *
  * This script belongs to the FLOW3 framework.                            *

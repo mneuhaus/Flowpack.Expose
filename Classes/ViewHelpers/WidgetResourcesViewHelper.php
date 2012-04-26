@@ -1,6 +1,6 @@
 <?php
  
-namespace Admin\ViewHelpers;
+namespace Foo\ContentManagement\ViewHelpers;
 
 /*                                                                        *
  * This script belongs to the FLOW3 framework.                            *
@@ -38,12 +38,12 @@ class WidgetResourcesViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractVie
 	 */
 	public function render($add = null, $render = null) {
 		if($add !== null){
-			\Admin\Core\API::add("WidgetResources", $add, $this->renderChildren());
+			\Foo\ContentManagement\Core\API::add("WidgetResources", $add, $this->renderChildren());
 			return "";
 		}
 		
 		if($render !== null && $render == true){
-			$resources = \Admin\Core\API::get("WidgetResources");
+			$resources = \Foo\ContentManagement\Core\API::get("WidgetResources");
 			if(is_array($resources))
 				return implode("\n", $resources);
 		}

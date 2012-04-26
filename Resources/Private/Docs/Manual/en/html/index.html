@@ -1,6 +1,6 @@
 
 <f:layout name="bootstrap" />
-{namespace a=Admin\ViewHelpers}
+{namespace cm=Foo\ContentManagement\ViewHelpers}
 
 <f:section name="header">
 </f:section>
@@ -149,7 +149,7 @@ class and this Admin package will take care of the rest. Every other Option is o
 			</div>
 	</div>
 	
-	<a:widgetResources add="Prettify">
+	<cm:widgetResources add="Prettify">
 		<link href="{f:uri.resource(path: 'prettify/prettify.css', package: 'Admin')}" rel="stylesheet">
 		<script src="{f:uri.resource(path: 'prettify/prettify.js', package: 'Admin')}"></script>
 		<script type="text/javascript" charset="utf-8">
@@ -165,6 +165,6 @@ class and this Admin package will take care of the rest. Every other Option is o
 				window.location.hash = hash;
 			});
 		</script>
-	</a:widgetResources>
+	</cm:widgetResources>
 	
 	</f:section>

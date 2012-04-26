@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\OptionsProvider;
+namespace Foo\ContentManagement\OptionsProvider;
 
 /*                                                                        *
 * This script belongs to the FLOW3 framework.                            *
@@ -31,7 +31,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  * @author Marc Neuhaus <marc@mneuhaus.com>
  */
-class RelationOptionsProvider extends \Admin\Core\OptionsProvider\AbstractOptionsProvider {
+class RelationOptionsProvider extends \Foo\ContentManagement\Core\OptionsProvider\AbstractOptionsProvider {
 	/**
 	* @var \TYPO3\FLOW3\Persistence\PersistenceManagerInterface
 	* @FLOW3\Inject

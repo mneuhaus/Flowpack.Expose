@@ -1,6 +1,6 @@
 <f:layout name="bootstrap" />
 
-{namespace a=Admin\ViewHelpers}
+{namespace cm=Foo\ContentManagement\ViewHelpers}
 <f:section name="actionbar-left"></f:section>
 
 <f:section name="actionbar-right">
@@ -39,7 +39,7 @@
 	</style>
 	<f:format.raw>{content}</f:format.raw>
 	
-	<a:widgetResources add="Prettify">
+	<cm:widgetResources add="Prettify">
 		<link href="{f:uri.resource(path: 'prettify/prettify.css', package: 'Admin')}" rel="stylesheet">
 		<script src="{f:uri.resource(path: 'prettify/prettify.js', package: 'Admin')}"></script>
 		<script type="text/javascript" charset="utf-8">
@@ -47,5 +47,5 @@
 				prettyPrint();
 			});
 		</script>
-	</a:widgetResources>
+	</cm:widgetResources>
 </f:section>

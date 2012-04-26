@@ -1,5 +1,5 @@
 <?php
-namespace Admin\Annotations;
+namespace Foo\ContentManagement\Annotations;
 
 /*                                                                        *
  * This script belongs to the FLOW3 framework.                            *

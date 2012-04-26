@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\ViewHelpers;
+namespace Foo\ContentManagement\ViewHelpers;
 
 /*                                                                        *
  * This script belongs to the FLOW3 framework.                            *
@@ -63,7 +63,7 @@ class NavigationViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelp
 	public function render($position, $items = false, $as = "navBar") {
 		if($items == false)
 #			$items = $this->configurationManager->getConfiguration(\TYPO3\FLOW3\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, $namespace);
-			$items = \Admin\Core\API::getNagigationItems($position);
+			$items = \Foo\ContentManagement\Core\API::getNagigationItems($position);
 		
 		$content = "";
 		foreach ($items as $name => $arguments) {

@@ -1,14 +1,14 @@
 <f:layout name="bootstrap" />
-{namespace a=Admin\ViewHelpers}
+{namespace cm=Foo\ContentManagement\ViewHelpers}
 
 <f:section name="actionbar-left">
 	<form method="post">
-	<a:render partial="Toolbar" fallbacks="Partials"/>
+	<cm:render partial="Toolbar" fallbacks="Partials"/>
 </f:section>
 
 <f:section name="actionbar-right">
 	<f:for each="{topBarActions}" as="action">
-		<a:link
+		<cm:link
 			class="{action.class}"
 			shortcut="{action.shortcut}"
 			action="{action.action}"
@@ -17,19 +17,19 @@
 			target="{action.target}"
 			being="{className}">
 			{action}
-		</a:link>
+		</cm:link>
 	</f:for>
 </f:section>
 
 <f:section name="content">
-	<a:query.sort objects="{objects}">
-	<a:query.filter objects="{sortedObjects}">
-	<a:query.search objects="{filteredObjects}">
-	<a:query.paginate objects="{matchingObjects}">
+	<cm:query.sort objects="{objects}">
+	<cm:query.filter objects="{sortedObjects}">
+	<cm:query.search objects="{filteredObjects}">
+	<cm:query.paginate objects="{matchingObjects}">
 		<f:if condition="{filters}">
 		<f:then>
 			<div class="pull-right filter-sidebar">
-				<a:render partial="Filters/Right" fallbacks="Partials"/>
+				<cm:render partial="Filters/Right" fallbacks="Partials"/>
 			</div>
 			<div class="has-sidebar">
 		</f:then>
@@ -41,23 +41,23 @@
 					<input type="text" class="" name="search" value="{search}" />
 				    <button type="submit" class="btn">Search</button>
 		        </div>-->
-				<a:render partial="Table" fallbacks="Partials" vars="{objects: paginatedObjects, sorting: sorting, listActions: listActions}"/>
+				<cm:render partial="Table" fallbacks="Partials" vars="{objects: paginatedObjects, sorting: sorting, listActions: listActions}"/>
 				
 				<div class="pagination pull-left">
-					<a:render partial="Limits" fallbacks="Partials"/>
-					<a:being className="{className}">
-						<a:render partial="VariantsSelector" fallbacks="Partials" vars="{variant: being.variant, current: 'List'}"/>
-					</a:being>
+					<cm:render partial="Limits" fallbacks="Partials"/>
+					<cm:being className="{className}">
+						<cm:render partial="VariantsSelector" fallbacks="Partials" vars="{variant: being.variant, current: 'List'}"/>
+					</cm:being>
 				</div>
 				<div class="pagination pull-right">
-					<a:render partial="Pagination" fallbacks="Partials"/>
+					<cm:render partial="Pagination" fallbacks="Partials"/>
 				</div>
 				
 			</div>
-	</a:query.paginate>
-	</a:query.search>
-	</a:query.filter>
-	</a:query.sort>
+	</cm:query.paginate>
+	</cm:query.search>
+	</cm:query.filter>
+	</cm:query.sort>
 </f:section>
 
 <f:section name="post-container">

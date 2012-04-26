@@ -1,5 +1,5 @@
 <?php
-namespace Admin\ViewHelpers\Form;
+namespace Foo\ContentManagement\ViewHelpers\Form;
 
 /*                                                                        *
  * This script belongs to the FLOW3 package "Fluid".                      *
@@ -24,7 +24,7 @@ class FieldsViewHelper extends \TYPO3\Fluid\ViewHelpers\Form\AbstractFormViewHel
 	protected $cacheManager;
 	
 	/**
-	 * @var \Admin\Core\Helper
+	 * @var \Foo\ContentManagement\Core\Helper
 	 * @author Marc Neuhaus <apocalip@gmail.com>
 	 * @FLOW3\Inject
 	 */
@@ -51,8 +51,8 @@ class FieldsViewHelper extends \TYPO3\Fluid\ViewHelpers\Form\AbstractFormViewHel
 	public function renderFormPartial($class, $variant = "Default"){
 		$replacements = array(
 			"@partial" => "Form",
-			"@package" => \Admin\Core\API::get("package"),
-			"@being" => \Admin\Core\Helper::getShortName($class),
+			"@package" => \Foo\ContentManagement\Core\API::get("package"),
+			"@being" => \Foo\ContentManagement\Core\Helper::getShortName($class),
 			"@action" => "Form",
 			"@variant" => $variant
 		);

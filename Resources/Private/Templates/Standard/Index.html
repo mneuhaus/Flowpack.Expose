@@ -1,6 +1,6 @@
 <f:layout name="bootstrap" />
 
-{namespace a=Admin\ViewHelpers}
+{namespace cm=Foo\ContentManagement\ViewHelpers}
 <f:section name="actionbar-left"></f:section>
 
 <f:section name="actionbar-right">
@@ -8,11 +8,4 @@
 </f:section>
 
 <f:section name="content">
-	<div class="widgets row">
-		<a:dashboardWidgets as="widget">
-			<div class="well span4">
-				{widget}
-			</div>
-		</a:dashboardWidgets>
-	</div>
 </f:section>

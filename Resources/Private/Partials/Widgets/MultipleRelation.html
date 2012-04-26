@@ -1,6 +1,6 @@
-{namespace a=Admin\ViewHelpers}
+{namespace cm=Foo\ContentManagement\ViewHelpers}
 
-<a:widgetResources add="MultipleRelation">
+<cm:widgetResources add="MultipleRelation">
 	<link href="{f:uri.resource(path: 'admin/css/jquery/jquery.selector.css', package: 'Admin')}" rel="stylesheet">
 	<script src="{f:uri.resource(path: 'admin/js/jquery.hotkeys.js', package: 'Admin')}"></script>
 	<script src="{f:uri.resource(path: 'admin/js/jquery.selectbox.js', package: 'Admin')}"></script>
@@ -9,7 +9,7 @@
 			jQuery("select[data-widget='MultiSelect']").selectbox();
 		});
 	</script>
-</a:widgetResources>
+</cm:widgetResources>
 
 <select name="{property.inputName}" multiple="true" data-widget="MultiSelect">
     <f:for each="{property.options}" as="option">

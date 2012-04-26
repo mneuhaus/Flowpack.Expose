@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\Actions;
+namespace Foo\ContentManagement\Actions;
 
 /* *
  * This script belongs to the FLOW3 framework.                            *
@@ -32,7 +32,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  * @FLOW3\Scope("prototype")
  */
-class DeleteAction extends \Admin\Core\Actions\AbstractAction {
+class DeleteAction extends \Foo\ContentManagement\Core\Actions\AbstractAction {
 
 	/**
 	 * Function to Check if this Requested Action is supported
@@ -75,9 +75,8 @@ class DeleteAction extends \Admin\Core\Actions\AbstractAction {
 				foreach($ids as $id) {
 					$this->adapter->deleteObject($being, $id);
 				}
-				$this->controller->addLog();
 				
-				$arguments = array("being" => \Admin\Core\API::get("classShortNames", $being));
+				$arguments = array("being" => \Foo\ContentManagement\Core\API::get("classShortNames", $being));
 				$this->controller->redirect('list', NULL, NULL, $arguments);
 			}else {
 				$arguments = $this->request->getArguments();

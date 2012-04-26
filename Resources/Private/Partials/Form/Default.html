@@ -1,4 +1,4 @@
-{namespace a=Admin\ViewHelpers}
+{namespace cm=Foo\ContentManagement\ViewHelpers}
 
 <f:for each="{being.sets}" as="properties" key="set">
 	<fieldset>
@@ -19,17 +19,17 @@
 							<f:then>
 								<div class="inline-template">
 									<a class="close">x</a>
-									<a:render partial="Form" variant="{property.variant.variant}" fallbacks="Partials" vars="{being: property.child.template}" />
+									<cm:render partial="Form" variant="{property.variant.variant}" fallbacks="Partials" vars="{being: property.child.template}" />
 								</div>
 								<f:for each="{property.children}" as="child">
 									<div class="inline-item  {child.unusedClass}">
 										<a class="close">x</a>
-										<a:render partial="Form" variant="{property.variant.variant}" fallbacks="Partials" vars="{being: child}" />
+										<cm:render partial="Form" variant="{property.variant.variant}" fallbacks="Partials" vars="{being: child}" />
 									</div>
 								</f:for>
 							</f:then>
 							<f:else>
-								<a:render partial="Form" variant="{property.variant.variant}" fallbacks="Partials" vars="{rows: property.children}" />
+								<cm:render partial="Form" variant="{property.variant.variant}" fallbacks="Partials" vars="{rows: property.children}" />
 							</f:else>
 						</f:if>
 					</div>
@@ -44,7 +44,7 @@
 
 						<div class="controls">
 
-							<a:render partial="{property.widget}" fallbacks="Widgets" vars="{property:property}"/>
+							<cm:render partial="{property.widget}" fallbacks="Widgets" vars="{property:property}"/>
 
 							<f:if condition="{property.infotext}">
 								<span class="help-block help-text">{property.infotext}</span>
@@ -52,7 +52,7 @@
 							<f:if condition="{property.error}">
 								<span class="help-block help-text">
 									<f:for each="{property.error}" as="error">
-										<a:render value="{error}" /><br />
+										<cm:render value="{error}" /><br />
 									</f:for>
 								</span>
 							</f:if>

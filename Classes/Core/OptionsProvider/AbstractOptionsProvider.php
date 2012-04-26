@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\Core\OptionsProvider;
+namespace Foo\ContentManagement\Core\OptionsProvider;
 
 /*                                                                        *
  * This script belongs to the FLOW3 framework.                            *
@@ -40,7 +40,7 @@ abstract class AbstractOptionsProvider implements OptionsProviderInterface {
 	protected $objectManager;
 
 	/**
-	 * @var \Admin\Core\Helper
+	 * @var \Foo\ContentManagement\Core\Helper
 	 * @author Marc Neuhaus <apocalip@gmail.com>
 	 * @FLOW3\Inject
 	 */

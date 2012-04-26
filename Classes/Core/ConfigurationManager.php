@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\Core;
+namespace Foo\ContentManagement\Core;
 
 /*                                                                        *
  * This script belongs to the FLOW3 framework.                            *
@@ -78,7 +78,7 @@ class ConfigurationManager{
 	 */
 	protected $runtimeCache = array();
 
-	public function __construct(\Admin\Core\Helper $helper){
+	public function __construct(\Foo\ContentManagement\Core\Helper $helper){
 		$this->settings = $helper->getSettings();
 	}
 

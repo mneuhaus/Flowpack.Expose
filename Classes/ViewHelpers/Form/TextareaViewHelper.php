@@ -1,5 +1,5 @@
 <?php
-namespace Admin\ViewHelpers\Form;
+namespace Foo\ContentManagement\ViewHelpers\Form;
 
 /*                                                                        *
  * This script belongs to the FLOW3 package "Fluid".                      *
@@ -106,7 +106,7 @@ class TextareaViewHelper extends \TYPO3\Fluid\ViewHelpers\Form\AbstractFormField
 			case 'wiki':
 				$markitup = '<script src="' . $this->getResourceUri('admin/js/markitup/jquery.markitup.pack.js') . '"></script>
 				<link rel="stylesheet" type="text/css" href="' . $this->getResourceUri('admin/js/markitup/skins/simple/style.css') . '" />';
-				\Admin\Core\API::add("WidgetResources", "MarkItUp", $markitup);
+				\Foo\ContentManagement\Core\API::add("WidgetResources", "MarkItUp", $markitup);
 				
 				$settings = '
 				<script src="' . $this->getResourceUri('admin/js/markitup/sets/'.$editor.'/set.js') . '"></script>
@@ -117,7 +117,7 @@ class TextareaViewHelper extends \TYPO3\Fluid\ViewHelpers\Form\AbstractFormField
 				</style>
 				';
 				
-				\Admin\Core\API::add("WidgetResources", $editor, $settings);
+				\Foo\ContentManagement\Core\API::add("WidgetResources", $editor, $settings);
 				break;
 				
 			case 'rte':
@@ -139,7 +139,7 @@ class TextareaViewHelper extends \TYPO3\Fluid\ViewHelpers\Form\AbstractFormField
 						});
 					</script>
 				';
-				\Admin\Core\API::add("WidgetResources", "richtext", $html);
+				\Foo\ContentManagement\Core\API::add("WidgetResources", "richtext", $html);
 			
 			default:
 				# code...

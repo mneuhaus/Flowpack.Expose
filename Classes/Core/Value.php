@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\Core;
+namespace Foo\ContentManagement\Core;
 
 /*                                                                        *
  * This script belongs to the FLOW3 framework.                            *
@@ -35,7 +35,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  */
 class Value{
 	/**
-	 * @var \Admin\Core\PropertyMapper
+	 * @var \Foo\ContentManagement\Core\PropertyMapper
 	 * @api
 	 * @author Marc Neuhaus <apocalip@gmail.com>
 	 * @FLOW3\Inject
@@ -57,7 +57,7 @@ class Value{
 			$this->parentProperty->representation->datetimeFormat
 		    )
 		);
-		return $this->propertyMapper->convert($value, "string", \Admin\Core\PropertyMappingConfiguration::getConfiguration('\Admin\Core\PropertyMappingConfiguration', $options));
+		return $this->propertyMapper->convert($value, "string", \Foo\ContentManagement\Core\PropertyMappingConfiguration::getConfiguration('\Foo\ContentManagement\Core\PropertyMappingConfiguration', $options));
 	}
 
 	public function getValue() {
@@ -67,7 +67,7 @@ class Value{
 	public function getIds(){
 		$value = $this->getValue();
 		$ids = array();
-		if( \Admin\Core\Helper::isIteratable($value) ){
+		if( \Foo\ContentManagement\Core\Helper::isIteratable($value) ){
 			foreach($value as $object){
 				$ids[] = $this->parentProperty->adapter->getId($object);
 			}

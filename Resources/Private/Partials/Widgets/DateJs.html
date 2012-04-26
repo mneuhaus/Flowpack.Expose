@@ -1,6 +1,6 @@
-{namespace a=Admin\ViewHelpers}
+{namespace cm=Foo\ContentManagement\ViewHelpers}
 
-<a:widgetResources add="DateJs">
+<cm:widgetResources add="DateJs">
 	<script src="{f:uri.resource(path: 'dateJsInput/datejs/date-en-GB.js', package: 'Admin')}"></script>
 	<script src="{f:uri.resource(path: 'dateJsInput/jquery.dateJsInput.js', package: 'Admin')}"></script>
 	<script type="text/javascript" charset="utf-8">
@@ -8,7 +8,7 @@
 			jQuery( "input[data-widget='DateJs']" ).dateJsInput();
 		});
 	</script>
-</a:widgetResources>
+</cm:widgetResources>
 
 <input type="text" 
 		name="{property.inputName}[date]" 

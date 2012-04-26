@@ -1,5 +1,5 @@
 <?php
-namespace Admin\SearchProvider;
+namespace Foo\ContentManagement\SearchProvider;
 
 /*                                                                        *
  * This script belongs to the FLOW3 framework.                            *
@@ -32,7 +32,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  */
 class SimpleSearchProvider extends AbstractSearchProvider{
 	/**
-	 * @var \Admin\Core\ConfigurationManager
+	 * @var \Foo\ContentManagement\Core\ConfigurationManager
 	 * @FLOW3\Inject
 	 */
 	protected $configurationManager;

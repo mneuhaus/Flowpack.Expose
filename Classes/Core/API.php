@@ -19,7 +19,7 @@
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
-namespace Admin\Core;
+namespace Foo\ContentManagement\Core;
 
 /**
  * This is a global register for some variables like package, being, ...

@@ -1,5 +1,5 @@
 <?php
-namespace Admin\Core\TypeConverter\ReverseConverter;
+namespace Foo\ContentManagement\Core\TypeConverter\ReverseConverter;
 
 /*                                                                        *
  * This script belongs to the FLOW3 framework.                            *
@@ -21,7 +21,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 class ObjectConverter extends \TYPO3\FLOW3\Property\TypeConverter\AbstractTypeConverter {
 	
 	/**
-	 * @var \Admin\Core\ConfigurationManager
+	 * @var \Foo\ContentManagement\Core\ConfigurationManager
 	 * @FLOW3\Inject
 	 */
 	protected $configurationManager;
@@ -93,7 +93,7 @@ class ObjectConverter extends \TYPO3\FLOW3\Property\TypeConverter\AbstractTypeCo
 		if($this->nestingLevel > 0)
 			return null;
 		
-		return sprintf("Object (%s)", \Admin\Core\Helper::getShortName(get_class($this)));
+		return sprintf("Object (%s)", \Foo\ContentManagement\Core\Helper::getShortName(get_class($this)));
 	}
 	
 	public function getProperties($source){

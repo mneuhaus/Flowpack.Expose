@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\Controller;
+namespace Foo\ContentManagement\Controller;
 
 /* *
  * This script belongs to the FLOW3 framework.                            *
@@ -31,21 +31,21 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * @version $Id: $
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-class StandardController extends \TYPO3\FLOW3\Mvc\Controller\ActionController {
+class StandardController extends \TYPO3\TYPO3\Controller\Module\StandardController {
 	/**
-	 * @var \Admin\Core\CacheManager
+	 * @var \Foo\ContentManagement\Core\CacheManager
 	 * @FLOW3\Inject
 	 */
 	protected $cacheManager;
 		
 	/**
-	 * @var \Admin\Core\ConfigurationManager
+	 * @var \Foo\ContentManagement\Core\ConfigurationManager
 	 * @FLOW3\Inject
 	 */
 	protected $configurationManager;
 	
 	/**
-	 * @var \Admin\Core\Helper
+	 * @var \Foo\ContentManagement\Core\Helper
 	 * @author Marc Neuhaus <apocalip@gmail.com>
 	 * @FLOW3\Inject
 	 */
@@ -65,38 +65,9 @@ class StandardController extends \TYPO3\FLOW3\Mvc\Controller\ActionController {
 	 */
 	protected $objectManager;
 
-	/**
-	 * @var Admin\Security\SecurityManager
-	 * @FLOW3\Inject
-	 */
-	protected $securityManager;
-
 	protected $model = "";
 	protected $being = null;
 	protected $id = null;
-	
-	public function addLog($description = ""){
-		if($this->settings["Logging"]["Active"]){
-			$action = \Admin\Core\API::get("action");
-			if(!in_array($action, $this->settings["Logging"]["Ignore"])){
-				$log = new \Admin\Domain\Model\Log();
-				$log->setUser($this->user);
-				$log->setAction($action);
-				
-				if(isset($this->adapter))
-					$log->setAdapter($this->adapter);
-					
-				if(isset($this->being))
-					$log->setBeing(\Admin\Core\Helper::getShortName("\\".$this->being));
-					
-				if(isset($this->id))
-					$log->setIdentity($this->id);
-					
-				$this->objectManager->get("\Admin\Domain\Repository\LogRepository")->add($log);
-				$this->persistenceManager->persistAll();
-			}
-		}
-	}
 	
 	/**
 	 * Resolves and checks the current action method name
@@ -156,17 +127,6 @@ class StandardController extends \TYPO3\FLOW3\Mvc\Controller\ActionController {
 			$this->response->appendContent((string)$actionResult);
 		}
 	}
-	
-	/**
-	 * Dummy function to add this Controller to the Navigation
-	 *
-	 * @return void
-	 * @author Marc Neuhaus
-	 * @Admin\Annotations\Navigation(title="Models", position="top", priority="1000")
-	 */
-	public function indexAction(){
-		
-	}
 
 	public function __call($name, $args){
 		$actionName = str_replace("Action","",$name);
@@ -176,10 +136,10 @@ class StandardController extends \TYPO3\FLOW3\Mvc\Controller\ActionController {
 		if(!is_object($action))
 			parent::redirect("index");
 			
-		\Admin\Core\API::addTitleSegment("Admin");
-		\Admin\Core\API::addTitleSegment($action->__toString());
+		\Foo\ContentManagement\Core\API::addTitleSegment("Admin");
+		\Foo\ContentManagement\Core\API::addTitleSegment($action->__toString());
 		if(isset($this->being))
-			\Admin\Core\API::addTitleSegment(\Admin\Core\Helper::getShortName($this->being));
+			\Foo\ContentManagement\Core\API::addTitleSegment(\Foo\ContentManagement\Core\Helper::getShortName($this->being));
 		
 		if($action !== null){
 			$ids = explode(",", $this->id);
@@ -219,28 +179,32 @@ class StandardController extends \TYPO3\FLOW3\Mvc\Controller\ActionController {
 		$this->adapters = $this->helper->getAdapters();
 		$this->settings = $this->helper->getSettings();
 		
-		\Admin\Core\API::set("classShortNames", $this->compileShortNames());
-		\Admin\Core\API::set("action", $action);
+		\Foo\ContentManagement\Core\API::set("classShortNames", $this->compileShortNames());
+		\Foo\ContentManagement\Core\API::set("action", $action);
 		
-		if($this->request->hasArgument("being")){
-			$this->being = $this->request->getArgument("being");
+		$arguments = $this->request->getMainRequest()->getArgument($this->request->getArgumentNamespace());
+
+		if(isset($arguments["being"])){
+			$this->being = $arguments["being"];
 			if(!stristr($this->being, "\\"))
-				$this->being = \Admin\Core\API::get("classShortNames", $this->being);
-			\Admin\Core\API::set("being", $this->being);
+				$this->being = \Foo\ContentManagement\Core\API::get("classShortNames", $this->being);
+			\Foo\ContentManagement\Core\API::set("being", $this->being);
 			
 			$this->adapter = $this->helper->getAdapterByBeing($this->being);
-			\Admin\Core\API::set("adapter", $this->adapter);
+			\Foo\ContentManagement\Core\API::set("adapter", $this->adapter);
 
 			$this->group = $this->helper->getGroupByBeing($this->being);
-			\Admin\Core\API::set("group", $this->group);
+			\Foo\ContentManagement\Core\API::set("group", $this->group);
 		}
 
-		if($this->request->hasArgument("id")){
-			$this->id = $this->request->getArgument("id");
+		if(isset($arguments["id"])){
+			$this->id = $arguments["id"];
 			if(is_array($this->id))
 				$this->id = implode(",", $this->id);
 		}
 
+		// TODO Reimplement Security
+		/*
 		$user = $this->securityManager->getUser();
 		
 		if(!isset($user) || !is_object($user)){
@@ -259,14 +223,16 @@ class StandardController extends \TYPO3\FLOW3\Mvc\Controller\ActionController {
 			}
 			$this->user = $user;
 		}
+		*/
 
 		$groups = $this->helper->getGroups();
 		ksort($groups);
 		foreach($groups as $package => $group){
 			foreach($group["beings"] as $key => $being){
-				if( !in_array($being["being"],$allowedBeings["view"]) )
-					if( !$user->isAdmin() )
-						unset($groups[$package]["beings"][$key]);
+				// TODO Reimplement Security
+				#if( !in_array($being["being"],$allowedBeings["view"]) )
+				#	if( !$user->isAdmin() )
+				#		unset($groups[$package]["beings"][$key]);
 				
 				if(!empty($this->adapter)){
 					if($being["being"] == $this->being && $being["adapter"] == $this->adapter){
@@ -282,7 +248,7 @@ class StandardController extends \TYPO3\FLOW3\Mvc\Controller\ActionController {
 
 		$this->view = $this->resolveView();
 		
-		\Admin\Core\API::set("user", $user);
+		// \Foo\ContentManagement\Core\API::set("user", $user);
 			
 		if ($this->view !== NULL) {
 			$this->view->assign('settings', $this->settings);
@@ -310,7 +276,7 @@ class StandardController extends \TYPO3\FLOW3\Mvc\Controller\ActionController {
 		if(!empty($this->being)){
 			if(class_exists($this->being, false)){
 				$replacements["@package"] = $this->helper->getPackageByClassName($this->being) ? $this->helper->getPackageByClassName($this->being) : "Admin";
-				$replacements["@being"] =\Admin\Core\Helper::getShortName($this->being);
+				$replacements["@being"] =\Foo\ContentManagement\Core\Helper::getShortName($this->being);
 				
 				$being = $this->helper->getBeing($this->being);
 				$replacements["@variant"] = $being->variant->getVariant($action);
@@ -342,7 +308,7 @@ class StandardController extends \TYPO3\FLOW3\Mvc\Controller\ActionController {
 			if($this->request->hasArgument("being")){
 				$meta["being"]["identifier"] = $this->request->getArgument("being");
 				$meta["being"]["name"] = $this->request->getArgument("being");
-				\Admin\Core\API::set("package",$replacements["@package"]);
+				\Foo\ContentManagement\Core\API::set("package",$replacements["@package"]);
 			}
 		}
 	}
@@ -370,7 +336,7 @@ class StandardController extends \TYPO3\FLOW3\Mvc\Controller\ActionController {
 
 #		if(!$cache->has($identifier) && false){
 			$actions = array();
-			foreach($this->reflectionService->getAllImplementationClassNamesForInterface('Admin\Core\Actions\ActionInterface') as $actionClassName) {
+			foreach($this->reflectionService->getAllImplementationClassNamesForInterface('Foo\ContentManagement\Core\Actions\ActionInterface') as $actionClassName) {
 				$inheritingClasses = $this->reflectionService->getAllSubClassNamesForClass($actionClassName);
 				foreach($inheritingClasses as $inheritingClass){
 					$inheritedObject = new $inheritingClass($this->getAdapter(), $this->request, $this->view, $this);
@@ -383,11 +349,9 @@ class StandardController extends \TYPO3\FLOW3\Mvc\Controller\ActionController {
 				#$a = $this->objectManager->get($actionClassName, $this->getAdapter(), $this->request, $this->view, $this);
 				$a = new $actionClassName($this->getAdapter(), $this->request, $this->view, $this);
 				if($a->canHandle($being, $action, $id)){
-					if($this->securityManager->isAllowed($being,$a->getAction())){
-						$actionName = \Admin\Core\Helper::getShortName($actionClassName);
-						$actionName = str_replace("Action","",$actionName);
-						$actions[$actionName] = $a;
-					}
+					$actionName = \Foo\ContentManagement\Core\Helper::getShortName($actionClassName);
+					$actionName = str_replace("Action","",$actionName);
+					$actions[$actionName] = $a;
 				}
 			}
 			ksort($actions);
@@ -401,8 +365,8 @@ class StandardController extends \TYPO3\FLOW3\Mvc\Controller\ActionController {
 
 	public function getActionByShortName($action = null){
 		$actions = array();
-		foreach($this->reflectionService->getAllImplementationClassNamesForInterface('Admin\Core\Actions\ActionInterface') as $actionClassName) {
-			$actionName = \Admin\Core\Helper::getShortName($actionClassName);
+		foreach($this->reflectionService->getAllImplementationClassNamesForInterface('Foo\ContentManagement\Core\Actions\ActionInterface') as $actionClassName) {
+			$actionName = \Foo\ContentManagement\Core\Helper::getShortName($actionClassName);
 			if(strtolower($actionName) == strtolower($action)){
 				return $this->objectManager->get($actionClassName, $this->getAdapter(), $this->request, $this->view, $this);
 			}

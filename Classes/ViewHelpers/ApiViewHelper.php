@@ -1,6 +1,6 @@
 <?php
  
-namespace Admin\ViewHelpers;
+namespace Foo\ContentManagement\ViewHelpers;
 
 /*                                                                        *
  * This script belongs to the FLOW3 package "Fluid".                      *
@@ -45,11 +45,11 @@ class ApiViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 		if($as == null)
 			$as = $get;
 		
-		if(\Admin\Core\API::has($get)){
-			$this->templateVariableContainer->add($as, \Admin\Core\API::get($get));
-		}elseif(is_callable("\Admin\Core\Api::get" . ucfirst($get))){
+		if(\Foo\ContentManagement\Core\API::has($get)){
+			$this->templateVariableContainer->add($as, \Foo\ContentManagement\Core\API::get($get));
+		}elseif(is_callable("\Foo\ContentManagement\Core\Api::get" . ucfirst($get))){
 			$function = "get" . ucfirst($get);
-			$result = call_user_func("\Admin\Core\Api::get" . ucfirst($get));
+			$result = call_user_func("\Foo\ContentManagement\Core\Api::get" . ucfirst($get));
 			$this->templateVariableContainer->add($as, $result);
 		}
 		$output = $this->renderChildren();

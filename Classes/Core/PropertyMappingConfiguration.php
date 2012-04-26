@@ -1,5 +1,5 @@
 <?php
-namespace Admin\Core;
+namespace Foo\ContentManagement\Core;
 
 /*                                                                        *
  * This script belongs to the FLOW3 framework.                            *
@@ -29,7 +29,7 @@ class PropertyMappingConfiguration extends \TYPO3\FLOW3\Property\PropertyMapping
 		return $this;
 	}
 	
-	static public function getConfiguration($type = '\Admin\Core\PropertyMappingConfiguration', $options = array()){
+	static public function getConfiguration($type = '\Foo\ContentManagement\Core\PropertyMappingConfiguration', $options = array()){
 		$configuration = new $type();
 
 		$configuration->setTypeConverterOptions('TYPO3\FLOW3\Property\TypeConverter\PersistentObjectConverter', array(

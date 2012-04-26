@@ -1,6 +1,6 @@
 <?php
  
-namespace Admin\ViewHelpers;
+namespace Foo\ContentManagement\ViewHelpers;
 
 /*                                                                        *
  * This script belongs to the FLOW3 package "Fluid".                      *
@@ -34,11 +34,11 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 class UserViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 	
 	/**
-	 * @var \Admin\Security\SecurityManager
+	 * @var \Foo\ContentManagement\Security\SecurityManager
 	 * @author Marc Neuhaus <apocalip@gmail.com>
 	 * @FLOW3\Inject
 	 */
-	protected $securityManager;
+	#protected $securityManager;
 	
 	/**
 	 * Iterates through elements of $each and renders child nodes
@@ -52,9 +52,9 @@ class UserViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 		if($as == null)
 			$as = $get;
 			
-		$this->templateVariableContainer->add($as, $this->securityManager->getUser());
+		#$this->templateVariableContainer->add($as, $this->securityManager->getUser());
 		$output = $this->renderChildren();
-		$this->templateVariableContainer->remove($as);
+		#$this->templateVariableContainer->remove($as);
 		
 		return $output;
 	}

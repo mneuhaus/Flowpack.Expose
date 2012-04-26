@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\Core\Actions;
+namespace Foo\ContentManagement\Core\Actions;
 
 /* *
  * This script belongs to the FLOW3 framework.                            *

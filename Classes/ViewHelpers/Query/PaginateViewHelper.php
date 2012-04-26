@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\ViewHelpers\Query;
+namespace Foo\ContentManagement\ViewHelpers\Query;
 
 /*                                                                        *
  * This script belongs to the FLOW3 framework.                            *

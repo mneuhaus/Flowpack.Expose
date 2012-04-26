@@ -1,6 +1,6 @@
 
 <f:layout name="bootstrap" />
-{namespace a=Admin\ViewHelpers}
+{namespace cm=Foo\ContentManagement\ViewHelpers}
 
 <f:section name="header">
 </f:section>
@@ -24,7 +24,7 @@
 			</div>
 	</div>
 	</f:section>
-	<a:widgetResources add="Prettify">
+	<cm:widgetResources add="Prettify">
 		<link href="{f:uri.resource(path: 'prettify/prettify.css', package: 'Admin')}" rel="stylesheet">
 		<script src="{f:uri.resource(path: 'prettify/prettify.js', package: 'Admin')}"></script>
 		<script type="text/javascript" charset="utf-8">
@@ -32,4 +32,4 @@
 				prettyPrint();
 			});
 		</script>
-	</a:widgetResources>
+	</cm:widgetResources>

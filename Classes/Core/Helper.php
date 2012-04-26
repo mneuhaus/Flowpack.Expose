@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\Core;
+namespace Foo\ContentManagement\Core;
 
 /*                                                                        *
  * This script belongs to the FLOW3 package "Fluid".                      *
@@ -58,12 +58,6 @@ class Helper {
 	 */
 	protected $reflectionService;
 	
-	/**
-	 * @var Admin\Security\SecurityManager
-	 * @FLOW3\Inject
-	 */
-	protected $securityManager;
-	
 	public function isDemoMode(){
 		return $this->getSettings("Admin.DemoMode");
 	}
@@ -104,10 +98,10 @@ class Helper {
 	}
 	
 	public function isUserSuperAdmin(){
-		$superAdminUserName = $this->getSettings("Admin.SuperAdmin");
-		$user = $this->securityManager->getUser();
-		if(is_object($user))
-			return $user->__toString() == $superAdminUserName;
+		#$superAdminUserName = $this->getSettings("Admin.SuperAdmin");
+		#$user = $this->securityManager->getUser();
+		#if(is_object($user))
+		#	return $user->__toString() == $superAdminUserName;
 		
 		return false;
 	}
@@ -167,7 +161,7 @@ class Helper {
 		}else{
 			$class = $mixed;
 		}
-		$being = new \Admin\Core\Being($this->getAdapterByBeing($class));
+		$being = new \Foo\ContentManagement\Core\Being($this->getAdapterByBeing($class));
 		$being->setClass($class);
 		
 		if(isset($object))
