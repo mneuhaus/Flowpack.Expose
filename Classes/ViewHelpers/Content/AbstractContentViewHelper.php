@@ -1,8 +1,8 @@
 <?php
+ 
+namespace Foo\ContentManagement\ViewHelpers\Content;
 
-namespace Foo\ContentManagement\Actions;
-
-/* *
+/*                                                                        *
  * This script belongs to the FLOW3 framework.                            *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
@@ -26,63 +26,44 @@ use Doctrine\ORM\Mapping as ORM;
 use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
- * Action to Update the Being
- *
- * @version $Id: AbstractValidator.php 3837 2010-02-22 15:17:24Z robert $
+ * @version $Id: ForViewHelper.php 3346 2009-10-22 17:26:10Z k-fish $
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
+ * @api
  * @FLOW3\Scope("prototype")
  */
-class UpdateAction extends \Foo\ContentManagement\Core\Actions\AbstractAction {
-
-	/**
-	 * Function to Check if this Requested Action is supported
-	 * @author Marc Neuhaus <mneuhaus@famelo.com>
-	 * */
-	public function canHandle($being, $action = null, $id = false) {
-		switch($action) {
-			case "bulk":
-			case "update":
-			case "confirm":
-			case "create":
-				return false;
-			default:
-				return $id;
-		}
+abstract class AbstractContentViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
+	
+	public function initialize() {
+		$this->view = new \Foo\ContentManagement\View\FallbackTemplateView();
+		$this->view->setControllerContext($this->controllerContext);
+		$this->view->setRenderingContext($this->renderingContext);
 	}
 
 	/**
-	 * The Name of this Action
-	 * @author Marc Neuhaus <mneuhaus@famelo.com>
-	 * */
-	public function __toString() {
-		return "Edit";
-	}
-	
-	public function getShortcut(){
-		return "e";
-	}
-	
-	/**
-	 * Edit objects
+	 * Renders the content.
 	 *
-	 * @param string $class
-	 * @param array $ids
-	 * @author Marc Neuhaus <mneuhaus@famelo.com>
-	 * */
-	public function execute($class, $ids = null) {
-		$object = $this->adapter->getObject($class, current($ids));
-		$this->view->assign("object", $object);
+	 * @param array $objects
+	 * @return string
+	 * @api
+	 */
+	public function render($objects = array()) {
+		return $this->view->renderContent("List", array(
+			"objects" => $objects
+		));
 	}
 
-	public function formFinischer($formRuntime) {
-		$request = $formRuntime->getRequest();
-		$values = $formRuntime->getFormState()->getFormValues();
-		$values["__identity"] = $request->getArgument("id");
-		$class = \Foo\ContentManagement\Core\API::get("classShortNames", $request->getArgument("being"));
-		$id = $request->getArgument("id");
-		$this->adapter->updateObject($class, $id, $values);
-
-		$this->actionManager->redirect("list", array("being" => $request->getArgument("being")));
+	/**
+	 * If $arguments['settings'] is not set, it is loaded from the TemplateVariableContainer (if it is available there).
+	 *
+	 * @param array $arguments
+	 * @return array
+	 */
+	protected function loadSettingsIntoArguments($arguments) {
+		if (!isset($arguments['settings']) && $this->templateVariableContainer->exists('settings')) {
+			$arguments['settings'] = $this->templateVariableContainer->get('settings');
+		}
+		return $arguments;
 	}
 }
+
 ?>

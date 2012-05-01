@@ -32,6 +32,22 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  */
 abstract class AbstractAction implements ActionInterface {
 	/**
+	 * @var \Foo\ContentManagement\Actions\ActionManager
+	 */
+	protected $actionManager;
+
+	/**
+	 * @var \Foo\ContentManagement\Core\ConfigurationManager
+	 * @FLOW3\Inject
+	 */
+	protected $configurationManager;
+
+	/**
+	 * @var \Foo\ContentManagement\Adapters\ContentManager
+	 */
+	protected $contentManager;	
+
+	/**
 	 * @var \Foo\ContentManagement\Core\Helper
 	 * @author Marc Neuhaus <apocalip@gmail.com>
 	 * @FLOW3\Inject
@@ -46,13 +62,21 @@ abstract class AbstractAction implements ActionInterface {
 	protected $controller;
 	protected $request;
 
-	public function __construct($adapter=null, $request=null, $view=null, $controller=null) {
-		$this->adapter = $adapter;
-		$this->request = $request;
-		if($view !== null)
-			$this->view = &$view;
-		if($controller !== null)
-			$this->controller = &$controller;
+	/**
+	 * 
+	 * @param \Foo\ContentManagement\Adapters\ContentManager $contentManager
+	 * @param \Foo\ContentManagement\Actions\ActionManager   $actionManager
+	 */
+	public function __construct(\Foo\ContentManagement\Actions\ActionManager $actionManager, \Foo\ContentManagement\Adapters\ContentManager $contentManager) {
+		$this->actionManager = $actionManager;
+		$this->request = $actionManager->getRequest();
+		$this->view = $actionManager->getView();
+
+		$this->contentManager = $contentManager;
+		if($this->request->hasArgument("being")){
+			$class = \Foo\ContentManagement\Core\API::get("classShortNames", $this->request->getArgument("being"));
+			$this->adapter = $contentManager->getAdapterByClass($class);
+		}
 	}
 
 	public function canHandle($being, $action = null, $id = false) {
@@ -94,11 +118,11 @@ abstract class AbstractAction implements ActionInterface {
 	}
 	
 	public function getSettings($path = null){
-		$paths = array("Admin.ViewSettings");
+		$paths = array("Foo.ContentManagement.ViewSettings");
 		$paths[] = ucfirst($this->getAction());
 		if(!is_null($path))
 			$paths[] = $path;
- 		return $this->helper->getSettings(implode(".", $paths));
+ 		return $this->configurationManager->getSettings(implode(".", $paths));
 	}
 }
 ?>

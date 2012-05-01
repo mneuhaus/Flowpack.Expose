@@ -1,5 +1,6 @@
 <f:layout name="bootstrap" />
 {namespace cm=Foo\ContentManagement\ViewHelpers}
+{namespace form=TYPO3\Form\ViewHelpers}
 
 <f:section name="actionbar-left"></f:section>
 
@@ -24,19 +25,7 @@
 	<div class="box centered">
 		<h3 class="box-header">Edit this {bein.shortName}</h3>
 		<div>
-			<f:form method="post" action="update" name="item" object="{being.object}" enctype="multipart/form-data" class="form-horizontal">
-				
-				<cm:form.fields being="{being}" />
-				
-				<div class="actions pull-left">
-					<f:link.action action="list" arguments="{being: being.class}" class="btn">
-						Cancel
-					</f:link.action>
-				</div>
-				<div class="actions pull-right">
-					<input type="submit" name="update" value="Save" class="btn primary"/>
-				</div>
-			</f:form>
+			<cm:content.form object="{object}" />
 		</div>
 	</div>
 </f:section>

@@ -51,11 +51,11 @@ class ConfirmAction extends \Foo\ContentManagement\Core\Actions\AbstractAction {
 	public function execute($being, $ids = null) {
 		$objects = array();
 		foreach ($ids as $id) {
-			$objects[] = $this->adapter->getBeing($being, $id);
+			$objects[] = $this->adapter->getObject($being, $id);
 		}
-		$this->view->assign("confirmObjects", $objects);
+		$this->view->assign("objects", $objects);
 		$this->view->assign("ids", implode(",", $ids));
-		$this->view->assign("being", $being);
+		$this->view->assign("class", $being);
 	}
 
 }

@@ -48,24 +48,6 @@
 		{%- endif %}
 	</div>
 	
-	<cm:widgetResources add="Prettify">
-		<link href="{f:uri.resource(path: 'prettify/prettify.css', package: 'Admin')}" rel="stylesheet">
-		<script src="{f:uri.resource(path: 'prettify/prettify.js', package: 'Admin')}"></script>
-		<script type="text/javascript" charset="utf-8">
-			jQuery(document).ready(function(){
-				prettyPrint();
-				
-				jQuery("div.section[id]").each(function(){ 
-					var i = jQuery(this); 
-					i.find("a.headerlink").attr("id", i.attr("id")); 
-					i.removeAttr("id"); 
-				});
-				var hash = window.location.hash;
-				window.location.hash = hash;
-			});
-		</script>
-	</cm:widgetResources>
-	
 	</f:section>
 	{%- endblock %}
 {%- endblock %}

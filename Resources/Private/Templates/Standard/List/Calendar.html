@@ -23,11 +23,8 @@
 </f:section>
 
 <f:section name="content">
-	<cm:widgetResources add="jQueryUi">
 		<link href="{f:uri.resource(path: 'jquery-ui/css/smoothness/jquery-ui-1.8.16.custom.css', package: 'Admin')}" rel="stylesheet">
 		<script src="{f:uri.resource(path: 'jquery-ui/js/jquery-ui-1.8.16.custom.min.js', package: 'Admin')}"></script>
-	</cm:widgetResources>
-	<cm:widgetResources add="List:Calendar">
 		<link rel='stylesheet' type='text/css' href="{f:uri.resource(path: 'fullcalendar/fullcalendar.css', package: 'Admin')}" />
 		<link rel='stylesheet' type='text/css' href="{f:uri.resource(path: 'fullcalendar/fullcalendar.print.css', package: 'Admin')}" media='print' />
 		<script type='text/javascript' src="{f:uri.resource(path: 'fullcalendar/fullcalendar.min.js', package: 'Admin')}"></script>
@@ -82,7 +79,6 @@
 		<style type="text/css" media="screen">
 			.fc-header td { border-top:none; }
 		</style>
-	</cm:widgetResources>
 	<div id='calendar'></div>
 	<div class="pagination pull-left">
 		<cm:being className="{className}">

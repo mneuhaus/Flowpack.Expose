@@ -213,8 +213,15 @@ class DoctrineAdapter extends \Foo\ContentManagement\Core\Adapters\AbstractAdapt
 
     ## Conversion Functions
 
-
     public function transform($data, $target) {
+        $object = $this->getObject($target, isset($data["__identity"]) ? $data["__identity"] : null);
+        foreach ($data as $property => $value) {
+            \TYPO3\FLOW3\Reflection\ObjectAccess::setProperty($object, $property, $value);
+        }
+        return $object;
+    }
+/*
+    public function transform_($data, $target) {
         $data = $this->cleanUpBlanks($data);
 
         $value = $this->propertyMapper->convert($data, $target, \Foo\ContentManagement\Core\PropertyMappingConfiguration::getConfiguration());
@@ -260,6 +267,7 @@ class DoctrineAdapter extends \Foo\ContentManagement\Core\Adapters\AbstractAdapt
         }
         return $data;
     }
+*/
 }
 
 ?>

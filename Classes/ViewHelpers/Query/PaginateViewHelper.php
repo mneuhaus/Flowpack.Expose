@@ -51,7 +51,7 @@ class PaginateViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper
 	public function render($objects = null, $as = "paginatedObjects", $limitsAs = "limits", $paginationAs = "pagination") {
 		$this->query = $objects->getQuery();
 		
-		$this->settings = $this->configurationManager->getConfiguration(\TYPO3\FLOW3\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, "Admin.Pagination");
+		$this->settings = $this->configurationManager->getConfiguration(\TYPO3\FLOW3\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, "Foo.ContentManagement.Pagination");
 		$this->request = $this->controllerContext->getRequest();
 		
 		$this->total = $this->query->count();

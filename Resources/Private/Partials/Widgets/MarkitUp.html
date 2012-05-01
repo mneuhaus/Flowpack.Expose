@@ -1,6 +1,5 @@
 {namespace cm=Foo\ContentManagement\ViewHelpers}
 
-<cm:widgetResources add="RichtTextEditor">
 	<script src="{f:uri.resource(path: 'admin/js/ckeditor/ckeditor.js', package: 'Admin')}"></script>
 	<script src="{f:uri.resource(path: 'admin/js/ckeditor/adapters/jquery.js', package: 'Admin')}"></script>
 	<script type="text/javascript" charset="utf-8">
@@ -13,6 +12,5 @@
 			jQuery('[data-editor=texy]').markItUp(texySettings);
 		});
 	</script>
-</cm:widgetResources>
 
 <f:form.textarea name="{property.inputName}" id="item-{property.name}" value="{property.string}" rows="4" cols="40" class="{property.class}" data-editor=""/>

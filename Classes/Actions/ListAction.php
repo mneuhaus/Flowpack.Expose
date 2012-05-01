@@ -64,15 +64,15 @@ class ListAction extends \Foo\ContentManagement\Core\Actions\AbstractAction {
 		// Redirect to creating a new Object if there aren't any (Clean Slate)
 		if( $results->count() < 1 ) {
 			$arguments = array("being" => \Foo\ContentManagement\Core\API::get("classShortNames", $being));
-			$this->controller->redirect("create", NULL, NULL, $arguments);
+			$this->actionManager->redirect("create", $arguments);
 		}
 		
-		$listActions = $this->controller->getActions("list", $being, true);
+		$listActions = $this->actionManager->getActions("list", $being, true);
 		$this->view->assign('listActions', $listActions);
 	}
 	
 	public function handleBulkActions(){
-		$actions = $this->controller->getActions("bulk", $this->being, true);
+		$actions = $this->actionManager->getActions("bulk", $this->being, true);
 		$this->view->assign("actions", $actions);
 		
 		if( $this->request->hasArgument("bulkAction") ) {

@@ -118,9 +118,9 @@ class Property{
 		$raw = $this->type;
 		
 		$widget = null;
-		$default = "Textfield";
+		$default = "TYPO3.Form:SingleLineText";
 		
-		$mappings = $this->helper->getSettings("Admin.Mapping.Widgets");
+		$mappings = $this->helper->getSettings("Foo.ContentManagement.Mapping.Widgets");
 		
 		if( ! empty($mappings) ) {
 			if(isset($this->widget))

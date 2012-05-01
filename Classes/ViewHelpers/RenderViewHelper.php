@@ -96,12 +96,12 @@ class RenderViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 					$template = $cache->get($identifier);
 				}
 				
-				if(empty($vars)){
+				if(empty($vars) && false){
 					$this->view = $this->viewHelperVariableContainer->getView();
 					$this->view->setTemplatePathAndFilename($template);
-				
+
 					if(!empty($template)){
-						return $this->view->render();
+						return $this->view->render($partial);
 					}
 				}else{
 					$partial = $this->parseTemplate($template);

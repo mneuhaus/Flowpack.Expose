@@ -26,63 +26,45 @@ use Doctrine\ORM\Mapping as ORM;
 use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
- * Action to Update the Being
+ * Index action to show a Dashboard with some widgets
  *
  * @version $Id: AbstractValidator.php 3837 2010-02-22 15:17:24Z robert $
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  * @FLOW3\Scope("prototype")
  */
-class UpdateAction extends \Foo\ContentManagement\Core\Actions\AbstractAction {
+class IndexAction extends \Foo\ContentManagement\Core\Actions\AbstractAction {
+	/**
+	 * Reflection service
+	 * @var TYPO3\FLOW3\Reflection\ReflectionService
+	 * @author Marc Neuhaus <apocalip@gmail.com>
+	 * @FLOW3\Inject
+	 */
+	protected $reflectionService;
 
+	/**
+	 * @var \TYPO3\FLOW3\Object\ObjectManagerInterface
+	 * @author Marc Neuhaus <apocalip@gmail.com>
+	 * @FLOW3\Inject
+	 */
+	protected $objectManager;
+	
 	/**
 	 * Function to Check if this Requested Action is supported
 	 * @author Marc Neuhaus <mneuhaus@famelo.com>
 	 * */
 	public function canHandle($being, $action = null, $id = false) {
-		switch($action) {
-			case "bulk":
-			case "update":
-			case "confirm":
-			case "create":
-				return false;
-			default:
-				return $id;
-		}
+		return false;
 	}
 
 	/**
-	 * The Name of this Action
-	 * @author Marc Neuhaus <mneuhaus@famelo.com>
-	 * */
-	public function __toString() {
-		return "Edit";
-	}
-	
-	public function getShortcut(){
-		return "e";
-	}
-	
-	/**
-	 * Edit objects
+	 * Show Dashboard
 	 *
-	 * @param string $class
+	 * @param string $being
 	 * @param array $ids
 	 * @author Marc Neuhaus <mneuhaus@famelo.com>
 	 * */
-	public function execute($class, $ids = null) {
-		$object = $this->adapter->getObject($class, current($ids));
-		$this->view->assign("object", $object);
+	public function execute($being, $ids = null) {
 	}
-
-	public function formFinischer($formRuntime) {
-		$request = $formRuntime->getRequest();
-		$values = $formRuntime->getFormState()->getFormValues();
-		$values["__identity"] = $request->getArgument("id");
-		$class = \Foo\ContentManagement\Core\API::get("classShortNames", $request->getArgument("being"));
-		$id = $request->getArgument("id");
-		$this->adapter->updateObject($class, $id, $values);
-
-		$this->actionManager->redirect("list", array("being" => $request->getArgument("being")));
-	}
+	
 }
 ?>

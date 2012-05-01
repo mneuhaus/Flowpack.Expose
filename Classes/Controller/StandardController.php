@@ -33,6 +33,12 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  */
 class StandardController extends \TYPO3\TYPO3\Controller\Module\StandardController {
 	/**
+	 * @var \Foo\ContentManagement\Actions\ActionManager
+	 * @FLOW3\Inject
+	 */
+	protected $actionManager;	
+
+	/**
 	 * @var \Foo\ContentManagement\Core\CacheManager
 	 * @FLOW3\Inject
 	 */
@@ -43,20 +49,19 @@ class StandardController extends \TYPO3\TYPO3\Controller\Module\StandardControll
 	 * @FLOW3\Inject
 	 */
 	protected $configurationManager;
-	
+
+	/**
+	 * @var \Foo\ContentManagement\Adapters\ContentManager
+	 * @FLOW3\Inject
+	 */
+	protected $contentManager;	
+
 	/**
 	 * @var \Foo\ContentManagement\Core\Helper
 	 * @author Marc Neuhaus <apocalip@gmail.com>
 	 * @FLOW3\Inject
 	 */
 	protected $helper;
-
-	/**
-	 * @var \TYPO3\FLOW3\Session\PhpSession
-	 * @author Marc Neuhaus <apocalip@gmail.com>
-	 * @FLOW3\Inject
-	 */
-	protected $session;
 
 	/**
 	 * @var \TYPO3\FLOW3\Object\ObjectManagerInterface
@@ -77,9 +82,8 @@ class StandardController extends \TYPO3\TYPO3\Controller\Module\StandardControll
 	 */
 	protected function resolveActionMethodName() {
 		$actionMethodName = $this->request->getControllerActionName() . 'Action';
-		$action = $this->getActionByShortName($actionMethodName);
-		if (!method_exists($this, $actionMethodName) && $action !== null) {
-			#throw new \TYPO3\FLOW3\Mvc\Exception\NoSuchActionException('An action "' . $actionMethodName . '" does not exist in controller "' . get_class($this) . '".', 1186669086);
+		if (!$this->actionManager->hasAction($actionMethodName)) {
+			throw new \TYPO3\FLOW3\Mvc\Exception\NoSuchActionException('An action "' . $actionMethodName . '" does not exist in controller "' . get_class($this) . '".', 1186669086);
 		}
 		return $actionMethodName;
 	}
@@ -96,28 +100,7 @@ class StandardController extends \TYPO3\TYPO3\Controller\Module\StandardControll
 	 * @author Robert Lemke <robert@typo3.org>
 	 */
 	protected function callActionMethod() {
-		$start = microtime(true);
-		
-		if( $this->objectManager->getContext() == "Development" 
-			&& ( $this->helper->getSettings("Admin.FlushCacheInDevelopment") || $this->request->hasArgument("flush_cache") ) ){
-			$this->cacheManager->flushAdminCaches();
-		}
-		
-		$this->indexAction();
-		$preparedArguments = array();
-		foreach ($this->arguments as $argument) {
-			$preparedArguments[] = $argument->getValue();
-		}
-		
-		$actionResult = $this->__call($this->actionMethodName, $preparedArguments);
-		
-		$debugInfo = array();
-		if($this->objectManager->getContext() == "Development"){
-			$debugInfo[] = "exectime: " . number_format(microtime(true) - $start, 4) . "s";
-			$this->view->assign("devmode", "true");
-		}
-		$debugInfo[] = "";
-		$this->view->assign("admin-debug-info", implode(" ", $debugInfo));
+		$actionResult = $this->__call($this->actionMethodName, $this->request->getArguments());
 		
 		if ($actionResult === NULL && $this->view instanceof \TYPO3\FLOW3\Mvc\View\ViewInterface) {
 			$this->response->appendContent($this->view->render());
@@ -131,16 +114,11 @@ class StandardController extends \TYPO3\TYPO3\Controller\Module\StandardControll
 	public function __call($name, $args){
 		$actionName = str_replace("Action","",$name);
 		$this->prepare($actionName);
-		$action = $this->getActionByShortName($name);
+		$action = $this->actionManager->getActionByShortName($name);
 
 		if(!is_object($action))
 			parent::redirect("index");
-			
-		\Foo\ContentManagement\Core\API::addTitleSegment("Admin");
-		\Foo\ContentManagement\Core\API::addTitleSegment($action->__toString());
-		if(isset($this->being))
-			\Foo\ContentManagement\Core\API::addTitleSegment(\Foo\ContentManagement\Core\Helper::getShortName($this->being));
-		
+
 		if($action !== null){
 			$ids = explode(",", $this->id);
 			$action->execute($this->being, $ids);
@@ -149,13 +127,12 @@ class StandardController extends \TYPO3\TYPO3\Controller\Module\StandardControll
 	
 	public function compileShortNames(){
 		$cache = $this->cacheManager->getCache('Admin_Cache');
-		$identifier = "ClassShortNames-".sha1(implode("-",$this->adapters));
+		$identifier = "ClassShortNames-".sha1(implode("-", array_keys($this->adapters)));
 
 		if(!$cache->has($identifier) || true){
 			$shortNames = array();
 			foreach ($this->adapters as $adapter) {
-				$adapters[$adapter] = $this->objectManager->get($adapter);
-				foreach ($adapters[$adapter]->getGroups() as $group => $beings) {
+				foreach ($adapter->getGroups() as $group => $beings) {
 					foreach ($beings as $conf) {
 						$being = $conf["being"];
 						$shortName = str_replace("domain_model_", "", strtolower(str_replace("\\", "_", $being)));
@@ -176,32 +153,39 @@ class StandardController extends \TYPO3\TYPO3\Controller\Module\StandardControll
 	private function prepare($action){
 		$this->start = microtime();
 
-		$this->adapters = $this->helper->getAdapters();
-		$this->settings = $this->helper->getSettings();
+		$this->adapters = $this->contentManager->getAdapters();
+		$this->settings = $this->configurationManager->getSettings();
 		
 		\Foo\ContentManagement\Core\API::set("classShortNames", $this->compileShortNames());
-		\Foo\ContentManagement\Core\API::set("action", $action);
-		
-		$arguments = $this->request->getMainRequest()->getArgument($this->request->getArgumentNamespace());
 
-		if(isset($arguments["being"])){
-			$this->being = $arguments["being"];
-			if(!stristr($this->being, "\\"))
-				$this->being = \Foo\ContentManagement\Core\API::get("classShortNames", $this->being);
-			\Foo\ContentManagement\Core\API::set("being", $this->being);
-			
-			$this->adapter = $this->helper->getAdapterByBeing($this->being);
-			\Foo\ContentManagement\Core\API::set("adapter", $this->adapter);
+		$mainRequest = $this->request->getMainRequest();
+		if($mainRequest->hasArgument($this->request->getArgumentNamespace())){
+			$arguments = $mainRequest->getArgument($this->request->getArgumentNamespace());
+			$this->request->setArguments($arguments);
+				
+			#var_dump($arguments);
+			if(isset($arguments["being"])){
+				$this->being = $arguments["being"];
 
-			$this->group = $this->helper->getGroupByBeing($this->being);
-			\Foo\ContentManagement\Core\API::set("group", $this->group);
+				if(!stristr($this->being, "\\"))
+					$this->being = \Foo\ContentManagement\Core\API::get("classShortNames", $this->being);
+
+				$this->adapter = $this->contentManager->getAdapterByClass($this->being);
+				$this->adapter = $this->contentManager->setAdapterByClass($this->being);
+				#\Foo\ContentManagement\Core\API::set("adapter", $this->adapter);
+
+				$this->group = $this->contentManager->getGroupByClass($this->being);
+				#\Foo\ContentManagement\Core\API::set("group", $this->group);
+			}
+
+			if(isset($arguments["id"])){
+				$this->id = $arguments["id"];
+				if(is_array($this->id))
+					$this->id = implode(",", $this->id);
+			}
 		}
 
-		if(isset($arguments["id"])){
-			$this->id = $arguments["id"];
-			if(is_array($this->id))
-				$this->id = implode(",", $this->id);
-		}
+		$this->actionManager->setRequest($this->request);
 
 		// TODO Reimplement Security
 		/*
@@ -225,7 +209,7 @@ class StandardController extends \TYPO3\TYPO3\Controller\Module\StandardControll
 		}
 		*/
 
-		$groups = $this->helper->getGroups();
+		$groups = $this->contentManager->getGroups();
 		ksort($groups);
 		foreach($groups as $package => $group){
 			foreach($group["beings"] as $key => $being){
@@ -247,8 +231,7 @@ class StandardController extends \TYPO3\TYPO3\Controller\Module\StandardControll
 		}
 
 		$this->view = $this->resolveView();
-		
-		// \Foo\ContentManagement\Core\API::set("user", $user);
+		$this->actionManager->setView($this->view);
 			
 		if ($this->view !== NULL) {
 			$this->view->assign('settings', $this->settings);
@@ -257,121 +240,68 @@ class StandardController extends \TYPO3\TYPO3\Controller\Module\StandardControll
 		
 		$this->view->assign('groups',$groups);
 
-		$this->setTemplate($action);
-		$context = getenv("FLOW3_CONTEXT") ? getenv("FLOW3_CONTEXT") : "Production";
-		$this->view->assign("context",$context);
+		#$this->setTemplate($action);
 		
 		$hasId = isset($this->id) ? true : false;
-		$topBarActions = $this->getActions($action, $this->being, $hasId);
+		$topBarActions = $this->actionManager->getActions($action, $this->being, $hasId);
 		$this->view->assign('topBarActions',$topBarActions);
 	}
 
-	public function setTemplate($action){
-		$replacements = array(
-			"@action" => ucfirst($action),
-			"@variant" => "Default",
-			"@package" => "Admin",
-		);
+	// public function setTemplate($action){
+	// 	$replacements = array(
+	// 		"@action" => ucfirst($action),
+	// 		"@variant" => "Default",
+	// 		"@package" => "Admin",
+	// 	);
 		
-		if(!empty($this->being)){
-			if(class_exists($this->being, false)){
-				$replacements["@package"] = $this->helper->getPackageByClassName($this->being) ? $this->helper->getPackageByClassName($this->being) : "Admin";
-				$replacements["@being"] =\Foo\ContentManagement\Core\Helper::getShortName($this->being);
+	// 	if(!empty($this->being)){
+	// 		if(class_exists($this->being, false)){
+	// 			$replacements["@package"] = $this->helper->getPackageByClassName($this->being) ? $this->helper->getPackageByClassName($this->being) : "Admin";
+	// 			$replacements["@being"] =\Foo\ContentManagement\Core\Helper::getShortName($this->being);
 				
-				$being = $this->helper->getBeing($this->being);
-				$replacements["@variant"] = $being->variant->getVariant($action);
-			}
-		}
+	// 			$being = $this->helper->getBeing($this->being);
+	// 			$replacements["@variant"] = $being->variant->getVariant($action);
+	// 		}
+	// 	}
 		
-		if($this->request->hasArgument("variant")){
-			$replacements["@variant"] = $this->request->getArgument("variant");
-		}
+	// 	if($this->request->hasArgument("variant")){
+	// 		$replacements["@variant"] = $this->request->getArgument("variant");
+	// 	}
 
-		$cache = $this->cacheManager->getCache('Admin_TemplateCache');
-		$identifier = str_replace(".", "_", implode("-",$replacements));
-		$noTemplate = false;
-		if(!$cache->has($identifier)){
-			try{
-				$template = $this->helper->getPathByPatternFallbacks("Views",$replacements);
-			}catch (\Exception $e){
-				$noTemplate = true;
-			}
-			if(!$noTemplate)
-				$cache->set($identifier,$template);
-		}else{
-			$template = $cache->get($identifier);
-		}
+	// 	$cache = $this->cacheManager->getCache('Admin_TemplateCache');
+	// 	$identifier = str_replace(".", "_", implode("-",$replacements));
+	// 	$noTemplate = false;
+	// 	if(!$cache->has($identifier)){
+	// 		try{
+	// 			$template = $this->helper->getPathByPatternFallbacks("Views",$replacements);
+	// 		}catch (\Exception $e){
+	// 			$noTemplate = true;
+	// 		}
+	// 		if(!$noTemplate)
+	// 			$cache->set($identifier,$template);
+	// 	}else{
+	// 		$template = $cache->get($identifier);
+	// 	}
 		
-		if(!$noTemplate){
-			$this->view->setTemplatePathAndFilename($template);
+	// 	if(!$noTemplate){
+	// 		$this->view->setTemplatePathAndFilename($template);
 			
-			if($this->request->hasArgument("being")){
-				$meta["being"]["identifier"] = $this->request->getArgument("being");
-				$meta["being"]["name"] = $this->request->getArgument("being");
-				\Foo\ContentManagement\Core\API::set("package",$replacements["@package"]);
-			}
-		}
-	}
+	// 		if($this->request->hasArgument("being")){
+	// 			$meta["being"]["identifier"] = $this->request->getArgument("being");
+	// 			$meta["being"]["name"] = $this->request->getArgument("being");
+	// 			\Foo\ContentManagement\Core\API::set("package",$replacements["@package"]);
+	// 		}
+	// 	}
+	// }
 
-	private function getAdapter(){
-		if(isset($this->adapter)){
-			$adapter =  $this->objectManager->get($this->adapter);
-			if(!empty($this->being) && class_exists($this->being, false)){
-				$value = $this->reflectionService->getClassAnnotation($this->being, 'adapter');
-                                if($value !== NULL && class_exists("\\".$value[0], false)){
-					$adapter = $this->objectManager->get($value[0]);
-				}
-			}
-			$adapter->init();
-
-			return $adapter;
-		}else{
-			return null;
-		}
-	}
-	
-	public function getActions($action = null, $being = null, $id = false){
-#		$cache = $this->cacheManager->getCache('Admin_ActionCache');
-#		$identifier = sha1($action.$being.$id.$this->adapter);
-
-#		if(!$cache->has($identifier) && false){
-			$actions = array();
-			foreach($this->reflectionService->getAllImplementationClassNamesForInterface('Foo\ContentManagement\Core\Actions\ActionInterface') as $actionClassName) {
-				$inheritingClasses = $this->reflectionService->getAllSubClassNamesForClass($actionClassName);
-				foreach($inheritingClasses as $inheritingClass){
-					$inheritedObject = new $inheritingClass($this->getAdapter(), $this->request, $this->view, $this);
-					if($inheritedObject->override($actionClassName,$being)){
-						$actionClassName = $inheritedObject;
-					}
-					unset($inheritedObject);
-				}
-				
-				#$a = $this->objectManager->get($actionClassName, $this->getAdapter(), $this->request, $this->view, $this);
-				$a = new $actionClassName($this->getAdapter(), $this->request, $this->view, $this);
-				if($a->canHandle($being, $action, $id)){
-					$actionName = \Foo\ContentManagement\Core\Helper::getShortName($actionClassName);
-					$actionName = str_replace("Action","",$actionName);
-					$actions[$actionName] = $a;
-				}
-			}
-			ksort($actions);
-			#$cache->set($identifier,$actions);
-#		}else{
-#			$actions = $cache->get($identifier);
-#		}
-		
-		return $actions;
-	}
-
-	public function getActionByShortName($action = null){
-		$actions = array();
-		foreach($this->reflectionService->getAllImplementationClassNamesForInterface('Foo\ContentManagement\Core\Actions\ActionInterface') as $actionClassName) {
-			$actionName = \Foo\ContentManagement\Core\Helper::getShortName($actionClassName);
-			if(strtolower($actionName) == strtolower($action)){
-				return $this->objectManager->get($actionClassName, $this->getAdapter(), $this->request, $this->view, $this);
-			}
-		}
-		return null;
+	/**
+	 * Determines the fully qualified view object name.
+	 *
+	 * @return mixed The fully qualified view object name or FALSE if no matching view could be found.
+	 * @api
+	 */
+	protected function resolveViewObjectName() {
+		return "Foo\ContentManagement\View\FallbackTemplateView";
 	}
 
 	public function getRequest(){
@@ -413,26 +343,23 @@ class StandardController extends \TYPO3\TYPO3\Controller\Module\StandardControll
 		throw new \TYPO3\FLOW3\Mvc\Exception\StopActionException();
 	}
 
+	// /**
+	//  * compares a security policy
+	//  *
+	//  * @param string $arguments 
+	//  * @param string $policy 
+	//  * @return void
+	//  * @author Marc Neuhaus
+	//  */
+	// public function comparePolicy($arguments, $policy){
+	// 	$being = $policy->getBeing();
+	// 	$action = $policy->getAction();
 
+	// 	if( $being == $arguments["being"]  && $action == $arguments["action"] )
+	// 		return true;
 
-	
-	/**
-	 * compares a security policy
-	 *
-	 * @param string $arguments 
-	 * @param string $policy 
-	 * @return void
-	 * @author Marc Neuhaus
-	 */
-	public function comparePolicy($arguments, $policy){
-		$being = $policy->getBeing();
-		$action = $policy->getAction();
-
-		if( $being == $arguments["being"]  && $action == $arguments["action"] )
-			return true;
-
-		return false;
-	}
+	// 	return false;
+	// }
 }
 
 ?>

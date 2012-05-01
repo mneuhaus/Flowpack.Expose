@@ -32,13 +32,12 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * @FLOW3\Scope("prototype")
  */
 class BeingViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
-	
+
 	/**
-	 * @var \Foo\ContentManagement\Core\Helper
-	 * @author Marc Neuhaus <apocalip@gmail.com>
+	 * @var \Foo\ContentManagement\Adapters\ContentManager
 	 * @FLOW3\Inject
 	 */
-	protected $helper;
+	protected $contentManager;	
 	
 	/**
 	 *
@@ -54,7 +53,7 @@ class BeingViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 		if(is_null($object) && !is_null($className))
 			$object = new $className;
 		
-		$being = new \Foo\ContentManagement\Core\Being($this->helper->getAdapterByBeing(get_class($object)));
+		$being = new \Foo\ContentManagement\Core\Being($this->contentManager->getAdapterByClass(get_class($object)));
 		$being->ignoredProperties = $ignore;
 		$being->setClass(get_class($object));
 		$being->setObject($object);

@@ -86,6 +86,7 @@ class FilterViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 	
 	public function getFilter($selected = array()){
 		$filters = array();
+		return $filters;
 		foreach ($this->objects as $object) {
 			$being = $this->helper->getBeing($object);
 			

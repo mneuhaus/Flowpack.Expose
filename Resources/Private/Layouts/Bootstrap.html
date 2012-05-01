@@ -1,11 +1,8 @@
-	{namespace cm=Foo\ContentManagement\ViewHelpers}
-<f:render section='pre-container' optional="true">
-</f:render>
+{namespace cm=Foo\ContentManagement\ViewHelpers}
 
 <div class="navbar navbar-fixed-top">
 	<div class="navbar-inner">
 		<div class="fluid-container">
-			<a class="brand" href="/admin/"><cm:settings path="Admin.PageTitle" /></a>
 			<ul class="nav" data-dropdown="dropdown">
 			<cm:navigation position="top">
 				<f:if condition="{navBar.hasChildren}">
@@ -23,35 +20,6 @@
 				</f:if>
 			</cm:navigation>
 			</ul>
-			
-			<cm:user>
-			<ul class="nav pull-right">
-			<f:if condition="{user}">
-				<f:then>
-				<li>
-					<span>{admin-debug-info}</span>
-				</li>
-				<f:if condition="{devmode}">
-				<li>
-					<f:link.action addQueryString="true" arguments="{flush_cache: 1}">Flush Cache</f:link.action>
-				</li>
-				</f:if>
-				<li>
-					<f:link.action action="update" controller="Standard" package="Admin" arguments="{user.arguments}">
-						Logged in as {user}
-					</f:link.action>
-				</li>
-				<li>
-					<f:link.action action="logout" controller="Login" package="Admin">Logout</f:link.action>
-				</li>
-				</f:then>
-				<f:else>
-				<li>
-					<f:link.action action="index" controller="Login" package="Admin">Login</f:link.action>
-				</li>
-				</f:else>
-			</f:if>
-			</cm:user>
 		</div>
 		<div class="clearfix"></div>
 	</div>
@@ -121,7 +89,7 @@
 				<div class="clear"></div>
 			</div>
 			
-			<cm:flashMessages />
+
 			<div id="shortcuts-modal" class="modal hide ">
 				<div class="modal-header">
 					<a href="#" class="close" data-modal-dismiss="true">×</a>
@@ -137,9 +105,7 @@
 		
 	</div>
 </cm:render>
-<f:render section='post-container' optional="true">
-</f:render>
-
+<!--
 
 <script src="{f:uri.resource(path: 'admin/js/jquery.1.7.1.min.js', package: 'Admin')}"></script>
 
@@ -158,6 +124,5 @@
 
 <script src="{f:uri.resource(path: 'admin/js/jquery.inlineHelper.js', package: 'Admin')}"></script>
 
-<cm:widgetResources render="true" />
-
 <script src="{f:uri.resource(path: 'admin/js/main.js', package: 'Admin')}"></script>
+-->

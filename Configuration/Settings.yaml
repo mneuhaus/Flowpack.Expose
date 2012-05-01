@@ -2,78 +2,86 @@
 # Settings Configuration for the Admin package                           #
 #                                                                        #
 
-Admin:
-  Beings: []
-  Pagination:
-    Limits:
-      - 10
-      - 20
-      - 100
-      - 1000
-      - 10000
-    Default: 20
-    MaxPages: 9
-  Navigation:
-    Top:
-      Documentation:
-        Arguments:
-          action: index
-          controller: doc
-          package: admin
-  Defaults:
-    Variant: Default
-    SearchProvider: \Foo\ContentManagement\SearchProvider\SimpleSearchProvider
-    properties:
-      OptionsProvider: \Foo\ContentManagement\OptionsProvider\RelationOptionsProvider
-      Representation:
-        DatetimeFormat: Y-m-d\TH:i:s
-  Adapters:
-    Foo\ContentManagement\Adapters\DoctrineAdapter: active
-  ConfigurationProvider:
-    - Foo\ContentManagement\ConfigurationProvider\DefaultsConfigurationProvider
-    - Foo\ContentManagement\ConfigurationProvider\AnnotationConfigurationProvider
-    - Foo\ContentManagement\ConfigurationProvider\YamlConfigurationProvider
-  Fallbacks:
-    Views:
-      - resource://@package/Private/Templates/@being/@action/@variant.html
-      - resource://@package/Private/Templates/Admin/@action/@variant.html
-      - resource://@package/Private/Templates/@being/@action.html
-      - resource://@package/Private/Templates/Admin/@action.html
-      - resource://Foo.ContentManagement/Private/Templates/Standard/@action/@variant.html
-      - resource://Foo.ContentManagement/Private/Templates/Standard/@action.html
-    Partials:
-      - resource://@package/Private/Partials/@being/@action/@partial/@variant.html
-      - resource://@package/Private/Partials/@being/@action/@partial.html
-      - resource://@package/Private/Partials/@being/@partial/@variant.html
-      - resource://@package/Private/Partials/@being/@partial.html
-      - resource://@package/Private/Partials/@action/@partial/@variant.html
-      - resource://@package/Private/Partials/@action/@partial.html
-      - resource://@package/Private/Partials/@partial/@variant.html
-      - resource://@package/Private/Partials/@partial.html
-      - resource://@package/Private/Partials/@partial/Default.html
-      - resource://Foo.ContentManagement/Private/Partials/@action/@partial.html
-      - resource://Foo.ContentManagement/Private/Partials/@action/@partial/@variant.html
-      - resource://Foo.ContentManagement/Private/Partials/@partial/@variant.html
-      - resource://Foo.ContentManagement/Private/Partials/@partial.html
-      - resource://Foo.ContentManagement/Private/Partials/@partial/Default.html
-    Widgets:
-      - resource://@package/Private/Partials/@being/Widgets/@partial.html
-      - resource://@package/Private/Partials/Widgets/@partial.html
-      - resource://Foo.ContentManagement/Private/Partials/Widgets/@partial.html
-  Mapping:
-    Widgets:
-      string:   Textfield
-      readonly:   TextfieldReadonly
-      integer:  Spinner
-      float:    Textfield
-      boolean:  Boolean
-      \TYPO3\FLOW3\Resource\Resource: Upload
-      \DateTime: DateJs
-      ^\\[A-Za-z0-9\\]+\\Domain\\Model\\[A-Za-z]+$: Chosen
-      ^\\[A-Za-z0-9\\]+\\Security\\[A-Za-z]+$: Chosen
-      ^\\Doctrine\\Common\\Collections\\Collection\<\\[A-Za-z0-9\\]+\\Domain\\Model\\[A-za-z]+>$: MultipleRelation
-      ^\\Doctrine\\Common\\Collections\\Collection\<\\[A-Za-z0-9\\]+\\Security\\[A-za-z]+>$: MultipleRelation
-      ^\\ArrayObject\<\\[A-Za-z0-9\\]+>$: MultipleRelation
+Foo:
+  ContentManagement:
+    Beings: []
+    Pagination:
+      Limits:
+        - 10
+        - 20
+        - 100
+        - 1000
+        - 10000
+      Default: 20
+      MaxPages: 9
+    Navigation:
+      Top:
+        Documentation:
+          Arguments:
+            action: index
+            controller: doc
+            package: admin
+    Defaults:
+      Variant: Default
+      SearchProvider: \Foo\ContentManagement\SearchProvider\SimpleSearchProvider
+      properties:
+        OptionsProvider: \Foo\ContentManagement\OptionsProvider\RelationOptionsProvider
+        Representation:
+          DatetimeFormat: Y-m-d\TH:i:s
+    Adapters:
+      Foo\ContentManagement\Adapters\DoctrineAdapter: active
+    ConfigurationProvider:
+      - Foo\ContentManagement\ConfigurationProvider\DefaultsConfigurationProvider
+      - Foo\ContentManagement\ConfigurationProvider\AnnotationConfigurationProvider
+      - Foo\ContentManagement\ConfigurationProvider\YamlConfigurationProvider
+    Fallbacks:
+      Views:
+        - resource://@package/Private/Templates/@being/@action/@variant.html
+        - resource://@package/Private/Templates/Admin/@action/@variant.html
+        - resource://@package/Private/Templates/@being/@action.html
+        - resource://@package/Private/Templates/Admin/@action.html
+        - resource://Foo.ContentManagement/Private/Templates/Standard/@action/@variant.html
+        - resource://Foo.ContentManagement/Private/Templates/Standard/@action.html
+      Contents:
+        - resource://@package/Private/Content/@being/@content/@variant.html
+        - resource://@package/Private/Content/Admin/@content/@variant.html
+        - resource://@package/Private/Content/@being/@content.html
+        - resource://@package/Private/Content/Admin/@content.html
+        - resource://Foo.ContentManagement/Private/Content/@content/@variant.html
+        - resource://Foo.ContentManagement/Private/Content/@content/Default.html
+      Partials:
+        - resource://@package/Private/Partials/@being/@action/@partial/@variant.html
+        - resource://@package/Private/Partials/@being/@action/@partial.html
+        - resource://@package/Private/Partials/@being/@partial/@variant.html
+        - resource://@package/Private/Partials/@being/@partial.html
+        - resource://@package/Private/Partials/@action/@partial/@variant.html
+        - resource://@package/Private/Partials/@action/@partial.html
+        - resource://@package/Private/Partials/@partial/@variant.html
+        - resource://@package/Private/Partials/@partial.html
+        - resource://@package/Private/Partials/@partial/Default.html
+        - resource://Foo.ContentManagement/Private/Partials/@action/@partial.html
+        - resource://Foo.ContentManagement/Private/Partials/@action/@partial/@variant.html
+        - resource://Foo.ContentManagement/Private/Partials/@partial/@variant.html
+        - resource://Foo.ContentManagement/Private/Partials/@partial.html
+        - resource://Foo.ContentManagement/Private/Partials/@partial/Default.html
+      Widgets:
+        - resource://@package/Private/Partials/@being/Widgets/@partial.html
+        - resource://@package/Private/Partials/Widgets/@partial.html
+        - resource://Foo.ContentManagement/Private/Partials/Widgets/@partial.html
+    Mapping:
+      Widgets:
+        string:   TYPO3.Form:SingleLineText
+        readonly:   TextfieldReadonly
+        integer:  Spinner
+        float:    TYPO3.Form:SingleLineText
+        boolean:  TYPO3.Form:Checkbox
+        \TYPO3\FLOW3\Resource\Resource: Upload
+        \DateTime: TYPO3.Form:DatePicker
+        ^\\[A-Za-z0-9\\]+\\Domain\\Model\\[A-Za-z]+$: Chosen
+        ^\\[A-Za-z0-9\\]+\\Security\\[A-Za-z]+$: Chosen
+        ^\\Doctrine\\Common\\Collections\\Collection\<\\[A-Za-z0-9\\]+\\Domain\\Model\\[A-za-z]+>$: MultipleRelation
+        ^\\Doctrine\\Common\\Collections\\Collection\<\\[A-Za-z0-9\\]+\\Security\\[A-za-z]+>$: MultipleRelation
+        ^\\ArrayObject\<\\[A-Za-z0-9\\]+>$: MultipleRelation
 
 TYPO3:
   TYPO3:
@@ -84,3 +92,19 @@ TYPO3:
               label: 'Content'
               controller: '\Foo\ContentManagement\Controller\StandardController'
               skipActionCheck: true
+
+  Form:
+    presets:
+      default:
+        formElementTypes:
+          # 'TYPO3.Form:FormElement':
+          #   superTypes: ['TYPO3.Form:Base', 'TYPO3.Form:RemovableMixin']
+          #   implementationClassName: 'TYPO3\Form\FormElements\GenericFormElement'
+          #   renderingOptions:
+          #     renderableNameInTemplate: 'element'
+          'Foo.ContentManagement:Hidden':
+            superTypes: ['TYPO3.Form:FormElement', 'TYPO3.Form:TextMixin']
+            implementationClassName: 'Foo\ContentManagement\FormElements\ComplexFormElement'
+          #'TYPO3.Form:SingleLineText':
+          #  superTypes: ['TYPO3.Form:FormElement', 'TYPO3.Form:TextMixin']
+          #  implementationClassName: 'Foo\ContentManagement\FormElements\ComplexFormElement'

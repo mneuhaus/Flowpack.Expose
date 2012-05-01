@@ -1,5 +1,6 @@
 <f:layout name="bootstrap" />
 {namespace cm=Foo\ContentManagement\ViewHelpers}
+{namespace form=TYPO3\Form\ViewHelpers}
 
 <f:section name="actionbar-left"></f:section>
 
@@ -21,19 +22,7 @@
 	<div class="box centered">
 		<h3 class="box-header">Create a new {being.shortName}</h3>
 		<div>
-			<f:form method="post" action="create" fieldNamePrefix="item" object="{being.object}" enctype="multipart/form-data" class="form-horizontal">
-				
-				<cm:form.fields being="{being}" />
-			
-				<div class="actions pull-left">
-					<cm:link action="list" being="{being.class}" class="btn" shortcut="esc">
-						Cancel
-					</cm:link>
-				</div>
-				<div class="actions pull-right">
-					<input type="submit" name="create" value="Create" class="btn primary"/>
-				</div>
-			</f:form>
+			<cm:content.form object="{object}" />
 		</div>
 	</div>
 </f:section>

@@ -62,21 +62,18 @@ class CreateAction extends \Foo\ContentManagement\Core\Actions\AbstractAction {
 	 * @author Marc Neuhaus <mneuhaus@famelo.com>
 	 * */
 	public function execute($being, $ids = null) {
-		$object = $this->adapter->getBeing($being);
-		
-		if( $this->request->hasArgument("create") ) {
-			$result = $this->adapter->createObject($being, $this->request->getArgument("item"));
-			
-			if( is_a($result, $being) ) {
-				$arguments = array("being" => \Foo\ContentManagement\Core\API::get("classShortNames", $being));
-				$this->controller->redirect('list', NULL, NULL, $arguments);
-			}else {
-				$object->setErrors($result);
-				$object->setObject($this->request->getArgument("item"));
-			}
-		}
+		$object = new $being();
+		$this->view->assign("object", $object);
+	}
 
-		$this->view->assign("being", $object);
+	public function formFinischer($formRuntime) {
+		$request = $formRuntime->getRequest();
+		$values = $formRuntime->getFormState()->getFormValues();
+		$class = \Foo\ContentManagement\Core\API::get("classShortNames", $request->getArgument("being"));
+		
+		$result = $this->adapter->createObject($class, $values);
+
+		$this->actionManager->redirect("list", array("being" => $request->getArgument("being")));
 	}
 
 }
