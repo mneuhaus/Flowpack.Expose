@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\Actions;
+namespace Foo\ContentManagement\Actions;
 
 /* *
  * This script belongs to the FLOW3 framework.                            *
@@ -32,7 +32,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  * @FLOW3\Scope("prototype")
  */
-class IndexAction extends \Admin\Core\Actions\AbstractAction {
+class IndexAction extends \Foo\ContentManagement\Core\Actions\AbstractAction {
 	/**
 	 * Reflection service
 	 * @var TYPO3\FLOW3\Reflection\ReflectionService

@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\Core\Actions;
+namespace Foo\ContentManagement\Core\Actions;
 
 /* *
  * This script belongs to the FLOW3 framework.                            *
@@ -32,27 +32,51 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  */
 abstract class AbstractAction implements ActionInterface {
 	/**
-	 * @var \Admin\Core\Helper
+	 * @var \Foo\ContentManagement\Actions\ActionManager
+	 */
+	protected $actionManager;
+
+	/**
+	 * @var \Foo\ContentManagement\Core\ConfigurationManager
+	 * @FLOW3\Inject
+	 */
+	protected $configurationManager;
+
+	/**
+	 * @var \Foo\ContentManagement\Adapters\ContentManager
+	 */
+	protected $contentManager;	
+
+	/**
+	 * @var \Foo\ContentManagement\Core\Helper
 	 * @author Marc Neuhaus <apocalip@gmail.com>
 	 * @FLOW3\Inject
 	 */
 	protected $helper;
 	
 	/**
-	 * @var \Admin\Core\Adapters\AdapterInterface
+	 * @var \Foo\ContentManagement\Core\Adapters\AdapterInterface
 	 * @author Marc Neuhaus <mneuhaus@famelo.com>
 	 * */
 	protected $adapter;
 	protected $controller;
 	protected $request;
 
-	public function __construct($adapter=null, $request=null, $view=null, $controller=null) {
-		$this->adapter = $adapter;
-		$this->request = $request;
-		if($view !== null)
-			$this->view = &$view;
-		if($controller !== null)
-			$this->controller = &$controller;
+	/**
+	 * 
+	 * @param \Foo\ContentManagement\Adapters\ContentManager $contentManager
+	 * @param \Foo\ContentManagement\Actions\ActionManager   $actionManager
+	 */
+	public function __construct(\Foo\ContentManagement\Actions\ActionManager $actionManager, \Foo\ContentManagement\Adapters\ContentManager $contentManager) {
+		$this->actionManager = $actionManager;
+		$this->request = $actionManager->getRequest();
+		$this->view = $actionManager->getView();
+
+		$this->contentManager = $contentManager;
+		if($this->request->hasArgument("being")){
+			$class = \Foo\ContentManagement\Core\API::get("classShortNames", $this->request->getArgument("being"));
+			$this->adapter = $contentManager->getAdapterByClass($class);
+		}
 	}
 
 	public function canHandle($being, $action = null, $id = false) {
@@ -76,7 +100,7 @@ abstract class AbstractAction implements ActionInterface {
 	}
 
 	public function __toString() {
-		$action = \Admin\Core\Helper::getShortName($this);
+		$action = \Foo\ContentManagement\Core\Helper::getShortName($this);
 		$action = str_replace("Action", "", $action);
 		return $action;
 	}
@@ -94,11 +118,11 @@ abstract class AbstractAction implements ActionInterface {
 	}
 	
 	public function getSettings($path = null){
-		$paths = array("Admin.ViewSettings");
+		$paths = array("Foo.ContentManagement.ViewSettings");
 		$paths[] = ucfirst($this->getAction());
 		if(!is_null($path))
 			$paths[] = $path;
- 		return $this->helper->getSettings(implode(".", $paths));
+ 		return $this->configurationManager->getSettings(implode(".", $paths));
 	}
 }
 ?>

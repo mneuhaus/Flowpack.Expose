@@ -1,5 +1,5 @@
 <?php
-namespace Admin\Adapters;
+namespace Foo\ContentManagement\Adapters;
 
 /*                                                                        *
  * This script belongs to the FLOW3 package "Contacts".                   *
@@ -32,7 +32,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  *
  * @FLOW3\Scope("singleton")
  */
-class DoctrineAdapter extends \Admin\Core\Adapters\AbstractAdapter {
+class DoctrineAdapter extends \Foo\ContentManagement\Core\Adapters\AbstractAdapter {
     /**
      * @var \TYPO3\FLOW3\Persistence\PersistenceManagerInterface
      * @author Marc Neuhaus <apocalip@gmail.com>
@@ -107,7 +107,7 @@ class DoctrineAdapter extends \Admin\Core\Adapters\AbstractAdapter {
 
             if (class_exists($repository)) {
                 $group = $packageName;
-                $name = \Admin\Core\Helper::getShortName($class);
+                $name = \Foo\ContentManagement\Core\Helper::getShortName($class);
 
                 if (isset($configuration["group"]))
                     $group = strval(current($configuration["group"]));
@@ -124,7 +124,7 @@ class DoctrineAdapter extends \Admin\Core\Adapters\AbstractAdapter {
     public function getObject($being, $id = null) {
         if (class_exists($being)) {
             if ($id == null) {
-                return $this->objectManager->create($being);
+                return $this->objectManager->get($being);
             } else {
                 return $this->persistenceManager->getObjectByIdentifier($id, $being);
             }
@@ -144,7 +144,10 @@ class DoctrineAdapter extends \Admin\Core\Adapters\AbstractAdapter {
                 current($configuration["class"]["admin\annotations\orderby"]) => 'ASC'
             ));
         }
-        $objects = $this->query->execute();
+    
+        if(isset($this->query) && is_object($this->query))
+            $objects = $this->query->execute();
+
         return $objects;
     }
 
@@ -165,7 +168,7 @@ class DoctrineAdapter extends \Admin\Core\Adapters\AbstractAdapter {
             $annotation = current($configuration["repository"]);
             $repository = $annotation->class;
         } else {
-            $repository = \Admin\Core\Helper::getModelRepository($model);
+            $repository = \Foo\ContentManagement\Core\Helper::getModelRepository($model);
         }
 
         return $repository;
@@ -190,7 +193,6 @@ class DoctrineAdapter extends \Admin\Core\Adapters\AbstractAdapter {
 
     public function updateObject($being, $id, $data) {
         $configuration = $this->configurationManager->getClassConfiguration($being);
-#        $data["__identity"] = $id;
         $result = $this->transform($data, $being);
 
         if (is_a($result, $being)) {
@@ -211,11 +213,18 @@ class DoctrineAdapter extends \Admin\Core\Adapters\AbstractAdapter {
 
     ## Conversion Functions
 
-
     public function transform($data, $target) {
+        $object = $this->getObject($target, isset($data["__identity"]) ? $data["__identity"] : null);
+        foreach ($data as $property => $value) {
+            \TYPO3\FLOW3\Reflection\ObjectAccess::setProperty($object, $property, $value);
+        }
+        return $object;
+    }
+/*
+    public function transform_($data, $target) {
         $data = $this->cleanUpBlanks($data);
 
-        $value = $this->propertyMapper->convert($data, $target, \Admin\Core\PropertyMappingConfiguration::getConfiguration());
+        $value = $this->propertyMapper->convert($data, $target, \Foo\ContentManagement\Core\PropertyMappingConfiguration::getConfiguration());
 
         $this->validationResults = $this->propertyMapper->getMessages();
 
@@ -230,14 +239,20 @@ class DoctrineAdapter extends \Admin\Core\Adapters\AbstractAdapter {
             return $errors;
     }
 
-    public function cleanUpBlanks($data, $removeEmptyArrays = false) {
+    public function cleanUpBlanks($data, $removeEmptyArrays = false, $removeUnchangedDefaults = true) {
+        $defaults = array();
         foreach ($data as $key => $value) {
+            if($key === "{counter}"){
+                $defaults = $value;
+            }
+
             if (is_array($value)) {
                 $data[$key] = $this->cleanUpBlanks($value, true);
             }
             if (is_object($value) && !empty($value->FLOW3_Persistence_Entity_UUID)) {
                 $data[$key] = $value->FLOW3_Persistence_Entity_UUID;
             }
+
             if (empty($data[$key]) && $data[$key] !== false && $data[$key] !== 0) {
                 if (is_array($data[$key])) {
                     if ($removeEmptyArrays)
@@ -246,9 +261,13 @@ class DoctrineAdapter extends \Admin\Core\Adapters\AbstractAdapter {
                     unset($data[$key]);
                 }
             }
+
+            if(serialize($value) == serialize($defaults) && $removeUnchangedDefaults)
+                unset($data[$key]);
         }
         return $data;
     }
+*/
 }
 
 ?>

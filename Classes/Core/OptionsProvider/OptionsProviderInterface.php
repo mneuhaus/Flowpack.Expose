@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\Core\OptionsProvider;
+namespace Foo\ContentManagement\Core\OptionsProvider;
 
 /*                                                                        *
  * This script belongs to the FLOW3 framework.                            *

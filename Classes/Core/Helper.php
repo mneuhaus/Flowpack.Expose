@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\Core;
+namespace Foo\ContentManagement\Core;
 
 /*                                                                        *
  * This script belongs to the FLOW3 package "Fluid".                      *
@@ -58,12 +58,6 @@ class Helper {
 	 */
 	protected $reflectionService;
 	
-	/**
-	 * @var Admin\Security\SecurityManager
-	 * @FLOW3\Inject
-	 */
-	protected $securityManager;
-	
 	public function isDemoMode(){
 		return $this->getSettings("Admin.DemoMode");
 	}
@@ -84,6 +78,9 @@ class Helper {
 			if($mixed instanceof \ArrayAccess)
 				return true;
 
+			if($mixed instanceof \ArrayObject)
+				return true;
+
 			if($mixed instanceof \SplObjectStorage)
 				return true;
 
@@ -101,70 +98,22 @@ class Helper {
 	}
 	
 	public function isUserSuperAdmin(){
-		$superAdminUserName = $this->getSettings("Admin.SuperAdmin");
-		$user = $this->securityManager->getUser();
-		if(is_object($user))
-			return $user->__toString() == $superAdminUserName;
+		#$superAdminUserName = $this->getSettings("Admin.SuperAdmin");
+		#$user = $this->securityManager->getUser();
+		#if(is_object($user))
+		#	return $user->__toString() == $superAdminUserName;
 		
 		return false;
 	}
 	
-	/**
-	 * return the Adapter responsible for the being
-	 *
-	 * @return $groups Array
-	 * @author Marc Neuhaus
-	 */
-	public function getAdapterByBeing($being){
-		$this->adapters = $this->getAdapters();
-		
-		$cache = $this->cacheManager->getCache('Admin_Cache');
-		$identifier = "AdaptersByBeing-".sha1($being);
-		
-		if(!$cache->has($identifier)){
-			$adaptersByBeings = array();
-			foreach ($this->adapters as $adapter) {
-				$adapters[$adapter] = $this->objectManager->get($adapter);
-				foreach ($adapters[$adapter]->getGroups() as $group => $beings) {
-					foreach ($beings as $conf) {
-						$adaptersByBeings[$being] = $adapter;
-					}
-				}
-			}
-			
-			$cache->set($identifier,$adaptersByBeings);
-		}else{
-			$adaptersByBeings = $cache->get($identifier);
-		}
-		
-		return $adaptersByBeings[$being];
-	}
-	
-	/**
-	 * Returns all active adapters
-	 *
-	 * @return $adapters
-	 * @author Marc Neuhaus
-	 */
-	public function getAdapters(){
-		$settings = $this->getSettings();
-		$adapters = array();
-		foreach ($settings["Adapters"] as $adapter => $active) {
-			if($active == "active"){
-				$adapters[] = $adapter;
-			}
-		}
-		return $adapters;
-	}
-	
-	public function getBeing($mixed){
+	public function getBeing_($mixed){
 		if(is_object($mixed)){
 			$object = $mixed;
 			$class = get_class($mixed);
 		}else{
 			$class = $mixed;
 		}
-		$being = new \Admin\Core\Being($this->getAdapterByBeing($class));
+		$being = new \Foo\ContentManagement\Core\Being($this->getAdapterByBeing($class));
 		$being->setClass($class);
 		
 		if(isset($object))
@@ -172,63 +121,6 @@ class Helper {
 			
 		return $being;
 	}
-	
-	/**
-	 * get the group which the being belongs to
-	 *
-	 * @param string $being 
-	 * @return $group string
-	 * @author Marc Neuhaus
-	 */
-	public function getGroupByBeing($being){
-		$this->adapters = $this->getAdapters();
-		foreach ($this->adapters as $adapter) {
-			if(class_exists($adapter, false)){
-				$adapters[$adapter] = $this->objectManager->get($adapter);
-				foreach ($adapters[$adapter]->getGroups() as $group => $beings) {
-					foreach ($beings as $beingName => $conf) {
-						if($being == $beingName)
-							return $group;
-					}
-				}
-			}
-		}
-	}
-	
-	/**
-	 * returns all active groups
-	 *
-	 * @return $groups Array
-	 * @author Marc Neuhaus
-	 */
-	public function getGroups(){
-		$this->adapters = $this->getAdapters();
-
-		$cache = $this->cacheManager->getCache('Admin_Cache');
-		$identifier = "Groups-".sha1(implode("-",$this->adapters));
-
-		if(!$cache->has($identifier)){
-			$groups = array();
-			$adapters = array();
-			foreach ($this->adapters as $adapter) {
-				$adapters[$adapter] = $this->objectManager->get($adapter);
-				foreach ($adapters[$adapter]->getGroups() as $group => $beings) {
-					foreach ($beings as $conf) {
-						$being = $conf["being"];
-						$conf["adapter"] = $adapter;
-						$groups[$group]["beings"][$being] = $conf;
-					}
-				}
-			}
-
-			$cache->set($identifier,$groups);
-		}else{
-			$groups = $cache->get($identifier);
-		}
-
-		return $groups;
-	}
-	
 	
 	/**
 	 * Returns all Properties of a Specified Model
@@ -306,7 +198,7 @@ class Helper {
 	 * @return $settings Array of settings
 	 * @author Marc Neuhaus <apocalip@gmail.com>
 	 **/
-	public function getSettings($namespace = "Admin"){
+	public function getSettings($namespace = "Foo.ContentManagement"){
 		if(!isset($this->cache["settings"]) || !isset($this->cache["settings"][$namespace])){
 			$this->cache["settings"][$namespace] = $this->configurationManager->getConfiguration(\TYPO3\FLOW3\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, $namespace);
 		}

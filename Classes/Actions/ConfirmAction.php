@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\Actions;
+namespace Foo\ContentManagement\Actions;
 
 /* *
  * This script belongs to the FLOW3 framework.                            *
@@ -32,7 +32,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  * @FLOW3\Scope("prototype")
  */
-class ConfirmAction extends \Admin\Core\Actions\AbstractAction {
+class ConfirmAction extends \Foo\ContentManagement\Core\Actions\AbstractAction {
 
 	public function canHandle($being, $action = null, $id = false) {
 		return false;
@@ -51,11 +51,11 @@ class ConfirmAction extends \Admin\Core\Actions\AbstractAction {
 	public function execute($being, $ids = null) {
 		$objects = array();
 		foreach ($ids as $id) {
-			$objects[] = $this->adapter->getBeing($being, $id);
+			$objects[] = $this->adapter->getObject($being, $id);
 		}
-		$this->view->assign("confirmObjects", $objects);
+		$this->view->assign("objects", $objects);
 		$this->view->assign("ids", implode(",", $ids));
-		$this->view->assign("being", $being);
+		$this->view->assign("class", $being);
 	}
 
 }

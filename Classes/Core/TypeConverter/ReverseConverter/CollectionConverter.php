@@ -1,5 +1,5 @@
 <?php
-namespace Admin\Core\TypeConverter\ReverseConverter;
+namespace Foo\ContentManagement\Core\TypeConverter\ReverseConverter;
 
 /*                                                                        *
  * This script belongs to the FLOW3 framework.                            *
@@ -37,7 +37,7 @@ class CollectionConverter extends \TYPO3\FLOW3\Property\TypeConverter\AbstractTy
 	protected $priority = 51;
 	
 	/**
-	 * @var \Admin\Core\PropertyMapper
+	 * @var \Foo\ContentManagement\Core\PropertyMapper
 	 * @api
 	 * @author Marc Neuhaus <apocalip@gmail.com>
 	 * @FLOW3\Inject

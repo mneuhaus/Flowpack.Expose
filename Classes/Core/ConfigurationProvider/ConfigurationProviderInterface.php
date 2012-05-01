@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\Core\ConfigurationProvider;
+namespace Foo\ContentManagement\Core\ConfigurationProvider;
 
 /* *
  * This script belongs to the FLOW3 framework.                            *

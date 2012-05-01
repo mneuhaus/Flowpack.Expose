@@ -1,5 +1,5 @@
 <?php
-namespace Admin\SearchProvider;
+namespace Foo\ContentManagement\SearchProvider;
 
 /*                                                                        *
  * This script belongs to the FLOW3 framework.                            *

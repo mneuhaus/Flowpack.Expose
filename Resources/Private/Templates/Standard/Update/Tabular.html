@@ -1,5 +1,5 @@
 <f:layout name="bootstrap" />
-{namespace a=Admin\ViewHelpers}
+{namespace cm=Foo\ContentManagement\ViewHelpers}
 <f:section name="actionbar-left"></f:section>
 
 <f:section name="actionbar-right">
@@ -14,7 +14,7 @@
 				<f:form.hidden name="being" id="being" value="{being.class}"/>
 				<f:form.hidden name="id" value="{being.id}"/>
 
-				<a:render partial="TabularForm" fallbacks="Partials"/>
+				<cm:render partial="TabularForm" fallbacks="Partials"/>
 
 				<div class="fluid mb mls">
 					<input type="submit" name="update" value="Update" class="submit ui-button"/>

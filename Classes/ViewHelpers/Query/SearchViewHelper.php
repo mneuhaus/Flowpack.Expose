@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\ViewHelpers\Query;
+namespace Foo\ContentManagement\ViewHelpers\Query;
 
 /*                                                                        *
  * This script belongs to the FLOW3 framework.                            *
@@ -33,13 +33,13 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  */
 class SearchViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 	/**
-	 * @var \Admin\Core\ConfigurationManager
+	 * @var \Foo\ContentManagement\Core\ConfigurationManager
 	 * @FLOW3\Inject
 	 */
 	protected $configurationManager;
 	
 	/**
-	 * @var \Admin\Core\Helper
+	 * @var \Foo\ContentManagement\Core\Helper
 	 * @author Marc Neuhaus <apocalip@gmail.com>
 	 * @FLOW3\Inject
 	 */

@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\Actions;
+namespace Foo\ContentManagement\Actions;
 
 /* *
  * This script belongs to the FLOW3 framework.                            *
@@ -32,7 +32,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  * @FLOW3\Scope("prototype")
  */
-class CreateAction extends \Admin\Core\Actions\AbstractAction {
+class CreateAction extends \Foo\ContentManagement\Core\Actions\AbstractAction {
 
 	/**
 	 * Function to Check if this Requested Action is supported
@@ -62,22 +62,18 @@ class CreateAction extends \Admin\Core\Actions\AbstractAction {
 	 * @author Marc Neuhaus <mneuhaus@famelo.com>
 	 * */
 	public function execute($being, $ids = null) {
-		$object = $this->adapter->getBeing($being);
-		
-		if( $this->request->hasArgument("create") ) {
-			$result = $this->adapter->createObject($being, $this->request->getArgument("item"));
-			
-			if( is_a($result, $being) ) {
-				$this->controller->addLog();
-				$arguments = array("being" => \Admin\Core\API::get("classShortNames", $being));
-				$this->controller->redirect('list', NULL, NULL, $arguments);
-			}else {
-				$object->setErrors($result);
-				$object->setObject($this->request->getArgument("item"));
-			}
-		}
+		$object = new $being();
+		$this->view->assign("object", $object);
+	}
 
-		$this->view->assign("being", $object);
+	public function formFinischer($formRuntime) {
+		$request = $formRuntime->getRequest();
+		$values = $formRuntime->getFormState()->getFormValues();
+		$class = \Foo\ContentManagement\Core\API::get("classShortNames", $request->getArgument("being"));
+		
+		$result = $this->adapter->createObject($class, $values);
+
+		$this->actionManager->redirect("list", array("being" => $request->getArgument("being")));
 	}
 
 }

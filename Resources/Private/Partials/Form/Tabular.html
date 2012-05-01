@@ -1,18 +1,18 @@
-{namespace a=Admin\ViewHelpers}
+{namespace cm=Foo\ContentManagement\ViewHelpers}
 
 <div class="scrollable">
-	<table>
+	<table class="table">
 		<tr>
-			<f:for each="{rows.0.properties}" as="property">
+			<f:for each="{rows.0.__properties}" as="property">
 				<th>{property.label}</th>
 			</f:for>
 		</tr>
 			
 		
 		<tr class="inline-template">
-			<f:for each="{rows.0.template.properties}" as="property" iteration="propertyLoop">
+			<f:for each="{rows.0.template.__properties}" as="property" iteration="propertyLoop">
 				<td>
-					<a:render partial="{property.widget}" fallbacks="Widgets" vars="{property:property}"/>
+					<cm:render partial="{property.widget}" fallbacks="Widgets" vars="{property:property}"/>
 					<div class="f-info">
 					<f:if condition="{property.infotext}">
 						{property.infotext}
@@ -27,9 +27,9 @@
 		
 		<f:for each="{rows}" as="being" iteration="loop">
 				<tr class="inline-item {being.unusedClass}">
-					<f:for each="{being.properties}" as="property" iteration="propertyLoop">
+					<f:for each="{being.__properties}" as="property" iteration="propertyLoop">
 						<td>
-							<a:render partial="{property.widget}" fallbacks="Widgets" vars="{property:property}"/>
+							<cm:render partial="{property.widget}" fallbacks="Widgets" vars="{property:property}"/>
 							<div class="f-info">
 							<f:if condition="{property.infotext}">
 								{property.infotext}
@@ -37,7 +37,7 @@
 							<f:if condition="{property.error}">
 								<div class="ui-error-text">
 									<f:for each="{property.error}" as="error">
-										<a:render value="{error}" /><br />
+										<cm:render value="{error}" /><br />
 									</f:for>
 								</div>
 							</f:if>

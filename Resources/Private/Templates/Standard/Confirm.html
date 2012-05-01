@@ -1,5 +1,5 @@
 <f:layout name="bootstrap" />
-{namespace a=Admin\ViewHelpers}
+{namespace cm=Foo\ContentManagement\ViewHelpers}
 <f:section name="actionbar-left"></f:section>
 
 <f:section name="actionbar-right">
@@ -22,9 +22,9 @@
 		<h3 class="box-header">Are you sure you want to delete the following items?</h3>
 		<div>
 			<f:form method="post" action="delete" name="item">
-				<f:form.hidden name="being" id="being" value="{being}"/>
+				<f:form.hidden name="being" id="being" value="{class}"/>
 				<f:form.hidden name="id" value="{ids}"/>
-				<f:for each="{confirmObjects}" as="object">
+				<f:for each="{objects}" as="object">
 					<ul class="whitespace">
 						<li>
 							<b>{object}</b>
@@ -32,12 +32,12 @@
 					</ul>
 				</f:for>
 				<div class="actions pull-left">
-					<a:link action="list" being="{being}" class="btn" shortcut="esc">
+					<cm:link action="list" being="{being}" class="btn" shortcut="esc">
 						Cancel
-					</a:link>
+					</cm:link>
 				</div>
 				<div class="actions pull-right">
-					<input type="submit" name="confirm" value="Confirm" class="btn danger" />
+					<f:form.submit name="confirm" value="Send Mail" value="Confirm" class="btn danger" />
 				</div>
 			</f:form>
 		</div>

@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\ViewHelpers\Query;
+namespace Foo\ContentManagement\ViewHelpers\Query;
 
 /*                                                                        *
  * This script belongs to the FLOW3 framework.                            *
@@ -39,7 +39,7 @@ class FilterViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 	protected $configurationManager;
 	
 	/**
-	 * @var \Admin\Core\Helper
+	 * @var \Foo\ContentManagement\Core\Helper
 	 * @author Marc Neuhaus <apocalip@gmail.com>
 	 * @FLOW3\Inject
 	 */
@@ -86,13 +86,14 @@ class FilterViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 	
 	public function getFilter($selected = array()){
 		$filters = array();
+		return $filters;
 		foreach ($this->objects as $object) {
 			$being = $this->helper->getBeing($object);
 			
-			foreach($being->properties as $property){
+			foreach($being->__properties as $property){
 				if(isset($property->_filter)){
 					if(!isset($filters[$property->name]))
-						$filters[$property->name] = new \Admin\Core\Filter();
+						$filters[$property->name] = new \Foo\ContentManagement\Core\Filter();
 
 					if(isset($selected[$property->name]) && $selected[$property->name] == $property->__toString())
 						$property->selected = true;

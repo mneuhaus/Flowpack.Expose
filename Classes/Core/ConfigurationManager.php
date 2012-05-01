@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\Core;
+namespace Foo\ContentManagement\Core;
 
 /*                                                                        *
  * This script belongs to the FLOW3 framework.                            *
@@ -46,6 +46,12 @@ class ConfigurationManager{
 	protected $configurationProviders;
 
 	/**
+	 * @var \TYPO3\FLOW3\Configuration\ConfigurationManager
+	 * @FLOW3\Inject
+	 */
+	protected $configurationManager;
+
+	/**
 	 * @var \TYPO3\FLOW3\Object\ObjectManagerInterface
 	 * @api
 	 * @author Marc Neuhaus <apocalip@gmail.com>
@@ -78,7 +84,7 @@ class ConfigurationManager{
 	 */
 	protected $runtimeCache = array();
 
-	public function __construct(\Admin\Core\Helper $helper){
+	public function __construct(\Foo\ContentManagement\Core\Helper $helper){
 		$this->settings = $helper->getSettings();
 	}
 
@@ -173,6 +179,17 @@ class ConfigurationManager{
 
 	public function setSettings($settings){
 		$this->settings = $settings;
+	}
+
+	/**
+	 * Returns the Settings of that namespace and caches it
+	 *
+	 * @param $namespace String Namespace
+	 * @return $settings Array of settings
+	 * @author Marc Neuhaus <apocalip@gmail.com>
+	 **/
+	public function getSettings($namespace = "Foo.ContentManagement"){
+		return $this->configurationManager->getConfiguration(\TYPO3\FLOW3\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, $namespace);
 	}
 }
 

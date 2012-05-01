@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\Core;
+namespace Foo\ContentManagement\Core;
 
 /*                                                                        *
  * This script belongs to the FLOW3 framework.                            *
@@ -36,7 +36,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 class Being{
 	
 	/**
-	 * @var \Admin\Core\ConfigurationManager
+	 * @var \Foo\ContentManagement\Core\ConfigurationManager
 	 * @FLOW3\Inject
 	 */
 	protected $configurationManager;
@@ -88,7 +88,7 @@ class Being{
 	 *
 	 * @var array()
 	 */
-	public $properties = array();
+	public $__properties = array();
 	
 	/**
 	 * Errors of this Being
@@ -145,7 +145,7 @@ class Being{
 		return array(
 			"id" => $this->id,
 			"being" => $this->class,
-			"adapter" => \Admin\Core\API::get("adapter")
+			"adapter" => \Foo\ContentManagement\Core\API::get("adapter")
 		);
 	}
 	
@@ -169,12 +169,12 @@ class Being{
 			foreach($this->set as $set){
 				$properties = explode(",", str_replace(", ",  ",", $set->properties));
 				foreach($properties as $property){
-					if(!isset($this->properties[$property])) continue;
-					$sets[$set->title][$property] = $this->properties[$property];
+					if(!isset($this->__properties[$property])) continue;
+					$sets[$set->title][$property] = $this->__properties[$property];
 				}
 			}
 		}else{
-			foreach ($this->properties as $key => $value) {
+			foreach ($this->__properties as $key => $value) {
 				$sets[""][$key] = $value;
 			}
 		}
@@ -191,10 +191,10 @@ class Being{
 	}
 	
 	public function getTemplate(){
-		$realAction = \Admin\Core\API::get("action");
-		\Admin\Core\API::set("action", "inline");
+		$realAction = \Foo\ContentManagement\Core\API::get("action");
+		\Foo\ContentManagement\Core\API::set("action", "inline");
 		$b = $this->adapter->getBeing($this->class);
-		\Admin\Core\API::set("action", $realAction);
+		\Foo\ContentManagement\Core\API::set("action", $realAction);
 		$b->prefix = $this->parentProperty->getPrefix("{counter}");
 		return $b;
 	}
@@ -215,16 +215,16 @@ class Being{
 		$this->class = $class;
 		
 		$configuration = $this->configurationManager->getClassConfiguration($class);
-		
+
 		foreach ($configuration as $key => $values) {
 			switch ($key) {
 				case 'properties':
 					foreach ($values as $property => $value) {
 						if($this->shouldBeIgnored($value, $property)) continue;
-						$p = new \Admin\Core\Property($property, $this);
+						$p = new \Foo\ContentManagement\Core\Property($property, $this);
 						$p->setParent($this);
 						$p->setConfiguration($value);
-						$this->properties[$property] = $p;
+						$this->__properties[$property] = $p;
 						$this->$property = $p;
 					}
 					break;
@@ -266,7 +266,7 @@ class Being{
 				return true;
 			}else{
 				$actions = explode(",", $ignore->views);
-				$action = \Admin\Core\API::get("action");
+				$action = \Foo\ContentManagement\Core\API::get("action");
 				return in_array($action, $actions);
 			}
 		}

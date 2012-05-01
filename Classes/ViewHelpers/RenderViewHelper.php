@@ -1,6 +1,6 @@
 <?php
  
-namespace Admin\ViewHelpers;
+namespace Foo\ContentManagement\ViewHelpers;
 
 /*                                                                        *
  * This script belongs to the FLOW3 framework.                            *
@@ -33,7 +33,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  */
 class RenderViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 	/**
-	 * @var \Admin\Core\Helper
+	 * @var \Foo\ContentManagement\Core\Helper
 	 * @author Marc Neuhaus <apocalip@gmail.com>
 	 * @FLOW3\Inject
 	 */
@@ -74,12 +74,12 @@ class RenderViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 		if($value !== '')
 			return $value;
 
-		if ($partial !== '') {
+		if ($partial !== '' && !is_null($partial)) {
 			if($fallbacks !== ''){
 				$replacements = array(
 					"@partial" => $partial,
-					"@package" => \Admin\Core\API::get("package"),
-					"@being" => \Admin\Core\Helper::getShortName(\Admin\Core\API::get("being")),
+					"@package" => \Foo\ContentManagement\Core\API::get("package"),
+					"@being" => \Foo\ContentManagement\Core\Helper::getShortName(\Foo\ContentManagement\Core\API::get("being")),
 					"@action" => $partial,
 					"@variant" => $variant
 				);
@@ -88,6 +88,7 @@ class RenderViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 				$identifier = str_replace("\\","_",implode("-",$replacements));
 				$identifier = str_replace(".","_",$identifier);
 				$identifier = str_replace("/","_",$identifier);
+				$identifier = str_replace(" ","_",$identifier);
 				if(!$cache->has($identifier)){
 					$template = $this->helper->getPathByPatternFallbacks($fallbacks,$replacements);
 					$cache->set($identifier,$template);
@@ -95,16 +96,16 @@ class RenderViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 					$template = $cache->get($identifier);
 				}
 				
-				if(empty($vars)){
+				if(empty($vars) && false){
 					$this->view = $this->viewHelperVariableContainer->getView();
 					$this->view->setTemplatePathAndFilename($template);
-				
+
 					if(!empty($template)){
-						return $this->view->render();
+						return $this->view->render($partial);
 					}
 				}else{
 					$partial = $this->parseTemplate($template);
-					$variableContainer = $this->objectManager->create('TYPO3\Fluid\Core\ViewHelper\TemplateVariableContainer', $vars);
+					$variableContainer = $this->objectManager->get('TYPO3\Fluid\Core\ViewHelper\TemplateVariableContainer', $vars);
 					$renderingContext = $this->buildRenderingContext($variableContainer);
 					return $partial->render($renderingContext);
 				}
@@ -136,16 +137,16 @@ class RenderViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 	 */
 	protected function buildRenderingContext(\TYPO3\Fluid\Core\ViewHelper\TemplateVariableContainer $variableContainer = NULL) {
 		if ($variableContainer === NULL) {
-			$variableContainer = $this->objectManager->create('TYPO3\Fluid\Core\ViewHelper\TemplateVariableContainer', $this->variables);
+			$variableContainer = $this->objectManager->get('TYPO3\Fluid\Core\ViewHelper\TemplateVariableContainer', $this->variables);
 		}
 
-		$renderingContext = $this->objectManager->create('TYPO3\Fluid\Core\Rendering\RenderingContext');
+		$renderingContext = $this->objectManager->get('TYPO3\Fluid\Core\Rendering\RenderingContext');
 		$renderingContext->injectTemplateVariableContainer($variableContainer);
 		if ($this->controllerContext !== NULL) {
 			$renderingContext->setControllerContext($this->controllerContext);
 		}
 
-		$viewHelperVariableContainer = $this->objectManager->create('TYPO3\Fluid\Core\ViewHelper\ViewHelperVariableContainer');
+		$viewHelperVariableContainer = $this->objectManager->get('TYPO3\Fluid\Core\ViewHelper\ViewHelperVariableContainer');
 		$viewHelperVariableContainer->setView($this->viewHelperVariableContainer->getView());
 		$renderingContext->injectViewHelperVariableContainer($viewHelperVariableContainer);
 

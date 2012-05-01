@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\Actions;
+namespace Foo\ContentManagement\Actions;
 
 /* *
  * This script belongs to the FLOW3 framework.                            *
@@ -32,7 +32,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  * @FLOW3\Scope("prototype")
  */
-class UpdateAction extends \Admin\Core\Actions\AbstractAction {
+class UpdateAction extends \Foo\ContentManagement\Core\Actions\AbstractAction {
 
 	/**
 	 * Function to Check if this Requested Action is supported
@@ -65,33 +65,24 @@ class UpdateAction extends \Admin\Core\Actions\AbstractAction {
 	/**
 	 * Edit objects
 	 *
-	 * @param string $being
+	 * @param string $class
 	 * @param array $ids
 	 * @author Marc Neuhaus <mneuhaus@famelo.com>
 	 * */
-	public function execute($being, $ids = null) {
-		if( $this->request->hasArgument("update") ) {
-			$result = $this->adapter->updateObject($being, current($ids), $this->request->getArgument("item"));
-			
-			if( is_a($result, $being) ) {
-				$arguments = array("being" => \Admin\Core\API::get("classShortNames", $being));
-				$this->controller->addLog();
-				$this->controller->redirect('list', NULL, NULL, $arguments);
-			}else {
-#				foreach ($attributeSets as $set => $attributes) {
-#					foreach ($attributes as $key => $attribute) {
-#						if(array_key_exists($attribute["name"],$errors)){
-#							$attributeSets[$set][$key]["error"] = $errors[$attribute["name"]];
-#						}
-#					}
-#				}
-			}
-		}
-		
-		$object = $this->adapter->getBeing($being, current($ids));
-		
-		$this->view->assign("being", $object);
+	public function execute($class, $ids = null) {
+		$object = $this->adapter->getObject($class, current($ids));
+		$this->view->assign("object", $object);
 	}
 
+	public function formFinischer($formRuntime) {
+		$request = $formRuntime->getRequest();
+		$values = $formRuntime->getFormState()->getFormValues();
+		$values["__identity"] = $request->getArgument("id");
+		$class = \Foo\ContentManagement\Core\API::get("classShortNames", $request->getArgument("being"));
+		$id = $request->getArgument("id");
+		$this->adapter->updateObject($class, $id, $values);
+
+		$this->actionManager->redirect("list", array("being" => $request->getArgument("being")));
+	}
 }
 ?>

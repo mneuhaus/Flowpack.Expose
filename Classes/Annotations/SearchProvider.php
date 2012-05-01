@@ -1,5 +1,5 @@
 <?php
-namespace Admin\Annotations;
+namespace Foo\ContentManagement\Annotations;
 
 /*                                                                        *
  * This script belongs to the FLOW3 framework.                            *
@@ -38,8 +38,8 @@ final class SearchProvider {
 		
 		$this->options = isset($values['options']) ? $values['options'] : $this->options;
 		
-		if(class_exists(sprintf("\\Admin\\SearchProvider\\%sSearchProvider", $this->name)))
-			$this->name = sprintf("\\Admin\\SearchProvider\\%sSearchProvider", $this->name);
+		if(class_exists(sprintf("\\Foo\\ContentManagement\\SearchProvider\\%sSearchProvider", $this->name)))
+			$this->name = sprintf("\\Foo\\ContentManagement\\SearchProvider\\%sSearchProvider", $this->name);
 	}
 	
 	public function __toString(){

@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\Core\Adapters;
+namespace Foo\ContentManagement\Core\Adapters;
 
 /*                                                                        *
  * This script belongs to the FLOW3 framework.                            *

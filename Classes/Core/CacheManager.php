@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\Core;
+namespace Foo\ContentManagement\Core;
 
 /*                                                                        *
  * This script belongs to the FLOW3 framework.                            *
@@ -59,6 +59,10 @@ class CacheManager{
 	
 	public function getCache($cache){
 		return $this->cacheManager->getCache($cache);
+	}
+
+	public function createIdentifier($string) {
+		return preg_replace("/[\/\/:\.\\\\]+/", "_", $string);
 	}
 }
 

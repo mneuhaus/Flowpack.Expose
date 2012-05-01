@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\ConfigurationProvider;
+namespace Foo\ContentManagement\ConfigurationProvider;
 
 /* *
  * This script belongs to the FLOW3 framework.                            *
@@ -28,7 +28,7 @@ namespace Admin\ConfigurationProvider;
  * @version $Id: YamlConfigurationProvider.php 3837 2010-02-22 15:17:24Z robert $
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-class YamlConfigurationProvider extends \Admin\Core\ConfigurationProvider\AbstractConfigurationProvider {
+class YamlConfigurationProvider extends \Foo\ContentManagement\Core\ConfigurationProvider\AbstractConfigurationProvider {
 	
 	public function get($being){
 		$c = array();
@@ -44,7 +44,7 @@ class YamlConfigurationProvider extends \Admin\Core\ConfigurationProvider\Abstra
 	public function convert($rawConfigurations){
 		$c = array();
 		foreach ($rawConfigurations as $key => $value) {
-			$annotation = sprintf("\Admin\Annotations\%s", $key);
+			$annotation = sprintf("\Foo\ContentManagement\Annotations\%s", $key);
 			$name = lcfirst($key);
 			
 			switch (true) {

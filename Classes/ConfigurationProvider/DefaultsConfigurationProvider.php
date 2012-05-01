@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\ConfigurationProvider;
+namespace Foo\ContentManagement\ConfigurationProvider;
 
 /* *
  * This script belongs to the FLOW3 framework.                            *
@@ -30,7 +30,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * @version $Id: YamlConfigurationProvider.php 3837 2010-02-22 15:17:24Z robert $
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-class DefaultsConfigurationProvider extends \Admin\ConfigurationProvider\YamlConfigurationProvider {
+class DefaultsConfigurationProvider extends \Foo\ContentManagement\ConfigurationProvider\YamlConfigurationProvider {
 	
 	/**
 	 * @var \TYPO3\FLOW3\Reflection\ReflectionService

@@ -1,5 +1,5 @@
 <f:layout name="bootstrap" />
-{namespace a=Admin\ViewHelpers}
+{namespace cm=Foo\ContentManagement\ViewHelpers}
 <f:section name="actionbar-left"></f:section>
 
 <f:section name="actionbar-right">
@@ -19,16 +19,5 @@
     </f:for>
 </f:section>
 <f:section name="content">
-	<div class="box centered">
-		<h3 class="box-header">{being}</h3>
-		<div class="whitespace">
-			<br />
-			<dl>
-			<f:for each="{being.properties}" as="value" key="property">
-				<dt>{property}</dt>
-				<dd>{value.string}</dd>
-			</f:for>
-			</dl>
-		</div>
-	</div>
+	<cm:content.show object="{object}" />
 </f:section>
