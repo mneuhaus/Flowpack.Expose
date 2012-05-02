@@ -1,5 +1,5 @@
 <?php
-namespace Foo\ContentManagement\Annotations;
+namespace Foo\ContentManagement\Annotations\Wrapper;
 
 /*                                                                        *
  * This script belongs to the FLOW3 framework.                            *
@@ -12,15 +12,25 @@ namespace Foo\ContentManagement\Annotations;
  *                                                                        */
 
 /**
- * @Annotation
  */
-final class Active implements SingleAnnotationInterface {
-	/**
-	 * @param string $values
-	 */
-	public function __construct(array $values) {
+class PropertyAnnotationWrapper extends AbstractAnnotationWrapper {
+	public function getOptionsProvider() {
+		return (string) current($this->get("optionsProvider"));
 	}
 
+	public function getType() {
+		preg_match("/<(.+)>/", current($this->get("var")), $matches);
+		if(!empty($matches)){
+			return ltrim($matches[1],"\\");
+		}else{
+			return current($this->get("var"));
+		}
+	}
+
+	public function isRelationProperty() {
+		#return $this->containsKey("manyToMany") || 
+		return $this->containsKey("manyToOne");
+	}
 }
 
 ?>

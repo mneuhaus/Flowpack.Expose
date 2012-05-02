@@ -16,9 +16,27 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 /**
  * A generic form element
  */
-class ComplexFormElement extends \TYPO3\Form\Core\Model\AbstractFormElement {
-	public function setAnnotations($annotations) {
-		$this->properties["annotations"] = $annotations;
+class OptionsFormElement extends ComplexFormElement {
+	/**
+	 * @var \Foo\ContentManagement\Adapters\ContentManager
+	 * @FLOW3\Inject
+	 */
+	protected $contentManager;	
+
+	public function getProperties() {
+		$optionsProvider = $this->getOptionsProvider();
+		$this->properties["options"] = $this->getOptionsProvider()->getOptions();
+		return $this->properties;
+	}
+
+	public function getOptionsProvider() {
+		$optionsProviderClass = $this->getAnnotations()->getOptionsProvider();
+		$optionsProvider = new $optionsProviderClass($this->getAnnotations());
+		return $optionsProvider;
+	}
+
+	public function getAnnotations() {
+		return $this->properties["annotations"];
 	}
 }
 ?>

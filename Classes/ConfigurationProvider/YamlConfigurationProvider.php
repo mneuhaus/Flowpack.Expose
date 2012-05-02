@@ -31,7 +31,7 @@ namespace Foo\ContentManagement\ConfigurationProvider;
 class YamlConfigurationProvider extends \Foo\ContentManagement\Core\ConfigurationProvider\AbstractConfigurationProvider {
 	
 	public function get($being){
-		$c = array();
+		$c = new \Foo\ContentManagement\Annotations\Wrapper\PropertyAnnotationWrapper();
 		
 		if(isset($this->settings["Beings"]) && isset($this->settings["Beings"][$being])){
 			$rawConfigurations = $this->settings["Beings"][$being];

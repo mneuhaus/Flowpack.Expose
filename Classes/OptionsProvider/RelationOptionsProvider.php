@@ -32,44 +32,16 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * @author Marc Neuhaus <marc@mneuhaus.com>
  */
 class RelationOptionsProvider extends \Foo\ContentManagement\Core\OptionsProvider\AbstractOptionsProvider {
-	/**
-	* @var \TYPO3\FLOW3\Persistence\PersistenceManagerInterface
-	* @FLOW3\Inject
-	*
-	* @author Marc Neuhaus <apocalip@gmail.com>
-	*/
-	protected $persistenceManager;
-	
-	/**
-	* Reflection service
-	* @var TYPO3\FLOW3\Reflection\ReflectionService
-	* @author Marc Neuhaus <apocalip@gmail.com>
-	* @FLOW3\Inject
-	*/
-	protected $reflectionService;
 	
 	public function getOptions(){
-		$being = $this->property->being;
-		$selected = $this->property->getIds();
-		
 		$options = array();
-		if( is_string($being) ){
-			$beings = $this->property->adapter->getBeings($being);
+		$objects = $this->contentManager->getObjects($this->annotations->getType());
+		foreach ($objects as $object) {
+			$options[$this->contentManager->getId($object)] = $this->contentManager->getString($object);
 		}
-		
-		if( ! is_array($selected) )
-			$selected = explode(",", $selected);
-		
-		if( empty($beings) )
-			return array ();
-			
-		foreach($beings as $being) {
-			$being->selected = in_array($being->id, $selected);
-			$options [] = $being;
-		}
-		
-		return $options;
+		return $objects;
 	}
+
 }
 
 ?>

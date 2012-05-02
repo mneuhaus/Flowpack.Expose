@@ -77,11 +77,11 @@ Foo:
         boolean:  TYPO3.Form:Checkbox
         \TYPO3\FLOW3\Resource\Resource: Upload
         \DateTime: TYPO3.Form:DatePicker
-        ^\\[A-Za-z0-9\\]+\\Domain\\Model\\[A-Za-z]+$: Chosen
-        ^\\[A-Za-z0-9\\]+\\Security\\[A-Za-z]+$: Chosen
-        ^\\Doctrine\\Common\\Collections\\Collection\<\\[A-Za-z0-9\\]+\\Domain\\Model\\[A-za-z]+>$: MultipleRelation
-        ^\\Doctrine\\Common\\Collections\\Collection\<\\[A-Za-z0-9\\]+\\Security\\[A-za-z]+>$: MultipleRelation
-        ^\\ArrayObject\<\\[A-Za-z0-9\\]+>$: MultipleRelation
+        ^\\[A-Za-z0-9\\]+\\Domain\\Model\\[A-Za-z]+$: TYPO3.Form:SingleSelectDropdown
+        ^\\[A-Za-z0-9\\]+\\Security\\[A-Za-z]+$: TYPO3.Form:SingleSelectDropdown
+        ^\\Doctrine\\Common\\Collections\\Collection\<\\[A-Za-z0-9\\]+\\Domain\\Model\\[A-za-z]+>$: TYPO3.Form:MultipleSelectDropdown
+        ^\\Doctrine\\Common\\Collections\\Collection\<\\[A-Za-z0-9\\]+\\Security\\[A-za-z]+>$: TYPO3.Form:MultipleSelectDropdown
+        ^\\ArrayObject\<\\[A-Za-z0-9\\]+>$: TYPO3.Form:MultipleSelectDropdown
 
 TYPO3:
   TYPO3:
@@ -108,3 +108,6 @@ TYPO3:
           #'TYPO3.Form:SingleLineText':
           #  superTypes: ['TYPO3.Form:FormElement', 'TYPO3.Form:TextMixin']
           #  implementationClassName: 'Foo\ContentManagement\FormElements\ComplexFormElement'
+
+          'TYPO3.Form:SelectionMixin':
+            implementationClassName: 'Foo\ContentManagement\FormElements\OptionsFormElement'

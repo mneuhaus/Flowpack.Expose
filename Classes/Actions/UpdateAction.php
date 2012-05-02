@@ -80,7 +80,7 @@ class UpdateAction extends \Foo\ContentManagement\Core\Actions\AbstractAction {
 		$values["__identity"] = $request->getArgument("id");
 		$class = \Foo\ContentManagement\Core\API::get("classShortNames", $request->getArgument("being"));
 		$id = $request->getArgument("id");
-		$this->adapter->updateObject($class, $id, $values);
+		$this->adapter->updateObject($class, $id, $values["item"]);
 
 		$this->actionManager->redirect("list", array("being" => $request->getArgument("being")));
 	}

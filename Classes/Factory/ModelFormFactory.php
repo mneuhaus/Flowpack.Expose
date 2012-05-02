@@ -12,6 +12,7 @@ class ModelFormFactory extends \TYPO3\Form\Factory\AbstractFormFactory {
      */
     protected $contentManager;
 
+
     /**
      * @param array $factorySpecificConfiguration
      * @param string $presetName
@@ -27,21 +28,28 @@ class ModelFormFactory extends \TYPO3\Form\Factory\AbstractFormFactory {
         $being->setClass(get_class($object));
         $being->setObject($object);
 
+        $classAnnotations = $this->contentManager->getClassAnnotations(get_class($object));
+
         $page1 = $form->createPage('page1');
 
         $elements = array();
-        #$elements["being"] = $page1->createElement("__being", "TYPO3.Form:SingleLineText");
-        #$elements["being"]->setDefaultValue($being->class);
+
         if(!is_null($being->id)){
-            $elements["__identity"] = $page1->createElement("__identity", "Foo.ContentManagement:Hidden");
-            $elements["__identity"]->setDefaultValue($being->id);
+            $elements["__identity"] = $page1->createElement("item.__identity", "Foo.ContentManagement:Hidden");
+            $elements["__identity"]->setDefaultValue($this->contentManager->getId($object));
         }
+
+        $form->getProcessingRule("item")->setDataType(get_class($object));
+        $form->getProcessingRule("item")->getPropertyMappingConfiguration()->setTypeConverterOption('TYPO3\FLOW3\Property\TypeConverter\PersistentObjectConverter', \TYPO3\FLOW3\Property\TypeConverter\PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED, TRUE);
 
         foreach ($being->getSets() as $set => $properties) {
             foreach ($properties as $name => $property) {
-                $elements[$name] = $page1->createElement($name, $property->getWidget());
+                $propertyAnnotations = $classAnnotations->getPropertyAnnotations($name);
+
+                $elements[$name] = $page1->createElement("item.".$name, $property->getWidget());
                 $elements[$name]->setLabel($property->label);
                 $elements[$name]->setDefaultValue($property->getValue());
+                $elements[$name]->setProperty("annotations", $propertyAnnotations);
             }
         }
         $actionFinisher = new \Foo\ContentManagement\Finishers\ActionFinisher();

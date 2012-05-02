@@ -33,12 +33,6 @@
 			<div class="span2">
 				<div class="well sidebar">
 					<cm:render section="sidebar" optional="true" >
-						<ul class="nav nav-list">
-							<li class="nav-header">Overview</li>
-							<li>
-								<f:link.action action="index" controller="Standard">Dashboard</f:link.action>
-							</li>
-						</ul>
 						<f:for each="{groups}" as="beings" key="group">
 							<ul class="nav nav-list">
 								<li class="nav-header">{group}</li>
@@ -105,6 +99,7 @@
 		
 	</div>
 </cm:render>
+
 <!--
 
 <script src="{f:uri.resource(path: 'admin/js/jquery.1.7.1.min.js', package: 'Admin')}"></script>

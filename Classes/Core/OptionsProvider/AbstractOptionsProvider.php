@@ -40,29 +40,13 @@ abstract class AbstractOptionsProvider implements OptionsProviderInterface {
 	protected $objectManager;
 
 	/**
-	 * @var \Foo\ContentManagement\Core\Helper
-	 * @author Marc Neuhaus <apocalip@gmail.com>
+	 * @var \Foo\ContentManagement\Adapters\ContentManager
 	 * @FLOW3\Inject
 	 */
-	protected $helper;
-    
-	protected $property;
-	
-	public function isSelected($value){
-		$mixed = $this->property->getValue();
-		if(is_array($mixed)){
-			foreach ($mixed as $item) {
-				if(strval($value) == $item)
-					return true;
-			}
-		}elseif(is_string($mixed)){
-			return $mixed == $value;
-		}
-		return false;
-	}
-	
-	public function setProperty($property) {
-		$this->property = $property;
+	protected $contentManager;	
+
+	public function __construct($annotations = array()) {
+		$this->annotations = $annotations;
 	}
 }
 

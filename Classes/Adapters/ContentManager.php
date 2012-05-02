@@ -77,6 +77,10 @@ class ContentManager {
 	 * @author Marc Neuhaus
 	 */
 	public function getAdapterByClass($class){
+		$implementations = class_implements("\\" . ltrim($class, "\\"));
+		if(in_array("Doctrine\ORM\Proxy\Proxy", $implementations))
+			$class = get_parent_class("\\" . ltrim($class, "\\"));
+
 		$this->adapters = $this->getAdapters();
 		
 		$cache = $this->cacheManager->getCache('Admin_Cache');
@@ -129,6 +133,11 @@ class ContentManager {
 		return $adapters;
 	}
 
+	public function getClassAnnotations($class) {
+		$classConfiguration = $this->configurationManager->getClassConfiguration($class);
+		return $classConfiguration;
+	}
+
 	/**
 	 * returns all active groups
 	 *
@@ -176,6 +185,24 @@ class ContentManager {
 				}
 			}
 		}
+	}
+
+	public function getId($object) {
+        return $this->getAdapterByClass(get_class($object))->getId($object);
+    }
+
+	public function getObjects($class) {
+		$class = ltrim($class, "\\");
+		return $this->getAdapterByClass($class)->getObjects($class);
+	}
+
+	public function getPropertyAnnotations($class, $property) {
+		$classConfiguration = $this->configurationManager->getClassConfiguration($class);
+		return $classConfiguration["properties"][$property];
+	}
+
+	public function getString($object) {
+		return sprintf("%s:%s", get_class($object), $this->getId($object));
 	}
 }
 ?>

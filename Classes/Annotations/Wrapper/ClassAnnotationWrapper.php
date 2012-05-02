@@ -1,5 +1,5 @@
 <?php
-namespace Foo\ContentManagement\Annotations;
+namespace Foo\ContentManagement\Annotations\Wrapper;
 
 /*                                                                        *
  * This script belongs to the FLOW3 framework.                            *
@@ -12,15 +12,12 @@ namespace Foo\ContentManagement\Annotations;
  *                                                                        */
 
 /**
- * @Annotation
  */
-final class Active implements SingleAnnotationInterface {
-	/**
-	 * @param string $values
-	 */
-	public function __construct(array $values) {
+class ClassAnnotationWrapper extends AbstractAnnotationWrapper {
+	public function getPropertyAnnotations($property) {
+		$properties = $this->get("properties");
+		return new \Foo\ContentManagement\Annotations\Wrapper\PropertyAnnotationWrapper($properties[$property]);
 	}
-
 }
 
 ?>

@@ -71,7 +71,7 @@ class CreateAction extends \Foo\ContentManagement\Core\Actions\AbstractAction {
 		$values = $formRuntime->getFormState()->getFormValues();
 		$class = \Foo\ContentManagement\Core\API::get("classShortNames", $request->getArgument("being"));
 		
-		$result = $this->adapter->createObject($class, $values);
+		$result = $this->adapter->createObject($class, $values["item"]);
 
 		$this->actionManager->redirect("list", array("being" => $request->getArgument("being")));
 	}

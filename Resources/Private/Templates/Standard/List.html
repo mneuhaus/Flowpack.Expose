@@ -3,7 +3,7 @@
 
 <f:section name="actionbar-left">
 	<form method="post">
-	<cm:render partial="Toolbar" fallbacks="Partials"/>
+	<cm:render partial="Toolbar" fallbacks="Partials" vars="{actions: listActions}" />
 </f:section>
 
 <f:section name="actionbar-right">
@@ -22,7 +22,6 @@
 </f:section>
 
 <f:section name="content">
-	
-	<cm:content.list objects="{objects}" />
-	
+		<cm:content.list objects="{objects}" />
+	</form>
 </f:section>
