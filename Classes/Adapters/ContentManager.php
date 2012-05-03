@@ -204,5 +204,9 @@ class ContentManager {
 	public function getString($object) {
 		return sprintf("%s:%s", get_class($object), $this->getId($object));
 	}
+
+	public function isNewObject($object) {
+		return $this->getAdapterByClass(get_class($object))->isNewObject($object);
+	}
 }
 ?>
