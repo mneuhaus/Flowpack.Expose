@@ -96,7 +96,7 @@ class ConfigurationManager{
 		$this->class = $class;
 
 		if(isset($this->settings["ConfigurationProvider"]) && !isset($this->runtimeCache[$class])){
-			$configuration = new \Foo\ContentManagement\Annotations\Wrapper\ClassAnnotationWrapper();
+			$configuration = array();
 			$configurationProviders = $this->settings["ConfigurationProvider"];
 			foreach($configurationProviders as $configurationProviderClass){
 				$configurationProvider = $this->objectManager->get($configurationProviderClass);
@@ -104,7 +104,7 @@ class ConfigurationManager{
 				$configuration = $this->merge($configuration, $configurationProvider->get($class));
 
 			}
-			$this->runtimeCache[$class] = $configuration;
+			$this->runtimeCache[$class] = new \Foo\ContentManagement\Annotations\Wrapper\ClassAnnotationWrapper($configuration);
 		}
 
 		return $this->runtimeCache[$class];
