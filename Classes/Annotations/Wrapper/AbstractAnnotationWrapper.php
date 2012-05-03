@@ -14,6 +14,9 @@ namespace Foo\ContentManagement\Annotations\Wrapper;
 /**
  */
 abstract class AbstractAnnotationWrapper extends \Doctrine\Common\Collections\ArrayCollection {
+	public function has($key) {
+		return isset($this->_elements[$key]);
+	}
 }
 
 ?>
