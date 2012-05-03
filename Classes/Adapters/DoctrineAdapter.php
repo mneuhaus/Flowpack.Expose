@@ -92,6 +92,7 @@ class DoctrineAdapter extends \Foo\ContentManagement\Core\Adapters\AbstractAdapt
         $this->init();
         $groups = array();
         $classes = $this->configurationManager->getClassesAnnotatedWith(array("active"));
+        
         foreach ($this->settings["Beings"] as $being => $conf) {
             if (isset($conf["active"]) && $conf["active"] == true) {
                 if (isset($conf["group"]))
@@ -109,11 +110,11 @@ class DoctrineAdapter extends \Foo\ContentManagement\Core\Adapters\AbstractAdapt
                 $group = $packageName;
                 $name = \Foo\ContentManagement\Core\Helper::getShortName($class);
 
-                if (isset($configuration["group"]))
-                    $group = strval(current($configuration["group"]));
+                if ($configuration->get("group"))
+                    $group = strval(current($configuration->get("group")));
 
-                if (isset($configuration["label"]))
-                    $name = strval(current($configuration["label"]));
+                if ($configuration->get("label"))
+                    $name = strval(current($configuration->get("label")));
 
                 $groups[$group][] = array("being" => $class, "name" => $name);
             }
@@ -164,12 +165,12 @@ class DoctrineAdapter extends \Foo\ContentManagement\Core\Adapters\AbstractAdapt
 
     public function getRepositoryForModel($model) {
         $configuration = $this->configurationManager->getClassConfiguration($model);
-        if (isset($configuration["repository"])) {
-            $annotation = current($configuration["repository"]);
-            $repository = $annotation->class;
-        } else {
+        #if ($configuration->containsKey("repository")) {
+        #    $annotation = current($configuration["repository"]);
+        #    $repository = $annotation->class;
+        #} else {
             $repository = \Foo\ContentManagement\Core\Helper::getModelRepository($model);
-        }
+        #}
 
         return $repository;
     }
@@ -178,6 +179,9 @@ class DoctrineAdapter extends \Foo\ContentManagement\Core\Adapters\AbstractAdapt
         return $this->query->count();
     }
 
+    public function isNewObject($object) {
+        return $this->persistenceManager->isNewObject($object);
+    }
 
     public function createObject($being, $data) {
         $configuration = $this->configurationManager->getClassConfiguration($being);
