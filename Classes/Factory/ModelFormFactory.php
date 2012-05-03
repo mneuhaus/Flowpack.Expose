@@ -34,13 +34,14 @@ class ModelFormFactory extends \TYPO3\Form\Factory\AbstractFormFactory {
 
         $elements = array();
 
-        if(!is_null($being->id)){
+        if(!$this->contentManager->isNewObject($object)){
             $elements["__identity"] = $page1->createElement("item.__identity", "Foo.ContentManagement:Hidden");
             $elements["__identity"]->setDefaultValue($this->contentManager->getId($object));
         }
 
         $form->getProcessingRule("item")->setDataType(get_class($object));
         $form->getProcessingRule("item")->getPropertyMappingConfiguration()->setTypeConverterOption('TYPO3\FLOW3\Property\TypeConverter\PersistentObjectConverter', \TYPO3\FLOW3\Property\TypeConverter\PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED, TRUE);
+        $form->getProcessingRule("item")->getPropertyMappingConfiguration()->setTypeConverterOption('TYPO3\FLOW3\Property\TypeConverter\PersistentObjectConverter', \TYPO3\FLOW3\Property\TypeConverter\PersistentObjectConverter::CONFIGURATION_MODIFICATION_ALLOWED, TRUE);
 
         foreach ($being->getSets() as $set => $properties) {
             foreach ($properties as $name => $property) {
