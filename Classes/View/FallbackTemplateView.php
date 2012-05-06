@@ -20,6 +20,12 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  */
 class FallbackTemplateView extends \TYPO3\Fluid\View\TemplateView {
 	/**
+	 * @var \Foo\ContentManagement\Actions\ActionManager
+	 * @FLOW3\Inject
+	 */
+	protected $actionManager;	
+
+	/**
 	 * @var \Foo\ContentManagement\Core\CacheManager
 	 * @FLOW3\Inject
 	 */
@@ -46,6 +52,14 @@ class FallbackTemplateView extends \TYPO3\Fluid\View\TemplateView {
 	 * @throws \TYPO3\Fluid\View\Exception\InvalidTemplateResourceException
 	 */
 	protected function getTemplatePathAndFilename($actionName = NULL) {
+		if(is_null($actionName))
+			if(isset($this->actionName))
+				$actionName = $this->actionName;
+			else
+				$actionName = "index";
+		else
+			$this->actionName = $actionName;
+
 		$replacements = array(
 			"@action" => ucfirst($actionName),
 			"@variant" => "Default",
@@ -54,7 +68,7 @@ class FallbackTemplateView extends \TYPO3\Fluid\View\TemplateView {
 		
 		if($this->controllerContext->getRequest()->hasArgument("being")){
 			$being = $this->controllerContext->getRequest()->getArgument("being");
-			if(class_exists($being, false)){
+			if(class_exists($being, false) && false){
 				$replacements["@package"] = $this->helper->getPackageByClassName($being) ? $this->helper->getPackageByClassName($being) : "Admin";
 		
 				$replacements["@being"] = \Foo\ContentManagement\Core\Helper::getShortName($being);
@@ -83,10 +97,8 @@ class FallbackTemplateView extends \TYPO3\Fluid\View\TemplateView {
 		}else{
 			$template = $cache->get($identifier);
 		}
-		
-		if(!$noTemplate){
-			$this->view->setTemplatePathAndFilename($template);
-		}
+
+		return $template;
 	}
 
 	/**
@@ -176,6 +188,11 @@ class FallbackTemplateView extends \TYPO3\Fluid\View\TemplateView {
 		}
 		return $contentSource;
 	}
+
+	public function setTemplateByAction($actionName) {
+		$this->setTemplatePathAndFilename($this->getTemplatePathAndFilename($actionName));
+	}
+
 }
 
 ?>

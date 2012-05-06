@@ -151,8 +151,6 @@ class StandardController extends \TYPO3\TYPO3\Controller\Module\StandardControll
 	}
 
 	private function prepare($action){
-		$this->start = microtime();
-
 		$this->adapters = $this->contentManager->getAdapters();
 		$this->settings = $this->configurationManager->getSettings();
 		
@@ -186,6 +184,7 @@ class StandardController extends \TYPO3\TYPO3\Controller\Module\StandardControll
 		}
 
 		$this->actionManager->setRequest($this->request);
+		$this->actionManager->setController($this);
 
 		// TODO Reimplement Security
 		/*
@@ -231,6 +230,7 @@ class StandardController extends \TYPO3\TYPO3\Controller\Module\StandardControll
 		}
 
 		$this->view = $this->resolveView();
+		$this->view->setTemplateByAction($action);
 		$this->actionManager->setView($this->view);
 			
 		if ($this->view !== NULL) {

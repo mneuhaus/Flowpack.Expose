@@ -10,8 +10,7 @@
             controller="{action.controller}"
             package="{action.package}"
             arguments="{
-                being : object.class,
-                adapter : object.adapter.class
+                being : class
             }">
             {action}
         </f:link.action>
@@ -32,9 +31,14 @@
 					</ul>
 				</f:for>
 				<div class="actions pull-left">
-					<cm:link action="list" being="{being}" class="btn" shortcut="esc">
-						Cancel
-					</cm:link>
+					<f:link.action
+			            action="list"
+			            class="btn"
+			            arguments="{
+			                being : class
+			            }">
+			            Cancel
+			        </f:link.action>
 				</div>
 				<div class="actions pull-right">
 					<f:form.submit name="confirm" value="Send Mail" value="Confirm" class="btn danger" />

@@ -77,11 +77,12 @@ class DeleteAction extends \Foo\ContentManagement\Core\Actions\AbstractAction {
 				}
 				
 				$arguments = array("being" => \Foo\ContentManagement\Core\API::get("classShortNames", $being));
-				$this->controller->redirect('list', NULL, NULL, $arguments);
+				$this->actionManager->redirect('list', $arguments);
 			}else {
 				$arguments = $this->request->getArguments();
 				$arguments["id"] = implode(",", $ids);
-				$this->controller->redirect('confirm', NULL, NULL, $arguments);
+				$arguments["being"] = $being;
+				$this->actionManager->redirect("confirm", $arguments);
 			}
 		}
 	}

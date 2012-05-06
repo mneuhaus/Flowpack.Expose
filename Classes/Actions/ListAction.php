@@ -24,6 +24,7 @@ namespace Foo\ContentManagement\Actions;
 
 use Doctrine\ORM\Mapping as ORM;
 use TYPO3\FLOW3\Annotations as FLOW3;
+use TYPO3\FLOW3\Mvc\ActionRequest;
 
 /**
  * Action to display the list and apply Bulk aktions and filter if necessary
@@ -55,8 +56,6 @@ class ListAction extends \Foo\ContentManagement\Core\Actions\AbstractAction {
 
 		$this->settings = $this->getSettings();
 		
-		$this->handleBulkActions();
-		
 		$this->adapter->initQuery($being);
 		$results = $this->adapter->getQuery()->execute();
 		$this->view->assign("objects", $results);
@@ -69,23 +68,33 @@ class ListAction extends \Foo\ContentManagement\Core\Actions\AbstractAction {
 		
 		$listActions = $this->actionManager->getActions("list", $being, true);
 		$this->view->assign('listActions', $listActions);
+		
+		return $this->handleBulkActions();
 	}
 	
 	public function handleBulkActions(){
 		$actions = $this->actionManager->getActions("bulk", $this->being, true);
-		$this->view->assign("actions", $actions);
-		
-		if( $this->request->hasArgument("bulkAction") ) {
-			$bulkAction = $this->request->getArgument("bulkAction");
+		$this->view->assign("bulkActions", $actions);
+
+		$request = $this->request;
+		do{
+			if ($request->hasArgument("bulkAction"))
+				break;
+			$request = $request->getParentRequest();
+		} while ($request->getParentRequest() instanceof ActionRequest);
+
+		if( $request->hasArgument("bulkAction") ) {
+			$bulkAction = $request->getArgument("bulkAction");
 			if( isset($actions[$bulkAction]) ) {
 				$action = $actions[$bulkAction];
-				
-				$this->controller->setTemplate($action->getAction());
-				
+
+				$this->actionManager->getView()->setTemplateByAction($action->getAction());
+
 				if($action->getAction() !== $bulkAction)
-					$action = $this->controller->getActionByShortName($action->getAction() . "Action");
+					$action = $this->actionManager->getActionByShortName($action->getAction() . "Action");
 				
-				$action->execute($this->being, $this->request->getArgument("bulkItems"));
+				$action->execute($this->being, $request->getArgument("bulkItems"));
+				return $action->view->render();
 			}
 		}
 	}

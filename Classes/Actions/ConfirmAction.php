@@ -50,12 +50,14 @@ class ConfirmAction extends \Foo\ContentManagement\Core\Actions\AbstractAction {
 	 * */
 	public function execute($being, $ids = null) {
 		$objects = array();
+		
 		foreach ($ids as $id) {
 			$objects[] = $this->adapter->getObject($being, $id);
 		}
 		$this->view->assign("objects", $objects);
 		$this->view->assign("ids", implode(",", $ids));
-		$this->view->assign("class", $being);
+		$this->view->assign("class", \Foo\ContentManagement\Core\API::get("classShortNames", $being));
+		$this->actionManager->getView()->setTemplateByAction("confirm");
 	}
 
 }

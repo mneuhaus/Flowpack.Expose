@@ -1,27 +1,25 @@
 <f:layout name="bootstrap" />
 {namespace cm=Foo\ContentManagement\ViewHelpers}
 
-<f:section name="actionbar-left">
-	<form method="post">
-	<cm:render partial="Toolbar" fallbacks="Partials" vars="{actions: listActions}" />
-</f:section>
-
-<f:section name="actionbar-right">
-	<f:for each="{topBarActions}" as="action">
-		<cm:link
-			class="{action.class}"
-			shortcut="{action.shortcut}"
-			action="{action.action}"
-			controller="{action.controller}"
-			package="{action.package}"
-			target="{action.target}"
-			being="{className}">
-			{action}
-		</cm:link>
-	</f:for>
-</f:section>
-
 <f:section name="content">
+	<form method="post">
+		<div class="pull-left">
+			<cm:render partial="Toolbar" fallbacks="Partials" vars="{actions: bulkActions}" />
+		</div>
+		<div class="pull-right">
+			<f:for each="{topBarActions}" as="action">
+				<cm:link
+					class="{action.class}"
+					shortcut="{action.shortcut}"
+					action="{action.action}"
+					controller="{action.controller}"
+					package="{action.package}"
+					target="{action.target}"
+					being="{className}">
+					{action}
+				</cm:link>
+			</f:for>
+		</div>
 		<cm:content.list objects="{objects}" />
 	</form>
 </f:section>

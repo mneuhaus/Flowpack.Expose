@@ -39,6 +39,12 @@ class ActionManager {
 	protected $contentManager;	
 
 	/**
+	 *
+	 * @var object
+	 **/
+	protected $controller;
+
+	/**
 	 * @var \TYPO3\FLOW3\Reflection\ReflectionService
 	 * @author Marc Neuhaus <apocalip@gmail.com>
 	 * @FLOW3\Inject
@@ -81,7 +87,6 @@ class ActionManager {
 				}
 				
 				$a = $this->objectManager->get($actionClassName);
-				#$a = new $actionClassName($this->request, $this->view, $this);
 				if($a->canHandle($being, $action, $id)){
 					// TODO: Remove Helper
 					$actionName = \Foo\ContentManagement\Core\Helper::getShortName($actionClassName);
@@ -147,6 +152,14 @@ class ActionManager {
 		$this->request = $request;
 	}
 
+	public function setController($controller) {
+		$this->controller = $controller;
+	}
+
+	public function getController() {
+		return $this->controller;
+	}
+
 	/**
 	 * Get the view
 	 * 
@@ -161,7 +174,7 @@ class ActionManager {
 	 * 
 	 * @param \TYPO3\FLOW3\Mvc\View\ViewInterface $view 
 	 */
-	public function setView(\TYPO3\FLOW3\Mvc\View\ViewInterface $view) {
+	public function setView(\TYPO3\FLOW3\Mvc\View\ViewInterface &$view) {
 		$this->view = $view;
 	}
 
