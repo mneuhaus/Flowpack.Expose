@@ -14,9 +14,19 @@ namespace Foo\ContentManagement\Annotations\Wrapper;
 /**
  */
 class ClassAnnotationWrapper extends AbstractAnnotationWrapper {
-	public function getPropertyAnnotations($property) {
+	public function getPropertyAnnotations($propertyName) {
 		$properties = $this->get("properties");
-		return new \Foo\ContentManagement\Annotations\Wrapper\PropertyAnnotationWrapper($properties[$property]);
+		$property = new \Foo\ContentManagement\Annotations\Wrapper\PropertyAnnotationWrapper($properties[$propertyName]);
+		$property->setProperty($propertyName);
+		return $property;
+	}
+
+	public function getProperties() {
+		$properties = array();
+		foreach ($this->get("properties") as $key => $value) {
+			$properties[$key] = $this->getPropertyAnnotations($key);
+		}
+		return $properties;
 	}
 }
 

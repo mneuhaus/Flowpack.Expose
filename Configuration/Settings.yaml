@@ -49,6 +49,14 @@ Foo:
         - resource://@package/Private/Content/Admin/@content.html
         - resource://Foo.ContentManagement/Private/Content/@content/@variant.html
         - resource://Foo.ContentManagement/Private/Content/@content/Default.html
+      ContentPartials:
+        - resource://@package/Private/Content/@being/@content/@variant.html
+        - resource://@package/Private/Content/Admin/@content/@variant.html
+        - resource://@package/Private/Content/@being/@content.html
+        - resource://@package/Private/Content/Admin/@content.html
+        - resource://Foo.ContentManagement/Private/Content/Partials/@partial/@variant.html
+        - resource://Foo.ContentManagement/Private/Content/Partials/@partial.html
+        - resource://Foo.ContentManagement/Private/Content/Partials/@partial/Default.html
       Partials:
         - resource://@package/Private/Partials/@being/@action/@partial/@variant.html
         - resource://@package/Private/Partials/@being/@action/@partial.html

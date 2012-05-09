@@ -201,12 +201,24 @@ class ContentManager {
 		return $classConfiguration["properties"][$property];
 	}
 
+	public function getProperties($object) {
+		$properties = $this->getClassAnnotations(get_class($object))->getProperties();
+		foreach ($properties as $property => $value) {
+			$properties[$property]["value"] = \TYPO3\FLOW3\Reflection\ObjectAccess::getProperty($object, $property);
+		}
+		return $properties;
+	}
+
 	public function getString($object) {
 		return sprintf("%s:%s", get_class($object), $this->getId($object));
 	}
 
 	public function isNewObject($object) {
 		return $this->getAdapterByClass(get_class($object))->isNewObject($object);
+	}
+
+	public function toString($value) {
+		
 	}
 }
 ?>

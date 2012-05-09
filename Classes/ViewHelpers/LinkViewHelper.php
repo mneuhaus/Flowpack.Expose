@@ -45,6 +45,12 @@ class LinkViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractTagBasedViewHe
 	protected $objectManager;
 
 	/**
+	 * @var \Foo\ContentManagement\Adapters\ContentManager
+	 * @FLOW3\Inject
+	 */
+	protected $contentManager;	
+
+	/**
 	 * @var string
 	 */
 	protected $tagName = 'a';
@@ -88,8 +94,7 @@ class LinkViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractTagBasedViewHe
 		
 		if($object !== NULL){
 			$arguments["being"] = \Foo\ContentManagement\Core\API::get("classShortNames", get_class($object));
-			$adapter = $this->objectManager->get(\Foo\ContentManagement\Core\API::get("adapter"));
-			$arguments["id"] = $adapter->getId($object);
+			$arguments["id"] = $this->contentManager->getId($object);
 		}
 
 		if($being !== NULL)

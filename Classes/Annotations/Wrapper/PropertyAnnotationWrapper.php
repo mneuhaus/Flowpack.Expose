@@ -14,6 +14,10 @@ namespace Foo\ContentManagement\Annotations\Wrapper;
 /**
  */
 class PropertyAnnotationWrapper extends AbstractAnnotationWrapper {
+	public function getLabel() {
+		return ucfirst($this->get("property"));
+	}
+
 	public function getOptionsProvider() {
 		return (string) current($this->get("optionsProvider"));
 	}
@@ -30,6 +34,10 @@ class PropertyAnnotationWrapper extends AbstractAnnotationWrapper {
 	public function isRelationProperty() {
 		#return $this->containsKey("manyToMany") || 
 		return $this->containsKey("manyToOne");
+	}
+
+	public function setProperty($property) {
+		$this->set("property", $property);
 	}
 }
 
