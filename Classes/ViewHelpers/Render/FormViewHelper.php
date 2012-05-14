@@ -1,5 +1,5 @@
 <?php
-namespace Foo\ContentManagement\ViewHelpers\Content;
+namespace Foo\ContentManagement\ViewHelpers\Render;
 
 /*                                                                        *
  * This script belongs to the FLOW3 package "TYPO3.Form".                 *
@@ -21,7 +21,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  *
  * <pre>
  * {namespace cm=Foo\ContentManagement\ViewHelpers}
- * <cm:content.form factoryClass="NameOfYourCustomFactoryClass" />
+ * <cm:render.form factoryClass="NameOfYourCustomFactoryClass" />
  * </pre>
  *
  * The factory class must implement {@link TYPO3\Form\Factory\FormFactoryInterface}.

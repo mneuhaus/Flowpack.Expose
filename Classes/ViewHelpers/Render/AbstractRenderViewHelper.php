@@ -1,6 +1,6 @@
 <?php
  
-namespace Foo\ContentManagement\ViewHelpers\Content;
+namespace Foo\ContentManagement\ViewHelpers\Render;
 
 /*                                                                        *
  * This script belongs to the FLOW3 framework.                            *
@@ -22,6 +22,7 @@ namespace Foo\ContentManagement\ViewHelpers\Content;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
+use Doctrine\ORM\Mapping as ORM;
 use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
@@ -30,19 +31,38 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * @api
  * @FLOW3\Scope("prototype")
  */
-class ShowViewHelper extends AbstractContentViewHelper {
+abstract class AbstractRenderViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
+	
+	public function initialize() {
+		$this->view = new \Foo\ContentManagement\View\FallbackTemplateView();
+		$this->view->setControllerContext($this->controllerContext);
+		$this->view->setRenderingContext($this->renderingContext);
+	}
+
 	/**
 	 * Renders the content.
 	 *
-	 * @param object $object
-	 * @param string $variant
+	 * @param array $objects
 	 * @return string
 	 * @api
 	 */
-	public function render($object = array(), $variant = "Details") {
-		return $this->view->renderContent("Show", array(
-			"object" => $object
-		), $variant);
+	public function render($objects = array()) {
+		return $this->view->renderContent("List", array(
+			"objects" => $objects
+		));
+	}
+
+	/**
+	 * If $arguments['settings'] is not set, it is loaded from the TemplateVariableContainer (if it is available there).
+	 *
+	 * @param array $arguments
+	 * @return array
+	 */
+	protected function loadSettingsIntoArguments($arguments) {
+		if (!isset($arguments['settings']) && $this->templateVariableContainer->exists('settings')) {
+			$arguments['settings'] = $this->templateVariableContainer->get('settings');
+		}
+		return $arguments;
 	}
 }
 

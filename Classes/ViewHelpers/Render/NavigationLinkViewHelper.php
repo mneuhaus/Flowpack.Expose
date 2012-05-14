@@ -1,6 +1,6 @@
 <?php
  
-namespace Foo\ContentManagement\ViewHelpers\Content;
+namespace Foo\ContentManagement\ViewHelpers\Render;
 
 /*                                                                        *
  * This script belongs to the FLOW3 framework.                            *
@@ -30,19 +30,20 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * @api
  * @FLOW3\Scope("prototype")
  */
-class ListViewHelper extends AbstractContentViewHelper {
+class NavigationLinkViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 	/**
 	 * Renders the content.
 	 *
-	 * @param array $objects
-	 * @param string $variant
+	 * @param object $object
 	 * @return string
 	 * @api
 	 */
-	public function render($objects = array(), $variant = "Table") {
-		return $this->view->renderContent("List", array(
-			"objects" => $objects
-		), $variant);
+	public function render($object) {
+		$linkRenderer = $this->templateVariableContainer->get("linkRenderer");
+		return $linkRenderer->renderLink(array(
+			"class" => get_class($object),
+			"object"=> $object
+		));
 	}
 }
 

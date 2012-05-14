@@ -1,6 +1,6 @@
 <?php
  
-namespace Foo\ContentManagement\ViewHelpers\Content;
+namespace Foo\ContentManagement\ViewHelpers\Render;
 
 /*                                                                        *
  * This script belongs to the FLOW3 framework.                            *
@@ -22,7 +22,6 @@ namespace Foo\ContentManagement\ViewHelpers\Content;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
-use Doctrine\ORM\Mapping as ORM;
 use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
@@ -31,38 +30,34 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * @api
  * @FLOW3\Scope("prototype")
  */
-abstract class AbstractContentViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
-	
-	public function initialize() {
-		$this->view = new \Foo\ContentManagement\View\FallbackTemplateView();
-		$this->view->setControllerContext($this->controllerContext);
-		$this->view->setRenderingContext($this->renderingContext);
-	}
-
+class NavigationViewHelper extends AbstractRenderViewHelper {
 	/**
 	 * Renders the content.
 	 *
-	 * @param array $objects
+	 * @param mixed $objects
+	 * @param string $variant
 	 * @return string
 	 * @api
 	 */
-	public function render($objects = array()) {
-		return $this->view->renderContent("List", array(
-			"objects" => $objects
-		));
+	public function render($objects = array(), $variant = "List") {
+		$navigationProvider = new \Foo\ContentManagement\NavigationProvider\EntityNavigationProvider($objects);
+		return $this->view->renderContent("Navigation", array(
+			"objects" => $objects,
+			"navigationProvider" => $navigationProvider,
+			"linkRenderer" => $this
+		), $variant);
 	}
 
-	/**
-	 * If $arguments['settings'] is not set, it is loaded from the TemplateVariableContainer (if it is available there).
-	 *
-	 * @param array $arguments
-	 * @return array
-	 */
-	protected function loadSettingsIntoArguments($arguments) {
-		if (!isset($arguments['settings']) && $this->templateVariableContainer->exists('settings')) {
-			$arguments['settings'] = $this->templateVariableContainer->get('settings');
-		}
-		return $arguments;
+	public function renderLink($variables) {
+		foreach($variables as $key => $value)
+			$this->templateVariableContainer->add($key, $value);
+		
+		$output = $this->renderChildren();
+		
+		foreach($variables as $key => $value)
+			$this->templateVariableContainer->remove($key);
+
+		return $output;
 	}
 }
 
