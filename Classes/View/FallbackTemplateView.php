@@ -131,38 +131,19 @@ class FallbackTemplateView extends \TYPO3\Fluid\View\TemplateView {
 	}
 
 	public function renderContent($contentName, $variables = array(), $variant = "Default", $sectionName = NULL) {
-		$this->baseRenderingContext->setControllerContext($this->controllerContext);
-		$this->templateParser->setConfiguration($this->buildParserConfiguration());
+		$parsedTemplate = $this->templateParser->parse($this->getContentSource($contentName, $variant));
 
-#		$templateIdentifier = $this->getTemplateIdentifier($contentName);
-#		if ($this->templateCompiler->has($templateIdentifier)) {
-#			$parsedTemplate = $this->templateCompiler->get($templateIdentifier);
-#		} else {
-			$parsedTemplate = $this->templateParser->parse($this->getContentSource($contentName, $variant));
-#			if ($parsedTemplate->isCompilable()) {
-#				$this->templateCompiler->store($templateIdentifier, $parsedTemplate);
-#			}
-#		}
+		$variableContainer = $this->objectManager->get('TYPO3\Fluid\Core\ViewHelper\TemplateVariableContainer', $variables);
+		$renderingContext = clone $this->baseRenderingContext;
+		$renderingContext->injectTemplateVariableContainer($variableContainer);
 
-		if ($parsedTemplate->hasLayout()) {
-			$layoutName = $parsedTemplate->getLayoutName($this->baseRenderingContext);
-			$layoutIdentifier = $this->getLayoutIdentifier($layoutName);
-			if ($this->templateCompiler->has($layoutIdentifier)) {
-				$parsedLayout = $this->templateCompiler->get($layoutIdentifier);
-			} else {
-				$parsedLayout = $this->templateParser->parse($this->getLayoutSource($layoutName));
-				if ($parsedLayout->isCompilable()) {
-					$this->templateCompiler->store($layoutIdentifier, $parsedLayout);
-				}
-			}
-			$this->startRendering(self::RENDERING_LAYOUT, $parsedTemplate, $this->baseRenderingContext);
-			$output = $parsedLayout->render($this->baseRenderingContext);
-			$this->stopRendering();
+		$this->startRendering(self::RENDERING_PARTIAL, $parsedTemplate, $renderingContext);
+		if ($sectionName !== NULL) {
+			$output = $this->renderSection($sectionName, $variables);
 		} else {
-			$this->startRendering(self::RENDERING_TEMPLATE, $parsedTemplate, $this->baseRenderingContext);
-			$output = $parsedTemplate->render($this->baseRenderingContext);
-			$this->stopRendering();
+			$output = $parsedTemplate->render($renderingContext);
 		}
+		$this->stopRendering();
 
 		return $output;
 	}

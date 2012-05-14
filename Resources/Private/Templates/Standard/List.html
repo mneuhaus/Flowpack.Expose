@@ -1,5 +1,16 @@
-<f:layout name="bootstrap" />
+<f:layout name="module" />
 {namespace cm=Foo\ContentManagement\ViewHelpers}
+<!--
+<_f:section name="sidebar">
+	<cm:render.navigation objects="{objects}" variant="list">
+		<cm:link
+			action="update"
+			object="{object}" >
+			<cm:format.string value="{object}" />
+		</cm:link>
+	</cm:render.navigation>
+</_f:section>
+-->
 
 <f:section name="content">
 	<form method="post">
@@ -20,6 +31,6 @@
 				</cm:link>
 			</f:for>
 		</div>
-		<cm:content.list objects="{objects}" />
+		<cm:render.list objects="{objects}" arguments="{className: className, listActions: listActions}" />
 	</form>
 </f:section>
