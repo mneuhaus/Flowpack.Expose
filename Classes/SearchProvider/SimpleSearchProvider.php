@@ -32,14 +32,14 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  */
 class SimpleSearchProvider extends AbstractSearchProvider{
 	/**
-	 * @var \Foo\ContentManagement\Core\ConfigurationManager
+	 * @var \Foo\ContentManagement\Reflection\AnnotationService
 	 * @FLOW3\Inject
 	 */
-	protected $configurationManager;
+	protected $annotationService;
 	
 	public function search($search, $query){
 		$constraints = array();
-		$configuration = $this->configurationManager->getClassConfiguration($query->getType());
+		$configuration = $this->annotationService->getClassAnnotations($query->getType());
 		foreach ($configuration["properties"] as $property => $annotations) {
 			if(isset($annotations["search"])){
 				$constraints[] = $query->like($property, "%" . $search . "%", false);

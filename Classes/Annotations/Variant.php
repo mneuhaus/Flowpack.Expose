@@ -14,7 +14,7 @@ namespace Foo\ContentManagement\Annotations;
 /**
  * @Annotation
  */
-final class Variant {
+final class Variant implements SingleAnnotationInterface {
 	
 	/**
 	 * @var string

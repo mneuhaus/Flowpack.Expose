@@ -1,5 +1,5 @@
 <?php
-namespace Foo\ContentManagement\Annotations\Wrapper;
+namespace Foo\ContentManagement\Annotations;
 
 /*                                                                        *
  * This script belongs to the FLOW3 framework.                            *
@@ -12,21 +12,17 @@ namespace Foo\ContentManagement\Annotations\Wrapper;
  *                                                                        */
 
 /**
+ * @Annotation
  */
-class ClassAnnotationWrapper extends AbstractAnnotationWrapper {
-	public function getPropertyAnnotations($propertyName) {
-		$properties = $this->get("properties");
-		$property = new \Foo\ContentManagement\Annotations\Wrapper\PropertyAnnotationWrapper($properties[$propertyName]);
-		$property->setProperty($propertyName);
-		return $property;
-	}
+abstract class ContextAwareAnnotation {
+	/**
+	 *
+	 * @var \Foo\ContentManagement\Reflection\Wrapper\ClassAnnotationWrapper
+	 **/
+	protected $annotationContext;
 
-	public function getProperties() {
-		$properties = array();
-		foreach ($this->get("properties") as $key => $value) {
-			$properties[$key] = $this->getPropertyAnnotations($key);
-		}
-		return $properties;
+	public function setAnnotationContext(\Foo\ContentManagement\Reflection\Wrapper\ClassAnnotationWrapper $annotationWrapper) {
+		$this->annotationContext = $annotationWrapper;
 	}
 }
 

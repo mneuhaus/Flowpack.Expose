@@ -39,10 +39,16 @@ class ContentManager {
 	protected $cacheManager;
 
 	/**
-	 * @var \Foo\ContentManagement\Core\ConfigurationManager
+	 * @var \TYPO3\FLOW3\Configuration\ConfigurationManager
 	 * @FLOW3\Inject
 	 */
 	protected $configurationManager;
+
+	/**
+	 * @var \Foo\ContentManagement\Reflection\AnnotationService
+	 * @FLOW3\Inject
+	 */
+	protected $annotationService;
 
 	/**
 	 * @var \TYPO3\FLOW3\Object\ObjectManagerInterface
@@ -64,7 +70,7 @@ class ContentManager {
 	 **/
 	var $currentAdapter = null;
 
-	public function __construct(\Foo\ContentManagement\Core\ConfigurationManager $configurationManager, \TYPO3\FLOW3\Object\ObjectManagerInterface $objectManager) {
+	public function __construct(\TYPO3\FLOW3\Configuration\ConfigurationManager $configurationManager, \TYPO3\FLOW3\Object\ObjectManagerInterface $objectManager) {
 		$this->configurationManager = $configurationManager;
 		$this->objectManager = $objectManager;
 		$this->adapters = $this->getAdapters();
@@ -89,10 +95,8 @@ class ContentManager {
 		if(!$cache->has($identifier) || true){
 			$adaptersByBeings = array();
 			foreach ($this->adapters as $adapter) {
-				foreach ($adapter->getGroups() as $group => $being) {
-					foreach ($being as $conf) {
-						$adaptersByBeings[$conf["being"]] = get_class($adapter);
-					}
+				foreach ($adapter->getClasses() as $class) {
+					$adaptersByBeings[$class] = get_class($adapter);
 				}
 			}
 			
@@ -102,7 +106,6 @@ class ContentManager {
 		}
 
 		#$class = \Foo\ContentManagement\Core\API::get("classShortNames", $class);
-		#var_dump($adaptersByBeings, $class);
 		$adapterClass = $adaptersByBeings[$class];
 
 		return $this->adapters[$adapterClass];
@@ -123,7 +126,7 @@ class ContentManager {
 	 * @author Marc Neuhaus
 	 */
 	public function getAdapters(){
-		$settings = $this->configurationManager->getSettings();
+		$settings = $this->getSettings();
 		$adapters = array();
 		foreach ($settings["Adapters"] as $adapter => $active) {
 			if($active == "active"){
@@ -134,7 +137,7 @@ class ContentManager {
 	}
 
 	public function getClassAnnotations($class) {
-		$classConfiguration = $this->configurationManager->getClassConfiguration($class);
+		$classConfiguration = $this->annotationService->getClassAnnotations($class);
 		return $classConfiguration;
 	}
 
@@ -197,8 +200,8 @@ class ContentManager {
 	}
 
 	public function getPropertyAnnotations($class, $property) {
-		$classConfiguration = $this->configurationManager->getClassConfiguration($class);
-		return $classConfiguration["properties"][$property];
+		$classAnnotations = $this->annotationService->getClassAnnotations($class);
+		return $classAnnotations->getPropertyAnnotations($property);
 	}
 
 	public function getProperties($object) {
@@ -211,6 +214,10 @@ class ContentManager {
 
 	public function getString($object) {
 		return sprintf("%s:%s", get_class($object), $this->getId($object));
+	}
+
+	public function getSettings($namespace = "Foo.ContentManagement") {
+		return $this->configurationManager->getConfiguration(\TYPO3\FLOW3\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, $namespace);
 	}
 
 	public function isNewObject($object) {

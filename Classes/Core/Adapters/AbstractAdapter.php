@@ -33,16 +33,16 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  */
 abstract class AbstractAdapter implements \Foo\ContentManagement\Core\Adapters\AdapterInterface {
 	/**
+	 * @var \Foo\ContentManagement\Reflection\AnnotationService
+	 * @FLOW3\Inject
+	 */
+	protected $annotationService;
+		
+	/**
 	 * @var TYPO3\FLOW3\Cache\CacheManager
 	 * @FLOW3\Inject
 	 */
 	protected $cacheManager;
-	
-	/**
-	 * @var \Foo\ContentManagement\Core\ConfigurationManager
-	 * @FLOW3\Inject
-	 */
-	protected $configurationManager;
 	
 	/**
 	 * @var \Foo\ContentManagement\Core\Helper
@@ -88,47 +88,7 @@ abstract class AbstractAdapter implements \Foo\ContentManagement\Core\Adapters\A
 	 * @author Marc Neuhaus <mneuhaus@famelo.com>
 	 * */
 	public function init() {
-		$this->settings = $this->helper->getSettings("Admin");
-	}
-	
-	/**
-	 * Gets the Processed Being
-	 *
-	 * @param string $being Name of Class of the Being
-	 * @param string $id Identifier of the Being
-	 * @author Marc Neuhaus <mneuhaus@famelo.com>
-	 * */
-	public function getBeing($being, $id = null) {
-		$being = ltrim($being, "\\");
-		
-		$b = new \Foo\ContentManagement\Core\Being($this);
-		$b->setObject($this->getObject($being, $id));
-		$b->setClass($being);
-		
-		return $b;
-	}
-	
-	/**
-	 * Gets multiple Processed Beings
-	 *
-	 * @param string $being Name of Class of the Being
-	 * @author Marc Neuhaus <mneuhaus@famelo.com>
-	 * */
-	public function getBeings($being, $filters = null) {
-		
-		$objects = $this->getObjects($being);
-		$beings = array();
-		if(!empty($objects)){
-			foreach($objects as $object) {
-				$b = $this->getBeing($being,$this->getId($object));
-				$beings[] = $b;
-			}
-		}
-		
-		if($filters != null)
-			$beings = $this->applyFilters($beings,$filters);
-		
-		return $beings;
+		$this->settings = $this->helper->getSettings("Foo.ContentManagement");
 	}
 	
 	public function getFilter($being,$selected = array()){

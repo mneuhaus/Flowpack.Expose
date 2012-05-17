@@ -47,6 +47,14 @@ class DoctrineAdapter extends \Foo\ContentManagement\Core\Adapters\AbstractAdapt
     protected $validatorResolver;
 
     /**
+     * @var \TYPO3\FLOW3\Reflection\ReflectionService
+     * @api
+     * @author Marc Neuhaus <apocalip@gmail.com>
+     * @FLOW3\Inject
+     */
+    protected $reflectionService;
+
+    /**
      * apply filters
      *
      * @param string $beings
@@ -88,37 +96,33 @@ class DoctrineAdapter extends \Foo\ContentManagement\Core\Adapters\AbstractAdapt
         }
     }
 
+    public function getClasses(){
+        return $this->reflectionService->getClassNamesByAnnotation("TYPO3\FLOW3\Annotations\Entity");
+    }
+
     public function getGroups() {
         $this->init();
         $groups = array();
-        $classes = $this->configurationManager->getClassesAnnotatedWith(array("active"));
-        
-        foreach ($this->settings["Beings"] as $being => $conf) {
-            if (isset($conf["active"]) && $conf["active"] == true) {
-                if (isset($conf["group"]))
-                    $classes[$being] = $conf["group"];
-                else
-                    $classes[$being] = $this->objectManager->getPackageKeyByObjectName($being);
-            }
-        }
+        $classes = $this->annotationService->getClassesAnnotatedWith(array("Active"));
 
         foreach ($classes as $class => $packageName) {
-            $configuration = $this->configurationManager->getClassConfiguration($class);
+            $annotations = $this->annotationService->getClassAnnotations($class);
             $repository = $this->getRepositoryForModel($class);
 
             if (class_exists($repository)) {
                 $group = $packageName;
                 $name = \Foo\ContentManagement\Core\Helper::getShortName($class);
 
-                if ($configuration->get("group"))
-                    $group = strval(current($configuration->get("group")));
+                if ($annotations->has("group"))
+                    $group = (string) $annotations->get("group");
 
-                if ($configuration->get("label"))
-                    $name = strval(current($configuration->get("label")));
+                #if ($annotations->get("label"))
+                #    $name = strval(current($annotations->get("label")));
 
                 $groups[$group][] = array("being" => $class, "name" => $name);
             }
         }
+
         return $groups;
     }
 
@@ -133,18 +137,18 @@ class DoctrineAdapter extends \Foo\ContentManagement\Core\Adapters\AbstractAdapt
         return null;
     }
 
-    public function getObjects($being) {
-        $configuration = $this->configurationManager->getClassConfiguration($being);
+    public function getObjects($class) {
+        $annotations = $this->annotationService->getClassAnnotations($class);
         $objects = array();
 
-        if (!isset($this->query) || !is_subclass_of($being, $this->repository->getEntityClassName()))
-            $this->initQuery($being);
+        if (!isset($this->query) || !is_subclass_of($class, $this->repository->getEntityClassName()))
+            $this->initQuery($class);
 
-        if (isset($configuration["class"]["admin\annotations\orderby"])) {
-            $this->query->setOrderings(array(
-                current($configuration["class"]["admin\annotations\orderby"]) => 'ASC'
-            ));
-        }
+#        if (isset($configuration["class"]["admin\annotations\orderby"])) {
+#            $this->query->setOrderings(array(
+#                current($configuration["class"]["admin\annotations\orderby"]) => 'ASC'
+#            ));
+#        }
     
         if(isset($this->query) && is_object($this->query))
             $objects = $this->query->execute();
@@ -164,12 +168,15 @@ class DoctrineAdapter extends \Foo\ContentManagement\Core\Adapters\AbstractAdapt
     }
 
     public function getRepositoryForModel($model) {
-        $configuration = $this->configurationManager->getClassConfiguration($model);
-        #if ($configuration->containsKey("repository")) {
-        #    $annotation = current($configuration["repository"]);
+        $annotations = $this->annotationService->getClassAnnotations($model);
+        $classSchema = $this->reflectionService->getClassSchema($model);
+
+        $repository = $classSchema->getRepositoryClassName();
+        #if ($annotations->containsKey("repository")) {
+        #    $annotation = current($annotations["repository"]);
         #    $repository = $annotation->class;
         #} else {
-            $repository = \Foo\ContentManagement\Core\Helper::getModelRepository($model);
+        #    $repository = \Foo\ContentManagement\Core\Helper::getModelRepository($model);
         #}
 
         return $repository;
@@ -184,7 +191,7 @@ class DoctrineAdapter extends \Foo\ContentManagement\Core\Adapters\AbstractAdapt
     }
 
     public function createObject($being, $data) {
-        $configuration = $this->configurationManager->getClassConfiguration($being);
+        $configuration = $this->annotationService->getClassAnnotations($being);
         $result = $this->transform($data, $being);
 
         if (is_a($result, $being)) {
@@ -196,7 +203,7 @@ class DoctrineAdapter extends \Foo\ContentManagement\Core\Adapters\AbstractAdapt
     }
 
     public function updateObject($being, $id, $data) {
-        $configuration = $this->configurationManager->getClassConfiguration($being);
+        $configuration = $this->annotationService->getClassAnnotations($being);
         $result = $this->transform($data, $being);
 
         if (is_a($result, $being)) {

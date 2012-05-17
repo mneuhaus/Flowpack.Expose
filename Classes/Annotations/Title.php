@@ -14,7 +14,7 @@ namespace Foo\ContentManagement\Annotations;
 /**
  * @Annotation
  */
-final class Title {
+final class Title implements SingleAnnotationInterface {
 	public function __toString(){
 		return "Title";
 	}

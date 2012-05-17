@@ -21,10 +21,10 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 class ObjectConverter extends \TYPO3\FLOW3\Property\TypeConverter\AbstractTypeConverter {
 	
 	/**
-	 * @var \Foo\ContentManagement\Core\ConfigurationManager
+	 * @var \Foo\ContentManagement\Reflection\AnnotationService
 	 * @FLOW3\Inject
 	 */
-	protected $configurationManager;
+	protected $annotationService;
 	
 	/**
 	 * @var \TYPO3\FLOW3\Reflection\ReflectionService
@@ -111,7 +111,7 @@ class ObjectConverter extends \TYPO3\FLOW3\Property\TypeConverter\AbstractTypeCo
 	}
 	
 	public function getStringByAnnotation($source){
-		$configuration = $this->configurationManager->getClassConfiguration(get_class($source));
+		$configuration = $this->annotationService->getClassAnnotations(get_class($source));
 		
 		$title = array();
 		foreach($configuration["properties"] as $property => $meta){
@@ -127,7 +127,7 @@ class ObjectConverter extends \TYPO3\FLOW3\Property\TypeConverter\AbstractTypeCo
 	}
 	
 	public function getStringByGuessing($source){
-		$configuration = $this->configurationManager->getClassConfiguration(get_class($source));
+		$configuration = $this->annotationService->getClassAnnotations(get_class($source));
 		
 		$goodGuess = array();
 		$usualSuspects = array("title", "name");

@@ -1,5 +1,5 @@
 <?php
-namespace Foo\ContentManagement\Annotations\Wrapper;
+namespace Foo\ContentManagement\Reflection\Wrapper;
 
 /*                                                                        *
  * This script belongs to the FLOW3 framework.                            *
@@ -13,9 +13,24 @@ namespace Foo\ContentManagement\Annotations\Wrapper;
 
 /**
  */
-abstract class AbstractAnnotationWrapper extends \Doctrine\Common\Collections\ArrayCollection {
-	public function has($key) {
-		return isset($this->_elements[$key]);
+class ClassAnnotationWrapper extends AbstractAnnotationWrapper {
+	public function getPropertyAnnotations($propertyName) {
+		$properties = $this->get("Properties");
+		$property = new \Foo\ContentManagement\Reflection\Wrapper\PropertyAnnotationWrapper($properties[$propertyName]);
+		$property->setProperty($propertyName);
+		return $property;
+	}
+
+	public function getProperties() {
+		$properties = array();
+		foreach ($this->get("properties") as $key => $value) {
+			$properties[$key] = $this->getPropertyAnnotations($key);
+		}
+		return $properties;
+	}
+
+	public function getSets() {
+		return array("" => $this->getProperties());
 	}
 }
 

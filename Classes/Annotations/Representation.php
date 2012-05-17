@@ -14,7 +14,7 @@ namespace Foo\ContentManagement\Annotations;
 /**
  * @Annotation
  */
-final class Representation {
+final class Representation implements SingleAnnotationInterface {
 	/**
 	 * @param string $value
 	 */

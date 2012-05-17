@@ -14,7 +14,7 @@ namespace Foo\ContentManagement\Annotations;
 /**
  * @Annotation
  */
-final class Inline {
+final class Inline implements SingleAnnotationInterface {
 	
 	/**
 	 * @var integer

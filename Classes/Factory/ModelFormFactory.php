@@ -20,52 +20,64 @@ class ModelFormFactory extends \TYPO3\Form\Factory\AbstractFormFactory {
      */
     public function build(array $factorySpecificConfiguration, $presetName) {
         $formConfiguration = $this->getPresetConfiguration($presetName);
-        $form = new FormDefinition('moduleArguments', $formConfiguration);
+        $this->form = new FormDefinition('moduleArguments', $formConfiguration);
         
         $object = $factorySpecificConfiguration["object"];
 
-        $being = new \Foo\ContentManagement\Core\Being($this->contentManager->getAdapterByClass(get_class($object)));
-        $being->setClass(get_class($object));
-        $being->setObject($object);
+        $page = $this->form->createPage('page');
 
+        $elements = $this->generateElements($object, $page, "item");
+
+        $actionFinisher = new \Foo\ContentManagement\Finishers\ActionFinisher();
+        $actionFinisher->setOption('class', get_class($object));
+        $this->form->addFinisher($actionFinisher);
+        
+
+        $this->form->createFinisher("TYPO3.Form:Redirect", array(
+            'action' => 'list',
+            "arguments" => array(
+                "being" => get_class($object)
+            )
+        ));
+
+        return $this->form;
+    }
+
+    public function generateElements($object, $page, $namespace = ""){
         $classAnnotations = $this->contentManager->getClassAnnotations(get_class($object));
-
-        $page1 = $form->createPage('page1');
 
         $elements = array();
 
         if(!$this->contentManager->isNewObject($object)){
-            $elements["__identity"] = $page1->createElement("item.__identity", "Foo.ContentManagement:Hidden");
+            $elements["__identity"] = $page->createElement($namespace . ".__identity", "Foo.ContentManagement:Hidden");
             $elements["__identity"]->setDefaultValue($this->contentManager->getId($object));
         }
 
-        $form->getProcessingRule("item")->setDataType(get_class($object));
-        $form->getProcessingRule("item")->getPropertyMappingConfiguration()->setTypeConverterOption('TYPO3\FLOW3\Property\TypeConverter\PersistentObjectConverter', \TYPO3\FLOW3\Property\TypeConverter\PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED, TRUE);
-        $form->getProcessingRule("item")->getPropertyMappingConfiguration()->setTypeConverterOption('TYPO3\FLOW3\Property\TypeConverter\PersistentObjectConverter', \TYPO3\FLOW3\Property\TypeConverter\PersistentObjectConverter::CONFIGURATION_MODIFICATION_ALLOWED, TRUE);
+        $this->form->getProcessingRule($namespace)->setDataType(get_class($object));
+        $this->form->getProcessingRule($namespace)->getPropertyMappingConfiguration()->setTypeConverterOption('TYPO3\FLOW3\Property\TypeConverter\PersistentObjectConverter', \TYPO3\FLOW3\Property\TypeConverter\PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED, TRUE);
+        $this->form->getProcessingRule($namespace)->getPropertyMappingConfiguration()->setTypeConverterOption('TYPO3\FLOW3\Property\TypeConverter\PersistentObjectConverter', \TYPO3\FLOW3\Property\TypeConverter\PersistentObjectConverter::CONFIGURATION_MODIFICATION_ALLOWED, TRUE);
 
-        foreach ($being->getSets() as $set => $properties) {
+        foreach ($classAnnotations->getSets() as $set => $properties) {
             foreach ($properties as $name => $property) {
                 $propertyAnnotations = $classAnnotations->getPropertyAnnotations($name);
 
-                $elements[$name] = $page1->createElement("item.".$name, $property->getWidget());
-                $elements[$name]->setLabel($property->label);
+                $elements[$name] = $page->createElement($namespace . "." . $name, $property->getWidget());
+                $elements[$name]->setLabel($property->getLabel());
                 $elements[$name]->setDefaultValue($property->getValue());
                 $elements[$name]->setProperty("annotations", $propertyAnnotations);
+
+#                var_dump($propertyAnnotations->get("inline"));
+#                if($propertyAnnotations->has("inline")){
+#                }
+
+                foreach ($propertyAnnotations as $annotation) {
+                    if(method_exists($annotation, "modifyFormElement")){
+                        $elements[$name] = $annotation->modifyFormElement($elements[$name], $page);
+                    }
+                }
             }
         }
-        $actionFinisher = new \Foo\ContentManagement\Finishers\ActionFinisher();
-        $actionFinisher->setOption('class', $being->class);
-        $form->addFinisher($actionFinisher);
-        
-
-        $form->createFinisher("TYPO3.Form:Redirect", array(
-            'action' => 'list',
-            "arguments" => array(
-                "being" => $being->class
-            )
-        ));
-
-        return $form;
+        return $elements;
     }
 }
 

@@ -4,7 +4,7 @@
 
 Foo:
   ContentManagement:
-    Beings: []
+    Annotations: []
     Pagination:
       Limits:
         - 10
@@ -24,16 +24,16 @@ Foo:
     Defaults:
       Variant: Default
       SearchProvider: \Foo\ContentManagement\SearchProvider\SimpleSearchProvider
-      properties:
+      Properties:
         OptionsProvider: \Foo\ContentManagement\OptionsProvider\RelationOptionsProvider
         Representation:
           DatetimeFormat: Y-m-d\TH:i:s
     Adapters:
       Foo\ContentManagement\Adapters\DoctrineAdapter: active
-    ConfigurationProvider:
-      - Foo\ContentManagement\ConfigurationProvider\DefaultsConfigurationProvider
-      - Foo\ContentManagement\ConfigurationProvider\AnnotationConfigurationProvider
-      - Foo\ContentManagement\ConfigurationProvider\YamlConfigurationProvider
+    AnnotationProvider:
+      - Foo\ContentManagement\Reflection\Provider\DefaultsAnnotationProvider
+      - Foo\ContentManagement\Reflection\Provider\ReflectionAnnotationProvider
+      - Foo\ContentManagement\Reflection\Provider\SettingsAnnotationProvider
     Fallbacks:
       Views:
         - resource://@package/Private/Templates/@being/@action/@variant.html

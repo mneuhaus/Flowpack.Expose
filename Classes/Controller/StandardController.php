@@ -39,16 +39,16 @@ class StandardController extends \TYPO3\TYPO3\Controller\Module\StandardControll
 	protected $actionManager;	
 
 	/**
+	 * @var \Foo\ContentManagement\Reflection\AnnotationService
+	 * @FLOW3\Inject
+	 */
+	protected $annotationService;
+
+	/**
 	 * @var \Foo\ContentManagement\Core\CacheManager
 	 * @FLOW3\Inject
 	 */
 	protected $cacheManager;
-		
-	/**
-	 * @var \Foo\ContentManagement\Core\ConfigurationManager
-	 * @FLOW3\Inject
-	 */
-	protected $configurationManager;
 
 	/**
 	 * @var \Foo\ContentManagement\Adapters\ContentManager
@@ -152,7 +152,7 @@ class StandardController extends \TYPO3\TYPO3\Controller\Module\StandardControll
 
 	private function prepare($action){
 		$this->adapters = $this->contentManager->getAdapters();
-		$this->settings = $this->configurationManager->getSettings();
+		$this->settings = $this->contentManager->getSettings();
 		
 		\Foo\ContentManagement\Core\API::set("classShortNames", $this->compileShortNames());
 
@@ -169,11 +169,8 @@ class StandardController extends \TYPO3\TYPO3\Controller\Module\StandardControll
 					$this->being = \Foo\ContentManagement\Core\API::get("classShortNames", $this->being);
 
 				$this->adapter = $this->contentManager->getAdapterByClass($this->being);
-				$this->adapter = $this->contentManager->setAdapterByClass($this->being);
-				#\Foo\ContentManagement\Core\API::set("adapter", $this->adapter);
 
 				$this->group = $this->contentManager->getGroupByClass($this->being);
-				#\Foo\ContentManagement\Core\API::set("group", $this->group);
 			}
 
 			if(isset($arguments["id"])){
@@ -186,36 +183,10 @@ class StandardController extends \TYPO3\TYPO3\Controller\Module\StandardControll
 		$this->actionManager->setRequest($this->request);
 		$this->actionManager->setController($this);
 
-		// TODO Reimplement Security
-		/*
-		$user = $this->securityManager->getUser();
-		
-		if(!isset($user) || !is_object($user)){
-			$this->securityManager->redirectToLogin();
-		}else{
-			$allowedBeings = array("view"=>array());
-			try{
-				foreach ($user->getRoles() as $role) {
-					foreach ($role->getGrant() as $policy) {
-						$allowedBeings[$policy->getAction()][] = $policy->getBeing();
-					}
-				}
-			} catch (\Doctrine\ORM\EntityNotFoundException $e){
-				unset($user);
-				$this->securityManager->redirectToLogin();
-			}
-			$this->user = $user;
-		}
-		*/
-
 		$groups = $this->contentManager->getGroups();
 		ksort($groups);
 		foreach($groups as $package => $group){
 			foreach($group["beings"] as $key => $being){
-				// TODO Reimplement Security
-				#if( !in_array($being["being"],$allowedBeings["view"]) )
-				#	if( !$user->isAdmin() )
-				#		unset($groups[$package]["beings"][$key]);
 				
 				if(!empty($this->adapter)){
 					if($being["being"] == $this->being && $being["adapter"] == $this->adapter){
@@ -239,60 +210,11 @@ class StandardController extends \TYPO3\TYPO3\Controller\Module\StandardControll
 		}
 		
 		$this->view->assign('groups',$groups);
-
-		#$this->setTemplate($action);
 		
 		$hasId = isset($this->id) ? true : false;
 		$topBarActions = $this->actionManager->getActions($action, $this->being, $hasId);
 		$this->view->assign('topBarActions',$topBarActions);
 	}
-
-	// public function setTemplate($action){
-	// 	$replacements = array(
-	// 		"@action" => ucfirst($action),
-	// 		"@variant" => "Default",
-	// 		"@package" => "Admin",
-	// 	);
-		
-	// 	if(!empty($this->being)){
-	// 		if(class_exists($this->being, false)){
-	// 			$replacements["@package"] = $this->helper->getPackageByClassName($this->being) ? $this->helper->getPackageByClassName($this->being) : "Admin";
-	// 			$replacements["@being"] =\Foo\ContentManagement\Core\Helper::getShortName($this->being);
-				
-	// 			$being = $this->helper->getBeing($this->being);
-	// 			$replacements["@variant"] = $being->variant->getVariant($action);
-	// 		}
-	// 	}
-		
-	// 	if($this->request->hasArgument("variant")){
-	// 		$replacements["@variant"] = $this->request->getArgument("variant");
-	// 	}
-
-	// 	$cache = $this->cacheManager->getCache('Admin_TemplateCache');
-	// 	$identifier = str_replace(".", "_", implode("-",$replacements));
-	// 	$noTemplate = false;
-	// 	if(!$cache->has($identifier)){
-	// 		try{
-	// 			$template = $this->helper->getPathByPatternFallbacks("Views",$replacements);
-	// 		}catch (\Exception $e){
-	// 			$noTemplate = true;
-	// 		}
-	// 		if(!$noTemplate)
-	// 			$cache->set($identifier,$template);
-	// 	}else{
-	// 		$template = $cache->get($identifier);
-	// 	}
-		
-	// 	if(!$noTemplate){
-	// 		$this->view->setTemplatePathAndFilename($template);
-			
-	// 		if($this->request->hasArgument("being")){
-	// 			$meta["being"]["identifier"] = $this->request->getArgument("being");
-	// 			$meta["being"]["name"] = $this->request->getArgument("being");
-	// 			\Foo\ContentManagement\Core\API::set("package",$replacements["@package"]);
-	// 		}
-	// 	}
-	// }
 
 	/**
 	 * Determines the fully qualified view object name.
@@ -342,24 +264,6 @@ class StandardController extends \TYPO3\TYPO3\Controller\Module\StandardControll
 		$this->response->setHeader('Location', (string)$uri);
 		throw new \TYPO3\FLOW3\Mvc\Exception\StopActionException();
 	}
-
-	// /**
-	//  * compares a security policy
-	//  *
-	//  * @param string $arguments 
-	//  * @param string $policy 
-	//  * @return void
-	//  * @author Marc Neuhaus
-	//  */
-	// public function comparePolicy($arguments, $policy){
-	// 	$being = $policy->getBeing();
-	// 	$action = $policy->getAction();
-
-	// 	if( $being == $arguments["being"]  && $action == $arguments["action"] )
-	// 		return true;
-
-	// 	return false;
-	// }
 }
 
 ?>

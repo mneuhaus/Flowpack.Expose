@@ -14,7 +14,7 @@ namespace Foo\ContentManagement\Annotations;
 /**
  * @Annotation
  */
-final class Group {
+final class Group implements SingleAnnotationInterface {
 	/**
 	 * @var string
 	 */

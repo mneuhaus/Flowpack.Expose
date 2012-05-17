@@ -32,12 +32,6 @@ class FallbackTemplateView extends \TYPO3\Fluid\View\TemplateView {
 	protected $cacheManager;
 
 	/**
-	 * @var \Foo\ContentManagement\Core\ConfigurationManager
-	 * @FLOW3\Inject
-	 */
-	protected $configurationManager;
-
-	/**
 	 * @var \Foo\ContentManagement\Adapters\ContentManager
 	 * @FLOW3\Inject
 	 */
@@ -112,7 +106,7 @@ class FallbackTemplateView extends \TYPO3\Fluid\View\TemplateView {
 	public function getPathByPatternFallbacks($patterns, $replacements){
 		if(is_string($patterns)){
 			$paths = explode(".",$patterns);
-			$patterns = $this->configurationManager->getSettings();
+			$patterns = $this->contentManager->getSettings();
 			$patterns = $patterns["Fallbacks"];
 			foreach ($paths as $path) {
 				$patterns = $patterns[$path];

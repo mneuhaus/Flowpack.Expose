@@ -33,10 +33,10 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  */
 class SearchViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 	/**
-	 * @var \Foo\ContentManagement\Core\ConfigurationManager
+	 * @var \Foo\ContentManagement\Reflection\AnnotationService
 	 * @FLOW3\Inject
 	 */
-	protected $configurationManager;
+	protected $annotationService;
 	
 	/**
 	 * @var \Foo\ContentManagement\Core\Helper
@@ -74,7 +74,7 @@ class SearchViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 	public function handleSearch(){
 		if( $this->request->hasArgument("search") ) {
 			$search = $this->request->getArgument("search");
-			$configuration = $this->configurationManager->getClassConfiguration($this->query->getType());
+			$configuration = $this->annotationService->getClassAnnotations($this->query->getType());
 			$searchProviderClass = strval(current($configuration["searchProvider"]));
 			$searchProvider = new $searchProviderClass();
 			$this->query = $searchProvider->search($search, $this->query);

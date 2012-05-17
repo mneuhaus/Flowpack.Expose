@@ -14,7 +14,7 @@ namespace Foo\ContentManagement\Annotations;
 /**
  * @Annotation
  */
-final class Type {
+final class Type extends ContextAwareAnnotation implements SingleAnnotationInterface {
 	
 	/**
 	 * @var string

@@ -106,22 +106,6 @@ class Helper {
 		return false;
 	}
 	
-	public function getBeing_($mixed){
-		if(is_object($mixed)){
-			$object = $mixed;
-			$class = get_class($mixed);
-		}else{
-			$class = $mixed;
-		}
-		$being = new \Foo\ContentManagement\Core\Being($this->getAdapterByBeing($class));
-		$being->setClass($class);
-		
-		if(isset($object))
-			$being->setObject($object);
-			
-		return $being;
-	}
-	
 	/**
 	 * Returns all Properties of a Specified Model
 	 *

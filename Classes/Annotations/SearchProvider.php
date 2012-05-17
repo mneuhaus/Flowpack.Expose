@@ -14,7 +14,7 @@ namespace Foo\ContentManagement\Annotations;
 /**
  * @Annotation
  */
-final class SearchProvider {
+final class SearchProvider implements SingleAnnotationInterface {
 	
 	/**
 	 * @var integer

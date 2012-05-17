@@ -1,6 +1,6 @@
 <?php
 
-namespace Foo\ContentManagement\Core\ConfigurationProvider;
+namespace Foo\ContentManagement\Reflection\Provider;
 
 /* *
  * This script belongs to the FLOW3 framework.                            *
@@ -23,12 +23,12 @@ namespace Foo\ContentManagement\Core\ConfigurationProvider;
  *                                                                        */
 
 /**
- * interface for the ConfigurationProviders
+ * interface for the ReflectionProviders
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  * @author Marc Neuhaus <marc@mneuhaus.com>
  */
-interface ConfigurationProviderInterface {
-	public function get($being);
+interface AnnotationProviderInterface {
+	public function getClassAnnotations($class);
 }
 ?>

@@ -1,6 +1,6 @@
 <?php
 
-namespace Foo\ContentManagement\ConfigurationProvider;
+namespace Foo\ContentManagement\Reflection\Provider;
 
 /* *
  * This script belongs to the FLOW3 framework.                            *
@@ -25,46 +25,50 @@ namespace Foo\ContentManagement\ConfigurationProvider;
 use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
- * ConfigurationProvider to add default configurations from yaml
+ * Configurationprovider for the DummyAdapter
  *
  * @version $Id: YamlConfigurationProvider.php 3837 2010-02-22 15:17:24Z robert $
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-class DefaultsConfigurationProvider extends \Foo\ContentManagement\ConfigurationProvider\YamlConfigurationProvider {
-	
+class ReflectionAnnotationProvider extends AbstractAnnotationProvider {
 	/**
 	 * @var \TYPO3\FLOW3\Reflection\ReflectionService
-	 * @api
 	 * @author Marc Neuhaus <apocalip@gmail.com>
 	 * @FLOW3\Inject
 	 */
 	protected $reflectionService;
-	
-	public function get($being){
-		$c = array();
+
+	public function getClassAnnotations($class){
 		
-		if(isset($this->settings["Defaults"])){
-			$classRaw = $this->settings["Defaults"];
-			$propertyRaw = $classRaw["properties"];
-			unset($classRaw["properties"]);
-			$c = $this->convert($classRaw);
-			if( class_exists($being, false) ) {
-				$propertyDefaults = $this->convert($propertyRaw);
-				$schema = $this->reflectionService->getClassSchema($being);
-				if(is_object($schema)){
-					$properties = $schema->getProperties();
-				}else{
-					$properties = array_flip($this->reflectionService->getClassPropertyNames($being));
-				}
-					foreach($properties as $property => $meta){
-						if($property == "FLOW3_Persistence_Identifier") continue;
-						$c["properties"][$property] = $propertyDefaults;
-					}
-			}
+		$annotations = array();
+		foreach ($this->reflectionService->getClassAnnotations($class) as $annotation) {
+			$this->addAnnotation($annotations, $annotation);
 		}
 
-		return $c;
+		$annotations["Properties"] = array();
+		foreach($this->reflectionService->getClassPropertyNames($class) as $property){
+			$propertyAnnotations = array();
+			foreach($this->reflectionService->getPropertyAnnotations($class, $property) as $annotation) {
+				$this->addAnnotation($propertyAnnotations, $annotation);
+			}
+
+			$var = $this->reflectionService->getPropertyTagValues($class, $property, "var");
+			$typeAnnotationClass = $this->findAnnotationByName("Type");
+			$typeAnnotation = new $typeAnnotationClass(array("value" => current($var)));
+			$this->addAnnotation($propertyAnnotations, $typeAnnotation);
+
+			$annotations["Properties"][$property] = $propertyAnnotations;
+		}
+
+		return $annotations;
 	}
 
+	public function convert($input){
+		if(is_array($input)){
+			return $input;
+		} else {
+			return array( "value" => $input );
+		}
+	}
 }
 ?>

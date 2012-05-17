@@ -1,6 +1,6 @@
 <?php
 
-namespace Foo\ContentManagement\Core\ConfigurationProvider;
+namespace Foo\ContentManagement\Reflection\Provider;
 
 /* *
  * This script belongs to the FLOW3 framework.                            *
@@ -22,7 +22,6 @@ namespace Foo\ContentManagement\Core\ConfigurationProvider;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
-use Doctrine\ORM\Mapping as ORM;
 use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
@@ -31,7 +30,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * @version $Id: AbstractConfigurationProvider.php 3837 2010-02-22 15:17:24Z robert $
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-abstract class AbstractConfigurationProvider implements ConfigurationProviderInterface {
+abstract class AbstractAnnotationProvider implements AnnotationProviderInterface {
     /**
 	 * @var TYPO3\FLOW3\Cache\CacheManager
 	 * @FLOW3\Inject
@@ -40,27 +39,37 @@ abstract class AbstractConfigurationProvider implements ConfigurationProviderInt
 
 	/**
 	 * @var \TYPO3\FLOW3\Object\ObjectManagerInterface
-	 * @api
 	 * @author Marc Neuhaus <apocalip@gmail.com>
 	 * @FLOW3\Inject
 	 */
 	protected $objectManager;
 
-	/**
-	 * @var \Foo\ContentManagement\Core\Helper
-	 * @author Marc Neuhaus <apocalip@gmail.com>
-	 * @FLOW3\Inject
-	 */
-	protected $helper;
+	public function addAnnotation(&$annotations, $annotation) {
+		if(is_array($annotation)){
+			foreach ($annotation as $annotation1) {
+				$this->addAnnotation($annotations, $annotation1);
+			}
+			return;
+		}
+		
+		$annotationClass = get_class($annotation);
 
-	/**
-	 * @var array
-	 * @author Marc Neuhaus <apocalip@gmail.com>
-	 */
-	protected $settings = array();
+		if($annotation instanceof \Foo\ContentManagement\Annotations\SingleAnnotationInterface){
+			$annotations[$annotationClass] = $annotation;
+		}else{
+			if(!isset($annotations[$annotationClass]))
+				$annotations[$annotationClass] = array();
+			$annotations[$annotationClass][] = $annotation;
+		}
+	}
 
-	public function setSettings($settings){
-		$this->settings = $settings;
+	public function findAnnotationByName($annotationName) {
+		if(class_exists($annotationName))
+			return $annotationName;
+
+		if(class_exists("Foo\ContentManagement\Annotations\\" . $annotationName))
+			return "Foo\ContentManagement\Annotations\\" . $annotationName;
+
 	}
 }
 ?>

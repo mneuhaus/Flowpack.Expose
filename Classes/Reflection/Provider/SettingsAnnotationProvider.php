@@ -1,8 +1,8 @@
 <?php
 
-namespace Foo\ContentManagement\Core;
+namespace Foo\ContentManagement\Reflection\Provider;
 
-/*                                                                        *
+/* *
  * This script belongs to the FLOW3 framework.                            *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
@@ -22,60 +22,48 @@ namespace Foo\ContentManagement\Core;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
-use Doctrine\ORM\Mapping as ORM;
 use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
- * represents a properties value
- * 
- * @version $Id: ForViewHelper.php 3346 2009-10-22 17:26:10Z k-fish $
+ * Configurationprovider for the DummyAdapter
+ *
+ * @version $Id: YamlConfigurationProvider.php 3837 2010-02-22 15:17:24Z robert $
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
- * @api
- * @FLOW3\Scope("prototype")
  */
-class Value{
+class SettingsAnnotationProvider extends AbstractAnnotationProvider {
 	/**
-	 * @var \Foo\ContentManagement\Core\PropertyMapper
-	 * @api
-	 * @author Marc Neuhaus <apocalip@gmail.com>
+	 * @var \TYPO3\FLOW3\Configuration\ConfigurationManager
 	 * @FLOW3\Inject
 	 */
-	protected $propertyMapper;
+	protected $configurationManager;
 
-	protected $parentProperty;
+	public function getClassAnnotations($class){
+		$classes = $this->configurationManager->getConfiguration(\TYPO3\FLOW3\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, "Foo.ContentManagement.Annotations");
 
-	public function  __construct($parentProperty) {
-		$this->parentProperty = $parentProperty;
-	}
+		$annotations = array();
 
-	public function  __toString() {
-		$value = $this->parentProperty->getValue();
-		$options = array(
-		    array(
-			'TYPO3\FLOW3\Property\TypeConverter\DateTimeConverter',
-			\TYPO3\FLOW3\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT,
-			$this->parentProperty->representation->datetimeFormat
-		    )
-		);
-		return $this->propertyMapper->convert($value, "string", \Foo\ContentManagement\Core\PropertyMappingConfiguration::getConfiguration('\Foo\ContentManagement\Core\PropertyMappingConfiguration', $options));
-	}
+		if(isset($classes[$class])){
+			foreach ($classes[$class] as $annotationName => $values) {
+				if($annotationName == "Properties"){
 
-	public function getValue() {
-		return $this->parentProperty->getValue();
-	}
-
-	public function getIds(){
-		$value = $this->getValue();
-		$ids = array();
-		if( \Foo\ContentManagement\Core\Helper::isIteratable($value) ){
-			foreach($value as $object){
-				$ids[] = $this->parentProperty->adapter->getId($object);
+				} else {
+					$annotationClass = $this->findAnnotationByName($annotationName);
+					$values = $this->convert($values);
+					$annotation = new $annotationClass($values);
+					$this->addAnnotation($annotations, $annotation);
+				}
 			}
-		}else if (is_object($value)){
-			$ids[] = $this->parentProperty->adapter->getId($value);
 		}
-		return $ids;
+		
+		return $annotations;
+	}
+
+	public function convert($input){
+		if(is_array($input)){
+			return $input;
+		} else {
+			return array( "value" => $input );
+		}
 	}
 }
-
 ?>

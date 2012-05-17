@@ -37,12 +37,6 @@ abstract class AbstractAction implements ActionInterface {
 	protected $actionManager;
 
 	/**
-	 * @var \Foo\ContentManagement\Core\ConfigurationManager
-	 * @FLOW3\Inject
-	 */
-	protected $configurationManager;
-
-	/**
 	 * @var \Foo\ContentManagement\Adapters\ContentManager
 	 */
 	protected $contentManager;	
@@ -122,7 +116,7 @@ abstract class AbstractAction implements ActionInterface {
 		$paths[] = ucfirst($this->getAction());
 		if(!is_null($path))
 			$paths[] = $path;
- 		return $this->configurationManager->getSettings(implode(".", $paths));
+ 		return $this->contentManager->getSettings(implode(".", $paths));
 	}
 }
 ?>

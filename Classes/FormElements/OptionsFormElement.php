@@ -30,7 +30,7 @@ class OptionsFormElement extends ComplexFormElement {
 	}
 
 	public function getOptionsProvider() {
-		$optionsProviderClass = $this->getAnnotations()->getOptionsProvider();
+		$optionsProviderClass = (string) $this->getAnnotations()->getOptionsProvider();
 		$optionsProvider = new $optionsProviderClass($this->getAnnotations());
 		return $optionsProvider;
 	}

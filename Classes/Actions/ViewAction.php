@@ -63,8 +63,8 @@ class ViewAction extends \Foo\ContentManagement\Core\Actions\AbstractAction {
 	 * @author Marc Neuhaus <mneuhaus@famelo.com>
 	 * */
 	public function execute($being, $ids = null) {
-		$being = $this->adapter->getBeing($being, current($ids));
-		$this->view->assign("being", $being);
+		$being = $this->adapter->getObject($being, current($ids));
+		$this->view->assign("object", $being);
 	}
 
 }
