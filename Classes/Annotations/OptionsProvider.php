@@ -31,15 +31,20 @@ final class OptionsProvider implements SingleAnnotationInterface {
 	 */
 	public function __construct(array $values = array()) {
 		foreach ($values as $key => $value) {
+			$key = strtolower($key);
+			$values[$key] = $value;
 			$this->$key = $value;
 		}
 		$this->name = isset($values['value']) ? $values['value'] : $this->name;
 		$this->name = isset($values['name']) ? $values['name'] : $this->name;
 		
 		$this->options = isset($values['options']) ? $values['options'] : $this->options;
-		
+
 		if(class_exists(sprintf("\\Foo\\ContentManagement\\OptionsProvider\\%sOptionsProvider", $this->name)))
-			$this->name = sprintf("\\Foo\\ContentManagement\\%sOptionsProvider", $this->name);
+			$this->name = sprintf("\\Foo\\ContentManagement\\OptionsProvider\\%sOptionsProvider", $this->name);
+
+		if(class_exists(sprintf("\\Foo\\ContentManagement\\OptionsProvider\\%s", $this->name)))
+			$this->name = sprintf("\\Foo\\ContentManagement\\OptionsProvider\\%s", $this->name);
 	}
 	
 	public function __toString(){

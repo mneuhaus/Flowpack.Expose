@@ -28,6 +28,10 @@ final class Widget extends ContextAwareAnnotation implements SingleAnnotationInt
 			$this->name = $values['value'];
 		}
 	}
+
+	public function __toString() {
+		return $this->name;
+	}
 }
 
 ?>

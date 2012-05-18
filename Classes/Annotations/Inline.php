@@ -16,11 +16,6 @@ namespace Foo\ContentManagement\Annotations;
  */
 final class Inline implements SingleAnnotationInterface {
 	/**
-	 * @var integer
-	 */
-	public $amount = 3;
-
-	/**
 	 * @var string
 	 **/
 	protected $variant = "Foo.ContentManagement:InlineTabular";
@@ -29,7 +24,7 @@ final class Inline implements SingleAnnotationInterface {
 	 * @param string $value
 	 */
 	public function __construct(array $values = array()) {
-		$this->amount = isset($values['amount']) ? $values['amount'] : $this->amount;
+		$this->variant = isset($values['value']) && $values['value'] !== true ? $values['value'] : $this->variant;
 		$this->variant = isset($values['variant']) ? $values['variant'] : $this->variant;
 	}
 
