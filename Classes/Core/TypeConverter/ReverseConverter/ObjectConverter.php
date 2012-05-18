@@ -111,12 +111,13 @@ class ObjectConverter extends \TYPO3\FLOW3\Property\TypeConverter\AbstractTypeCo
 	}
 	
 	public function getStringByAnnotation($source){
-		$configuration = $this->annotationService->getClassAnnotations(get_class($source));
-		
+		$annotations = $this->annotationService->getClassAnnotations(get_class($source));
+		$annotations->setObject($source);
+
 		$title = array();
-		foreach($configuration["properties"] as $property => $meta){
-			if(in_array("title",array_keys($meta))){
-				$title[] = \TYPO3\FLOW3\Reflection\ObjectAccess::getProperty($source, $property);
+		foreach($annotations->getProperties() as $property){
+			if($property->has("title")){
+				$title[] = $property->getValue();
 			}
 		}
 		
@@ -127,14 +128,14 @@ class ObjectConverter extends \TYPO3\FLOW3\Property\TypeConverter\AbstractTypeCo
 	}
 	
 	public function getStringByGuessing($source){
-		$configuration = $this->annotationService->getClassAnnotations(get_class($source));
+		$annotations= $this->annotationService->getClassAnnotations(get_class($source));
 		
 		$goodGuess = array();
 		$usualSuspects = array("title", "name");
-		foreach($configuration["properties"] as $property => $meta){
-			if(in_array($property, $usualSuspects)){
-				if(\TYPO3\FLOW3\Reflection\ObjectAccess::isPropertyGettable($source, $property)){
-					$value = \TYPO3\FLOW3\Reflection\ObjectAccess::getProperty($source, $property);
+		foreach($annotations->getProperties() as $property){
+			if(in_array($property->getIndex(), $usualSuspects)){
+				if(\TYPO3\FLOW3\Reflection\ObjectAccess::isPropertyGettable($source, $property->getProperty())){
+					$value = \TYPO3\FLOW3\Reflection\ObjectAccess::getProperty($source, $property->getProperty());
 					
 					if(is_object($value) && $this->nestingLevel < 3){
 						$this->nestingLevel++;

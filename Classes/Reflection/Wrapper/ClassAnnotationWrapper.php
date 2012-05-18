@@ -19,7 +19,8 @@ class ClassAnnotationWrapper extends AbstractAnnotationWrapper {
 		$property = new \Foo\ContentManagement\Reflection\Wrapper\PropertyAnnotationWrapper($properties[$propertyName]);
 		$property->setProperty($propertyName);
 		if($this->has("Object")){
-			$property->setValue(\TYPO3\FLOW3\Reflection\ObjectAccess::getProperty($this->get("Object"), $propertyName));
+			if(\TYPO3\FLOW3\Reflection\ObjectAccess::isPropertyGettable($this->get("Object"), $propertyName))
+				$property->setValue(\TYPO3\FLOW3\Reflection\ObjectAccess::getProperty($this->get("Object"), $propertyName));
 		}
 		return $property;
 	}

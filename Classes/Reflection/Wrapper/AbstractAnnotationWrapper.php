@@ -15,7 +15,7 @@ namespace Foo\ContentManagement\Reflection\Wrapper;
  */
 abstract class AbstractAnnotationWrapper {
 	public $annotations = array();
-	public $index = array();
+	protected $index = array();
 
 	public function __construct($annotations) {
 		$this->annotations = $annotations;
@@ -55,6 +55,10 @@ abstract class AbstractAnnotationWrapper {
 			$annotation = substr($methodName, 3);
 			return $this->set($annotation, $arguments[0]);
 		}
+	}
+
+	public function getIndex() {
+		return $this->index;
 	}
 }
 
