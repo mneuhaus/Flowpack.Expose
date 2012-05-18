@@ -25,10 +25,15 @@ class ClassAnnotationWrapper extends AbstractAnnotationWrapper {
 		return $property;
 	}
 
-	public function getProperties() {
+	public function getProperties($context = null) {
 		$properties = array();
 		foreach ($this->get("properties") as $property => $value) {
 			$properties[$property] = $this->getPropertyAnnotations($property);
+
+			if(!is_null($context) 
+				&& $properties[$property]->has("ignore")
+				&& $properties[$property]->getIgnore()->ignoreContext($context))
+				unset($properties[$property]);
 		}
 		return $properties;
 	}

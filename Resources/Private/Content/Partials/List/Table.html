@@ -5,7 +5,7 @@
 			<th class="tiny">
 				<input type="checkbox" class="select-all" data-klove-shortcut="a" data-klove-info="toggle all"/>
 			</th>
-			<cm:properties object="{objects.0}">
+			<cm:properties object="{objects.0}" context="Content.List.Table">
 				<f:for each="{properties}" as="property">
 					<f:if condition="{sorting.property} == {property}">
 						<f:then><th class="sort-{sorting.direction}"></f:then>
@@ -23,7 +23,7 @@
 	</thead>
 	<tbody>
 		<f:for each="{objects}" as="object">
-		<cm:properties object="{object}">
+		<cm:properties object="{object}" context="Content.List.Table">
 		<tr data-klove="row">
 			<td class="tiny">
 				<input type="checkbox" name="bulkItems[]" value="{being.id}" class="select-row" data-klove-row-shortcut="x"/>

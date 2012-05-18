@@ -214,10 +214,10 @@ class ContentManager {
 		return $classAnnotations->getPropertyAnnotations($property);
 	}
 
-	public function getProperties($object) {
+	public function getProperties($object, $context = null) {
 		$classAnnotations = $this->getClassAnnotations(get_class($object));
 		$classAnnotations->setObject($object);
-		return $classAnnotations->getProperties();
+		return $classAnnotations->getProperties($context);
 	}
 
 	public function getString($object) {

@@ -44,15 +44,16 @@ class PropertiesViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelp
 	 * @param object $object
 	 * @param string $className
 	 * @param string $as
+	 * @param string $context
 	 * @return string Rendered string
 	 * @author Marc Neuhaus <apocalip@gmail.com>
 	 * @api
 	 */
-	public function render($object = null, $className = null, $as = "properties") {
+	public function render($object = null, $className = null, $as = "properties", $context = "template") {
 		if(is_null($object) && !is_null($className))
 			$object = new $className;
 		
-		$properties = $this->contentManager->getProperties($object);
+		$properties = $this->contentManager->getProperties($object, $context);
 		
 		$this->templateVariableContainer->add($as, $properties);
 		$content = $this->renderChildren();
