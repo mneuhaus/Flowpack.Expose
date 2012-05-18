@@ -1,0 +1,9 @@
+{namespace form=TYPO3\Form\ViewHelpers}
+<fieldset id="{inline.uniqueIdentifier}">
+	<f:if condition="{inline.label}">
+		<legend>{inline.label}</legend>
+	</f:if>
+	<f:for each="{inline.elements}" as="element">
+		<form:renderRenderable renderable="{element}" />
+	</f:for>
+</fieldset>

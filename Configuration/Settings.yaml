@@ -122,13 +122,20 @@ TYPO3:
             implementationClassName: 'Foo\ContentManagement\FormElements\InlineFormElement'
             renderingOptions:
               renderableNameInTemplate: 'inline'
-          
-          'Foo.ContentManagement:InlineTabular':
-            superTypes: ['Foo.ContentManagement:InlineStacked']
-            implementationClassName: 'Foo\ContentManagement\FormElements\InlineFormElement'
 
           'Foo.ContentManagement:InlineStackedItem':
             superTypes: ['Foo.ContentManagement:InlineStacked']
-
+          
+          
+          'Foo.ContentManagement:InlineTabular':
+            superTypes: ['Foo.ContentManagement:InlineStacked']
+          
           'Foo.ContentManagement:InlineTabularItem':
+            superTypes: ['Foo.ContentManagement:InlineStacked']
+
+
+          'Foo.ContentManagement:InlineSeamless':
+            superTypes: ['Foo.ContentManagement:InlineStacked']
+          
+          'Foo.ContentManagement:InlineSeamlessItem':
             superTypes: ['Foo.ContentManagement:InlineStacked']
