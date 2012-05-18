@@ -19,6 +19,13 @@ namespace Foo\ContentManagement\Core;
  */
 class PropertyMappingConfiguration extends \TYPO3\FLOW3\Property\PropertyMappingConfiguration {
 	/**
+	 * If TRUE, unknown properties will be mapped.
+	 *
+	 * @var boolean
+	 */
+	protected $mapUnknownProperties = TRUE;
+
+	/**
 	 * Returns the sub-configuration for the passed $propertyName. Must ALWAYS return a valid configuration object!
 	 *
 	 * @param string $propertyName
