@@ -1,0 +1,7 @@
+{namespace form=TYPO3\Form\ViewHelpers}
+<f:for each="{inline.elements}" as="element">
+	<td>
+		<form:renderRenderable renderable="{element}" />
+	</td>
+</f:for>
+<td class="tiny"><a class="close" style="display: inline; ">x</a></td>

@@ -23,9 +23,9 @@
 			
 			<div class="pagination pull-left">
 				<cm:render partial="Limits" fallbacks="Partials"/>
-				<cm:being className="{className}">
-					<cm:render partial="VariantsSelector" fallbacks="Partials" vars="{variant: being.variant, current: 'List'}"/>
-				</cm:being>
+				<!-- <_cm:being className="{className}">
+					<_cm:render partial="VariantsSelector" fallbacks="Partials" vars="{variant: being.variant, current: 'List'}"/>
+				</_cm:being> -->
 			</div>
 			<div class="pagination pull-right">
 				<cm:render partial="Pagination" fallbacks="Partials"/>

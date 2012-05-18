@@ -18,13 +18,16 @@ class ClassAnnotationWrapper extends AbstractAnnotationWrapper {
 		$properties = $this->get("Properties");
 		$property = new \Foo\ContentManagement\Reflection\Wrapper\PropertyAnnotationWrapper($properties[$propertyName]);
 		$property->setProperty($propertyName);
+		if($this->has("Object")){
+			$property->setValue(\TYPO3\FLOW3\Reflection\ObjectAccess::getProperty($this->get("Object"), $propertyName));
+		}
 		return $property;
 	}
 
 	public function getProperties() {
 		$properties = array();
-		foreach ($this->get("properties") as $key => $value) {
-			$properties[$key] = $this->getPropertyAnnotations($key);
+		foreach ($this->get("properties") as $property => $value) {
+			$properties[$property] = $this->getPropertyAnnotations($property);
 		}
 		return $properties;
 	}

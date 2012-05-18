@@ -1,0 +1,27 @@
+{namespace form=TYPO3\Form\ViewHelpers}
+{namespace cm=Foo\ContentManagement\ViewHelpers}
+<f:if condition="{inline.multipleMode}">
+<f:then><div class="box inline" data-mode='multiple' data-counter="{inline.nextKey}"></f:then>
+<f:else><div class="box inline"></f:else>
+</f:if>
+	<f:if condition="{inline.label}">
+		<h5 class="box-header">{inline.label}</h5>
+	</f:if>
+
+	<div class="inline-template">
+		<form:renderRenderable renderable="{inline.template}" />
+	</div>
+
+	<f:for each="{inline.elements}" as="element">
+	<div class="inline-item">
+		<form:renderRenderable renderable="{element}" />
+	</div>
+	</f:for>
+
+	<f:if condition="{inline.multipleMode}">
+	<div class="inline-item inline-unused">
+		<form:renderRenderable renderable="{inline.unusedElement}" />
+	</div>
+	</f:if>
+	
+</div>

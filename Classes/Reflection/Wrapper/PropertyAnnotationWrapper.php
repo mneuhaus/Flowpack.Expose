@@ -85,6 +85,10 @@ class PropertyAnnotationWrapper extends AbstractAnnotationWrapper {
 		
 		return $widget;
 	}
+
+	public function getValue() {
+		return $this->get("Value");
+	}
 }
 
 ?>

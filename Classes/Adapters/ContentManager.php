@@ -141,6 +141,16 @@ class ContentManager {
 		return $classConfiguration;
 	}
 
+	public function getClass($object) {
+		$class = get_class($object);
+
+		$implementations = class_implements("\\" . ltrim($class, "\\"));
+		if(in_array("Doctrine\ORM\Proxy\Proxy", $implementations))
+			$class = get_parent_class("\\" . ltrim($class, "\\"));
+		
+		return $class;
+	}
+
 	/**
 	 * returns all active groups
 	 *
@@ -205,11 +215,9 @@ class ContentManager {
 	}
 
 	public function getProperties($object) {
-		$properties = $this->getClassAnnotations(get_class($object))->getProperties();
-		foreach ($properties as $property => $value) {
-			$properties[$property]["value"] = \TYPO3\FLOW3\Reflection\ObjectAccess::getProperty($object, $property);
-		}
-		return $properties;
+		$classAnnotations = $this->getClassAnnotations(get_class($object));
+		$classAnnotations->setObject($object);
+		return $classAnnotations->getProperties();
 	}
 
 	public function getString($object) {

@@ -1,0 +1,35 @@
+{namespace form=TYPO3\Form\ViewHelpers}
+{namespace cm=Foo\ContentManagement\ViewHelpers}
+<f:if condition="{inline.multipleMode}">
+<f:then><div class="box inline" data-mode='multiple' data-counter="{inline.nextKey}"></f:then>
+<f:else><div class="box inline"></f:else>
+</f:if>
+	<f:if condition="{inline.label}">
+		<h5 class="box-header">{inline.label}</h5>
+	</f:if>
+	<div class="scrollable" id="{inline.uniqueIdentifier}">
+		<table class="table">
+			<tr>
+				<f:for each="{inline.propertyNames}" as="property">
+					<th>{property}</th>
+				</f:for>
+			</tr>
+			
+			<tr class="inline-template">
+				<form:renderRenderable renderable="{inline.template}" />
+			</tr>
+
+			<f:for each="{inline.elements}" as="element">
+				<tr class="inline-item">
+					<form:renderRenderable renderable="{element}" />
+				</tr>
+			</f:for>
+
+			<f:if condition="{inline.multipleMode}">
+			<tr class="inline-item inline-unused">
+				<form:renderRenderable renderable="{inline.unusedElement}" />
+			</tr>
+			</f:if>
+		</table>
+	</div>
+</div>

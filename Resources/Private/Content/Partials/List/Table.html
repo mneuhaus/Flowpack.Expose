@@ -29,7 +29,9 @@
 				<input type="checkbox" name="bulkItems[]" value="{being.id}" class="select-row" data-klove-row-shortcut="x"/>
 			</td>
 			<f:for each="{properties}" as="property">
-				<td><cm:format.string value="{property.value}" /></td>
+				<td>
+					<cm:format.string value="{property.value}" />
+				</td>
 			</f:for>
 			<td class="table-actions">
 				<f:for each="{listActions}" as="action">

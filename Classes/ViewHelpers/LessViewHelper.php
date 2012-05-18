@@ -65,7 +65,7 @@ class LessViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractTagBasedViewHe
 
 		$cache = $this->cacheManager->getCache('Admin_Cache');
 		$identifier = $this->cacheManager->createIdentifier($src);
-		if(!$cache->has($identifier)){
+		if(!$cache->has($identifier) && true){
 			$compilationCache = \lessc::cexecute($src, true);
 			file_put_contents($target, $compilationCache['compiled']);
 			$cache->set($identifier, $compilationCache);

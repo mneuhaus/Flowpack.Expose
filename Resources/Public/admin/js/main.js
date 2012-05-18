@@ -13,16 +13,12 @@ jQuery(document).ready(function(){
 	//jQuery('.navbar ul.nav').dropdown();
 	
 	jQuery(".inline[data-mode='multiple']").inlineHelper();
-	
-	
-	jQuery("[data-height=fixed]").each(function(){
-		var e = jQuery(this);
-		e.height(jQuery("body").height() - Number(e.css("top").replace("px", "")));
+	jQuery(".inline[data-mode='multiple']").parents("form").submit(function(){
+		var form = jQuery(this);
+		form.find(".inline-unused").remove();
 	});
-	
-	jQuery("body").height(jQuery("body").height() - 40);
-	
-	jQuery("#shortcuts-modal").modal({show: false, background: true, keyboard: true});
+		
+	//jQuery("#shortcuts-modal").modal({show: false, background: true, keyboard: true});
 	jQuery("#shortcuts-modal .modal-body").append("<dl class='hotkeys'><dt>h</dt><dd>toggle this help dialog</dd></dl>");
 	jwerty.key("h", function () {
 		var tag = document.activeElement.tagName;

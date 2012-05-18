@@ -15,17 +15,30 @@ namespace Foo\ContentManagement\Annotations;
  * @Annotation
  */
 final class Inline implements SingleAnnotationInterface {
-	
 	/**
 	 * @var integer
 	 */
 	public $amount = 3;
+
+	/**
+	 * @var string
+	 **/
+	protected $variant = "Foo.ContentManagement:InlineTabular";
 	
 	/**
 	 * @param string $value
 	 */
 	public function __construct(array $values = array()) {
 		$this->amount = isset($values['amount']) ? $values['amount'] : $this->amount;
+		$this->variant = isset($values['variant']) ? $values['variant'] : $this->variant;
+	}
+
+	public function getAmount() {
+		return $this->amount;
+	}
+
+	public function getVariant() {
+		return $this->variant;
 	}
 }
 

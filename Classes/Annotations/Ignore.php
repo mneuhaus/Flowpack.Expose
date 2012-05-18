@@ -14,7 +14,7 @@ namespace Foo\ContentManagement\Annotations;
 /**
  * @Annotation
  */
-final class Ignore {
+final class Ignore implements SingleAnnotationInterface {
 	/**
 	 * @var string
 	 */
@@ -24,9 +24,13 @@ final class Ignore {
 	 * @param string $value
 	 */
 	public function __construct(array $values) {
-		if (isset($values['value'])) {
+		if (isset($values['value']) && $values['value'] !== true) {
 			$this->views = $values['value'];
 		}
+	}
+
+	public function ignoreContext($context) {
+		return empty($this->views) || stristr($this->views, $context);
 	}
 }
 

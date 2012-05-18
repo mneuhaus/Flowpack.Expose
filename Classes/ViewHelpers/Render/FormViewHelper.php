@@ -57,6 +57,7 @@ class FormViewHelper extends \TYPO3\Form\ViewHelpers\RenderViewHelper {
 			$overrideConfiguration["object"] = $object;
 
 		$factory = $this->objectManager->get($factoryClass);
+		$factory->setRequest($this->controllerContext->getRequest());
 		$formDefinition = $factory->build($overrideConfiguration, $presetName);
 		$response = new \TYPO3\FLOW3\Http\Response($this->controllerContext->getResponse());
 

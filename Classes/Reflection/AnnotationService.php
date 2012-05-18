@@ -62,10 +62,9 @@ class AnnotationService {
 	protected $runtimeCache = array();
 
 	public function getClassAnnotations($class){
-		#$implementations = class_implements("\\" . ltrim($class, "\\"));
-		#if(in_array("Doctrine\ORM\Proxy\Proxy", $implementations))
-		#	$class = get_parent_class("\\" . ltrim($class, "\\"));
-		#$this->class = $class;
+		$implementations = class_implements("\\" . ltrim($class, "\\"));
+		if(in_array("Doctrine\ORM\Proxy\Proxy", $implementations))
+			$class = get_parent_class("\\" . ltrim($class, "\\"));
 
 		if(!isset($this->runtimeCache[$class])){
 			$annotations = array();
@@ -75,6 +74,7 @@ class AnnotationService {
 				$annotations = $this->merge($annotations, $annotationProvider->getClassAnnotations($class));
 			}
 			$this->runtimeCache[$class] = new Wrapper\ClassAnnotationWrapper($annotations);
+			$this->runtimeCache[$class]->setClass($class);
 		}
 
 		return $this->runtimeCache[$class];

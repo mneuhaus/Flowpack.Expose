@@ -45,7 +45,19 @@ class SettingsAnnotationProvider extends AbstractAnnotationProvider {
 		if(isset($classes[$class])){
 			foreach ($classes[$class] as $annotationName => $values) {
 				if($annotationName == "Properties"){
-
+					$properties = $values;
+					$annotations["Properties"] = array();
+					foreach ($properties as $property => $settings) {
+						if($property == "FLOW3_Persistence_Identifier") continue;
+						$propertyAnnotations = array();
+						foreach ($settings as $annotationName => $values) {
+							$annotationClass = $this->findAnnotationByName($annotationName);
+							$values = $this->convert($values);
+							$annotation = new $annotationClass($values);
+							$this->addAnnotation($propertyAnnotations, $annotation);
+						}
+						$annotations["Properties"][$property] = $propertyAnnotations;
+					}
 				} else {
 					$annotationClass = $this->findAnnotationByName($annotationName);
 					$values = $this->convert($values);

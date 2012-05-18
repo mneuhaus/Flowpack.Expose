@@ -14,13 +14,6 @@ Foo:
         - 10000
       Default: 20
       MaxPages: 9
-    Navigation:
-      Top:
-        Documentation:
-          Arguments:
-            action: index
-            controller: doc
-            package: admin
     Defaults:
       Variant: Default
       SearchProvider: \Foo\ContentManagement\SearchProvider\SimpleSearchProvider
@@ -72,18 +65,14 @@ Foo:
         - resource://Foo.ContentManagement/Private/Partials/@partial/@variant.html
         - resource://Foo.ContentManagement/Private/Partials/@partial.html
         - resource://Foo.ContentManagement/Private/Partials/@partial/Default.html
-      Widgets:
-        - resource://@package/Private/Partials/@being/Widgets/@partial.html
-        - resource://@package/Private/Partials/Widgets/@partial.html
-        - resource://Foo.ContentManagement/Private/Partials/Widgets/@partial.html
     Mapping:
       Widgets:
         string:   TYPO3.Form:SingleLineText
-        readonly:   TextfieldReadonly
-        integer:  Spinner
+        #readonly:   TextfieldReadonly
+        #integer:  Spinner
         float:    TYPO3.Form:SingleLineText
         boolean:  TYPO3.Form:Checkbox
-        \TYPO3\FLOW3\Resource\Resource: Upload
+        #\TYPO3\FLOW3\Resource\Resource: Upload
         \DateTime: TYPO3.Form:DatePicker
         ^\\[A-Za-z0-9\\]+\\Domain\\Model\\[A-Za-z]+$: TYPO3.Form:SingleSelectDropdown
         ^\\[A-Za-z0-9\\]+\\Security\\[A-Za-z]+$: TYPO3.Form:SingleSelectDropdown
@@ -105,17 +94,41 @@ TYPO3:
     presets:
       default:
         formElementTypes:
-          # 'TYPO3.Form:FormElement':
-          #   superTypes: ['TYPO3.Form:Base', 'TYPO3.Form:RemovableMixin']
-          #   implementationClassName: 'TYPO3\Form\FormElements\GenericFormElement'
-          #   renderingOptions:
-          #     renderableNameInTemplate: 'element'
-          'Foo.ContentManagement:Hidden':
-            superTypes: ['TYPO3.Form:FormElement', 'TYPO3.Form:TextMixin']
-            implementationClassName: 'Foo\ContentManagement\FormElements\ComplexFormElement'
-          #'TYPO3.Form:SingleLineText':
-          #  superTypes: ['TYPO3.Form:FormElement', 'TYPO3.Form:TextMixin']
-          #  implementationClassName: 'Foo\ContentManagement\FormElements\ComplexFormElement'
+          ### override default layout path ###
+          'TYPO3.Form:Base':
+            renderingOptions:
+              layoutPathPattern: 'resource://Foo.ContentManagement/Private/Form/Layouts/{@type}.html'
+
+          ### override template path of TYPO3.Form:Form ###
+          'TYPO3.Form:Form':
+            renderingOptions:
+              templatePathPattern: 'resource://Foo.ContentManagement/Private/Form/Form.html'
 
           'TYPO3.Form:SelectionMixin':
             implementationClassName: 'Foo\ContentManagement\FormElements\OptionsFormElement'
+
+
+          ### FORM ELEMENTS: CONTAINER ###
+          'Foo.ContentManagement:Page':
+            superTypes: ['TYPO3.Form:Page']
+            implementationClassName: 'Foo\ContentManagement\FormElements\Page'
+
+          'Foo.ContentManagement:Hidden':
+            superTypes: ['TYPO3.Form:FormElement', 'TYPO3.Form:TextMixin']
+            implementationClassName: 'Foo\ContentManagement\FormElements\ComplexFormElement'
+
+          'Foo.ContentManagement:InlineStacked':
+            superTypes: ['TYPO3.Form:Section']
+            implementationClassName: 'Foo\ContentManagement\FormElements\InlineFormElement'
+            renderingOptions:
+              renderableNameInTemplate: 'inline'
+          
+          'Foo.ContentManagement:InlineTabular':
+            superTypes: ['Foo.ContentManagement:InlineStacked']
+            implementationClassName: 'Foo\ContentManagement\FormElements\InlineFormElement'
+
+          'Foo.ContentManagement:InlineStackedItem':
+            superTypes: ['Foo.ContentManagement:InlineStacked']
+
+          'Foo.ContentManagement:InlineTabularItem':
+            superTypes: ['Foo.ContentManagement:InlineStacked']

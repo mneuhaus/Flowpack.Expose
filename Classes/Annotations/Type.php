@@ -38,6 +38,10 @@ final class Type extends ContextAwareAnnotation implements SingleAnnotationInter
 	public function __toString(){
 		return $this->name;
 	}
+
+	public function getInstance() {
+		return new $this->name();
+	}
 }
 
 ?>

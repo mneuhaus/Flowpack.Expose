@@ -65,7 +65,7 @@
 		var newRow = tpl.clone().removeClass("inline-template").addClass("inline-item");
 		
 		newRow.find("input:hidden, select:hidden, textarea:hidden").removeAttr("disabled");
-		newRow.html(newRow.html().replace(/\{counter}/g, counter));
+		newRow.html(newRow.html().replace(/000/g, counter).replace(/\[_template\]/g, ""));
 		newRow.addClass("inline-unused").hide();
 		jQuery(tpl).parent().append(newRow);
 		newRow.fadeIn("slow");
@@ -84,44 +84,3 @@
 	}
 
 })( jQuery, window, document );
-
-/*
-jQuery(".inline[data-mode='multiple']").find("input, select, textarea").live("change", function(){
-	var container = jQuery(this).parents(".inline");
-	var tpl = container.find(".inline-template");
-	var row = jQuery(this).parents(".inline-item").first();
-	
-	if(row.next(".inline-item").length == 0 && container.attr("data-mode") == "multiple"){
-		var counter = Number(container.attr("data-counter"));
-		var newRow = tpl.clone().removeClass("inline-template").addClass("inline-item");
-		
-		newRow.find("input:hidden, select:hidden, textarea:hidden").removeAttr("disabled");
-		newRow.html(newRow.html().replace(/\{counter}/g, counter));
-		jQuery(row).after(newRow);
-		container.attr("data-counter", counter+1);
-	}
-});
-
-jQuery(".inline[data-mode='multiple'] .close").show();
-jQuery(".inline-item .close").click(function(){
-	var e = jQuery(this);
-	var container = e.parents(".inline");
-	e.parents(".inline-item").remove();
-	if(container.find(".inline-item").length < 1){
-		var tpl = container.find(".inline-template");
-		var counter = Number(container.attr("data-counter"));
-		var newRow = tpl.clone().removeClass("inline-template").addClass("inline-item");
-		
-		newRow.find("input:hidden, select:hidden, textarea:hidden").removeAttr("disabled");
-		newRow.html(newRow.html().replace(/\{counter}/g, counter));
-		jQuery(container).append(newRow);
-		container.attr("data-counter", counter+1);
-	}
-});
-
-jQuery(".inline input:hidden, .inline select:hidden, .inline textarea:hidden").each(function(){
-	var e = jQuery(this);
-	if(e.attr("type") !== "hidden")
-		e.attr("disabled", "disabled");
-});
-*/
