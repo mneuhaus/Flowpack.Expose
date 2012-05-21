@@ -190,14 +190,25 @@ class ContentManager {
 	 * @author Marc Neuhaus
 	 */
 	public function getGroupByClass($class){
-		foreach ($this->adapters as $adapter) {
-			foreach ($adapter->getGroups() as $group => $beings) {
-				foreach ($beings as $beingName => $conf) {
-					if($class == $beingName)
-						return $group;
+		$cache = $this->cacheManager->getCache('Admin_Cache');
+		$identifier = $this->cacheManager->createIdentifier("getGroupByClass-".$class);
+
+		if(!$cache->has($identifier)){
+			foreach ($this->adapters as $adapter) {
+				foreach ($adapter->getGroups() as $group => $beings) {
+					foreach ($beings as $beingName => $conf) {
+						if($class == $beingName)
+							break;
+					}
 				}
 			}
+			
+			$cache->set($identifier, $group);
+		}else{
+			$group = $cache->get($identifier);
 		}
+		
+		return $group;
 	}
 
 	public function getId($object) {

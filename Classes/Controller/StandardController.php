@@ -103,7 +103,18 @@ class StandardController extends \TYPO3\TYPO3\Controller\Module\StandardControll
 		$actionResult = $this->__call($this->actionMethodName, $this->request->getArguments());
 		
 		if ($actionResult === NULL && $this->view instanceof \TYPO3\FLOW3\Mvc\View\ViewInterface) {
-			$this->response->appendContent($this->view->render());
+			// $cache = $this->cacheManager->getCache('Admin_Cache');
+			// $identifier = $this->cacheManager->createIdentifier($this->request->getHttpRequest()->getUri());
+
+			// if(!$cache->has($identifier)){
+				$output = $this->view->render();
+			// 	$cache->set($identifier, $output);
+			// }else{
+			// 	$output = $cache->get($identifier);
+			// }
+
+			$this->response->appendContent($output);
+
 		} elseif (is_string($actionResult) && strlen($actionResult) > 0) {
 			$this->response->appendContent($actionResult);
 		} elseif (is_object($actionResult) && method_exists($actionResult, '__toString')) {
@@ -129,7 +140,7 @@ class StandardController extends \TYPO3\TYPO3\Controller\Module\StandardControll
 		$cache = $this->cacheManager->getCache('Admin_Cache');
 		$identifier = "ClassShortNames-".sha1(implode("-", array_keys($this->adapters)));
 
-		if(!$cache->has($identifier) || true){
+		if(!$cache->has($identifier)){
 			$shortNames = array();
 			foreach ($this->adapters as $adapter) {
 				foreach ($adapter->getGroups() as $group => $beings) {

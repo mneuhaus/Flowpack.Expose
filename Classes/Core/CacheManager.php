@@ -62,7 +62,7 @@ class CacheManager{
 	}
 
 	public function createIdentifier($string) {
-		return preg_replace("/[\/\/:\.\\\\]+/", "_", $string);
+		return preg_replace("/[\/\/:\.\\\\\\?%=]+/", "_", $string);
 	}
 }
 

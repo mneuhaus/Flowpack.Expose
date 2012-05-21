@@ -14,3 +14,5 @@ Admin_TemplateCache:
 Admin_ActionCache: []
 Admin_ImplementationCache: []
 Admin_Cache: []
+Foo_ContentManagement_ShortNames: []
+Foo_ContentManagement_Annotations: []

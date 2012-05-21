@@ -65,18 +65,20 @@ class LessViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractTagBasedViewHe
 
 		$cache = $this->cacheManager->getCache('Admin_Cache');
 		$identifier = $this->cacheManager->createIdentifier($src);
-		if(!$cache->has($identifier) && true){
+		if(!$cache->has($identifier)){
 			$compilationCache = \lessc::cexecute($src, true);
 			file_put_contents($target, $compilationCache['compiled']);
 			$cache->set($identifier, $compilationCache);
 		}else{
 			$compilationCache = $cache->get($identifier);
 			// the next time we run, write only if it has updated
-			$last_updated = $compilationCache['updated'];
-			$cache = \lessc::cexecute($compilationCache);
-			if ($compilationCache['updated'] > $last_updated) {
-				file_put_contents($css_file, $compilationCache['compiled']);
-			}
+			#$last_updated = $compilationCache['updated'];
+			#$compilationCache = \lessc::cexecute($compilationCache);
+			#var_dump($compilationCache['updated'] > $last_updated, $compilationCache['updated'], $last_updated, $target);
+			#if ($compilationCache['updated'] > $last_updated) {
+			#	file_put_contents($target, $compilationCache['compiled']);
+			#	$cache->set($identifier, $compilationCache);
+			#}
 		}
 		
 		$uri = $this->resourceViewHelper->render(null, null, null, $target);

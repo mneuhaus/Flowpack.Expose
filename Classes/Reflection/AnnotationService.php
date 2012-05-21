@@ -33,7 +33,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  */
 class AnnotationService {
 	/**
-	 * @var TYPO3\FLOW3\Cache\CacheManager
+	 * @var \Foo\ContentManagement\Core\CacheManager
 	 * @FLOW3\Inject
 	 */
 	protected $cacheManager;
@@ -66,15 +66,27 @@ class AnnotationService {
 		if(in_array("Doctrine\ORM\Proxy\Proxy", $implementations))
 			$class = get_parent_class("\\" . ltrim($class, "\\"));
 
-		if(!isset($this->runtimeCache[$class])){
+		$cache = $this->cacheManager->getCache('Foo_ContentManagement_Annotations');
+		$identifier = $this->cacheManager->createIdentifier($class);
+
+		if(!$cache->has($identifier)){
+
 			$annotations = array();
 			$annotationProviders = $this->configurationManager->getConfiguration(\TYPO3\FLOW3\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, "Foo.ContentManagement.AnnotationProvider");
 			foreach($annotationProviders as $annotationProviderClass){
 				$annotationProvider = new $annotationProviderClass();
 				$annotations = $this->merge($annotations, $annotationProvider->getClassAnnotations($class));
 			}
+
 			$this->runtimeCache[$class] = new Wrapper\ClassAnnotationWrapper($annotations);
 			$this->runtimeCache[$class]->setClass($class);
+			
+			$cache->set($identifier, $this->runtimeCache[$class]);
+
+		}else if(!isset($this->runtimeCache[$class])){
+
+			$this->runtimeCache[$class] = $cache->get($identifier);
+
 		}
 
 		return $this->runtimeCache[$class];
