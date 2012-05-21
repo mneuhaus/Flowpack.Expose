@@ -61,6 +61,7 @@ class ModelFormFactory extends \TYPO3\Form\Factory\AbstractFormFactory {
         $this->form->getProcessingRule($namespace)->setDataType($class);
         $this->form->getProcessingRule($namespace)->getPropertyMappingConfiguration()->setTypeConverterOption('TYPO3\FLOW3\Property\TypeConverter\PersistentObjectConverter', \TYPO3\FLOW3\Property\TypeConverter\PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED, TRUE);
         $this->form->getProcessingRule($namespace)->getPropertyMappingConfiguration()->setTypeConverterOption('TYPO3\FLOW3\Property\TypeConverter\PersistentObjectConverter', \TYPO3\FLOW3\Property\TypeConverter\PersistentObjectConverter::CONFIGURATION_MODIFICATION_ALLOWED, TRUE);
+        $this->form->getProcessingRule($namespace)->getPropertyMappingConfiguration()->allowAllProperties();
 
         foreach ($classAnnotations->getSets() as $set => $properties) {
             foreach ($properties as $name => $property) {
@@ -69,6 +70,7 @@ class ModelFormFactory extends \TYPO3\Form\Factory\AbstractFormFactory {
                 if($propertyAnnotations->has("ignore") && $propertyAnnotations->get("ignore")->ignoreContext("form")) continue;
 
                 $namespacedName = $namespace . "." . $name;
+                $this->form->getProcessingRule($namespacedName)->getPropertyMappingConfiguration()->allowAllProperties();
 
                 if($propertyAnnotations->has("inline")){
 
@@ -105,6 +107,7 @@ class ModelFormFactory extends \TYPO3\Form\Factory\AbstractFormFactory {
                             $itemSection = $containerSection->createElement($namespacedName . "." . $key, $inlineVariant.'Item');
                             $itemSection->setLabel($property->getLabel());
                             $elements = array_merge($elements, $this->generateElements($object, $itemSection, $namespacedName . "." . $key));
+                            $this->form->getProcessingRule($namespacedName)->getPropertyMappingConfiguration()->allowProperties($key);
                         }
                         $containerSection->setMultipleMode(true);
                     }else{
