@@ -4,4 +4,13 @@
 	<title/>
 	<description/>
 	<version/>
+
+    <constraints>
+        <depends>
+            <package>TYPO3.Form</package>
+            <package>TYPO3.Asset</package>
+        </depends>
+        <conflicts/>
+        <suggests/>
+    </constraints>
 </package>

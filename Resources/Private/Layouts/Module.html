@@ -1,7 +1,8 @@
 {namespace cm=Foo\ContentManagement\ViewHelpers}
+{namespace as=TYPO3\Asset\ViewHelpers}
 
 <cm:render section='container' optional="true">
-	<cm:less src="resource://Foo.ContentManagement/Public/admin/css/style.less" />
+	<as:bundle.css name="Foo.ContentManagement:Styles" />
 
 	<div class="container-fluid foo">
 		<div class="row-fluid">

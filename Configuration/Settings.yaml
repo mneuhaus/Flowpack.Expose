@@ -139,3 +139,18 @@ TYPO3:
           
           'Foo.ContentManagement:InlineSeamlessItem':
             superTypes: ['Foo.ContentManagement:InlineStacked']
+
+Assets:
+  Bundles:
+    Js:
+      'Twitter.Bootstrap:jQuery':
+        Files:
+          - resource://Twitter.Bootstrap/Public/js/jquery.js
+
+    CSS:      
+      'Foo.ContentManagement:Styles':
+        Dependencies: ['Twitter.Bootstrap:Bootstrap']
+        Files:
+          - resource://Foo.ContentManagement/Public/admin/less/mixins.less
+          - resource://Foo.ContentManagement/Public/admin/less/main.less
+          - resource://Foo.ContentManagement/Public/admin/less/elements/selectbox.less
