@@ -19,6 +19,9 @@ class Package extends BasePackage {
 	public function boot(\TYPO3\FLOW3\Core\Bootstrap $bootstrap) {
 		#set_include_path(get_include_path() . PATH_SEPARATOR . __DIR__ . '/../Resources/PHP/');
 		require(__DIR__ . '/../Resources/PHP/LessPHP/lessc.inc.php');
+
+		$dispatcher = $bootstrap->getSignalSlotDispatcher();
+		$dispatcher->connect('TYPO3\FLOW3\Monitor\FileMonitor', 'filesHaveChanged', 'Foo\ContentManagement\Core\CacheManager', 'flushCachesByChangedFiles');
 	}
 }
 ?>
