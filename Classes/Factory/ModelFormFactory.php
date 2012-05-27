@@ -18,6 +18,13 @@ class ModelFormFactory extends \TYPO3\Form\Factory\AbstractFormFactory {
      */
     protected $request;
 
+    /**
+     * @var \TYPO3\FLOW3\Validation\ValidatorResolver
+     * @FLOW3\Inject
+     */
+    protected $validatorResolver;
+    
+
     public function setRequest(\TYPO3\FLOW3\Mvc\ActionRequest $request) {
         $this->request = $request;
     }
@@ -125,6 +132,13 @@ class ModelFormFactory extends \TYPO3\Form\Factory\AbstractFormFactory {
                     $elements[$namespace . "." . $name]->setLabel($property->getLabel());
                     $elements[$namespace . "." . $name]->setDefaultValue($property->getValue());
                     $elements[$namespace . "." . $name]->setProperty("annotations", $propertyAnnotations);
+                    if($property->has("validate")){
+                        $validators = $property->getValidate();
+                        foreach ($validators as $validator) {
+                            $validator = $this->validatorResolver->createValidator($validator->type, $validator->options);
+                            $elements[$namespace . "." . $name]->addValidator($validator);
+                        }
+                    }
 
                 }
 
