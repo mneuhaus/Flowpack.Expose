@@ -72,7 +72,7 @@ Foo:
         #integer:  Spinner
         float:    TYPO3.Form:SingleLineText
         boolean:  TYPO3.Form:Checkbox
-        #\TYPO3\FLOW3\Resource\Resource: Upload
+        \TYPO3\FLOW3\Resource\Resource: TYPO3.Form:FileUpload
         \DateTime: TYPO3.Form:DatePicker
         ^\\[A-Za-z0-9\\]+\\Domain\\Model\\[A-Za-z]+$: TYPO3.Form:SingleSelectDropdown
         ^\\[A-Za-z0-9\\]+\\Security\\[A-Za-z]+$: TYPO3.Form:SingleSelectDropdown
@@ -143,9 +143,23 @@ TYPO3:
 Assets:
   Bundles:
     Js:
-      'Twitter.Bootstrap:jQuery':
+      'Foo.ContentManagement:jQuery':
         Files:
-          - resource://Twitter.Bootstrap/Public/js/jquery.js
+          - resource://Foo.ContentManagement/Public/admin/js/jquery.1.7.1.min.js
+
+      'Foo.ContentManagement:SelectBox':
+        Dependencies: ['Foo.ContentManagement:jQuery']
+        Files:
+          - resource://Foo.ContentManagement/Public/admin/js/jquery.selectbox.js
+
+      'Foo.ContentManagement:Scripts':
+        Files:
+          - resource://Foo.ContentManagement/Public/admin/js/jquery.1.7.1.min.js
+          - resource://Foo.ContentManagement/Public/admin/js/jquery.selectbox.js
+          - resource://Foo.ContentManagement/Public/admin/js/inlinehelper.js
+          - resource://Foo.ContentManagement/Public/jquery-klove/jwerty.js
+          - resource://Foo.ContentManagement/Public/jquery-klove/jquery.klove.js
+          - resource://Foo.ContentManagement/Public/admin/js/main.js
 
     CSS:      
       'Foo.ContentManagement:Styles':

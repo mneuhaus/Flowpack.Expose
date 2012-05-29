@@ -63,18 +63,4 @@
 	</div>
 </cm:render>
 
-<script src="{f:uri.resource(path: 'admin/js/jquery.1.7.1.min.js', package: 'Foo.ContentManagement')}"></script>
-
-<script src="{f:uri.resource(path: 'jquery-klove/jwerty.js', package: 'Foo.ContentManagement')}" type="text/javascript" charset="utf-8"></script>
-<script src="{f:uri.resource(path: 'jquery-klove/jquery.klove.js', package: 'Foo.ContentManagement')}" type="text/javascript" charset="utf-8"></script>
-
-<script type="text/javascript" charset="utf-8">
-		jQuery(document).ready(function(){
-			jQuery("[data-klove=container]").klove("table");
-			jQuery("[data-klove-shortcut]").klove();
-		});
-</script>
-
-<script src="{f:uri.resource(path: 'admin/js/jquery.inlineHelper.js', package: 'Foo.ContentManagement')}"></script>
-
-<script src="{f:uri.resource(path: 'admin/js/main.js', package: 'Foo.ContentManagement')}"></script>
+<as:bundle.js name="Foo.ContentManagement:Scripts" />

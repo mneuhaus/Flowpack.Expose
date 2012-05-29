@@ -1,6 +1,11 @@
 jQuery(document).ready(function(){
 	jQuery("input[type='text']:first").focus();
 
+	jQuery(document).ready(function(){
+      jQuery("[data-klove=container]").klove("table");
+      jQuery("[data-klove-shortcut]").klove();
+    });
+
 	// Table select all behavior
 	jQuery(".select-all").change(function(){
 		var table = jQuery(this).parents("table");
