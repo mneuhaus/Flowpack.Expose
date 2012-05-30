@@ -2,6 +2,7 @@
 
 ## Installation
 
+```
   git clone --recursive git://git.typo3.org/TYPO3v5/Distributions/Base.git FLOW3
   cd FLOW3
   git clone https://github.com/afoeder/TYPO3.Asset.git Packages/Application/TYPO3.Asset
@@ -18,5 +19,6 @@
  
   git clone git@github.com:mneuhaus/Demo.ContentManagement.git Packages/Application/Demo.ContentManagement
   git clone git@github.com:mneuhaus/Foo.ContentManagement.git Packages/Application/Foo.ContentManagement
+```
 
 Apply patches from 'Packages/Application/Foo.ContentManagement/Patches'
