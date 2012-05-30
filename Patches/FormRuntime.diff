@@ -1,0 +1,20 @@
+--- /Users/mneuhaus/Sites/FLOW3-Phoenix/Packages/Application/TYPO3.Form/Classes/Core/Runtime/FormRuntime.php 
++++ (clipboard) 
+@@ -136,8 +136,15 @@
+ 	public function initializeObject() {
+ 		$this->request = new ActionRequest($this->request);
+ 		$this->request->setArgumentNamespace($this->formDefinition->getIdentifier());
+-		if ($this->request->getParentRequest()->hasArgument($this->request->getArgumentNamespace()) === TRUE && is_array($this->request->getParentRequest()->getArgument($this->request->getArgumentNamespace()))) {
+-			$this->request->setArguments($this->request->getParentRequest()->getArgument($this->request->getArgumentNamespace()));
++
++		$parentRequest = $this->request->getParentRequest();
++		while ($parentRequest instanceof ActionRequest) {
++			if ($parentRequest->hasArgument($this->request->getArgumentNamespace()) === TRUE && is_array($parentRequest->getArgument($this->request->getArgumentNamespace()))) {
++				$this->request->setArguments($parentRequest->getArgument($this->request->getArgumentNamespace()));
++				break;
++			}
++
++			$parentRequest = $parentRequest->getParentRequest();
+ 		}
+ 
+ 		$this->initializeFormStateFromRequest();

@@ -1,0 +1,15 @@
+--- /Users/mneuhaus/Sites/FLOW3-Phoenix/Packages/Framework/TYPO3.FLOW3/Classes/Property/PropertyMappingConfiguration.php 
++++ (clipboard) 
+@@ -148,8 +148,10 @@
+ 		if (isset($this->subConfigurationForProperty[$propertyName])) {
+ 			return $this->subConfigurationForProperty[$propertyName];
+ 		}
+-
+-		return new \TYPO3\FLOW3\Property\PropertyMappingConfiguration();
++		$subConfigurationForProperty = new \TYPO3\FLOW3\Property\PropertyMappingConfiguration();
++		if($this->mapUnknownProperties)
++			$subConfigurationForProperty->allowAllProperties();
++		return $subConfigurationForProperty;
+ 	}
+ 
+ 	/**

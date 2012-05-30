@@ -1,0 +1,12 @@
+--- Framework/TYPO3.FLOW3/Classes/Property/PropertyMapper.php 
++++ Framework/TYPO3.FLOW3/Classes/Property/PropertyMapper.php (Unsaved) 
+@@ -143,6 +143,9 @@
+ 	 * @throws \TYPO3\FLOW3\Property\Exception\TypeConverterException
+ 	 */
+ 	protected function doMapping($source, $targetType, \TYPO3\FLOW3\Property\PropertyMappingConfigurationInterface $configuration, &$currentPropertyPath) {
++		if(is_object($source) && $source instanceof $targetType)
++			return $source;
++		
+ 		if ($source === NULL) {
+ 			$source = '';
+ 		}
