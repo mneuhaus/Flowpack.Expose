@@ -139,32 +139,3 @@ TYPO3:
           
           'Foo.ContentManagement:InlineSeamlessItem':
             superTypes: ['Foo.ContentManagement:InlineStacked']
-
-Assets:
-  Bundles:
-    Js:
-      'Foo.ContentManagement:jQuery':
-        Files:
-          - resource://Foo.ContentManagement/Public/admin/js/jquery.1.7.1.min.js
-
-      'Foo.ContentManagement:SelectBox':
-        Dependencies: ['Foo.ContentManagement:jQuery']
-        Files:
-          - resource://Foo.ContentManagement/Public/admin/js/jquery.selectbox.js
-
-      'Foo.ContentManagement:Scripts':
-        Files:
-          - resource://Foo.ContentManagement/Public/admin/js/jquery.1.7.1.min.js
-          - resource://Foo.ContentManagement/Public/admin/js/jquery.selectbox.js
-          - resource://Foo.ContentManagement/Public/admin/js/inlinehelper.js
-          - resource://Foo.ContentManagement/Public/jquery-klove/jwerty.js
-          - resource://Foo.ContentManagement/Public/jquery-klove/jquery.klove.js
-          - resource://Foo.ContentManagement/Public/admin/js/main.js
-
-    CSS:      
-      'Foo.ContentManagement:Styles':
-        Dependencies: ['Twitter.Bootstrap:Bootstrap']
-        Files:
-          - resource://Foo.ContentManagement/Public/admin/less/mixins.less
-          - resource://Foo.ContentManagement/Public/admin/less/main.less
-          - resource://Foo.ContentManagement/Public/admin/less/elements/selectbox.less
