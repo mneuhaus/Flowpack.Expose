@@ -37,7 +37,7 @@ class StringViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 	/**
 	 * @var \Foo\ContentManagement\Core\PropertyMapper
 	 * @api
-		 * @FLOW3\Inject
+	 * @FLOW3\Inject
 	 */
 	protected $propertyMapper;
 

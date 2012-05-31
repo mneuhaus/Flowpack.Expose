@@ -33,7 +33,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 abstract class AbstractOptionsProvider implements OptionsProviderInterface {
 	/**
 	 * @var \TYPO3\FLOW3\Object\ObjectManagerInterface
-		 * @FLOW3\Inject
+	 * @FLOW3\Inject
 	 */
 	protected $objectManager;
 

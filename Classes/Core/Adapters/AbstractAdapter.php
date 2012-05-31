@@ -52,27 +52,27 @@ abstract class AbstractAdapter implements \Foo\ContentManagement\Core\Adapters\A
 	/**
 	 * @var \TYPO3\FLOW3\Object\ObjectManagerInterface
 	 * @api
-		 * @FLOW3\Inject
+	 * @FLOW3\Inject
 	 */
 	protected $objectManager;
 	
 	/**
 	 * @var \TYPO3\FLOW3\Package\PackageManagerInterface
-		 * @FLOW3\Inject
+	 * @FLOW3\Inject
 	 */
 	protected $packageManager;
 	
 	/**
 	 * @var TYPO3\FLOW3\Property\PropertyMapper
 	 * @api
-		 * @FLOW3\Inject
+	 * @FLOW3\Inject
 	 */
 	protected $propertyMapper;
 	
 	/**
 	 * @var \TYPO3\FLOW3\Reflection\ReflectionService
 	 * @api
-		 * @FLOW3\Inject
+	 * @FLOW3\Inject
 	 */
 	protected $reflectionService;
 

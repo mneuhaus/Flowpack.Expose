@@ -47,14 +47,14 @@ class AnnotationService {
 
 	/**
 	 * @var \TYPO3\FLOW3\Package\PackageManagerInterface
-		 * @FLOW3\Inject
+	 * @FLOW3\Inject
 	 */
 	protected $packageManager;
 
 	/**
 	 * @var \TYPO3\FLOW3\Reflection\ReflectionService
 	 * @api
-		 * @FLOW3\Inject
+	 * @FLOW3\Inject
 	 */
 	protected $reflectionService;
 

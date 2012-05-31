@@ -39,7 +39,7 @@ class CollectionConverter extends \TYPO3\FLOW3\Property\TypeConverter\AbstractTy
 	/**
 	 * @var \Foo\ContentManagement\Core\PropertyMapper
 	 * @api
-		 * @FLOW3\Inject
+	 * @FLOW3\Inject
 	 */
 	protected $propertyMapper;
 	

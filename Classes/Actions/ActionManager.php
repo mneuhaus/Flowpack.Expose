@@ -49,13 +49,13 @@ class ActionManager {
 
 	/**
 	 * @var \TYPO3\FLOW3\Reflection\ReflectionService
-		 * @FLOW3\Inject
+	 * @FLOW3\Inject
 	 */
 	protected $reflectionService;
 
 	/**
 	 * @var \TYPO3\FLOW3\Object\ObjectManagerInterface
-		 * @FLOW3\Inject
+	 * @FLOW3\Inject
 	 */
 	protected $objectManager;
 

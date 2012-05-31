@@ -38,7 +38,7 @@ class DefaultsAnnotationProvider extends AbstractAnnotationProvider {
 
 	/**
 	 * @var \TYPO3\FLOW3\Reflection\ReflectionService
-		 * @FLOW3\Inject
+	 * @FLOW3\Inject
 	 */
 	protected $reflectionService;
 

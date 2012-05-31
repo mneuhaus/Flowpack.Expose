@@ -29,7 +29,7 @@ class ObjectConverter extends \TYPO3\FLOW3\Property\TypeConverter\AbstractTypeCo
 	/**
 	 * @var \TYPO3\FLOW3\Reflection\ReflectionService
 	 * @api
-		 * @FLOW3\Inject
+	 * @FLOW3\Inject
 	 */
 	protected $reflectionService;
 	

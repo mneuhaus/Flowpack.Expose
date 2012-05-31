@@ -60,7 +60,7 @@ class StandardController extends \TYPO3\TYPO3\Controller\Module\StandardControll
 
 	/**
 	 * @var \TYPO3\FLOW3\Object\ObjectManagerInterface
-		 * @FLOW3\Inject
+	 * @FLOW3\Inject
 	 */
 	protected $objectManager;
 
