@@ -32,7 +32,6 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  *        	  should try to keep, because it makes overriting Template 
  *            for certain things a breeze
  *
- * @version $Id: ForViewHelper.php 3346 2009-10-22 17:26:10Z k-fish $
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  * @api
  */
@@ -71,8 +70,7 @@ class RenderViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 	 * @param mixed $optional
 	 * @param string $variant
 	 * @return string Rendered string
-	 * @author Marc Neuhaus <apocalip@gmail.com>
-	 * @api
+		 * @api
 	 */
 	public function render($value='',$partial='',$fallbacks='',$vars = array(), $section = null, $optional = false, $variant = "Default") {
 		if($value !== '')
@@ -137,8 +135,7 @@ class RenderViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 	 *
 	 * @param \TYPO3\Fluid\Core\ViewHelper\TemplateVariableContainer $variableContainer
 	 * @return \TYPO3\Fluid\Core\Rendering\RenderingContext
-	 * @author Sebastian Kurfürst <sebastian@typo3.org>
-	 */
+		 */
 	protected function buildRenderingContext(\TYPO3\Fluid\Core\ViewHelper\TemplateVariableContainer $variableContainer = NULL) {
 		if ($variableContainer === NULL) {
 			$variableContainer = $this->objectManager->get('TYPO3\Fluid\Core\ViewHelper\TemplateVariableContainer', $this->variables);
@@ -163,8 +160,7 @@ class RenderViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 	 * @param string $patterns
 	 * @param string $replacements
 	 * @return $path String
-	 * @author Marc Neuhaus
-	 */
+		 */
 	public function getPathByPatternFallbacks($patterns, $replacements){
 		if(is_string($patterns)){
 			$paths = explode(".",$patterns);

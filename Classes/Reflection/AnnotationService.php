@@ -29,7 +29,6 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * 		 (MN) I agree absolutely!
  *
  *
- * @version $Id: YamlConfigurationProvider.php 3837 2010-02-22 15:17:24Z robert $
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  * @FLOW3\Scope("singleton")
  */
@@ -48,16 +47,14 @@ class AnnotationService {
 
 	/**
 	 * @var \TYPO3\FLOW3\Package\PackageManagerInterface
-	 * @author Marc Neuhaus <apocalip@gmail.com>
-	 * @FLOW3\Inject
+		 * @FLOW3\Inject
 	 */
 	protected $packageManager;
 
 	/**
 	 * @var \TYPO3\FLOW3\Reflection\ReflectionService
 	 * @api
-	 * @author Marc Neuhaus <apocalip@gmail.com>
-	 * @FLOW3\Inject
+		 * @FLOW3\Inject
 	 */
 	protected $reflectionService;
 
@@ -99,8 +96,7 @@ class AnnotationService {
 	 *
 	 * @param string $tags
 	 * @return void
-	 * @author Marc Neuhaus
-	 */
+		 */
 	public function getClassesAnnotatedWith($tags){
 		$cache = $this->cacheManager->getCache('Admin_ImplementationCache');
 		$identifier = "ClassesTaggedWith-".implode("_", $tags);

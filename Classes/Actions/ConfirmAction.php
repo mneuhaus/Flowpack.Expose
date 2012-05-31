@@ -28,7 +28,6 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 /**
  * Action to confirm the deletion of a being
  *
- * @version $Id: AbstractValidator.php 3837 2010-02-22 15:17:24Z robert $
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
 class ConfirmAction extends \Foo\ContentManagement\Core\Actions\AbstractAction {
@@ -49,8 +48,7 @@ class ConfirmAction extends \Foo\ContentManagement\Core\Actions\AbstractAction {
 	 *
 	 * @param string $being
 	 * @param array $ids
-	 * @author Marc Neuhaus <mneuhaus@famelo.com>
-	 * */
+		 * */
 	public function execute($being, $ids = null) {
 		$objects = array();
 

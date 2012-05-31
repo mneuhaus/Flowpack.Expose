@@ -26,7 +26,6 @@ use Doctrine\ORM\Mapping as ORM;
 use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
- * @version $Id: ForViewHelper.php 3346 2009-10-22 17:26:10Z k-fish $
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  * @api
  */
@@ -45,8 +44,7 @@ class PropertiesViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelp
 	 * @param string $as
 	 * @param string $context
 	 * @return string Rendered string
-	 * @author Marc Neuhaus <apocalip@gmail.com>
-	 * @api
+		 * @api
 	 */
 	public function render($object = null, $className = null, $as = "properties", $context = "template") {
 		if(is_null($object) && !is_null($className))

@@ -29,7 +29,6 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * OptionsProvider for related Beings
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
- * @author Marc Neuhaus <marc@mneuhaus.com>
  */
 class RelationOptionsProvider extends \Foo\ContentManagement\Core\OptionsProvider\AbstractOptionsProvider {
 	

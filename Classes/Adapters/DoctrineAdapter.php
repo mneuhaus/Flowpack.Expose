@@ -27,7 +27,6 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 /**
  * Adapter for the Doctrine engine
  *
- * @version $Id: AbstractValidator.php 3837 2010-02-22 15:17:24Z robert $
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  *
  * @FLOW3\Scope("singleton")
@@ -35,8 +34,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 class DoctrineAdapter extends \Foo\ContentManagement\Core\Adapters\AbstractAdapter {
     /**
      * @var \TYPO3\FLOW3\Persistence\PersistenceManagerInterface
-     * @author Marc Neuhaus <apocalip@gmail.com>
-     * @FLOW3\Inject
+         * @FLOW3\Inject
      */
     protected $persistenceManager;
 
@@ -49,8 +47,7 @@ class DoctrineAdapter extends \Foo\ContentManagement\Core\Adapters\AbstractAdapt
     /**
      * @var \TYPO3\FLOW3\Reflection\ReflectionService
      * @api
-     * @author Marc Neuhaus <apocalip@gmail.com>
-     * @FLOW3\Inject
+         * @FLOW3\Inject
      */
     protected $reflectionService;
 
@@ -60,8 +57,7 @@ class DoctrineAdapter extends \Foo\ContentManagement\Core\Adapters\AbstractAdapt
      * @param string $beings
      * @param string $filters
      * @return void
-     * @author Marc Neuhaus
-     */
+         */
     public function applyFilters($beings, $filters) {
     }
 
@@ -184,8 +180,7 @@ class DoctrineAdapter extends \Foo\ContentManagement\Core\Adapters\AbstractAdapt
      * returns the shortname representation of the class
      *
      * @package default
-     * @author Marc Neuhaus
-     */
+         */
     public function getShortName($class){
         if(is_object($class))
             $class = get_class($class);

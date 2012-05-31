@@ -27,7 +27,6 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 /**
  * abstract base class for the ConfigurationProviders
  *
- * @version $Id: AbstractConfigurationProvider.php 3837 2010-02-22 15:17:24Z robert $
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
 abstract class AbstractAnnotationProvider implements AnnotationProviderInterface {
@@ -39,8 +38,7 @@ abstract class AbstractAnnotationProvider implements AnnotationProviderInterface
 
 	/**
 	 * @var \TYPO3\FLOW3\Object\ObjectManagerInterface
-	 * @author Marc Neuhaus <apocalip@gmail.com>
-	 * @FLOW3\Inject
+		 * @FLOW3\Inject
 	 */
 	protected $objectManager;
 

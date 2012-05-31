@@ -28,29 +28,25 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 /**
  * Index action to show a Dashboard with some widgets
  *
- * @version $Id: AbstractValidator.php 3837 2010-02-22 15:17:24Z robert $
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
 class IndexAction extends \Foo\ContentManagement\Core\Actions\AbstractAction {
 	/**
 	 * Reflection service
 	 * @var TYPO3\FLOW3\Reflection\ReflectionService
-	 * @author Marc Neuhaus <apocalip@gmail.com>
-	 * @FLOW3\Inject
+		 * @FLOW3\Inject
 	 */
 	protected $reflectionService;
 
 	/**
 	 * @var \TYPO3\FLOW3\Object\ObjectManagerInterface
-	 * @author Marc Neuhaus <apocalip@gmail.com>
-	 * @FLOW3\Inject
+		 * @FLOW3\Inject
 	 */
 	protected $objectManager;
 	
 	/**
 	 * Function to Check if this Requested Action is supported
-	 * @author Marc Neuhaus <mneuhaus@famelo.com>
-	 * */
+		 * */
 	public function canHandle($being, $action = null, $id = false) {
 		return false;
 	}
@@ -60,8 +56,7 @@ class IndexAction extends \Foo\ContentManagement\Core\Actions\AbstractAction {
 	 *
 	 * @param string $being
 	 * @param array $ids
-	 * @author Marc Neuhaus <mneuhaus@famelo.com>
-	 * */
+		 * */
 	public function execute($being, $ids = null) {
 	}
 	

@@ -29,7 +29,6 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * TODO: (SK) implement opposite direction in property mapper and then get rid of this view helper
  * 		 (MN) See comments in the Propertymapper
  *
- * @version $Id: ForViewHelper.php 3346 2009-10-22 17:26:10Z k-fish $
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  * @api
  */
@@ -38,8 +37,7 @@ class StringViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 	/**
 	 * @var \Foo\ContentManagement\Core\PropertyMapper
 	 * @api
-	 * @author Marc Neuhaus <apocalip@gmail.com>
-	 * @FLOW3\Inject
+		 * @FLOW3\Inject
 	 */
 	protected $propertyMapper;
 
@@ -47,8 +45,7 @@ class StringViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 	 *
 	 * @param mixed $value
 	 * @return string Rendered string
-	 * @author Marc Neuhaus <apocalip@gmail.com>
-	 * @api
+		 * @api
 	 */
 	public function render($value) {
 		$options = array(

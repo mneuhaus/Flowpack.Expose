@@ -28,7 +28,6 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * on the active beings and actions
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
- * @author Marc Neuhaus <marc@mneuhaus.com>
  */
 
 interface SearchProviderInterface{

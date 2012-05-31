@@ -26,7 +26,6 @@ namespace Foo\ContentManagement\Core\Adapters;
  * Interface for the Adapters
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
- * @author Marc Neuhaus <marc@mneuhaus.com>
  */
 interface AdapterInterface {
 	
@@ -36,8 +35,7 @@ interface AdapterInterface {
 	 * @param string $beings 
 	 * @param string $filters 
 	 * @return void
-	 * @author Marc Neuhaus
-	 */
+		 */
 	public function applyFilters($beings, $filters);
 	
 	public function applyLimit($limit);
@@ -49,16 +47,14 @@ interface AdapterInterface {
      *
      * @param string $being The Identifier for the being
      * @return string $name The Name of the Being
-     * @author Marc Neuhaus <mneuhaus@famelo.com>
-     * */
+         * */
 	public function getName($being);
 
     /**
      * Should return all Available Beings grouped by Package
      *
      * @return array $groups of Beings
-     * @author Marc Neuhaus <mneuhaus@famelo.com>
-     * */
+         * */
 	public function getGroups();
 
     /**
@@ -68,16 +64,14 @@ interface AdapterInterface {
      * @param string $being Class of the Being
      * @param string $id Identifier of the Being
      * @return mixed $object
-     * @author Marc Neuhaus <mneuhaus@famelo.com>
-     * */
+         * */
 	public function getObject($being, $id);
 
     /**
      * Same as getObject but gets all Available Objects
      *
      * @return mixed $objects
-     * @author Marc Neuhaus <mneuhaus@famelo.com>
-     * */
+         * */
 	public function getObjects($being);
 
     /**
@@ -85,8 +79,7 @@ interface AdapterInterface {
      *
      * @param mixed $object the Object in question
      * @return string $id
-     * @author Marc Neuhaus <mneuhaus@famelo.com>
-     * */
+         * */
 	public function getId($object);
 
     /**
@@ -94,8 +87,7 @@ interface AdapterInterface {
      *
      * @param string $being Class of the Being
      * @param array $data Raw Form Data
-     * @author Marc Neuhaus <mneuhaus@famelo.com>
-     * */
+         * */
 	public function createObject($being, $data);
 
     /**
@@ -104,8 +96,7 @@ interface AdapterInterface {
      * @param string $being Class of the Being
      * @param string $id
      * @param array $data Raw Form Data
-     * @author Marc Neuhaus <mneuhaus@famelo.com>
-     * */
+         * */
 	public function updateObject($being, $id, $data);
 
     /**
@@ -113,8 +104,7 @@ interface AdapterInterface {
      *
      * @param string $being Class of the Being
      * @param string $id
-     * @author Marc Neuhaus <mneuhaus@famelo.com>
-     * */
+         * */
 	public function deleteObject($being, $id);
 }
 

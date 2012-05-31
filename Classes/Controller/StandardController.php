@@ -31,7 +31,6 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * TODO: (SK) Instead of replicating the Controller API inside the "Action" API, why not just re-use the default MVC controllers for that? This way, we can get rid of the whole action* class hierarchy and use standard sub requests.
  * 		 (MN) Agreed! By the time i created this SubRequests didn't exist :)
  *
- * @version $Id: $
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
 class StandardController extends \TYPO3\TYPO3\Controller\Module\StandardController {
@@ -61,8 +60,7 @@ class StandardController extends \TYPO3\TYPO3\Controller\Module\StandardControll
 
 	/**
 	 * @var \TYPO3\FLOW3\Object\ObjectManagerInterface
-	 * @author Marc Neuhaus <apocalip@gmail.com>
-	 * @FLOW3\Inject
+		 * @FLOW3\Inject
 	 */
 	protected $objectManager;
 
@@ -74,8 +72,7 @@ class StandardController extends \TYPO3\TYPO3\Controller\Module\StandardControll
 	 * Resolves and checks the current action method name
 	 *
 	 * @return string Method name of the current action
-	 * @author Robert Lemke <robert@typo3.org>
-	 */
+		 */
 	protected function resolveActionMethodName() {
 		$actionMethodName = $this->request->getControllerActionName() . 'Action';
 		if (!$this->actionManager->hasAction($actionMethodName)) {
@@ -93,8 +90,7 @@ class StandardController extends \TYPO3\TYPO3\Controller\Module\StandardControll
 	 *
 	 * @param string $actionMethodName Name of the action method to call
 	 * @return void
-	 * @author Robert Lemke <robert@typo3.org>
-	 */
+		 */
 	protected function callActionMethod() {
 		$actionResult = $this->__call($this->actionMethodName, $this->request->getArguments());
 
@@ -233,8 +229,7 @@ class StandardController extends \TYPO3\TYPO3\Controller\Module\StandardControll
 	 * @param integer $statusCode (optional) The HTTP status code for the redirect. Default is "303 See Other"
 	 * @throws \TYPO3\FLOW3\Mvc\Exception\UnsupportedRequestTypeException If the request is not a web request
 	 * @throws \TYPO3\FLOW3\Mvc\Exception\StopActionException
-	 * @author Robert Lemke <robert@typo3.org>
-	 * @api
+		 * @api
 	 */
 	protected function redirectToUri($uri, $delay = 0, $statusCode = 303) {
 #		$uri = $this->request->getBaseUri() . (string)$uri;

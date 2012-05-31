@@ -39,8 +39,7 @@ class CollectionConverter extends \TYPO3\FLOW3\Property\TypeConverter\AbstractTy
 	/**
 	 * @var \Foo\ContentManagement\Core\PropertyMapper
 	 * @api
-	 * @author Marc Neuhaus <apocalip@gmail.com>
-	 * @FLOW3\Inject
+		 * @FLOW3\Inject
 	 */
 	protected $propertyMapper;
 	

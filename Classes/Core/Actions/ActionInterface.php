@@ -26,27 +26,23 @@ namespace Foo\ContentManagement\Core\Actions;
  * Interface for the actions
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
- * @author Marc Neuhaus <marc@mneuhaus.com>
  */
 interface ActionInterface {
 
 	/**
 	 * Function to Check if this Requested Action is supported
-	 * @author Marc Neuhaus <mneuhaus@famelo.com>
-	 * */
+		 * */
 	public function canHandle($being, $action = null, $id = false);
 
 	/**
 	 * The Name of this Action
-	 * @author Marc Neuhaus <mneuhaus@famelo.com>
-	 * */
+		 * */
 	public function __toString();
 
 	/**
 	 * @param string $being
 	 * @param array $ids
-	 * @author Marc Neuhaus <mneuhaus@famelo.com>
-	 * */
+		 * */
 	public function execute($being, $ids = null);
 	
 }

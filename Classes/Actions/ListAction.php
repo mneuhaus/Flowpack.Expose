@@ -29,15 +29,13 @@ use TYPO3\FLOW3\Mvc\ActionRequest;
 /**
  * Action to display the list and apply Bulk aktions and filter if necessary
  *
- * @version $Id: AbstractValidator.php 3837 2010-02-22 15:17:24Z robert $
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
 class ListAction extends \Foo\ContentManagement\Core\Actions\AbstractAction {
 
 	/**
 	 * Function to Check if this Requested Action is supported
-	 * @author Marc Neuhaus <mneuhaus@famelo.com>
-	 * */
+		 * */
 	public function canHandle($being, $action = null, $id = false) {
 		return false;
 	}
@@ -47,8 +45,7 @@ class ListAction extends \Foo\ContentManagement\Core\Actions\AbstractAction {
 	 *
 	 * @param string $being
 	 * @param array $ids
-	 * @author Marc Neuhaus <mneuhaus@famelo.com>
-	 * */
+		 * */
 	public function execute($being, $ids = null) {
 		$this->being = $being;
 		$this->view->assign('className', $being);

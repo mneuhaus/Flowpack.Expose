@@ -28,7 +28,6 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 /**
  * abstract base class for the Adapters
  *
- * @version $Id: AbstractValidator.php 3837 2010-02-22 15:17:24Z robert $
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
 abstract class AbstractAdapter implements \Foo\ContentManagement\Core\Adapters\AdapterInterface {
@@ -53,39 +52,34 @@ abstract class AbstractAdapter implements \Foo\ContentManagement\Core\Adapters\A
 	/**
 	 * @var \TYPO3\FLOW3\Object\ObjectManagerInterface
 	 * @api
-	 * @author Marc Neuhaus <apocalip@gmail.com>
-	 * @FLOW3\Inject
+		 * @FLOW3\Inject
 	 */
 	protected $objectManager;
 	
 	/**
 	 * @var \TYPO3\FLOW3\Package\PackageManagerInterface
-	 * @author Marc Neuhaus <apocalip@gmail.com>
-	 * @FLOW3\Inject
+		 * @FLOW3\Inject
 	 */
 	protected $packageManager;
 	
 	/**
 	 * @var TYPO3\FLOW3\Property\PropertyMapper
 	 * @api
-	 * @author Marc Neuhaus <apocalip@gmail.com>
-	 * @FLOW3\Inject
+		 * @FLOW3\Inject
 	 */
 	protected $propertyMapper;
 	
 	/**
 	 * @var \TYPO3\FLOW3\Reflection\ReflectionService
 	 * @api
-	 * @author Marc Neuhaus <apocalip@gmail.com>
-	 * @FLOW3\Inject
+		 * @FLOW3\Inject
 	 */
 	protected $reflectionService;
 
 	/**
 	 * Initialize the Adapter
 	 *
-	 * @author Marc Neuhaus <mneuhaus@famelo.com>
-	 * */
+		 * */
 	public function init() {
 		$this->settings = $this->configurationManager->getConfiguration(\TYPO3\FLOW3\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, "Foo.ContentManagement");
 	}
@@ -118,8 +112,7 @@ abstract class AbstractAdapter implements \Foo\ContentManagement\Core\Adapters\A
 	 * @param string $property 
 	 * @param string $mixed 
 	 * @return void
-	 * @author Marc Neuhaus
-	 */
+		 */
 	public function getValue($property, $mixed){
 		$value = null;
 		try {

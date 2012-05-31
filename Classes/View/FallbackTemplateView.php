@@ -112,8 +112,7 @@ class FallbackTemplateView extends \TYPO3\Fluid\View\TemplateView {
 	 * @param string $patterns
 	 * @param string $replacements
 	 * @return $path String
-	 * @author Marc Neuhaus
-	 */
+		 */
 	public function getPathByPatternFallbacks($patterns, $replacements){
 		if(is_string($patterns)){
 			$paths = explode(".",$patterns);

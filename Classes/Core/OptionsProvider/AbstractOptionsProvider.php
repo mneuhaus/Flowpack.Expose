@@ -28,14 +28,12 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 /**
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
- * @author Marc Neuhaus <marc@mneuhaus.com>
  * 
  */
 abstract class AbstractOptionsProvider implements OptionsProviderInterface {
 	/**
 	 * @var \TYPO3\FLOW3\Object\ObjectManagerInterface
-	 * @author Marc Neuhaus <apocalip@gmail.com>
-	 * @FLOW3\Inject
+		 * @FLOW3\Inject
 	 */
 	protected $objectManager;
 

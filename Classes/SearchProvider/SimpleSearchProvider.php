@@ -27,8 +27,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * OptionsProvider for the SecurityPolicies which generates policies based
  * on the active beings and actions
  *
- * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
- * @author Marc Neuhaus <marc@mneuhaus.com>
+* @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
 class SimpleSearchProvider extends AbstractSearchProvider{
 	/**

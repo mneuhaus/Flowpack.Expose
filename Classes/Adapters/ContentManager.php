@@ -27,7 +27,6 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 /**
  * ContentManager to retrieve and Initialize Adapters
  *
- * @version $Id: AbstractValidator.php 3837 2010-02-22 15:17:24Z robert $
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  * @FLOW3\Scope("singleton")
  */
@@ -52,8 +51,7 @@ class ContentManager {
 
 	/**
 	 * @var \TYPO3\FLOW3\Object\ObjectManagerInterface
-	 * @author Marc Neuhaus <apocalip@gmail.com>
-	 * @FLOW3\Inject
+		 * @FLOW3\Inject
 	 */
 	protected $objectManager;
 
@@ -80,8 +78,7 @@ class ContentManager {
 	 * return the Adapter responsible for the class
 	 *
 	 * @return $groups Array
-	 * @author Marc Neuhaus
-	 */
+		 */
 	public function getAdapterByClass($class){
 		$implementations = class_implements("\\" . ltrim($class, "\\"));
 		if(in_array("Doctrine\ORM\Proxy\Proxy", $implementations))
@@ -122,8 +119,7 @@ class ContentManager {
 	 * Returns all active adapters
 	 *
 	 * @return $adapters
-	 * @author Marc Neuhaus
-	 */
+		 */
 	public function getAdapters(){
 		$settings = $this->getSettings();
 		$adapters = array();
@@ -179,8 +175,7 @@ class ContentManager {
 	 * returns all active groups
 	 *
 	 * @return $groups Array
-	 * @author Marc Neuhaus
-	 */
+		 */
 	public function getGroups(){
 		$cache = $this->cacheManager->getCache('Admin_Cache');
 		$identifier = "Groups-".sha1(implode("-", array_keys($this->adapters)));
@@ -211,8 +206,7 @@ class ContentManager {
 	 *
 	 * @param string $class 
 	 * @return $group string
-	 * @author Marc Neuhaus
-	 */
+		 */
 	public function getGroupByClass($class){
 		$cache = $this->cacheManager->getCache('Admin_Cache');
 		$identifier = $this->cacheManager->createIdentifier("getGroupByClass-".$class);
