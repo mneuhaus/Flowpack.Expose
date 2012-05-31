@@ -98,12 +98,12 @@ class LinkViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractTagBasedViewHe
 		$uriBuilder = $this->controllerContext->getUriBuilder();
 
 		if($object !== NULL){
-			$arguments["being"] = \Foo\ContentManagement\Core\API::get("classShortNames", get_class($object));
+			$arguments["being"] = $this->contentManager->getClassShortName(get_class($object));
 			$arguments["id"] = $this->contentManager->getId($object);
 		}
 
 		if($being !== NULL)
-			$arguments["being"] = \Foo\ContentManagement\Core\API::get("classShortNames", $being);
+			$arguments["being"] = $this->contentManager->getClassShortName($being);
 
 		try {
 			$uri = $uriBuilder

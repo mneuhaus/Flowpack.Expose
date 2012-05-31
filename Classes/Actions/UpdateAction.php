@@ -78,7 +78,7 @@ class UpdateAction extends \Foo\ContentManagement\Core\Actions\AbstractAction {
 		$request = $formRuntime->getRequest();
 		$values = $formRuntime->getFormState()->getFormValues();
 		$values["__identity"] = $request->getArgument("id");
-		$class = \Foo\ContentManagement\Core\API::get("classShortNames", $request->getArgument("being"));
+		$class = $this->contentManager->getClassShortName($request->getArgument("being"));
 		$id = $request->getArgument("id");
 		$this->adapter->updateObject($class, $id, $values["item"]);
 

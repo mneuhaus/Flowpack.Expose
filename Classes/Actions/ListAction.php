@@ -62,7 +62,7 @@ class ListAction extends \Foo\ContentManagement\Core\Actions\AbstractAction {
 		
 		// Redirect to creating a new Object if there aren't any (Clean Slate)
 		if( $results->count() < 1 ) {
-			$arguments = array("being" => \Foo\ContentManagement\Core\API::get("classShortNames", $being));
+			$arguments = array("being" => $this->contentManager->getClassShortName($being));
 			$this->actionManager->redirect("create", $arguments);
 		}
 		

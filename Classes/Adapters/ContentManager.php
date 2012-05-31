@@ -105,7 +105,6 @@ class ContentManager {
 			$adaptersByBeings = $cache->get($identifier);
 		}
 
-		#$class = \Foo\ContentManagement\Core\API::get("classShortNames", $class);
 		$adapterClass = $adaptersByBeings[$class];
 
 		return $this->adapters[$adapterClass];
@@ -149,6 +148,31 @@ class ContentManager {
 			$class = get_parent_class("\\" . ltrim($class, "\\"));
 		
 		return $class;
+	}
+
+	public function getClassShortName($class) {
+		$cache = $this->cacheManager->getCache('Admin_Cache');
+		$identifier = "ClassShortNames-".sha1(implode("-", array_keys($this->getAdapters())));
+
+		if(!$cache->has($identifier)){
+			$shortNames = array();
+			foreach ($this->adapters as $adapter) {
+				foreach ($adapter->getGroups() as $group => $beings) {
+					foreach ($beings as $conf) {
+						$being = $conf["being"];
+						$shortName = str_replace("domain_model_", "", strtolower(str_replace("\\", "_", $being)));
+						$shortNames[$being] = $shortName;
+						$shortNames[$shortName] = $being;
+					}
+				}
+			}
+
+			$cache->set($identifier,$shortNames);
+		}else{
+			$shortNames = $cache->get($identifier);
+		}
+
+		return $shortNames[$class];
 	}
 
 	/**

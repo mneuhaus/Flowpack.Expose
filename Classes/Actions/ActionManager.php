@@ -111,7 +111,6 @@ class ActionManager {
 			$action = $action."Action";
 		$actions = array();
 		foreach($this->reflectionService->getAllImplementationClassNamesForInterface('Foo\ContentManagement\Core\Actions\ActionInterface') as $actionClassName) {
-			// TODO: Remove Helper
 			$actionName = $this->contentManager->getShortName($actionClassName);
 			if(strtolower($actionName) == strtolower($action)){
 				return $this->objectManager->get($actionClassName);
@@ -127,7 +126,6 @@ class ActionManager {
 	 */
 	public function hasAction($action) {
 		foreach($this->reflectionService->getAllImplementationClassNamesForInterface('Foo\ContentManagement\Core\Actions\ActionInterface') as $actionClassName) {
-			// TODO: Remove Helper
 			$actionName = $this->contentManager->getShortName($actionClassName);
 			if(strtolower($actionName) == strtolower($action)){
 				return true;

@@ -132,36 +132,9 @@ class StandardController extends \TYPO3\TYPO3\Controller\Module\StandardControll
 		}
 	}
 
-	public function compileShortNames(){
-		$cache = $this->cacheManager->getCache('Admin_Cache');
-		$identifier = "ClassShortNames-".sha1(implode("-", array_keys($this->adapters)));
-
-		if(!$cache->has($identifier)){
-			$shortNames = array();
-			foreach ($this->adapters as $adapter) {
-				foreach ($adapter->getGroups() as $group => $beings) {
-					foreach ($beings as $conf) {
-						$being = $conf["being"];
-						$shortName = str_replace("domain_model_", "", strtolower(str_replace("\\", "_", $being)));
-						$shortNames[$being] = $shortName;
-						$shortNames[$shortName] = $being;
-					}
-				}
-			}
-
-			$cache->set($identifier,$shortNames);
-		}else{
-			$shortNames = $cache->get($identifier);
-		}
-
-		return $shortNames;
-	}
-
 	private function prepare($action){
 		$this->adapters = $this->contentManager->getAdapters();
 		$this->settings = $this->contentManager->getSettings();
-
-		\Foo\ContentManagement\Core\API::set("classShortNames", $this->compileShortNames());
 
 		$mainRequest = $this->request->getMainRequest();
 		if($mainRequest->hasArgument($this->request->getArgumentNamespace())){
@@ -173,7 +146,7 @@ class StandardController extends \TYPO3\TYPO3\Controller\Module\StandardControll
 				$this->being = $arguments["being"];
 
 				if(!stristr($this->being, "\\"))
-					$this->being = \Foo\ContentManagement\Core\API::get("classShortNames", $this->being);
+					$this->being = $this->contentManager->getClassShortName($this->being);
 
 				$this->adapter = $this->contentManager->getAdapterByClass($this->being);
 

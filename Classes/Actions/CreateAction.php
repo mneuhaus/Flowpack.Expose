@@ -69,7 +69,7 @@ class CreateAction extends \Foo\ContentManagement\Core\Actions\AbstractAction {
 	public function formFinisher($formRuntime) {
 		$request = $formRuntime->getRequest();
 		$values = $formRuntime->getFormState()->getFormValues();
-		$class = \Foo\ContentManagement\Core\API::get("classShortNames", $request->getArgument("being"));
+		$class = $this->contentManager->getClassShortName($request->getArgument("being"));
 
 		$result = $this->adapter->createObject($class, $values["item"]);
 

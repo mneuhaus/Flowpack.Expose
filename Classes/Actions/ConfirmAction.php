@@ -60,7 +60,7 @@ class ConfirmAction extends \Foo\ContentManagement\Core\Actions\AbstractAction {
 		}
 		$this->view->assign("objects", $objects);
 		$this->view->assign("ids", implode(",", $ids));
-		$this->view->assign("class", \Foo\ContentManagement\Core\API::get("classShortNames", $being));
+		$this->view->assign("class", $this->contentManager->getClassShortName($being));
 		$this->actionManager->getView()->setTemplateByAction("confirm");
 	}
 

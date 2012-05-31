@@ -76,7 +76,7 @@ class DeleteAction extends \Foo\ContentManagement\Core\Actions\AbstractAction {
 					$this->adapter->deleteObject($being, $id);
 				}
 				
-				$arguments = array("being" => \Foo\ContentManagement\Core\API::get("classShortNames", $being));
+				$arguments = array("being" => $this->contentManager->getClassShortName($being));
 				$this->actionManager->redirect('list', $arguments);
 			}else {
 				$arguments = $this->request->getArguments();

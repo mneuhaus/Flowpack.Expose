@@ -61,7 +61,7 @@ abstract class AbstractAction implements ActionInterface {
 
 		$this->contentManager = $contentManager;
 		if($this->request->hasArgument("being")){
-			$class = \Foo\ContentManagement\Core\API::get("classShortNames", $this->request->getArgument("being"));
+			$class = $this->contentManager->getClassShortName($this->request->getArgument("being"));
 			$this->adapter = $contentManager->getAdapterByClass($class);
 		}
 	}

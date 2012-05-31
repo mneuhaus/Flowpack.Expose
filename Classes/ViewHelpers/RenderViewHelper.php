@@ -83,8 +83,8 @@ class RenderViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 			if($fallbacks !== ''){
 				$replacements = array(
 					"@partial" => $partial,
-					"@package" => \Foo\ContentManagement\Core\API::get("package"),
-					"@being" => $this->contentManager->getShortName(\Foo\ContentManagement\Core\API::get("being")),
+					"@package" => "Foo.ContentManagement",
+					#"@being" => $this->contentManager->getShortName(\Foo\ContentManagement\Core\API::get("being")),
 					"@action" => $partial,
 					"@variant" => $variant
 				);
