@@ -39,11 +39,10 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  */
 class RenderViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 	/**
-	 * @var \Foo\ContentManagement\Core\Helper
-	 * @author Marc Neuhaus <apocalip@gmail.com>
+	 * @var \Foo\ContentManagement\Adapters\ContentManager
 	 * @FLOW3\Inject
 	 */
-	protected $helper;
+	protected $contentManager;
 
 	/**
 	 * @var \TYPO3\FLOW3\Object\ObjectManagerInterface
@@ -85,7 +84,7 @@ class RenderViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 				$replacements = array(
 					"@partial" => $partial,
 					"@package" => \Foo\ContentManagement\Core\API::get("package"),
-					"@being" => \Foo\ContentManagement\Core\Helper::getShortName(\Foo\ContentManagement\Core\API::get("being")),
+					"@being" => $this->contentManager->getShortName(\Foo\ContentManagement\Core\API::get("being")),
 					"@action" => $partial,
 					"@variant" => $variant
 				);
@@ -96,7 +95,7 @@ class RenderViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 				$identifier = str_replace("/","_",$identifier);
 				$identifier = str_replace(" ","_",$identifier);
 				if(!$cache->has($identifier)){
-					$template = $this->helper->getPathByPatternFallbacks($fallbacks,$replacements);
+					$template = $this->getPathByPatternFallbacks($fallbacks,$replacements);
 					$cache->set($identifier,$template);
 				}else{
 					$template = $cache->get($identifier);
@@ -157,6 +156,35 @@ class RenderViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 		$renderingContext->injectViewHelperVariableContainer($viewHelperVariableContainer);
 
 		return $renderingContext;
+	}
+
+	/**
+	 * returns a template Path by checking configured fallbacks
+	 *
+	 * @param string $patterns
+	 * @param string $replacements
+	 * @return $path String
+	 * @author Marc Neuhaus
+	 */
+	public function getPathByPatternFallbacks($patterns, $replacements){
+		if(is_string($patterns)){
+			$paths = explode(".",$patterns);
+			$patterns = $this->contentManager->getSettings();
+			$patterns = $patterns["Fallbacks"];
+			foreach ($paths as $path) {
+				$patterns = $patterns[$path];
+			}
+		}
+
+		foreach($patterns as $pattern){
+			$pattern = str_replace(array_keys($replacements),array_values($replacements),$pattern);
+			$tried[] = $pattern;
+			if(file_exists($pattern)){
+				return $pattern;
+			}
+		}
+
+		throw new \Exception('Could not find any Matching Path. Tried: '.implode(", ", $tried).'');
 	}
 }
 

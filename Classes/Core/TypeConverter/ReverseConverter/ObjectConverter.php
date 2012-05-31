@@ -93,7 +93,7 @@ class ObjectConverter extends \TYPO3\FLOW3\Property\TypeConverter\AbstractTypeCo
 		if($this->nestingLevel > 0)
 			return null;
 		
-		return sprintf("Object (%s)", \Foo\ContentManagement\Core\Helper::getShortName(get_class($this)));
+		return sprintf("Object (%s)", get_class($this));
 	}
 	
 	public function getProperties($source){

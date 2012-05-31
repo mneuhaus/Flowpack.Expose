@@ -39,11 +39,10 @@ class FilterViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 	protected $configurationManager;
 	
 	/**
-	 * @var \Foo\ContentManagement\Core\Helper
-	 * @author Marc Neuhaus <apocalip@gmail.com>
+	 * @var \Foo\ContentManagement\Reflection\AnnotationService
 	 * @FLOW3\Inject
 	 */
-	protected $helper;
+	protected $annotationService;
 	
 	/**
 	 *
@@ -88,21 +87,22 @@ class FilterViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 		$filters = array();
 		return $filters;
 		foreach ($this->objects as $object) {
-			$being = $this->helper->getBeing($object);
+			// TODO (mn): Reimplement Filter
+			// $being = $this->helper->getBeing($object);
 			
-			foreach($being->__properties as $property){
-				if(isset($property->_filter)){
-					if(!isset($filters[$property->name]))
-						$filters[$property->name] = new \Foo\ContentManagement\Core\Filter();
+			// foreach($being->__properties as $property){
+			// 	if(isset($property->_filter)){
+			// 		if(!isset($filters[$property->name]))
+			// 			$filters[$property->name] = new \Foo\ContentManagement\Core\Filter();
 
-					if(isset($selected[$property->name]) && $selected[$property->name] == $property->__toString())
-						$property->selected = true;
+			// 		if(isset($selected[$property->name]) && $selected[$property->name] == $property->__toString())
+			// 			$property->selected = true;
 					
-					#$string = $property->getString();
-					#if(!empty($string))
-						$filters[$property->name]->addProperty($property);
-				}
-			}
+			// 		#$string = $property->getString();
+			// 		#if(!empty($string))
+			// 			$filters[$property->name]->addProperty($property);
+			// 	}
+			// }
 		}
 		return $filters;
 	}

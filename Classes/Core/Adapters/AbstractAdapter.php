@@ -45,11 +45,10 @@ abstract class AbstractAdapter implements \Foo\ContentManagement\Core\Adapters\A
 	protected $cacheManager;
 	
 	/**
-	 * @var \Foo\ContentManagement\Core\Helper
-	 * @author Marc Neuhaus <apocalip@gmail.com>
+	 * @var \TYPO3\FLOW3\Configuration\ConfigurationManager
 	 * @FLOW3\Inject
 	 */
-	protected $helper;
+	protected $configurationManager;
 	
 	/**
 	 * @var \TYPO3\FLOW3\Object\ObjectManagerInterface
@@ -88,7 +87,7 @@ abstract class AbstractAdapter implements \Foo\ContentManagement\Core\Adapters\A
 	 * @author Marc Neuhaus <mneuhaus@famelo.com>
 	 * */
 	public function init() {
-		$this->settings = $this->helper->getSettings("Foo.ContentManagement");
+		$this->settings = $this->configurationManager->getConfiguration(\TYPO3\FLOW3\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, "Foo.ContentManagement");
 	}
 	
 	public function getFilter($being,$selected = array()){

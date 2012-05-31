@@ -20,11 +20,10 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  */
 class PersistenceFinisher extends \TYPO3\Form\Finishers\RedirectFinisher {
 	/**
-	 * @var \Foo\ContentManagement\Core\Helper
-	 * @author Marc Neuhaus <apocalip@gmail.com>
+	 * @var \Foo\ContentManagement\Adapters\ContentManager
 	 * @FLOW3\Inject
 	 */
-	protected $helper;
+	protected $contentManager;
 
 	protected $defaultOptions = array(
 		'package' => NULL,
@@ -40,9 +39,7 @@ class PersistenceFinisher extends \TYPO3\Form\Finishers\RedirectFinisher {
 		$request = $formRuntime->getRequest();//->getMainRequest();
 
 		$class = $this->parseOption('class');
-		$adapterClass = $this->helper->getAdapterByBeing($class);
-		$adapter = new $adapterClass();
-		$adapter->init();
+		$adapter = $this->contentManager->getAdapterByClass($class);
 
 		if($request->hasArgument("id")){
 			$adapter->createObject($class, $formRuntime->getFormState()->getFormValues());

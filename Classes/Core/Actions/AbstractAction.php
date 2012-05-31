@@ -39,14 +39,7 @@ abstract class AbstractAction implements ActionInterface {
 	/**
 	 * @var \Foo\ContentManagement\Adapters\ContentManager
 	 */
-	protected $contentManager;	
-
-	/**
-	 * @var \Foo\ContentManagement\Core\Helper
-	 * @author Marc Neuhaus <apocalip@gmail.com>
-	 * @FLOW3\Inject
-	 */
-	protected $helper;
+	protected $contentManager;
 	
 	/**
 	 * @var \Foo\ContentManagement\Core\Adapters\AdapterInterface
@@ -94,7 +87,7 @@ abstract class AbstractAction implements ActionInterface {
 	}
 
 	public function __toString() {
-		$action = \Foo\ContentManagement\Core\Helper::getShortName($this);
+		$action = $this->contentManager->getShortName($this);
 		$action = str_replace("Action", "", $action);
 		return $action;
 	}

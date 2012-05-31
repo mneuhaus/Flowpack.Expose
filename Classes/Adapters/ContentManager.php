@@ -231,6 +231,14 @@ class ContentManager {
 		return $classAnnotations->getProperties($context);
 	}
 
+	public function getShortName($class){
+		if(is_object($class))
+			$class = get_class($class);
+
+		$parts = explode("\\", $class);
+		return array_pop($parts);
+	}
+
 	public function getString($object) {
 		return sprintf("%s:%s", get_class($object), $this->getId($object));
 	}

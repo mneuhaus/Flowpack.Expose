@@ -76,7 +76,7 @@ class FallbackTemplateView extends \TYPO3\Fluid\View\TemplateView {
 			if(class_exists($being, false) && false){
 				$replacements["@package"] = $this->helper->getPackageByClassName($being) ? $this->helper->getPackageByClassName($being) : "Admin";
 
-				$replacements["@being"] = \Foo\ContentManagement\Core\Helper::getShortName($being);
+				$replacements["@being"] = $this->contentManager->getShortName($being);
 
 				// TODO: Reimplement Variants
 				#$being = $this->helper->getBeing($being);

@@ -92,8 +92,7 @@ class ActionManager {
 
 				$a = $this->objectManager->get($actionClassName);
 				if($a->canHandle($being, $action, $id)){
-					// TODO: Remove Helper
-					$actionName = \Foo\ContentManagement\Core\Helper::getShortName($actionClassName);
+					$actionName = $this->contentManager->getShortName($actionClassName);
 					$actionName = str_replace("Action","",$actionName);
 					$actions[$actionName] = $a;
 				}
@@ -113,7 +112,7 @@ class ActionManager {
 		$actions = array();
 		foreach($this->reflectionService->getAllImplementationClassNamesForInterface('Foo\ContentManagement\Core\Actions\ActionInterface') as $actionClassName) {
 			// TODO: Remove Helper
-			$actionName = \Foo\ContentManagement\Core\Helper::getShortName($actionClassName);
+			$actionName = $this->contentManager->getShortName($actionClassName);
 			if(strtolower($actionName) == strtolower($action)){
 				return $this->objectManager->get($actionClassName);
 			}
@@ -129,7 +128,7 @@ class ActionManager {
 	public function hasAction($action) {
 		foreach($this->reflectionService->getAllImplementationClassNamesForInterface('Foo\ContentManagement\Core\Actions\ActionInterface') as $actionClassName) {
 			// TODO: Remove Helper
-			$actionName = \Foo\ContentManagement\Core\Helper::getShortName($actionClassName);
+			$actionName = $this->contentManager->getShortName($actionClassName);
 			if(strtolower($actionName) == strtolower($action)){
 				return true;
 			}

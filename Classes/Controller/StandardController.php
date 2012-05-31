@@ -60,13 +60,6 @@ class StandardController extends \TYPO3\TYPO3\Controller\Module\StandardControll
 	protected $contentManager;
 
 	/**
-	 * @var \Foo\ContentManagement\Core\Helper
-	 * @author Marc Neuhaus <apocalip@gmail.com>
-	 * @FLOW3\Inject
-	 */
-	protected $helper;
-
-	/**
 	 * @var \TYPO3\FLOW3\Object\ObjectManagerInterface
 	 * @author Marc Neuhaus <apocalip@gmail.com>
 	 * @FLOW3\Inject
@@ -278,6 +271,8 @@ class StandardController extends \TYPO3\TYPO3\Controller\Module\StandardControll
 		$this->response->setHeader('Location', (string)$uri);
 		throw new \TYPO3\FLOW3\Mvc\Exception\StopActionException();
 	}
+
+	public function dispatch() {}
 }
 
 ?>

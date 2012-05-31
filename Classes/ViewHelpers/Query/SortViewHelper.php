@@ -39,13 +39,6 @@ class SortViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 	protected $configurationManager;
 	
 	/**
-	 * @var \Foo\ContentManagement\Core\Helper
-	 * @author Marc Neuhaus <apocalip@gmail.com>
-	 * @FLOW3\Inject
-	 */
-	protected $helper;
-	
-	/**
 	 *
 	 * @param mixed $objects
 	 * @param string $as
