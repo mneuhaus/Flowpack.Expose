@@ -74,7 +74,7 @@ class UpdateAction extends \Foo\ContentManagement\Core\Actions\AbstractAction {
 		$this->view->assign("object", $object);
 	}
 
-	public function formFinischer($formRuntime) {
+	public function formFinisher($formRuntime) {
 		$request = $formRuntime->getRequest();
 		$values = $formRuntime->getFormState()->getFormValues();
 		$values["__identity"] = $request->getArgument("id");

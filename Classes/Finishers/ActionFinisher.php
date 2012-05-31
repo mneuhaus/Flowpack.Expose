@@ -31,7 +31,7 @@ class ActionFinisher extends \TYPO3\Form\Core\Model\AbstractFinisher {
 
 		$class = $this->parseOption('class');
 
-		$action->formFinischer($formRuntime);
+		$action->formFinisher($formRuntime);
 	}
 }
 ?>

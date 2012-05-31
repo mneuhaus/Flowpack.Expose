@@ -66,8 +66,7 @@ class CreateAction extends \Foo\ContentManagement\Core\Actions\AbstractAction {
 		$this->view->assign("object", $object);
 	}
 
-	// TODO: (SK)  spelling error: Finisher
-	public function formFinischer($formRuntime) {
+	public function formFinisher($formRuntime) {
 		$request = $formRuntime->getRequest();
 		$values = $formRuntime->getFormState()->getFormValues();
 		$class = \Foo\ContentManagement\Core\API::get("classShortNames", $request->getArgument("being"));
