@@ -29,7 +29,6 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * TODO: (SK) get rid of this view helper and use assetic functionality instead
  *
  * @api
- * @FLOW3\Scope("prototype")
  */
 class ResourcesViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 	/**

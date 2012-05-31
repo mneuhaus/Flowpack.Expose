@@ -31,7 +31,6 @@ use TYPO3\FLOW3\Mvc\ActionRequest;
  *
  * @version $Id: AbstractValidator.php 3837 2010-02-22 15:17:24Z robert $
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
- * @FLOW3\Scope("prototype")
  */
 class ListAction extends \Foo\ContentManagement\Core\Actions\AbstractAction {
 
