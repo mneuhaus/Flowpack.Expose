@@ -67,6 +67,7 @@ Foo:
         - resource://Foo.ContentManagement/Private/Partials/@partial/Default.html
     Mapping:
       # TODO: (SK) this should not be called "Widget" as this is already a Fluid key name...
+      #       (MN) I used that first! ;D No, sure, Elements would be more fitting now anyway
       Widgets:
         string:   TYPO3.Form:SingleLineText
         #readonly:   TextfieldReadonly
@@ -89,14 +90,12 @@ TYPO3:
             content:
               label: 'Content'
               controller: '\Foo\ContentManagement\Controller\StandardController'
-              # TODO: (SK) IMHO this skipActionCheck is not supported currently. However
-              # the action check should be removed in the BackendRoutePartHandler anyways
-              skipActionCheck: true
 
   Form:
     presets:
       # TODO: (SK) instead of overriding the default preset, we should rather define our own TYPO3_ContentManagement preset
       # (which can extend from the default one)
+      # (MN) agreed.
       default:
         formElementTypes:
           ### override default layout path ###

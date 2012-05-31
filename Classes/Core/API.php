@@ -25,6 +25,7 @@ namespace Foo\ContentManagement\Core;
  * This is a global register for some variables like package, being, ...
  *
  * TODO: (SK) get rid of this class! Very un-flow3 code style...
+ * 		 (MN) this class is practically obsolete and can be removed
  *
  * @version $Id: $
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later

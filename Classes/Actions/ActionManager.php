@@ -183,6 +183,8 @@ class ActionManager {
 	}
 
 	// TODO: (SK) this redirect duplicates the default functionality of FLOW3
+	// 		 (MN) The reason for this was to make this Public because i needed
+	// 		      a way to initiate redirects from the AbstractActions
 	public function redirect($actionName, $arguments, $delay = 0, $statusCode = 303) {
 		$uriBuilder = new \TYPO3\FLOW3\Mvc\Routing\UriBuilder();
 		$uriBuilder->setRequest($this->request);

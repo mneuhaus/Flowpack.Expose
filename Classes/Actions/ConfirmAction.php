@@ -35,6 +35,9 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 class ConfirmAction extends \Foo\ContentManagement\Core\Actions\AbstractAction {
 
 	// TODO: (SK) can this even work when it always returns FALSE?
+	// 		 (MN) yes, because this only decides wheter a Button/Action for it
+	// 		      is shown somewhere. This action gets called through redirect
+	// 		      by the DeleteAction in Line 85 to confirm the Deletion
 	public function canHandle($being, $action = null, $id = false) {
 		return false;
 	}

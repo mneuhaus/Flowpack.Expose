@@ -26,8 +26,8 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
  * TODO: (SK) while this makes sense in general, we should see how to integrate that into the reflection or annotation packages in FLOW3.
+ * 		 (MN) I agree absolutely!
  *
- * Configurationprovider for the DummyAdapter
  *
  * @version $Id: YamlConfigurationProvider.php 3837 2010-02-22 15:17:24Z robert $
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later

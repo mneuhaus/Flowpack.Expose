@@ -27,8 +27,18 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
  * TODO: (SK) what are "Option Providers" in general?
+ * 		 (MN) An OptionsProvider is used for FormElements like Select and such to provide Options :)
+ *   		  This on uses an RegEx from the Annotation to match Constants in the same class.
+ *      	  Example:
+ *        		    TYPO3\Party\Domain\Model\ElectronicAddress:
+ *                		Properties:
+ *                  		type:
+ *                    			Widget: TYPO3.Form:SingleSelectDropdown
+ *                       		OptionsProvider: 
+ *                         			Name: ConstOptionsProvider
+ *                            		RegEx: TYPE_.+
  *
- * OptionsProvider for related Beings
+ * OptionsProvider for constants
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  * @author Marc Neuhaus <marc@mneuhaus.com>

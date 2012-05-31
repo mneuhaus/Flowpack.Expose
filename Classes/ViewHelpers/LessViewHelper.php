@@ -16,6 +16,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 /**
  * TODO: (SK) get rid of this one and use Assetic package insead
  * TODO: (SK) remove Resources/PHP/LessPHP because it is not needed.
+ * 		 (MN) Agreed, and already in progress :)
  *
  * @api
  */

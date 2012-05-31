@@ -27,6 +27,10 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
  * TODO: (SK) get rid of this view helper. Duplicates lots of FLOW3 code.
+ * 		 (MN) Agreed in general, only difference here is the usage of those
+ *    		  Fallbacks for Templates again. IMHO this is one feature we 
+ *        	  should try to keep, because it makes overriting Template 
+ *            for certain things a breeze
  *
  * @version $Id: ForViewHelper.php 3346 2009-10-22 17:26:10Z k-fish $
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later

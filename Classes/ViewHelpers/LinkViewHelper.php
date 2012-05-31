@@ -15,6 +15,8 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
  * TODO: (SK) replace by standard link view helper. what does change?
+ * 		 (MN) i added an object and class argument as shortcuts. 
+ *    		  can be removed.
  *
  *
  * A view helper for creating links to actions.

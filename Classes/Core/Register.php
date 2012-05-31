@@ -25,6 +25,8 @@ namespace Foo\ContentManagement\Core;
  * TODO: (SK) get rid of this class; also it seems very similar to API.
  * TODO: (SK) Global state needs to be fully avoided and rather moved into the corresponding singleton managers.
  * TODO: (SK) create a conceptual API / UML diagram for the current state
+ * 
+ * 		 (MN) this class is practically obsolete and can be removed
  *
  * This is a global register for some variables like package, being, ...
  *

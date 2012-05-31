@@ -26,6 +26,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
  * TODO: (SK) fix comments or remove class
+ * 		 (MN) can be removed
  *
  * OptionsProvider for the SecurityPolicies which generates policies based
  * on the active beings and actions

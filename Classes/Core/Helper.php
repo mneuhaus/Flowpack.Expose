@@ -28,6 +28,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * Helper class to encapsulate various functions
  *
  * TODO: (SK) we should get rid of this class. either by moving needed functions into the FLOW3 core (like isIterable) or calling the corresponding framework methods
+ * 		 (MN) this class is practically obsolete and can be removed
  *
  * @package default
  * @author Marc Neuhaus

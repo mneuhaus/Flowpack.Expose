@@ -29,6 +29,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * Standard controller for the Admin package
  *
  * TODO: (SK) Instead of replicating the Controller API inside the "Action" API, why not just re-use the default MVC controllers for that? This way, we can get rid of the whole action* class hierarchy and use standard sub requests.
+ * 		 (MN) Agreed! By the time i created this SubRequests didn't exist :)
  *
  * @version $Id: $
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later

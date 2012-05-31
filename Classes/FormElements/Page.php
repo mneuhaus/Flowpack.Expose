@@ -15,6 +15,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
  * TODO: (SK) get rid of this class as it is empty
+ * 		 (MN) this class is practically obsolete and can be removed
  *
  * A Page, being part of a bigger FormDefinition. It contains numerous FormElements
  * as children.

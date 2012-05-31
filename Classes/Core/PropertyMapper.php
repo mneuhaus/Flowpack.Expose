@@ -15,6 +15,9 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
  * TODO: (SK) the reverse direction should be integrated directly into the property mapper; as per the existing concept.
+ * 		 (MN) Agreed. Although the concept in forge probably won't cover this functionality perfectly.
+ *    		  Maybe this should be refactored into an "Formatter" or something, because the main job ob this thing is
+ *        	  to create a decent String Representation that is readable for the User and not revertable into its source
  *
  * The Property Mapper transforms simple types (arrays, strings, integers, floats, booleans) to objects or other simple types.
  * It is used most prominently to map incoming HTTP arguments to objects.

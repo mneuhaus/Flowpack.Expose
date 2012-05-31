@@ -15,6 +15,15 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
  * TODO: (SK) why cannot we use the standard template view? What does this view do in addition?
+ * 		 (MN) This View iterates over a wide variety of Fallback options to make it easy to override
+ *    		  an template for a Package, Model, Action, etc just by convention.
+ *        	  Here are for Example the Fallbacks for the Views:
+ *           	- resource://@package/Private/Templates/@being/@action/@variant.html
+ *           	- resource://@package/Private/Templates/Admin/@action/@variant.html
+ *           	- resource://@package/Private/Templates/@being/@action.html
+ *           	- resource://@package/Private/Templates/Admin/@action.html
+ *           	- resource://Foo.ContentManagement/Private/Templates/Standard/@action/@variant.html
+ *           	- resource://Foo.ContentManagement/Private/Templates/Standard/@action.html
  *
  * The main template view. Should be used as view if you want Fluid Templating
  *
