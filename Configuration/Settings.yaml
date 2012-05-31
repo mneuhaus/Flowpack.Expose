@@ -115,7 +115,6 @@ TYPO3:
           ### FORM ELEMENTS: CONTAINER ###
           'Foo.ContentManagement:Page':
             superTypes: ['TYPO3.Form:Page']
-            implementationClassName: 'Foo\ContentManagement\FormElements\Page'
 
           'Foo.ContentManagement:Hidden':
             superTypes: ['TYPO3.Form:FormElement', 'TYPO3.Form:TextMixin']
