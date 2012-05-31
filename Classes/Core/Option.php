@@ -27,14 +27,19 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
  * represents an option for a property
- * 
+ *
+ * TODO: (SK) I do not understand what this does; and why it is needed :-) Especially why does an option need a "selected" state?
+ * TODO: (SK) Scope Prototype annotations should be removed globally
+ * TODO: (SK) version annotations should be removed globally
+ * TODO: (SK) author annotations should be removed globally
+ *
  * @version $Id: ForViewHelper.php 3346 2009-10-22 17:26:10Z k-fish $
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  * @api
  * @FLOW3\Scope("prototype")
  */
 class Option{
-	
+
     protected $id;
     protected $value;
     protected $selected;

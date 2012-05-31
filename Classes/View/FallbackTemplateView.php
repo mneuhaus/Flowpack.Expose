@@ -14,6 +14,8 @@ namespace Foo\ContentManagement\View;
 use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
+ * TODO: (SK) why cannot we use the standard template view? What does this view do in addition?
+ *
  * The main template view. Should be used as view if you want Fluid Templating
  *
  * @api
@@ -23,7 +25,7 @@ class FallbackTemplateView extends \TYPO3\Fluid\View\TemplateView {
 	 * @var \Foo\ContentManagement\Actions\ActionManager
 	 * @FLOW3\Inject
 	 */
-	protected $actionManager;	
+	protected $actionManager;
 
 	/**
 	 * @var \Foo\ContentManagement\Core\CacheManager
@@ -59,20 +61,20 @@ class FallbackTemplateView extends \TYPO3\Fluid\View\TemplateView {
 			"@variant" => "Default",
 			"@package" => "Foo.ContentManagement",
 		);
-		
+
 		if($this->controllerContext->getRequest()->hasArgument("being")){
 			$being = $this->controllerContext->getRequest()->getArgument("being");
 			if(class_exists($being, false) && false){
 				$replacements["@package"] = $this->helper->getPackageByClassName($being) ? $this->helper->getPackageByClassName($being) : "Admin";
-		
+
 				$replacements["@being"] = \Foo\ContentManagement\Core\Helper::getShortName($being);
-				
+
 				// TODO: Reimplement Variants
 				#$being = $this->helper->getBeing($being);
 				#$replacements["@variant"] = $being->variant->getVariant($actionName);
 			}
 		}
-		
+
 		if($this->controllerContext->getRequest()->hasArgument("variant")){
 			$replacements["@variant"] = $this->request->getArgument("variant");
 		}
@@ -98,8 +100,8 @@ class FallbackTemplateView extends \TYPO3\Fluid\View\TemplateView {
 	/**
 	 * returns a template Path by checking configured fallbacks
 	 *
-	 * @param string $patterns 
-	 * @param string $replacements 
+	 * @param string $patterns
+	 * @param string $replacements
 	 * @return $path String
 	 * @author Marc Neuhaus
 	 */
@@ -112,7 +114,7 @@ class FallbackTemplateView extends \TYPO3\Fluid\View\TemplateView {
 				$patterns = $patterns[$path];
 			}
 		}
-		
+
 		foreach($patterns as $pattern){
 			$pattern = str_replace(array_keys($replacements),array_values($replacements),$pattern);
 			$tried[] = $pattern;
@@ -120,7 +122,7 @@ class FallbackTemplateView extends \TYPO3\Fluid\View\TemplateView {
 				return $pattern;
 			}
 		}
-		
+
 		throw new \Exception('Could not find any Matching Path. Tried: '.implode(", ", $tried).'');
 	}
 

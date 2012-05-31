@@ -24,6 +24,8 @@ namespace Foo\ContentManagement\Core;
 /**
  * This is a global register for some variables like package, being, ...
  *
+ * TODO: (SK) get rid of this class! Very un-flow3 code style...
+ *
  * @version $Id: $
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
@@ -58,22 +60,22 @@ class API {
 	static function remove($name){
 		unset(self::$container[$name]);
 	}
-	
+
 	static function addNavigationItem($name, $position, $arguments, $priority = 100, $parent = null){
 		if(is_null($parent)){
 			self::add("Navigation-".$position, $name, $arguments);
 			self::add("NavigationSorting-".$position, $name, $priority);
 		}else{
-			
+
 		}
 	}
-	
+
 	static function getNagigationItems($position){
 		$items = self::get("Navigation-".$position);
 		$sorting = self::get("NavigationSorting-".$position);
-		
+
 		$sortedItems = array();
-		
+
 		if(!is_null($sorting)){
 			arsort($sorting);
 			foreach ($sorting as $key => $priority) {
@@ -82,15 +84,15 @@ class API {
 		}
 		return $sortedItems;
 	}
-	
+
 	static function addTitleSegment($segment){
 		self::add("pageTitleSegments", $segment);
 	}
-	
+
 	static function setTitle($title){
 		self::set("pageTitle", $title);
 	}
-	
+
 	static function getTitle(){
 		if(self::has("pageTitle")){
 			return self::get("pageTitle");

@@ -14,6 +14,8 @@ namespace Foo\ContentManagement\Core;
 use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
+ * TODO: (SK) the reverse direction should be integrated directly into the property mapper; as per the existing concept.
+ *
  * The Property Mapper transforms simple types (arrays, strings, integers, floats, booleans) to objects or other simple types.
  * It is used most prominently to map incoming HTTP arguments to objects.
  *

@@ -14,6 +14,8 @@ namespace Foo\ContentManagement\FormElements;
 use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
+ * TODO: (SK) get rid of this class as it is empty
+ *
  * A Page, being part of a bigger FormDefinition. It contains numerous FormElements
  * as children.
  *
@@ -28,6 +30,6 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * Please see {@link FormDefinition} for an in-depth explanation.
  */
 class Page extends \TYPO3\Form\Core\Model\Page {
-	
+
 }
 ?>

@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\Fluid\Tests\Functional\Form;
+namespace Foo\ContentManagement\Tests\Functional;
 
 /*                                                                        *
  * This script belongs to the FLOW3 package "Fluid".                      *
@@ -20,7 +20,7 @@ use TYPO3\FLOW3\Mvc\ActionRequest;
  *
  * @group large
  */
-class FormObjectsTest extends \TYPO3\FLOW3\Tests\FunctionalTestCase {
+class ListTest extends \TYPO3\FLOW3\Tests\FunctionalTestCase {
 
 	/**
 	 * @var boolean

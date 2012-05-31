@@ -27,6 +27,8 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 /**
  * Helper class to encapsulate various functions
  *
+ * TODO: (SK) we should get rid of this class. either by moving needed functions into the FLOW3 core (like isIterable) or calling the corresponding framework methods
+ *
  * @package default
  * @author Marc Neuhaus
  */
@@ -36,20 +38,20 @@ class Helper {
 	 * @FLOW3\Inject
 	 */
 	protected $cacheManager;
-	
+
 	/**
 	 * @var \TYPO3\FLOW3\Configuration\ConfigurationManager
 	 * @FLOW3\Inject
 	 */
 	protected $configurationManager;
-	
+
 	/**
 	 * @var \TYPO3\FLOW3\Object\ObjectManagerInterface
 	 * @author Marc Neuhaus <apocalip@gmail.com>
 	 * @FLOW3\Inject
 	 */
 	protected $objectManager;
-	
+
 	/**
 	 * @var \TYPO3\FLOW3\Reflection\ReflectionService
 	 * @api
@@ -57,11 +59,11 @@ class Helper {
 	 * @FLOW3\Inject
 	 */
 	protected $reflectionService;
-	
+
 	public function isDemoMode(){
 		return $this->getSettings("Admin.DemoMode");
 	}
-	
+
 	/**
 	 * Checks if the Variable is iteratable
 	 *
@@ -74,7 +76,7 @@ class Helper {
 			return true;
 
 		if(is_object($mixed)){
-			
+
 			if($mixed instanceof \ArrayAccess)
 				return true;
 
@@ -86,26 +88,26 @@ class Helper {
 
 			if($mixed instanceof \Iterator)
 				return true;
-			
+
 			if($mixed instanceof \Doctrine\ODM\MongoDB\PersistentCollection)
 				return true;
 
 			if($mixed instanceof \Doctrine\ODM\MongoDB\MongoCursor)
 				return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	public function isUserSuperAdmin(){
 		#$superAdminUserName = $this->getSettings("Admin.SuperAdmin");
 		#$user = $this->securityManager->getUser();
 		#if(is_object($user))
 		#	return $user->__toString() == $superAdminUserName;
-		
+
 		return false;
 	}
-	
+
 	/**
 	 * Returns all Properties of a Specified Model
 	 *
@@ -123,7 +125,7 @@ class Helper {
 		unset($tmpProperties);
 		return $properties;
 	}
-	
+
 	/**
 	 *
 	 * @param $model String Name of the Model with Namespace
@@ -133,7 +135,7 @@ class Helper {
 	public function getPackageByClassName($model){
 		return $this->objectManager->getPackageKeyByObjectName($model);
 	}
-	
+
 	/**
 	 *
 	 * @param $model String Name of the Model with Namespace
@@ -145,12 +147,12 @@ class Helper {
 		if(count($match)>0)
 			return $match[1];
 	}
-	
+
 	/**
 	 * returns a template Path by checking configured fallbacks
 	 *
-	 * @param string $patterns 
-	 * @param string $replacements 
+	 * @param string $patterns
+	 * @param string $replacements
 	 * @return $path String
 	 * @author Marc Neuhaus
 	 */
@@ -163,7 +165,7 @@ class Helper {
 				$patterns = $patterns[$path];
 			}
 		}
-		
+
 		foreach($patterns as $pattern){
 			$pattern = str_replace(array_keys($replacements),array_values($replacements),$pattern);
 			$tried[] = $pattern;
@@ -171,10 +173,10 @@ class Helper {
 				return $pattern;
 			}
 		}
-		
+
 		throw new \Exception('Could not find any Matching Path. Tried: '.implode(", ", $tried).'');
 	}
-	
+
 	/**
 	 * Returns the Settings of that namespace and caches it
 	 *
@@ -188,7 +190,7 @@ class Helper {
 		}
 		return $this->cache["settings"][$namespace];
 	}
-	
+
 	/**
 	 * returns the shortname representation of the class
 	 *
@@ -198,7 +200,7 @@ class Helper {
 	static function getShortName($class){
 		if(is_object($class))
 			$class = get_class($class);
-			
+
 		$parts = explode("\\", $class);
 		return array_pop($parts);
 	}

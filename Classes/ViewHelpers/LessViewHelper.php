@@ -14,6 +14,8 @@ namespace Foo\ContentManagement\ViewHelpers;
 use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
+ * TODO: (SK) get rid of this one and use Assetic package insead
+ * TODO: (SK) remove Resources/PHP/LessPHP because it is not needed.
  *
  * @api
  */
@@ -80,9 +82,9 @@ class LessViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractTagBasedViewHe
 			#	$cache->set($identifier, $compilationCache);
 			#}
 		}
-		
+
 		$uri = $this->resourceViewHelper->render(null, null, null, $target);
-		
+
 		$this->tag->addAttribute("rel", "stylesheet");
 		$this->tag->addAttribute("href", $uri);
 		return $this->tag->render();

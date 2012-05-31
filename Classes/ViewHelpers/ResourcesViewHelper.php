@@ -1,5 +1,5 @@
 <?php
- 
+
 namespace Foo\ContentManagement\ViewHelpers;
 
 /*                                                                        *
@@ -26,6 +26,8 @@ use Doctrine\ORM\Mapping as ORM;
 use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
+ * TODO: (SK) get rid of this view helper and use assetic functionality instead
+ *
  * @api
  * @FLOW3\Scope("prototype")
  */
@@ -58,11 +60,11 @@ class ResourcesViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelpe
 			"js/jquery/jquery.elastic.js",
 			"js/jquery/jquery.keynav.js",
 			"js/main.js",
-		
+
 			"css/jquery/jquery.ui.css",
 			"css/jquery/jquery.selector.css"
 	);
-	
+
 	/**
 	 *
 	 * @param string $file
@@ -126,7 +128,7 @@ class ResourcesViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelpe
 	public function array_insert($array, $insertion, $position = null){
 		if($position == null)
 			$position = count($position);
-		
+
 		$before = array_slice($array,0,$position);
 		$after = array_slice($array,$position);
 
@@ -134,7 +136,7 @@ class ResourcesViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelpe
 		$array[]= $insertion;
 		foreach($after as $element)
 			$array[]= $element;
-		
+
 		return $array;
 	}
 }

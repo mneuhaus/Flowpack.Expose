@@ -1,5 +1,5 @@
 <?php
- 
+
 namespace Foo\ContentManagement\ViewHelpers;
 
 /*                                                                        *
@@ -26,6 +26,8 @@ use Doctrine\ORM\Mapping as ORM;
 use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
+ * TODO: (SK) get rid of this view helper. Duplicates lots of FLOW3 code.
+ *
  * @version $Id: ForViewHelper.php 3346 2009-10-22 17:26:10Z k-fish $
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  * @api
@@ -38,13 +40,13 @@ class RenderViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 	 * @FLOW3\Inject
 	 */
 	protected $helper;
-	
+
 	/**
 	 * @var \TYPO3\FLOW3\Object\ObjectManagerInterface
 	 * @FLOW3\Inject
 	 */
 	protected $objectManager;
-	
+
 	/**
 	 * @var \TYPO3\Fluid\Core\Parser\TemplateParser
 	 * @FLOW3\Inject
@@ -56,7 +58,7 @@ class RenderViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 	 * @FLOW3\Inject
 	 */
 	protected $cacheManager;
-	
+
 	/**
 	 *
 	 * @param object $value
@@ -95,7 +97,7 @@ class RenderViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 				}else{
 					$template = $cache->get($identifier);
 				}
-				
+
 				if(empty($vars) && false){
 					$this->view = $this->viewHelperVariableContainer->getView();
 					$this->view->setTemplatePathAndFilename($template);
@@ -111,7 +113,7 @@ class RenderViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 				}
 			}
 		}
-		
+
 		if($section !== null){
  			$output = $this->viewHelperVariableContainer->getView()->renderSection($section, $vars, $optional);
 			if(strlen($output) < 1)
@@ -119,7 +121,7 @@ class RenderViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 			return $output;
 		}
 	}
-	
+
    protected function parseTemplate($templatePathAndFilename) {
 		$templateSource = \TYPO3\FLOW3\Utility\Files::getFileContents($templatePathAndFilename, FILE_TEXT);
 		if ($templateSource === FALSE) {
@@ -127,7 +129,7 @@ class RenderViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 		}
 		return $this->templateParser->parse($templateSource);
 	}
-	
+
 	/**
 	 * Build the rendering context
 	 *

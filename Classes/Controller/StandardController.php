@@ -28,6 +28,8 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 /**
  * Standard controller for the Admin package
  *
+ * TODO: (SK) Instead of replicating the Controller API inside the "Action" API, why not just re-use the default MVC controllers for that? This way, we can get rid of the whole action* class hierarchy and use standard sub requests.
+ *
  * @version $Id: $
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
@@ -36,7 +38,7 @@ class StandardController extends \TYPO3\TYPO3\Controller\Module\StandardControll
 	 * @var \Foo\ContentManagement\Actions\ActionManager
 	 * @FLOW3\Inject
 	 */
-	protected $actionManager;	
+	protected $actionManager;
 
 	/**
 	 * @var \Foo\ContentManagement\Reflection\AnnotationService
@@ -54,7 +56,7 @@ class StandardController extends \TYPO3\TYPO3\Controller\Module\StandardControll
 	 * @var \Foo\ContentManagement\Adapters\ContentManager
 	 * @FLOW3\Inject
 	 */
-	protected $contentManager;	
+	protected $contentManager;
 
 	/**
 	 * @var \Foo\ContentManagement\Core\Helper
@@ -73,7 +75,7 @@ class StandardController extends \TYPO3\TYPO3\Controller\Module\StandardControll
 	protected $model = "";
 	protected $being = null;
 	protected $id = null;
-	
+
 	/**
 	 * Resolves and checks the current action method name
 	 *
@@ -101,7 +103,7 @@ class StandardController extends \TYPO3\TYPO3\Controller\Module\StandardControll
 	 */
 	protected function callActionMethod() {
 		$actionResult = $this->__call($this->actionMethodName, $this->request->getArguments());
-		
+
 		if ($actionResult === NULL && $this->view instanceof \TYPO3\FLOW3\Mvc\View\ViewInterface) {
 			// $cache = $this->cacheManager->getCache('Admin_Cache');
 			// $identifier = $this->cacheManager->createIdentifier($this->request->getHttpRequest()->getUri());
@@ -135,7 +137,7 @@ class StandardController extends \TYPO3\TYPO3\Controller\Module\StandardControll
 			$action->execute($this->being, $ids);
 		}
 	}
-	
+
 	public function compileShortNames(){
 		$cache = $this->cacheManager->getCache('Admin_Cache');
 		$identifier = "ClassShortNames-".sha1(implode("-", array_keys($this->adapters)));
@@ -152,26 +154,26 @@ class StandardController extends \TYPO3\TYPO3\Controller\Module\StandardControll
 					}
 				}
 			}
-			
+
 			$cache->set($identifier,$shortNames);
 		}else{
 			$shortNames = $cache->get($identifier);
 		}
-		
+
 		return $shortNames;
 	}
 
 	private function prepare($action){
 		$this->adapters = $this->contentManager->getAdapters();
 		$this->settings = $this->contentManager->getSettings();
-		
+
 		\Foo\ContentManagement\Core\API::set("classShortNames", $this->compileShortNames());
 
 		$mainRequest = $this->request->getMainRequest();
 		if($mainRequest->hasArgument($this->request->getArgumentNamespace())){
 			$arguments = $mainRequest->getArgument($this->request->getArgumentNamespace());
 			$this->request->setArguments($arguments);
-				
+
 			#var_dump($arguments);
 			if(isset($arguments["being"])){
 				$this->being = $arguments["being"];
@@ -198,7 +200,7 @@ class StandardController extends \TYPO3\TYPO3\Controller\Module\StandardControll
 		ksort($groups);
 		foreach($groups as $package => $group){
 			foreach($group["beings"] as $key => $being){
-				
+
 				if(!empty($this->adapter)){
 					if($being["being"] == $this->being && $being["adapter"] == $this->adapter){
 						$groups[$package]["beings"][$key]["active"] = true;
@@ -214,14 +216,14 @@ class StandardController extends \TYPO3\TYPO3\Controller\Module\StandardControll
 		$this->view = $this->resolveView();
 		$this->view->setTemplateByAction($action);
 		$this->actionManager->setView($this->view);
-			
+
 		if ($this->view !== NULL) {
 			$this->view->assign('settings', $this->settings);
 			$this->initializeView($this->view);
 		}
-		
+
 		$this->view->assign('groups',$groups);
-		
+
 		$hasId = isset($this->id) ? true : false;
 		$topBarActions = $this->actionManager->getActions($action, $this->being, $hasId);
 		$this->view->assign('topBarActions',$topBarActions);

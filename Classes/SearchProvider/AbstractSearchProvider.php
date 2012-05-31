@@ -25,6 +25,8 @@ namespace Foo\ContentManagement\SearchProvider;
 use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
+ * TODO: (SK) fix comments or remove class
+ *
  * OptionsProvider for the SecurityPolicies which generates policies based
  * on the active beings and actions
  *
@@ -33,7 +35,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  */
 
 abstract class AbstractSearchProvider {
-	
+
 }
 
 ?>

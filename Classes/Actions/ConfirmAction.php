@@ -34,10 +34,11 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  */
 class ConfirmAction extends \Foo\ContentManagement\Core\Actions\AbstractAction {
 
+	// TODO: (SK) can this even work when it always returns FALSE?
 	public function canHandle($being, $action = null, $id = false) {
 		return false;
 	}
-	
+
 	public function getShortcut(){
 		return "c";
 	}
@@ -50,7 +51,7 @@ class ConfirmAction extends \Foo\ContentManagement\Core\Actions\AbstractAction {
 	 * */
 	public function execute($being, $ids = null) {
 		$objects = array();
-		
+
 		foreach ($ids as $id) {
 			$objects[] = $this->adapter->getObject($being, $id);
 		}

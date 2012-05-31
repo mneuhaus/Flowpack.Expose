@@ -25,6 +25,8 @@ namespace Foo\ContentManagement\Reflection;
 use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
+ * TODO: (SK) while this makes sense in general, we should see how to integrate that into the reflection or annotation packages in FLOW3.
+ *
  * Configurationprovider for the DummyAdapter
  *
  * @version $Id: YamlConfigurationProvider.php 3837 2010-02-22 15:17:24Z robert $
@@ -80,7 +82,7 @@ class AnnotationService {
 
 			$this->runtimeCache[$class] = new Wrapper\ClassAnnotationWrapper($annotations);
 			$this->runtimeCache[$class]->setClass($class);
-			
+
 			$cache->set($identifier, $this->runtimeCache[$class]);
 
 		}else if(!isset($this->runtimeCache[$class])){

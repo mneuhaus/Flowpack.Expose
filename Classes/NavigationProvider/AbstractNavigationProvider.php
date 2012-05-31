@@ -25,6 +25,8 @@ namespace Foo\ContentManagement\NavigationProvider;
 use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
+ * TODO: (SK) is this class realy needed? seems only like a wrapper of an $items array...
+ *
  * OptionsProvider for related Beings
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
@@ -33,39 +35,39 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 abstract class AbstractNavigationProvider implements NavigationProviderInterface, \RecursiveIterator {
     private $items;
     private $position = 0;
-    
+
     public function __construct($items) {
     	if(is_object($items)){
     		$items = iterator_to_array($items);
     	}
         $this->items = $items;
     }
-    
+
     public function valid() {
         return isset($this->items[$this->position]);
     }
-    
+
     public function hasChildren() {
         return is_array($this->items[$this->position]);
     }
-    
+
     public function next() {
         $this->position++;
     }
-    
+
     public function current() {
         return $this->items[$this->position];
     }
-    
+
     public function getChildren() {
     	$class = get_class($this);
         return new $class($this->items[$this->position]);
     }
-    
+
     public function rewind() {
         $this->position = 0;
     }
-    
+
     public function key() {
         return $this->position;
     }

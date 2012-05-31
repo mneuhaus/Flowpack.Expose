@@ -25,6 +25,8 @@ namespace Foo\ContentManagement\NavigationProvider;
 use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
+ * TODO: (SK) get rid of this class as it is empty
+ *
  * OptionsProvider for related Beings
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later

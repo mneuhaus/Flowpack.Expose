@@ -14,6 +14,9 @@ namespace Foo\ContentManagement\ViewHelpers;
 use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
+ * TODO: (SK) replace by standard link view helper. what does change?
+ *
+ *
  * A view helper for creating links to actions.
  *
  * = Examples =
@@ -48,7 +51,7 @@ class LinkViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractTagBasedViewHe
 	 * @var \Foo\ContentManagement\Adapters\ContentManager
 	 * @FLOW3\Inject
 	 */
-	protected $contentManager;	
+	protected $contentManager;
 
 	/**
 	 * @var string
@@ -91,7 +94,7 @@ class LinkViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractTagBasedViewHe
 	 */
 	public function render($action = NULL, $arguments = array(), $being = NULL, $object = NULL, $selectionShortcut = false, $shortcut = false, $controller = NULL, $package = NULL, $subpackage = NULL, $section = '', $format = '',  array $additionalParams = array(), $addQueryString = FALSE, array $argumentsToBeExcludedFromQueryString = array(), $overrule = array()) {
 		$uriBuilder = $this->controllerContext->getUriBuilder();
-		
+
 		if($object !== NULL){
 			$arguments["being"] = \Foo\ContentManagement\Core\API::get("classShortNames", get_class($object));
 			$arguments["id"] = $this->contentManager->getId($object);
@@ -111,10 +114,10 @@ class LinkViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractTagBasedViewHe
 				->setFormat($format)
 				->uriFor($action, $arguments, $controller, $package, $subpackage);
 			$this->tag->addAttribute('href', $uri);
-			
+
 			if($shortcut)
 				$this->tag->addAttribute("data-klove-shortcut", $shortcut);
-				
+
 			if($selectionShortcut)
 				$this->tag->addAttribute("data-klove-row-shortcut", $selectionShortcut);
 		} catch (\TYPO3\FLOW3\Exception $exception) {

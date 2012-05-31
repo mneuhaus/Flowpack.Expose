@@ -26,13 +26,15 @@ use Doctrine\ORM\Mapping as ORM;
 use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
+ * TODO: (SK) what are "Option Providers" in general?
+ *
  * OptionsProvider for related Beings
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  * @author Marc Neuhaus <marc@mneuhaus.com>
  */
 class ConstOptionsProvider extends \Foo\ContentManagement\Core\OptionsProvider\AbstractOptionsProvider {
-	
+
 	public function getOptions(){
 		$reflection = new \ReflectionClass($this->annotations->getClass());
 		$constants = $reflection->getConstants();

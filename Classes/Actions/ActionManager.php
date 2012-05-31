@@ -27,6 +27,10 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 /**
  * ActionManager to retrieve and Initialize Actions
  *
+ * TODO: (SK) why does the action manager have a reference to $controller $request and view? This should be refactored and moved away from here.
+ * TODO: (SK) The ActionManager should not be placed inside Actions namespace, probably it should rather be in Core.
+ * TODO: (SK) the ActionManager should be fully tested by unit tests or functional tests.
+ *
  * @version $Id: AbstractValidator.php 3837 2010-02-22 15:17:24Z robert $
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  * @FLOW3\Scope("singleton")
@@ -36,7 +40,7 @@ class ActionManager {
 	 * @var \Foo\ContentManagement\Adapters\ContentManager
 	 * @FLOW3\Inject
 	 */
-	protected $contentManager;	
+	protected $contentManager;
 
 	/**
 	 *
@@ -85,7 +89,7 @@ class ActionManager {
 					}
 					unset($inheritedObject);
 				}
-				
+
 				$a = $this->objectManager->get($actionClassName);
 				if($a->canHandle($being, $action, $id)){
 					// TODO: Remove Helper
@@ -99,7 +103,7 @@ class ActionManager {
 #		}else{
 #			$actions = $cache->get($identifier);
 #		}
-		
+
 		return $actions;
 	}
 
@@ -118,7 +122,7 @@ class ActionManager {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param  string  $action
 	 * @return boolean
 	 */
@@ -135,8 +139,8 @@ class ActionManager {
 
 	/**
 	 * Get the request
-	 * 
-	 * @return \TYPO3\FLOW3\Mvc\ActionRequest $request 
+	 *
+	 * @return \TYPO3\FLOW3\Mvc\ActionRequest $request
 	 */
 	public function getRequest() {
 		return $this->request;
@@ -145,8 +149,8 @@ class ActionManager {
 
 	/**
 	 * Set the request
-	 * 
-	 * @param \TYPO3\FLOW3\Mvc\ActionRequest $request 
+	 *
+	 * @param \TYPO3\FLOW3\Mvc\ActionRequest $request
 	 */
 	public function setRequest(\TYPO3\FLOW3\Mvc\ActionRequest $request) {
 		$this->request = $request;
@@ -162,27 +166,28 @@ class ActionManager {
 
 	/**
 	 * Get the view
-	 * 
-	 * @return \TYPO3\FLOW3\Mvc\View\ViewInterface $view 
+	 *
+	 * @return \TYPO3\FLOW3\Mvc\View\ViewInterface $view
 	 */
 	public function getView() {
 		return $this->view;
-	}	
+	}
 
 	/**
 	 * Set the view
-	 * 
-	 * @param \TYPO3\FLOW3\Mvc\View\ViewInterface $view 
+	 *
+	 * @param \TYPO3\FLOW3\Mvc\View\ViewInterface $view
 	 */
 	public function setView(\TYPO3\FLOW3\Mvc\View\ViewInterface &$view) {
 		$this->view = $view;
 	}
 
+	// TODO: (SK) this redirect duplicates the default functionality of FLOW3
 	public function redirect($actionName, $arguments, $delay = 0, $statusCode = 303) {
 		$uriBuilder = new \TYPO3\FLOW3\Mvc\Routing\UriBuilder();
 		$uriBuilder->setRequest($this->request);
 		$uriBuilder->reset();
-		
+
 		$uri = $uriBuilder->uriFor($actionName, $arguments);
 		$uri = $this->request->getHttpRequest()->getBaseUri() . $uri;
 

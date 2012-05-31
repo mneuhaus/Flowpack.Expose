@@ -4,6 +4,11 @@
 
 # $Id: Routes.yaml 3886 2010-02-28 17:03:50Z robert $
 
+
+#
+# TODO: these routes are not really needed for Phoenix!
+#
+
 -
   name: 'Authentication Actions'
   uriPattern: 'login(/{@action})'
@@ -72,7 +77,7 @@
     '@action':      'index'
     '@controller':  'Standard'
     '@format':      'html'
-    
+
 -
   name: 'Admin actions'
   uriPattern: '{@action}/{being}'
@@ -81,7 +86,7 @@
     '@action':      'index'
     '@controller':  'Standard'
     '@format':      'html'
-# 
+#
 # -
 #   name: 'Admin actions with id'
 #   uriPattern: '{@action}/{being}/{id}'

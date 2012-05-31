@@ -49,11 +49,11 @@ class CreateAction extends \Foo\ContentManagement\Core\Actions\AbstractAction {
 	public function __toString(){
 		return "New";
 	}
-	
+
 	public function getShortcut(){
 		return "n";
 	}
-	
+
 	/**
 	 * Create objects
 	 *
@@ -66,11 +66,12 @@ class CreateAction extends \Foo\ContentManagement\Core\Actions\AbstractAction {
 		$this->view->assign("object", $object);
 	}
 
+	// TODO: (SK)  spelling error: Finisher
 	public function formFinischer($formRuntime) {
 		$request = $formRuntime->getRequest();
 		$values = $formRuntime->getFormState()->getFormValues();
 		$class = \Foo\ContentManagement\Core\API::get("classShortNames", $request->getArgument("being"));
-		
+
 		$result = $this->adapter->createObject($class, $values["item"]);
 
 		$this->actionManager->redirect("list", array("being" => $request->getArgument("being")));

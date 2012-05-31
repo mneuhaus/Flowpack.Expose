@@ -26,6 +26,8 @@ use Doctrine\ORM\Mapping as ORM;
 use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
+ * TODO: (SK) implement opposite direction in property mapper and then get rid of this view helper
+ *
  * @version $Id: ForViewHelper.php 3346 2009-10-22 17:26:10Z k-fish $
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  * @api
@@ -40,7 +42,7 @@ class StringViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 	 * @FLOW3\Inject
 	 */
 	protected $propertyMapper;
-	
+
 	/**
 	 *
 	 * @param mixed $value
