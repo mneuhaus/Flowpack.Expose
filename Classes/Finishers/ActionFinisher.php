@@ -18,7 +18,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  */
 class ActionFinisher extends \TYPO3\Form\Core\Model\AbstractFinisher {
 	/**
-	 * @var \Foo\ContentManagement\Actions\ActionManager
+	 * @var \Foo\ContentManagement\Core\ActionManager
 	 * @FLOW3\Inject
 	 */
 	protected $actionManager;

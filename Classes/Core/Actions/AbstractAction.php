@@ -31,7 +31,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  */
 abstract class AbstractAction implements ActionInterface {
 	/**
-	 * @var \Foo\ContentManagement\Actions\ActionManager
+	 * @var \Foo\ContentManagement\Core\ActionManager
 	 */
 	protected $actionManager;
 
@@ -50,9 +50,9 @@ abstract class AbstractAction implements ActionInterface {
 	/**
 	 * 
 	 * @param \Foo\ContentManagement\Adapters\ContentManager $contentManager
-	 * @param \Foo\ContentManagement\Actions\ActionManager   $actionManager
+	 * @param \Foo\ContentManagement\Core\ActionManager   $actionManager
 	 */
-	public function __construct(\Foo\ContentManagement\Actions\ActionManager $actionManager, \Foo\ContentManagement\Adapters\ContentManager $contentManager) {
+	public function __construct(\Foo\ContentManagement\Core\ActionManager $actionManager, \Foo\ContentManagement\Adapters\ContentManager $contentManager) {
 		$this->actionManager = $actionManager;
 		$this->request = $actionManager->getRequest();
 		$this->view = $actionManager->getView();

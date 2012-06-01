@@ -35,7 +35,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  */
 class StandardController extends \TYPO3\TYPO3\Controller\Module\StandardController {
 	/**
-	 * @var \Foo\ContentManagement\Actions\ActionManager
+	 * @var \Foo\ContentManagement\Core\ActionManager
 	 * @FLOW3\Inject
 	 */
 	protected $actionManager;

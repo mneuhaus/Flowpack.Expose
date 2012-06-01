@@ -1,6 +1,6 @@
 <?php
 
-namespace Foo\ContentManagement\Actions;
+namespace Foo\ContentManagement\Core;
 
 /* *
  * This script belongs to the FLOW3 framework.                            *
@@ -28,7 +28,6 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * ActionManager to retrieve and Initialize Actions
  *
  * TODO: (SK) why does the action manager have a reference to $controller $request and view? This should be refactored and moved away from here.
- * TODO: (SK) The ActionManager should not be placed inside Actions namespace, probably it should rather be in Core.
  * TODO: (SK) the ActionManager should be fully tested by unit tests or functional tests.
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
