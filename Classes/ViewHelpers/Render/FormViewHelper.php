@@ -59,7 +59,9 @@ class FormViewHelper extends \TYPO3\Form\ViewHelpers\RenderViewHelper {
 		$factory = $this->objectManager->get($factoryClass);
 		$factory->setRequest($this->controllerContext->getRequest());
 		$formDefinition = $factory->build($overrideConfiguration, $presetName);
-		$response = new \TYPO3\FLOW3\Mvc\Response($this->controllerContext->getResponse());
+		// TODO: (SK) NEVER use HTTP Response, always use the Mvc Response.
+		// 		 (MN) Ok :)
+		$response = new \TYPO3\FLOW3\Http\Response($this->controllerContext->getResponse());
 
 		$form = $formDefinition->bind($this->controllerContext->getRequest(), $response);
 		return $form->render();
