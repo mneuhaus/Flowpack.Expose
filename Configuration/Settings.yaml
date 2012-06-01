@@ -91,10 +91,9 @@ TYPO3:
 
   Form:
     presets:
-      # TODO: (SK) instead of overriding the default preset, we should rather define our own TYPO3_ContentManagement preset
-      # (which can extend from the default one)
-      # (MN) agreed.
-      default:
+      contentManagement:
+        title: "Default Preset for ContentManagement"
+        parentPreset: 'default'
         formElementTypes:
           ### override default layout path ###
           'TYPO3.Form:Base':

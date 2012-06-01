@@ -45,7 +45,7 @@ class FormViewHelper extends \TYPO3\Form\ViewHelpers\RenderViewHelper {
 	 * @param object $object the object to rende the form for
 	 * @return string the rendered form
 	 */
-	public function render($persistenceIdentifier = NULL, $factoryClass = 'Foo\ContentManagement\Factory\ModelFormFactory', $presetName = 'default', array $overrideConfiguration = array(), $class = NULL, $object = NULL) {
+	public function render($persistenceIdentifier = NULL, $factoryClass = 'Foo\ContentManagement\Factory\ModelFormFactory', $presetName = 'contentManagement', array $overrideConfiguration = array(), $class = NULL, $object = NULL) {
 		if (isset($persistenceIdentifier)) {
 			$overrideConfiguration = \TYPO3\FLOW3\Utility\Arrays::arrayMergeRecursiveOverrule($this->formPersistenceManager->load($persistenceIdentifier), $overrideConfiguration);
 		}
