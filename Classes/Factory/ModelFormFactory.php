@@ -128,7 +128,7 @@ class ModelFormFactory extends \TYPO3\Form\Factory\AbstractFormFactory {
 
                 }else{
 
-                    $elements[$namespace . "." . $name] = $section->createElement($namespace . "." . $name, $property->getWidget());
+                    $elements[$namespace . "." . $name] = $section->createElement($namespace . "." . $name, $property->getElement());
                     $elements[$namespace . "." . $name]->setLabel($property->getLabel());
                     $elements[$namespace . "." . $name]->setDefaultValue($property->getValue());
                     $elements[$namespace . "." . $name]->setProperty("annotations", $propertyAnnotations);

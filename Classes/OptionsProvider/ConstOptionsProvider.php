@@ -33,7 +33,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  *        		    TYPO3\Party\Domain\Model\ElectronicAddress:
  *                		Properties:
  *                  		type:
- *                    			Widget: TYPO3.Form:SingleSelectDropdown
+ *                    			Element: TYPO3.Form:SingleSelectDropdown
  *                       		OptionsProvider: 
  *                         			Name: ConstOptionsProvider
  *                            		RegEx: TYPE_.+

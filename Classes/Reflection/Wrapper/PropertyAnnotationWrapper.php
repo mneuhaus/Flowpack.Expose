@@ -44,32 +44,32 @@ class PropertyAnnotationWrapper extends AbstractAnnotationWrapper {
 		$this->set("property", $property);
 	}
 
-	public function getWidget() {
+	public function getElement() {
 		$raw = strval($this->getType());
 		
-		$widget = null;
+		$element = null;
 		$default = "TYPO3.Form:SingleLineText";
 		
-		$mappings = $this->configurationManager->getConfiguration(\TYPO3\FLOW3\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, "Foo.ContentManagement.Mapping.Widgets");
+		$mappings = $this->configurationManager->getConfiguration(\TYPO3\FLOW3\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, "Foo.ContentManagement.Mapping.Elements");
 		
 		if( ! empty($mappings) ) {
-			if($this->has("Widget"))
-				$widget = strval($this->get("Widget"));
+			if($this->has("Element"))
+				$element = strval($this->get("Element"));
 			
-			if( $widget === null && isset($mappings[$raw]) ) {
-				$widget = $mappings[$raw];
+			if( $element === null && isset($mappings[$raw]) ) {
+				$element = $mappings[$raw];
 			}
 			
-			if( $widget === null && isset($mappings[strtolower($raw)]) ) {
-				$widget = $mappings[$raw];
+			if( $element === null && isset($mappings[strtolower($raw)]) ) {
+				$element = $mappings[$raw];
 			}
 			
-			if( $widget === null && isset($mappings[ucfirst($raw)]) ) {
-				$widget = $mappings[$raw];
+			if( $element === null && isset($mappings[ucfirst($raw)]) ) {
+				$element = $mappings[$raw];
 			}
 			
-			if( $widget === null){
-				foreach($mappings as $pattern => $widget) {
+			if( $element === null){
+				foreach($mappings as $pattern => $element) {
 					if( preg_match("/" . $pattern . "/", $raw) > 0 ) {
 						break;
 					}
@@ -77,13 +77,13 @@ class PropertyAnnotationWrapper extends AbstractAnnotationWrapper {
 			}
 		}
 		
-		if( $widget === null && $default !== null )
-			$widget = $default;
+		if( $element === null && $default !== null )
+			$element = $default;
 		
-		if($widget === null)
-			$widget = $raw;
+		if($element === null)
+			$element = $raw;
 		
-		return $widget;
+		return $element;
 	}
 
 	public function getValue() {

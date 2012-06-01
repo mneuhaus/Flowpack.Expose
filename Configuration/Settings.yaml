@@ -68,7 +68,7 @@ Foo:
     Mapping:
       # TODO: (SK) this should not be called "Widget" as this is already a Fluid key name...
       #       (MN) I used that first! ;D No, sure, Elements would be more fitting now anyway
-      Widgets:
+      Elements:
         string:   TYPO3.Form:SingleLineText
         #readonly:   TextfieldReadonly
         #integer:  Spinner

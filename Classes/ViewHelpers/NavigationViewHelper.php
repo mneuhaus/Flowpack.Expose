@@ -60,6 +60,7 @@ class NavigationViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelp
 	public function render($position, $items = false, $as = "navBar") {
 #		if($items == false)
 #			$items = $this->configurationManager->getConfiguration(\TYPO3\FLOW3\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, $namespace);
+		$items = array();
 		
 		$content = "";
 		foreach ($items as $name => $arguments) {
