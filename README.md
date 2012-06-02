@@ -14,6 +14,7 @@
   git clone https://github.com/afoeder/Assetic-Package Packages/Application/Assetic
   git clone https://github.com/afoeder/Symfony.Component.Process.git Packages/Application/Symfony.Component.Process
   git clone https://github.com/afoeder/TYPO3.Asset.git Packages/Application/TYPO3.Asset
+  git clone https://github.com/mneuhaus/LessPHP-Package Packages/Application/LessPHP
 
   // Replace Twitter.Bootstrap with modified version:
   cd Packages/Application/
