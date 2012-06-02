@@ -9,6 +9,8 @@
         <depends>
             <package>TYPO3.Form</package>
             <package>TYPO3.Asset</package>
+            <package>Twitter.Bootstrap</package>
+            <package>LessPHP</package>
         </depends>
         <conflicts/>
         <suggests/>
