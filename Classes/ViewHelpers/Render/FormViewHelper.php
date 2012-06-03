@@ -41,11 +41,12 @@ class FormViewHelper extends \TYPO3\Form\ViewHelpers\RenderViewHelper {
 	 * @param string $factoryClass The fully qualified class name of the factory (which has to implement \TYPO3\Form\Factory\FormFactoryInterface)
 	 * @param string $presetName name of the preset to use
 	 * @param array $overrideConfiguration factory specific configuration
-	 * @param class $class the class to render the form for
+	 * @param string $class the class to render the form for
 	 * @param object $object the object to rende the form for
+	 * @param string $targetAction action to redirect the successful form to
 	 * @return string the rendered form
 	 */
-	public function render($persistenceIdentifier = NULL, $factoryClass = 'Foo\ContentManagement\Factory\ModelFormFactory', $presetName = 'contentManagement', array $overrideConfiguration = array(), $class = NULL, $object = NULL) {
+	public function render($persistenceIdentifier = NULL, $factoryClass = 'Foo\ContentManagement\Factory\ModelFormFactory', $presetName = 'contentManagement', array $overrideConfiguration = array(), $class = NULL, $object = NULL, $targetAction = NULL) {
 		if (isset($persistenceIdentifier)) {
 			$overrideConfiguration = \TYPO3\FLOW3\Utility\Arrays::arrayMergeRecursiveOverrule($this->formPersistenceManager->load($persistenceIdentifier), $overrideConfiguration);
 		}
@@ -56,15 +57,12 @@ class FormViewHelper extends \TYPO3\Form\ViewHelpers\RenderViewHelper {
 		if(is_object($object))
 			$overrideConfiguration["object"] = $object;
 
-		$factory = $this->objectManager->get($factoryClass);
-		$factory->setRequest($this->controllerContext->getRequest());
-		$formDefinition = $factory->build($overrideConfiguration, $presetName);
-		// TODO: (SK) NEVER use HTTP Response, always use the Mvc Response.
-		// 		 (MN) Ok :)
-		$response = new \TYPO3\FLOW3\Http\Response($this->controllerContext->getResponse());
+		if(!is_null($targetAction))
+			$overrideConfiguration["targetAction"] = $targetAction;
+		
+		$overrideConfiguration["request"] = $this->controllerContext->getRequest();
 
-		$form = $formDefinition->bind($this->controllerContext->getRequest(), $response);
-		return $form->render();
+		return parent::render($persistenceIdentifier, $factoryClass, $presetName, $overrideConfiguration);
 	}
 }
 ?>

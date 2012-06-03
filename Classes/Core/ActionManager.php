@@ -41,12 +41,6 @@ class ActionManager {
 	protected $contentManager;
 
 	/**
-	 *
-	 * @var object
-	 **/
-	protected $controller;
-
-	/**
 	 * @var \TYPO3\FLOW3\Reflection\ReflectionService
 	 * @FLOW3\Inject
 	 */
@@ -57,18 +51,6 @@ class ActionManager {
 	 * @FLOW3\Inject
 	 */
 	protected $objectManager;
-
-	/**
-	 * The current action request directed to the controller
-	 * @var \TYPO3\FLOW3\Mvc\ActionRequest
-	 */
-	protected $request;
-
-	/**
-	 * The current view directed to the controller
-	 * @var \TYPO3\FLOW3\Mvc\View\ViewInterface
-	 */
-	protected $view;
 
 	public function getActions($action = null, $being = null, $id = false){
 #		$cache = $this->cacheManager->getCache('Admin_ActionCache');
@@ -130,51 +112,6 @@ class ActionManager {
 		return false;
 	}
 
-	/**
-	 * Get the request
-	 *
-	 * @return \TYPO3\FLOW3\Mvc\ActionRequest $request
-	 */
-	public function getRequest() {
-		return $this->request;
-	}
-
-
-	/**
-	 * Set the request
-	 *
-	 * @param \TYPO3\FLOW3\Mvc\ActionRequest $request
-	 */
-	public function setRequest(\TYPO3\FLOW3\Mvc\ActionRequest $request) {
-		$this->request = $request;
-	}
-
-	public function setController($controller) {
-		$this->controller = $controller;
-	}
-
-	public function getController() {
-		return $this->controller;
-	}
-
-	/**
-	 * Get the view
-	 *
-	 * @return \TYPO3\FLOW3\Mvc\View\ViewInterface $view
-	 */
-	public function getView() {
-		return $this->view;
-	}
-
-	/**
-	 * Set the view
-	 *
-	 * @param \TYPO3\FLOW3\Mvc\View\ViewInterface $view
-	 */
-	public function setView(\TYPO3\FLOW3\Mvc\View\ViewInterface &$view) {
-		$this->view = $view;
-	}
-
 	// TODO: (SK) this redirect duplicates the default functionality of FLOW3
 	// 		 (MN) The reason for this was to make this Public because i needed
 	// 		      a way to initiate redirects from the AbstractActions
@@ -195,6 +132,14 @@ class ActionManager {
 		}
 		$response->send();
 		throw new \TYPO3\FLOW3\Mvc\Exception\StopActionException();
+	}
+
+	public function setFormRuntime($formRuntime) {
+		$this->formRuntime = $formRuntime;
+	}
+
+	public function getFormRuntime() {
+		return $this->formRuntime;
 	}
 }
 ?>

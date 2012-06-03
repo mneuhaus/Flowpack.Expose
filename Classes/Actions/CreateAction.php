@@ -31,44 +31,32 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
 class CreateAction extends \Foo\ContentManagement\Core\Actions\AbstractAction {
+	/**
+	 * @FLOW3\Inject
+	 * @var \TYPO3\FLOW3\Persistence\PersistenceManagerInterface
+	 */
+	protected $persistenceManager;
 
 	/**
 	 * Function to Check if this Requested Action is supported
 		 * */
 	public function canHandle($being, $action = null, $id = false) {
-		return ($action == "list" && !$id);
-	}
-
-	/**
-	 * The Name of this Action
-		 * */
-	public function __toString(){
-		return "New";
-	}
-
-	public function getShortcut(){
-		return "n";
+		return false;
 	}
 
 	/**
 	 * Create objects
 	 *
-	 * @param string $being
-	 * @param array $ids
-		 * */
-	public function execute($being, $ids = null) {
-		$object = new $being();
-		$this->view->assign("object", $object);
-	}
-
-	public function formFinisher($formRuntime) {
-		$request = $formRuntime->getRequest();
-		$values = $formRuntime->getFormState()->getFormValues();
-		$class = $this->contentManager->getClassShortName($request->getArgument("being"));
-
-		$result = $this->adapter->createObject($class, $values["item"]);
-
-		$this->actionManager->redirect("list", array("being" => $request->getArgument("being")));
+	 */
+	public function execute() {
+		if($this->request->hasArgument("formValues")){
+			$formValues = unserialize($this->request->getArgument("formValues"));
+			$object = $formValues["item"];
+			$class = get_class($object);
+			$result = $this->contentManager->createObject($class, $object);
+			$requestHandler = new \Foo\ContentManagement\Core\RequestHandler($this->request);
+			$requestHandler->redirect("list", array( "being" => $class ));
+		}
 	}
 
 }

@@ -92,12 +92,13 @@ class FallbackTemplateView extends \TYPO3\Fluid\View\TemplateView {
 		$identifier = str_replace(".", "_", implode("-",$replacements));
 		$noTemplate = false;
 		if(!$cache->has($identifier)){
-			try{
+			//try{
 				$template = $this->getPathByPatternFallbacks("Views", $replacements);
-			}catch (\Exception $e){
-				$noTemplate = true;
-			}
-			if(!$noTemplate)
+			//}catch (\Exception $e){
+			//	$noTemplate = true;
+			//	var_dump($e);
+			//}
+			//if(!$noTemplate)
 				$cache->set($identifier,$template);
 		}else{
 			$template = $cache->get($identifier);
@@ -178,6 +179,18 @@ class FallbackTemplateView extends \TYPO3\Fluid\View\TemplateView {
 		$this->setTemplatePathAndFilename($this->getTemplatePathAndFilename($actionName));
 	}
 
+	/**
+	 * Resolves the layout root to be used inside other paths.
+	 *
+	 * @return string Path to layout root directory
+	 */
+	protected function getLayoutRootPath() {
+		if ($this->layoutRootPath !== NULL) {
+			return $this->layoutRootPath;
+		} else {
+			return str_replace('@packageResourcesPath', 'resource://Foo.ContentManagement', $this->layoutRootPathPattern);
+		}
+	}
 }
 
 ?>

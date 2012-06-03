@@ -1,35 +1,25 @@
 <f:layout name="module" />
 {namespace cm=Foo\ContentManagement\ViewHelpers}
-<!--
-<_f:section name="sidebar">
-	<cm:render.navigation objects="{objects}" variant="list">
-		<cm:link
-			action="update"
-			object="{object}" >
-			<cm:format.string value="{object}" />
-		</cm:link>
-	</cm:render.navigation>
-</_f:section>
--->
-
 <f:section name="full">
 	<form method="post">
-		<div class="pull-left">
-			<cm:render partial="Toolbar" fallbacks="Partials" vars="{actions: bulkActions}" />
-		</div>
-		<div class="pull-right">
-			<f:for each="{topBarActions}" as="action">
-				<cm:link
-					class="{action.class}"
-					shortcut="{action.shortcut}"
-					action="{action.action}"
-					controller="{action.controller}"
-					package="{action.package}"
-					target="{action.target}"
-					being="{className}">
-					{action}
-				</cm:link>
-			</f:for>
+		<div class="list-actions">
+			<div class="pull-left">
+				<cm:render partial="Toolbar" fallbacks="Partials" vars="{actions: bulkActions}" />
+			</div>
+			<div class="pull-right">
+				<f:for each="{topBarActions}" as="action">
+					<cm:link
+						class="{action.class}"
+						shortcut="{action.shortcut}"
+						action="{action.action}"
+						controller="{action.controller}"
+						package="{action.package}"
+						target="{action.target}"
+						being="{className}">
+						{action}
+					</cm:link>
+				</f:for>
+			</div>
 		</div>
 		<cm:render.list objects="{objects}" arguments="{className: className, listActions: listActions}" />
 	</form>

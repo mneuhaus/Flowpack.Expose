@@ -147,6 +147,7 @@ class ContentManager {
 	}
 
 	public function getClassShortName($class) {
+		return $class;
 		$cache = $this->cacheManager->getCache('Admin_Cache');
 		$identifier = "ClassShortNames-".sha1(implode("-", array_keys($this->getAdapters())));
 
@@ -233,6 +234,21 @@ class ContentManager {
         return $this->getAdapterByClass(get_class($object))->getId($object);
     }
 
+	public function getObject($class, $id) {
+		$class = ltrim($class, "\\");
+		return $this->getAdapterByClass($class)->getObject($class, $id);
+	}
+
+	public function createObject($class, $object) {
+		$class = ltrim($class, "\\");
+		return $this->getAdapterByClass($class)->createObject($class, $object);
+	}
+
+	public function updateObject($class, $object) {
+		$class = ltrim($class, "\\");
+		return $this->getAdapterByClass($class)->updateObject($class, $object);
+	}
+
 	public function getObjects($class) {
 		$class = ltrim($class, "\\");
 		return $this->getAdapterByClass($class)->getObjects($class);
@@ -271,6 +287,18 @@ class ContentManager {
 
 	public function toString($value) {
 		
+	}
+
+	public function initQuery($being) {
+		return $this->getAdapterByClass($being)->initQuery($being);
+	}
+
+	public function executeQuery($being) {
+		return $this->getAdapterByClass($being)->executeQuery();
+	}
+
+	public function getQuery($being) {
+		return $this->getAdapterByClass($being)->getQuery();
 	}
 }
 ?>

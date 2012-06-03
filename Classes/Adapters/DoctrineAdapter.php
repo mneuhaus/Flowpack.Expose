@@ -163,6 +163,10 @@ class DoctrineAdapter extends \Foo\ContentManagement\Core\Adapters\AbstractAdapt
         return $this->query;
     }
 
+    public function executeQuery() {
+        return $this->query->execute();
+    }
+
     public function getRepositoryForModel($model) {
         $annotations = $this->annotationService->getClassAnnotations($model);
         $classSchema = $this->reflectionService->getClassSchema($model);
@@ -193,28 +197,26 @@ class DoctrineAdapter extends \Foo\ContentManagement\Core\Adapters\AbstractAdapt
         return $this->persistenceManager->isNewObject($object);
     }
 
-    public function createObject($being, $data) {
+    public function createObject($being, $object) {
         $configuration = $this->annotationService->getClassAnnotations($being);
-        $result = $this->transform($data, $being);
-
-        if (is_a($result, $being)) {
+        
+        if (is_a($object, $being)) {
             $repository = $this->objectManager->get($this->getRepositoryForModel($being));
-            $repository->add($result);
+            $repository->add($object);
             $this->persistenceManager->persistAll();
         }
-        return $result;
+        return $object;
     }
 
-    public function updateObject($being, $id, $data) {
+    public function updateObject($being, $object) {
         $configuration = $this->annotationService->getClassAnnotations($being);
-        $result = $this->transform($data, $being);
-
-        if (is_a($result, $being)) {
+        
+        if (is_a($object, $being)) {
             $repository = $this->objectManager->get($this->getRepositoryForModel($being));
-            $repository->update($result);
+            $repository->update($object);
             $this->persistenceManager->persistAll();
         }
-        return $result;
+        return $object;
     }
 
     public function deleteObject($being, $id) {
@@ -223,24 +225,6 @@ class DoctrineAdapter extends \Foo\ContentManagement\Core\Adapters\AbstractAdapt
         $repositoryObject = $this->objectManager->get($this->getRepositoryForModel($being));
         $repositoryObject->remove($object);
         $this->persistenceManager->persistAll();
-    }
-
-    ## Conversion Functions
-
-    public function transform($data, $target) {
-        return $data;
-
-        #$object = $this->getObject($target, isset($data["__identity"]) ? $data["__identity"] : null);
-        #unset($data["__identity"]);
-        #$value = $this->propertyMapper->convert($data, $target, \Foo\ContentManagement\Core\PropertyMappingConfiguration::getConfiguration());
-        
-        #foreach ($data as $property => $value) {
-        #    if(empty($value))
-        #        continue;
-        #    \TYPO3\FLOW3\Reflection\ObjectAccess::setProperty($object, $property, $value);
-        #}
-
-        #return $object;
     }
 }
 

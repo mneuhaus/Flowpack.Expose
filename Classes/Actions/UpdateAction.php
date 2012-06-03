@@ -34,50 +34,22 @@ class UpdateAction extends \Foo\ContentManagement\Core\Actions\AbstractAction {
 
 	/**
 	 * Function to Check if this Requested Action is supported
-		 * */
+	 */
 	public function canHandle($being, $action = null, $id = false) {
-		switch($action) {
-			case "bulk":
-			case "update":
-			case "confirm":
-			case "create":
-				return false;
-			default:
-				return $id;
-		}
-	}
-
-	/**
-	 * The Name of this Action
-		 * */
-	public function __toString() {
-		return "Edit";
-	}
-	
-	public function getShortcut(){
-		return "e";
+		return false;
 	}
 	
 	/**
 	 * Edit objects
 	 *
-	 * @param string $class
-	 * @param array $ids
-		 * */
-	public function execute($class, $ids = null) {
-		$object = $this->adapter->getObject($class, current($ids));
-		$this->view->assign("object", $object);
-	}
-
-	public function formFinisher($formRuntime) {
-		$request = $formRuntime->getRequest();
-		$values = $formRuntime->getFormState()->getFormValues();
-		$values["__identity"] = $request->getArgument("id");
-		$class = $this->contentManager->getClassShortName($request->getArgument("being"));
-		$id = $request->getArgument("id");
-		$this->adapter->updateObject($class, $id, $values["item"]);
-
-		$this->actionManager->redirect("list", array("being" => $request->getArgument("being")));
+	 */
+	public function execute() {
+		$formValues = $this->actionManager->getFormRuntime()->getFormState()->getFormValues();
+		$object = $formValues["item"];
+		$class = get_class($object);
+		$this->contentManager->updateObject($class, $object);
+		$requestHandler = new \Foo\ContentManagement\Core\RequestHandler($this->request);
+		$requestHandler->redirect("list", array( "being" => $class ));
 	}
 }
 ?>

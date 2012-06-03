@@ -25,13 +25,13 @@ class ActionFinisher extends \TYPO3\Form\Core\Model\AbstractFinisher {
 
 	public function executeInternal() {
 		$formRuntime = $this->finisherContext->getFormRuntime();
-		$request = $formRuntime->getRequest();//->getMainRequest();
-		$actionName = $request->getParentRequest()->getControllerActionName();
-		$action = $this->actionManager->getActionByShortName($actionName);
-
-		$class = $this->parseOption('class');
-
-		$action->formFinisher($formRuntime);
+		$requestHandler = new \Foo\ContentManagement\Core\RequestHandler($formRuntime->getRequest()->getParentRequest());
+		$arguments = array_merge(
+			$formRuntime->getRequest()->getParentRequest()->getArguments(),
+			array("formValues" => serialize($formRuntime->getFormState()->getFormValues()))
+		);
+		$this->actionManager->setFormRuntime($formRuntime);
+		$requestHandler->forward($this->parseOption('targetAction'), NULL, NULL, $arguments);
 	}
 }
 ?>

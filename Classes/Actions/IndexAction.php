@@ -31,18 +31,6 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
 class IndexAction extends \Foo\ContentManagement\Core\Actions\AbstractAction {
-	/**
-	 * Reflection service
-	 * @var TYPO3\FLOW3\Reflection\ReflectionService
-	 * @FLOW3\Inject
-	 */
-	protected $reflectionService;
-
-	/**
-	 * @var \TYPO3\FLOW3\Object\ObjectManagerInterface
-	 * @FLOW3\Inject
-	 */
-	protected $objectManager;
 	
 	/**
 	 * Function to Check if this Requested Action is supported
@@ -57,7 +45,10 @@ class IndexAction extends \Foo\ContentManagement\Core\Actions\AbstractAction {
 	 * @param string $being
 	 * @param array $ids
 		 * */
-	public function execute($being, $ids = null) {
+	public function execute($being = null, $ids = null) {
+		$groups = $this->contentManager->getGroups();
+		ksort($groups);
+		$this->view->assign('groups',$groups);
 	}
 	
 }

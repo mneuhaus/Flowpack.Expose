@@ -26,47 +26,40 @@ use Doctrine\ORM\Mapping as ORM;
 use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
- * Action to confirm the deletion of a being
+ * Action to Update the Being
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-class ConfirmAction extends \Foo\ContentManagement\Core\Actions\AbstractAction {
-
-	// TODO: (SK) can this even work when it always returns FALSE?
-	// 		 (MN) yes, because this only decides wheter a Button/Action for it
-	// 		      is shown somewhere. This action gets called through redirect
-	// 		      by the DeleteAction in Line 85 to confirm the Deletion
-	public function canHandle($being, $action = null, $id = false) {
-		return false;
-	}
-
-	public function getShortcut(){
-		return "c";
-	}
+class EditAction extends \Foo\ContentManagement\Core\Actions\AbstractAction {
 
 	/**
-	 *
+	 * Function to Check if this Requested Action is supported
 	 */
-	public function execute() {
-		$being = $this->request->getArgument("being");
-		
-		$ids = array();
-		if($this->request->hasArgument("id"))
-			$ids = array( $this->request->getArgument("id") );
-		else if($this->request->hasArgument("ids"))
-			$ids = $this->request->getArgument("ids");
-		
-		if(count($ids) > 0){
-			$objects = array();
-			foreach ($ids as $id) {
-				$objects[] = $this->adapter->getObject($being, $id);
-			}
-			$this->view->assign("objects", $objects);
-			$this->view->assign("ids", implode(",", $ids));
-			$this->view->assign("class", $this->contentManager->getClassShortName($being));
-			$this->actionManager->getView()->setTemplateByAction("confirm");
+	public function canHandle($being, $action = null, $id = false) {
+		switch($action) {
+			case "bulk":
+			case "update":
+			case "confirm":
+			case "create":
+				return false;
+			default:
+				return $id;
 		}
 	}
-
+	
+	public function getShortcut(){
+		return "e";
+	}
+	
+	/**
+	 * Edit object
+	 */
+	public function execute() {
+		if($this->request->hasArgument("being") && $this->request->hasArgument("id")){
+			$being = $this->contentManager->getClassShortName($this->request->getArgument("being"));
+			$object = $this->contentManager->getObject($being, $this->request->getArgument("id"));
+			$this->view->assign("object", $object);
+		}
+	}
 }
 ?>

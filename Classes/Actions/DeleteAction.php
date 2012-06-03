@@ -62,10 +62,16 @@ class DeleteAction extends \Foo\ContentManagement\Core\Actions\AbstractAction {
 	/**
 	 * Delete objects
 	 *
-	 * @param string $being
-	 * @param array $ids
-		 * */
-	public function execute($being, $ids = null) {
+	 */
+	public function execute() {
+		$being = $this->request->getArgument("being");
+		
+		$ids = array();
+		if($this->request->hasArgument("id"))
+			$ids = array( $this->request->getArgument("id") );
+		else if($this->request->hasArgument("ids"))
+			$ids = $this->request->getArgument("ids");
+
 		if( is_array($ids) ) {
 			if( $this->request->hasArgument("confirm") ) {
 				foreach($ids as $id) {

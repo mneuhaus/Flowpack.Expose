@@ -94,10 +94,9 @@ interface AdapterInterface {
      * Updates a Being
      *
      * @param string $being Class of the Being
-     * @param string $id
      * @param array $data Raw Form Data
          * */
-	public function updateObject($being, $id, $data);
+	public function updateObject($being, $data);
 
     /**
      * Deletes a Being

@@ -36,7 +36,9 @@ class ModelFormFactory extends \TYPO3\Form\Factory\AbstractFormFactory {
      */
     public function build(array $factorySpecificConfiguration, $presetName) {
         $formConfiguration = $this->getPresetConfiguration($presetName);
-        $this->form = new FormDefinition('moduleArguments', $formConfiguration);
+        $this->form = new FormDefinition('contentForm', $formConfiguration);
+
+        $this->setRequest($factorySpecificConfiguration["request"]);
         
         $object = $factorySpecificConfiguration["object"];
 
@@ -46,6 +48,7 @@ class ModelFormFactory extends \TYPO3\Form\Factory\AbstractFormFactory {
 
         $actionFinisher = new \Foo\ContentManagement\Finishers\ActionFinisher();
         $actionFinisher->setOption('class', get_class($object));
+        $actionFinisher->setOption('targetAction', $factorySpecificConfiguration["targetAction"]);
         $this->form->addFinisher($actionFinisher);
 
         $this->form->createFinisher("TYPO3.Form:Redirect", array(
@@ -54,7 +57,6 @@ class ModelFormFactory extends \TYPO3\Form\Factory\AbstractFormFactory {
                 "being" => get_class($object)
             )
         ));
-
         return $this->form;
     }
 

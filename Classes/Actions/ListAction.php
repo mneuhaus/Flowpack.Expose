@@ -35,37 +35,40 @@ class ListAction extends \Foo\ContentManagement\Core\Actions\AbstractAction {
 
 	/**
 	 * Function to Check if this Requested Action is supported
-		 * */
+	 */
 	public function canHandle($being, $action = null, $id = false) {
 		return false;
 	}
 
 	/**
-	 * Delete objects
-	 *
-	 * @param string $being
-	 * @param array $ids
-		 * */
-	public function execute($being, $ids = null) {
-		$this->being = $being;
-		$this->view->assign('className', $being);
+	 * List objects
+	 */
+	public function execute() {
+		if($this->request->hasArgument("being")){
+			$this->being = $this->contentManager->getClassShortName($this->request->getArgument("being"));
+			$this->view->assign('className', $this->being);
 
-		$this->settings = $this->getSettings();
-		
-		$this->adapter->initQuery($being);
-		$results = $this->adapter->getQuery()->execute();
-		$this->view->assign("objects", $results);
-		
-		// Redirect to creating a new Object if there aren't any (Clean Slate)
-		if( $results->count() < 1 ) {
-			$arguments = array("being" => $this->contentManager->getClassShortName($being));
-			$this->actionManager->redirect("create", $arguments);
+			$this->settings = $this->getSettings();
+			
+			$this->contentManager->initQuery($this->being);
+			$results = $this->contentManager->getQuery($this->being)->execute();
+			$this->view->assign("objects", $results);
+			
+			// Redirect to creating a new Object if there aren't any (Clean Slate)
+			if( $results->count() < 1 ) {
+				$arguments = array("being" => $this->contentManager->getClassShortName($this->being));
+				$this->actionManager->redirect("create", $arguments);
+			}
+			
+			$listActions = $this->actionManager->getActions("list", $this->being, true);
+			$this->view->assign('listActions', $listActions);
+
+			$hasId = isset($this->id) ? true : false;
+			$topBarActions = $this->actionManager->getActions("list", $this->being, $hasId);
+			$this->view->assign('topBarActions',$topBarActions);
+			
+			return $this->handleBulkActions();
 		}
-		
-		$listActions = $this->actionManager->getActions("list", $being, true);
-		$this->view->assign('listActions', $listActions);
-		
-		return $this->handleBulkActions();
 	}
 	
 	public function handleBulkActions(){

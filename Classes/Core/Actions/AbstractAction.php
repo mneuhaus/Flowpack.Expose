@@ -39,13 +39,6 @@ abstract class AbstractAction implements ActionInterface {
 	 * @var \Foo\ContentManagement\Adapters\ContentManager
 	 */
 	protected $contentManager;
-	
-	/**
-	 * @var \Foo\ContentManagement\Core\Adapters\AdapterInterface
-		 * */
-	protected $adapter;
-	protected $controller;
-	protected $request;
 
 	/**
 	 * 
@@ -54,14 +47,7 @@ abstract class AbstractAction implements ActionInterface {
 	 */
 	public function __construct(\Foo\ContentManagement\Core\ActionManager $actionManager, \Foo\ContentManagement\Adapters\ContentManager $contentManager) {
 		$this->actionManager = $actionManager;
-		$this->request = $actionManager->getRequest();
-		$this->view = $actionManager->getView();
-
 		$this->contentManager = $contentManager;
-		if($this->request->hasArgument("being")){
-			$class = $this->contentManager->getClassShortName($this->request->getArgument("being"));
-			$this->adapter = $contentManager->getAdapterByClass($class);
-		}
 	}
 
 	public function canHandle($being, $action = null, $id = false) {
@@ -85,9 +71,12 @@ abstract class AbstractAction implements ActionInterface {
 	}
 
 	public function __toString() {
+		return $this->getActionName();
+	}
+
+	public function getActionName() {
 		$action = $this->contentManager->getShortName($this);
-		$action = str_replace("Action", "", $action);
-		return $action;
+		return str_replace("Action", "", $action);
 	}
 
 	public function getAction() {
@@ -101,6 +90,23 @@ abstract class AbstractAction implements ActionInterface {
 	public function override($class, $being){
 		return false;
 	}
+
+	public function render() {
+		$this->initializeView();
+		$actionResult = $this->execute();
+		if ($actionResult === NULL && $this->view instanceof \TYPO3\FLOW3\Mvc\View\ViewInterface) {
+			return $this->view->render($this->getActionName());
+		} elseif (is_string($actionResult) && strlen($actionResult) > 0) {
+			return $actionResult;
+		} elseif (is_object($actionResult) && method_exists($actionResult, '__toString')) {
+			return (string) $actionResult;
+		}
+	}
+
+	public function initializeView() {
+		$this->view = new \Foo\ContentManagement\View\FallbackTemplateView();
+		$this->view->setControllerContext($this->actionRuntime->getControllerContext());
+	}
 	
 	public function getSettings($path = null){
 		$paths = array("Foo.ContentManagement.ViewSettings");
@@ -108,6 +114,14 @@ abstract class AbstractAction implements ActionInterface {
 		if(!is_null($path))
 			$paths[] = $path;
  		return $this->contentManager->getSettings(implode(".", $paths));
+	}
+
+	public function setRequest($request) {
+		$this->request = $request;
+	}
+
+	public function setActionRuntime($actionRuntime) {
+		$this->actionRuntime = $actionRuntime;
 	}
 }
 ?>

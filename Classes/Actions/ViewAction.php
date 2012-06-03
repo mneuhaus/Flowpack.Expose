@@ -55,10 +55,16 @@ class ViewAction extends \Foo\ContentManagement\Core\Actions\AbstractAction {
 	/**
 	 * View objects
 	 *
-	 * @param string $being
-	 * @param array $ids
-		 * */
-	public function execute($being, $ids = null) {
+	 */
+	public function execute() {
+		$being = $this->contentManager->getClassShortName($this->request->getArgument("being"));
+		
+		$ids = array();
+		if($this->request->hasArgument("id"))
+			$ids = array( $this->request->getArgument("id") );
+		else if($this->request->hasArgument("ids"))
+			$ids = $this->request->getArgument("ids");
+
 		$being = $this->adapter->getObject($being, current($ids));
 		$this->view->assign("object", $being);
 	}

@@ -6,26 +6,23 @@
 
 <f:section name="actionbar-right">
 	<f:for each="{topBarActions}" as="action">
-		<f:link.action
-			class=" {action.class}"
+		<cm:link
+			class="{action.class}"
 			action="{action.action}"
 			controller="{action.controller}"
 			package="{action.package}"
-			arguments="{
-				being : being.class,
-				adapter : being.adapter.class,
-				id : being.id
-			}">
+			target="{action.target}"
+			being="{being.class}">
 			{action}
-		</f:link.action>
+		</cm:link>
 	</f:for>
 </f:section>
 
 <f:section name="full">
 	<div class="box centered">
-		<h3 class="box-header">Edit this {bein.shortName}</h3>
+		<h3 class="box-header">Create a new {being.shortName}</h3>
 		<div>
-			<cm:render.form object="{object}" />
+			<cm:render.form object="{object}" targetAction="create"/>
 		</div>
 	</div>
 </f:section>

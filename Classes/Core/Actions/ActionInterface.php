@@ -31,19 +31,13 @@ interface ActionInterface {
 
 	/**
 	 * Function to Check if this Requested Action is supported
-		 * */
+	 */
 	public function canHandle($being, $action = null, $id = false);
 
 	/**
 	 * The Name of this Action
-		 * */
+	 */
 	public function __toString();
-
-	/**
-	 * @param string $being
-	 * @param array $ids
-		 * */
-	public function execute($being, $ids = null);
 	
 }
 ?>

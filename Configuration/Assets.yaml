@@ -21,6 +21,9 @@ Bundles:
   CSS:      
     'Foo.ContentManagement:Styles':
       Dependencies: ['Twitter.Bootstrap:Bootstrap']
+      Filters:
+        Assetic\Filter\LessphpFilter: []
+      PreCompileMerge: true
       Files:
         - resource://Foo.ContentManagement/Public/admin/less/mixins.less
         - resource://Foo.ContentManagement/Public/admin/less/main.less
