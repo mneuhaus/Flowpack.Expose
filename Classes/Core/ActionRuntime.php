@@ -2,7 +2,7 @@
 namespace Foo\ContentManagement\Core;
 
 /*                                                                        *
- * This script belongs to the FLOW3 package "TYPO3.Form".                 *
+ * This script belongs to the Foo.ContentManagement package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -43,6 +43,12 @@ class ActionRuntime {
 	protected $contentManager;
 
 	/**
+	 * @var \TYPO3\FLOW3\Mvc\Dispatcher
+	 * @FLOW3\Inject
+	 */
+	protected $dispatcher;
+
+	/**
 	 * @var \TYPO3\FLOW3\Mvc\ActionRequest
 	 * @internal
 	 */
@@ -69,6 +75,15 @@ class ActionRuntime {
 	 * @internal
 	 */
 	protected $flashMessageContainer;
+
+	/**
+	 * Default action to render if nothing else is specified 
+	 * or present in the arguments
+	 *
+	 * @var string
+	 * @internal
+	 */
+	protected $defaultController = "Foo\ContentManagement\Controller\IndexController";
 
 	/**
 	 * Default action to render if nothing else is specified 
@@ -107,40 +122,22 @@ class ActionRuntime {
 	 * @internal
 	 */
 	public function __construct(\TYPO3\FLOW3\Mvc\ActionRequest $request, \TYPO3\FLOW3\Http\Response $response) {
-		$this->request = $request;
-		$this->response = $response;
-	}
-
-	/**
-	 * @internal
-	 */
-	public function initializeObject() {
-		$arguments = $this->request->getPluginArguments();
-		$this->request = new ActionRequest($this->request);
+		$arguments = $request->getPluginArguments();
+		$this->request = new ActionRequest($request);
 		$this->request->setArgumentNamespace("--" . $this->namespace);
 		if (isset($arguments[$this->namespace])) {
 			$this->request->setArguments($arguments[$this->namespace]);
 		}
 		$this->request->setFormat("html");
 
-		$this->request->setControllerName("ActionRuntime");
-		$this->request->setControllerPackageKey("Foo");
-		$this->request->setControllerSubpackageKey("ContentManagement");
+		$controllerObjectName = $this->request->getControllerObjectName();
+		if(empty($controllerObjectName))
+			$this->request->setControllerObjectName($this->defaultController);
 
-		$this->initializeActionStateFromRequest();
-	}
+		if(is_null($this->request->getControllerActionName()))
+			$this->request->setControllerActionName($this->defaultAction);
 
-	/**
-	 * @internal
-	 */
-	protected function initializeActionStateFromRequest() {
-		#var_dump($this->request->getArguments());
-
-		if(!is_null($this->request->getControllerActionName()))
-			$this->action = $this->request->getControllerActionName();
-		else
-			$this->action = $this->defaultAction;
-
+		$this->response = new \TYPO3\FLOW3\Http\Response($response);
 	}
 
 	/**
@@ -149,24 +146,8 @@ class ActionRuntime {
 	 * @api
 	 */
 	public function execute() {
-		$content = "";
-		$dispatchLoopCount = 0;
-		$request = $this->request;
-		while (!$request->isDispatched()) {
-			if ($dispatchLoopCount++ > 99) {
-				throw new \TYPO3\FLOW3\Mvc\Exception\InfiniteLoopException('Could not ultimately dispatch the request after '  . $dispatchLoopCount . ' iterations.', 1217839467);
-			}
-			try{
-				$action = $this->actionManager->getActionByShortName($request->getControllerActionName() ? $request->getControllerActionName() : $this->defaultAction);
-				$action->setRequest($request);
-				$action->setActionRuntime($this);
-				$content = $action->render();
-				$request->setDispatched(true);
-			}catch (\TYPO3\FLOW3\Mvc\Exception\ForwardException $exception){
-				$request = $exception->getNextRequest();
-			}
-		}
-		return $content;
+		$this->dispatcher->dispatch($this->request, $this->response);
+		return ($this->response->getContent());
 	}
 
 	/**

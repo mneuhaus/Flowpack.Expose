@@ -1,9 +1,9 @@
 <?php
 
-namespace Foo\ContentManagement\Actions;
+namespace Foo\ContentManagement\Controller;
 
 /* *
- * This script belongs to the FLOW3 framework.                            *
+ * This script belongs to the Foo.ContentManagement package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License as published by the *
@@ -26,30 +26,44 @@ use Doctrine\ORM\Mapping as ORM;
 use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
- * Action to create a new Being
+ * Action to Update the Being
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-class NewAction extends \Foo\ContentManagement\Core\Actions\AbstractAction {
-
+class EditController extends \Foo\ContentManagement\Core\Actions\AbstractAction {
 	/**
-	 * Function to Check if this Requested Action is supported
-		 * */
-	public function canHandle($being, $action = null, $id = false) {
-		return ($action == "list" && !$id);
-	}
-	public function getShortcut(){
-		return "n";
-	}
-
-	/**
-	 * Create objects
-	 *
+	 * Function to return the Actions to be displayed for this context
 	 */
-	public function execute() {
-		$being = $this->contentManager->getClassShortName($this->request->getArgument("being"));
-		$object = new $being();
-		$this->view->assign("object", $object);
+	public function getActionsForContext($class, $action, $id) {
+		$actions = array();
+		if($action !== "bulk" && $action !== "update" && $action !== "confirm" && $action !== "create" && $id == true)
+			$actions[] = "index";
+
+		return $actions;
+	}
+	
+	public function getShortcut(){
+		return "e";
+	}
+	
+	/**
+	 * Edit object
+	 */
+	public function indexAction() {
+		if($this->request->hasArgument("being") && $this->request->hasArgument("id")){
+			$being = $this->contentManager->getClassShortName($this->request->getArgument("being"));
+			$object = $this->contentManager->getObject($being, $this->request->getArgument("id"));
+			$this->view->assign("object", $object);
+		}
+	}
+
+	public function update($formRuntime) {
+		$formValues = $formRuntime->getFormState()->getFormValues();
+		$object = $formValues["item"];
+		$class = get_class($object);
+		$this->contentManager->updateObject($class, $object);
+
+		$this->redirect("index", "List", null, array( "being" => $class ));
 	}
 }
 ?>

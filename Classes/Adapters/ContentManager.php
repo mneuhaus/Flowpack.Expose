@@ -3,7 +3,7 @@
 namespace Foo\ContentManagement\Adapters;
 
 /* *
- * This script belongs to the FLOW3 framework.                            *
+ * This script belongs to the Foo.ContentManagement package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License as published by the *
@@ -234,7 +234,7 @@ class ContentManager {
         return $this->getAdapterByClass(get_class($object))->getId($object);
     }
 
-	public function getObject($class, $id) {
+	public function getObject($class, $id = null) {
 		$class = ltrim($class, "\\");
 		return $this->getAdapterByClass($class)->getObject($class, $id);
 	}
@@ -242,6 +242,11 @@ class ContentManager {
 	public function createObject($class, $object) {
 		$class = ltrim($class, "\\");
 		return $this->getAdapterByClass($class)->createObject($class, $object);
+	}
+
+	public function deleteObject($class, $id) {
+		$class = ltrim($class, "\\");
+		return $this->getAdapterByClass($class)->deleteObject($class, $id);
 	}
 
 	public function updateObject($class, $object) {

@@ -41,7 +41,15 @@
 			        </f:link.action>
 				</div>
 				<div class="actions pull-right">
-					<f:form.submit name="confirm" value="Send Mail" value="Confirm" class="btn danger" />
+					<f:link.action
+			            action="delete"
+			            class="btn"
+			            arguments="{
+			                being : class,
+			                id: ids
+			            }">
+			            Delete
+			        </f:link.action>
 				</div>
 			</f:form>
 		</div>

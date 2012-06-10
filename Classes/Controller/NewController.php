@@ -1,9 +1,8 @@
 <?php
-
-namespace Foo\ContentManagement\Actions;
+namespace Foo\ContentManagement\Controller;
 
 /* *
- * This script belongs to the FLOW3 framework.                            *
+ * This script belongs to the Foo.ContentManagement package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License as published by the *
@@ -26,47 +25,44 @@ use Doctrine\ORM\Mapping as ORM;
 use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
- * Action to confirm the deletion of a being
+ * Action to create a new Being
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-class ConfirmAction extends \Foo\ContentManagement\Core\Actions\AbstractAction {
+class NewController extends \Foo\ContentManagement\Core\Actions\AbstractAction {
 
-	// TODO: (SK) can this even work when it always returns FALSE?
-	// 		 (MN) yes, because this only decides wheter a Button/Action for it
-	// 		      is shown somewhere. This action gets called through redirect
-	// 		      by the DeleteAction in Line 85 to confirm the Deletion
-	public function canHandle($being, $action = null, $id = false) {
-		return false;
+	/**
+	 * Function to return the Actions to be displayed for this context
+	 */
+	public function getActionsForContext($class, $action, $id) {
+		$actions = array();
+		if($action == "list" && !$id)
+			$actions[] = "index";
+
+		return $actions;
 	}
 
 	public function getShortcut(){
-		return "c";
+		return "n";
 	}
 
 	/**
+	 * Create objects
 	 *
 	 */
-	public function execute() {
-		$being = $this->request->getArgument("being");
-		
-		$ids = array();
-		if($this->request->hasArgument("id"))
-			$ids = array( $this->request->getArgument("id") );
-		else if($this->request->hasArgument("ids"))
-			$ids = $this->request->getArgument("ids");
-		
-		if(count($ids) > 0){
-			$objects = array();
-			foreach ($ids as $id) {
-				$objects[] = $this->adapter->getObject($being, $id);
-			}
-			$this->view->assign("objects", $objects);
-			$this->view->assign("ids", implode(",", $ids));
-			$this->view->assign("class", $this->contentManager->getClassShortName($being));
-			$this->actionManager->getView()->setTemplateByAction("confirm");
-		}
+	public function indexAction() {
+		$being = $this->contentManager->getClassShortName($this->request->getArgument("being"));
+		$object = new $being();
+		$this->view->assign("object", $object);
 	}
 
+	public function create($formRuntime) {
+		$formValues = $formRuntime->getFormState()->getFormValues();
+		$object = $formValues["item"];
+		$class = get_class($object);
+		$this->contentManager->createObject($class, $object);
+
+		$this->redirect("index", "List", null, array( "being" => $class ));
+	}
 }
 ?>

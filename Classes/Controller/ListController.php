@@ -1,9 +1,9 @@
 <?php
 
-namespace Foo\ContentManagement\Actions;
+namespace Foo\ContentManagement\Controller;
 
 /* *
- * This script belongs to the FLOW3 framework.                            *
+ * This script belongs to the Foo.ContentManagement package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License as published by the *
@@ -31,19 +31,12 @@ use TYPO3\FLOW3\Mvc\ActionRequest;
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-class ListAction extends \Foo\ContentManagement\Core\Actions\AbstractAction {
-
-	/**
-	 * Function to Check if this Requested Action is supported
-	 */
-	public function canHandle($being, $action = null, $id = false) {
-		return false;
-	}
+class ListController extends \Foo\ContentManagement\Core\Actions\AbstractAction {
 
 	/**
 	 * List objects
 	 */
-	public function execute() {
+	public function indexAction() {
 		if($this->request->hasArgument("being")){
 			$this->being = $this->contentManager->getClassShortName($this->request->getArgument("being"));
 			$this->view->assign('className', $this->being);

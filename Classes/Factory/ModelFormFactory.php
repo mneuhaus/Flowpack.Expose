@@ -40,23 +40,21 @@ class ModelFormFactory extends \TYPO3\Form\Factory\AbstractFormFactory {
 
         $this->setRequest($factorySpecificConfiguration["request"]);
         
-        $object = $factorySpecificConfiguration["object"];
+        if(isset($factorySpecificConfiguration["class"]))
+            $object = $this->contentManager->getObject($factorySpecificConfiguration["class"]);
+
+        if(isset($factorySpecificConfiguration["object"]))
+            $object = $factorySpecificConfiguration["object"];
 
         $page = $this->form->createPage('page');
 
         $elements = $this->generateElements($object, $page, "item");
 
-        $actionFinisher = new \Foo\ContentManagement\Finishers\ActionFinisher();
+        $actionFinisher = new \Foo\ContentManagement\Finishers\ControllerCallbackFinisher();
         $actionFinisher->setOption('class', get_class($object));
-        $actionFinisher->setOption('targetAction', $factorySpecificConfiguration["targetAction"]);
+        $actionFinisher->setOption('controllerCallback', $factorySpecificConfiguration["controllerCallback"]);
         $this->form->addFinisher($actionFinisher);
-
-        $this->form->createFinisher("TYPO3.Form:Redirect", array(
-            'action' => 'list',
-            "arguments" => array(
-                "being" => get_class($object)
-            )
-        ));
+        
         return $this->form;
     }
 

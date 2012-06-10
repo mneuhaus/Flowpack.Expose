@@ -5,14 +5,15 @@
 <f:section name="actionbar-left"></f:section>
 
 <f:section name="actionbar-right">
-	<f:for each="{topBarActions}" as="action">
+	<f:for each="{topBarActions}" as="action" key="actionName">
 		<cm:link
 			class="{action.class}"
-			action="{action.action}"
+			shortcut="{action.shortcut}"
+			action="{actionName}"
 			controller="{action.controller}"
 			package="{action.package}"
 			target="{action.target}"
-			being="{being.class}">
+			being="{className}">
 			{action}
 		</cm:link>
 	</f:for>
@@ -22,7 +23,7 @@
 	<div class="box centered">
 		<h3 class="box-header">Create a new {being.shortName}</h3>
 		<div>
-			<cm:render.form object="{object}" targetAction="create"/>
+			<cm:render.form object="{object}" controllerCallback="create" />
 		</div>
 	</div>
 </f:section>

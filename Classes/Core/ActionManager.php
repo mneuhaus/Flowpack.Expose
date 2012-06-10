@@ -3,7 +3,7 @@
 namespace Foo\ContentManagement\Core;
 
 /* *
- * This script belongs to the FLOW3 framework.                            *
+ * This script belongs to the Foo.ContentManagement package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License as published by the *
@@ -69,9 +69,7 @@ class ActionManager {
 				}
 
 				$a = $this->objectManager->get($actionClassName);
-				if($a->canHandle($being, $action, $id)){
-					$actionName = $this->contentManager->getShortName($actionClassName);
-					$actionName = str_replace("Action","",$actionName);
+				foreach ($a->getActionsForContext($being, $action, $id) as $actionName) {
 					$actions[$actionName] = $a;
 				}
 			}

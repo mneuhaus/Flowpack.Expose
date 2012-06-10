@@ -3,7 +3,7 @@
 namespace Foo\ContentManagement\Core\Actions;
 
 /* *
- * This script belongs to the FLOW3 framework.                            *
+ * This script belongs to the Foo.ContentManagement package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License as published by the *
@@ -29,7 +29,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-abstract class AbstractAction implements ActionInterface {
+abstract class AbstractAction extends \TYPO3\FLOW3\Mvc\Controller\ActionController implements ActionInterface {
 	/**
 	 * @var \Foo\ContentManagement\Core\ActionManager
 	 */
@@ -50,16 +50,17 @@ abstract class AbstractAction implements ActionInterface {
 		$this->contentManager = $contentManager;
 	}
 
-	public function canHandle($being, $action = null, $id = false) {
-		return false;
+	public function getActionsForContext($class, $context, $id) {
+		return array();
 	}
-
+	
 	public function getPackage() {
 		return null;
 	}
 
 	public function getController() {
-		return null;
+		$controller = $this->contentManager->getShortName($this);
+		return str_replace("Controller", "", $controller);
 	}
 
 	public function getTarget() {
@@ -76,7 +77,7 @@ abstract class AbstractAction implements ActionInterface {
 
 	public function getActionName() {
 		$action = $this->contentManager->getShortName($this);
-		return str_replace("Action", "", $action);
+		return str_replace("Controller", "", $action);
 	}
 
 	public function getAction() {
@@ -103,10 +104,10 @@ abstract class AbstractAction implements ActionInterface {
 		}
 	}
 
-	public function initializeView() {
-		$this->view = new \Foo\ContentManagement\View\FallbackTemplateView();
-		$this->view->setControllerContext($this->actionRuntime->getControllerContext());
-	}
+#	public function initializeView() {
+#		$this->view = new \Foo\ContentManagement\View\FallbackTemplateView();
+#		$this->view->setControllerContext($this->actionRuntime->getControllerContext());
+#	}
 	
 	public function getSettings($path = null){
 		$paths = array("Foo.ContentManagement.ViewSettings");
@@ -122,6 +123,21 @@ abstract class AbstractAction implements ActionInterface {
 
 	public function setActionRuntime($actionRuntime) {
 		$this->actionRuntime = $actionRuntime;
+	}
+
+	/**
+	 * Initializes the controller
+	 *
+	 * This method should be called by the concrete processRequest() method.
+	 * 
+	 * ( I need this function to be public to call it from the ControllerCallbackFinisher )
+	 *
+	 * @param \TYPO3\FLOW3\Mvc\RequestInterface $request
+	 * @param \TYPO3\FLOW3\Mvc\ResponseInterface $response
+	 * @throws \TYPO3\FLOW3\Mvc\Exception\UnsupportedRequestTypeException
+	 */
+	public function initializeController(\TYPO3\FLOW3\Mvc\RequestInterface $request, \TYPO3\FLOW3\Mvc\ResponseInterface $response) {
+		parent::initializeController($request, $response);
 	}
 }
 ?>

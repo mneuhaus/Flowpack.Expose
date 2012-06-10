@@ -3,7 +3,7 @@
 namespace Foo\ContentManagement\Core\Actions;
 
 /* *
- * This script belongs to the FLOW3 framework.                            *
+ * This script belongs to the Foo.ContentManagement package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License as published by the *
@@ -28,16 +28,6 @@ namespace Foo\ContentManagement\Core\Actions;
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
 interface ActionInterface {
-
-	/**
-	 * Function to Check if this Requested Action is supported
-	 */
-	public function canHandle($being, $action = null, $id = false);
-
-	/**
-	 * The Name of this Action
-	 */
-	public function __toString();
 	
 }
 ?>

@@ -1,9 +1,9 @@
 <?php
 
-namespace Foo\ContentManagement\Actions;
+namespace Foo\ContentManagement\Controller;
 
 /* *
- * This script belongs to the FLOW3 framework.                            *
+ * This script belongs to the Foo.ContentManagement package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License as published by the *
@@ -26,48 +26,15 @@ use Doctrine\ORM\Mapping as ORM;
 use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
- * View Action to show a simple View of the Being
+ * Index action to show a Dashboard with some widgets
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-class ViewAction extends \Foo\ContentManagement\Core\Actions\AbstractAction {
-
-	/**
-	 * Function to Check if this Requested Action is supported
-		 * */
-	public function canHandle($being, $action = null, $id = false) {
-		switch($action) {
-			case "view":
-			case "bulk":
-			case "update":
-			case "confirm":
-			case "create":
-				return false;
-			default:
-				return $id;
-		}
+class IndexController extends \Foo\ContentManagement\Core\Actions\AbstractAction {
+	public function indexAction() {
+		$groups = $this->contentManager->getGroups();
+		ksort($groups);
+		$this->view->assign('groups',$groups);
 	}
-	
-	public function getShortcut(){
-		return "v";
-	}
-	
-	/**
-	 * View objects
-	 *
-	 */
-	public function execute() {
-		$being = $this->contentManager->getClassShortName($this->request->getArgument("being"));
-		
-		$ids = array();
-		if($this->request->hasArgument("id"))
-			$ids = array( $this->request->getArgument("id") );
-		else if($this->request->hasArgument("ids"))
-			$ids = $this->request->getArgument("ids");
-
-		$being = $this->adapter->getObject($being, current($ids));
-		$this->view->assign("object", $being);
-	}
-
 }
 ?>

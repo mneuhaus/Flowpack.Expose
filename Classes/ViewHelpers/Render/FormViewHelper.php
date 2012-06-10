@@ -2,7 +2,7 @@
 namespace Foo\ContentManagement\ViewHelpers\Render;
 
 /*                                                                        *
- * This script belongs to the FLOW3 package "TYPO3.Form".                 *
+ * This script belongs to the Foo.ContentManagement package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -43,10 +43,10 @@ class FormViewHelper extends \TYPO3\Form\ViewHelpers\RenderViewHelper {
 	 * @param array $overrideConfiguration factory specific configuration
 	 * @param string $class the class to render the form for
 	 * @param object $object the object to rende the form for
-	 * @param string $targetAction action to redirect the successful form to
+	 * @param string $controllerCallback action to redirect the successful form to
 	 * @return string the rendered form
 	 */
-	public function render($persistenceIdentifier = NULL, $factoryClass = 'Foo\ContentManagement\Factory\ModelFormFactory', $presetName = 'contentManagement', array $overrideConfiguration = array(), $class = NULL, $object = NULL, $targetAction = NULL) {
+	public function render($persistenceIdentifier = NULL, $factoryClass = 'Foo\ContentManagement\Factory\ModelFormFactory', $presetName = 'contentManagement', array $overrideConfiguration = array(), $class = NULL, $object = NULL, $controllerCallback = NULL) {
 		if (isset($persistenceIdentifier)) {
 			$overrideConfiguration = \TYPO3\FLOW3\Utility\Arrays::arrayMergeRecursiveOverrule($this->formPersistenceManager->load($persistenceIdentifier), $overrideConfiguration);
 		}
@@ -57,8 +57,8 @@ class FormViewHelper extends \TYPO3\Form\ViewHelpers\RenderViewHelper {
 		if(is_object($object))
 			$overrideConfiguration["object"] = $object;
 
-		if(!is_null($targetAction))
-			$overrideConfiguration["targetAction"] = $targetAction;
+		if(!is_null($controllerCallback))
+			$overrideConfiguration["controllerCallback"] = $controllerCallback;
 		
 		$overrideConfiguration["request"] = $this->controllerContext->getRequest();
 

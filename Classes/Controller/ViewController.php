@@ -1,9 +1,9 @@
 <?php
 
-namespace Foo\ContentManagement\Actions;
+namespace Foo\ContentManagement\Controller;
 
 /* *
- * This script belongs to the FLOW3 framework.                            *
+ * This script belongs to the Foo.ContentManagement package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License as published by the *
@@ -26,45 +26,32 @@ use Doctrine\ORM\Mapping as ORM;
 use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
- * Action to delete a being
+ * View Action to show a simple View of the Being
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-class DeleteAction extends \Foo\ContentManagement\Core\Actions\AbstractAction {
-
+class ViewController extends \Foo\ContentManagement\Core\Actions\AbstractAction {
 	/**
-	 * Function to Check if this Requested Action is supported
-		 * */
-	public function canHandle($being, $action = null, $id = false) {
-		switch($action) {
-			case "view":
-			case "update":
-			case "confirm":
-			case "create":
-				return false;
-			default:
-				return $id;
-		}
-	}
-	
-	public function getClass() {
-		return "btn danger";
-	}
+	 * Function to return the Actions to be displayed for this context
+	 */
+	public function getActionsForContext($class, $action, $id) {
+		$actions = array();
+		if(!in_array($action, array("view", "bulk", "update", "confirm", "create")) && $id == true)
+			$actions[] = "index";
 
-	public function getAction() {
-		return "confirm";
+		return $actions;
 	}
 	
 	public function getShortcut(){
-		return "d";
+		return "v";
 	}
 	
 	/**
-	 * Delete objects
+	 * View objects
 	 *
 	 */
-	public function execute() {
-		$being = $this->request->getArgument("being");
+	public function indexAction() {
+		$being = $this->contentManager->getClassShortName($this->request->getArgument("being"));
 		
 		$ids = array();
 		if($this->request->hasArgument("id"))
@@ -72,21 +59,8 @@ class DeleteAction extends \Foo\ContentManagement\Core\Actions\AbstractAction {
 		else if($this->request->hasArgument("ids"))
 			$ids = $this->request->getArgument("ids");
 
-		if( is_array($ids) ) {
-			if( $this->request->hasArgument("confirm") ) {
-				foreach($ids as $id) {
-					$this->adapter->deleteObject($being, $id);
-				}
-				
-				$arguments = array("being" => $this->contentManager->getClassShortName($being));
-				$this->actionManager->redirect('list', $arguments);
-			}else {
-				$arguments = $this->request->getArguments();
-				$arguments["id"] = implode(",", $ids);
-				$arguments["being"] = $being;
-				$this->actionManager->redirect("confirm", $arguments);
-			}
-		}
+		$being = $this->contentManager->getObject($being, current($ids));
+		$this->view->assign("object", $being);
 	}
 
 }

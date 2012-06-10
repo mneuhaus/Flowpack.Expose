@@ -87,7 +87,7 @@ TYPO3:
           submodules:
             content:
               label: 'Content'
-              controller: '\Foo\ContentManagement\Controller\ContentController'
+              controller: '\Foo\ContentManagement\Controller\StandardController'
 
   Form:
     presets:
