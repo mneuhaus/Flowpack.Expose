@@ -2,7 +2,7 @@
 namespace Foo\ContentManagement\Adapters;
 
 /*                                                                        *
- * This script belongs to the FLOW3 package "Contacts".                   *
+ * This script belongs to the Foo.ContentManagement package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU General Public License as published by the Free   *

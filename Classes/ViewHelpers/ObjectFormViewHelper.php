@@ -2,7 +2,7 @@
 namespace Foo\ContentManagement\ViewHelpers;
 
 /*                                                                        *
- * This script belongs to the FLOW3 package "TYPO3.Form".                 *
+ * This script belongs to the Foo.ContentManagement package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *

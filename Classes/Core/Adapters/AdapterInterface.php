@@ -3,7 +3,7 @@
 namespace Foo\ContentManagement\Core\Adapters;
 
 /*                                                                        *
- * This script belongs to the FLOW3 framework.                            *
+ * This script belongs to the Foo.ContentManagement package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License as published by the *
