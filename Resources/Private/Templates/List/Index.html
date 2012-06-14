@@ -7,17 +7,8 @@
 				<cm:render partial="Toolbar" fallbacks="Partials" vars="{actions: bulkActions}" />
 			</div>
 			<div class="pull-right">
-				<f:for each="{topBarActions}" as="action" key="actionName">
-					<cm:link
-						class="{action.class}"
-						shortcut="{action.shortcut}"
-						action="{actionName}"
-						controller="{action.controller}"
-						package="{action.package}"
-						target="{action.target}"
-						being="{className}">
-						{action}
-					</cm:link>
+				<f:for each="{topBarActions}" as="action">
+					<f:render partial="ActionButton" arguments="{action: action, class: className}" />
 				</f:for>
 			</div>
 		</div>

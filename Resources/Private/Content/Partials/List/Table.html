@@ -35,16 +35,7 @@
 			</f:for>
 			<td class="table-actions">
 				<f:for each="{listActions}" as="action" key="actionName">
-					<cm:link
-						class=" tiny {action.class}"
-						action="{actionName}"
-						controller="{action.controller}"
-						selectionShortcut="{action.shortcut}"
-						package="{action.package}"
-						target="{action.target}"
-						object="{object}">
-						{action}
-					</cm:link>
+					<f:render partial="ActionButton" arguments="{action: action, object: object}" />
 				</f:for>
 			</td>
 		</tr>

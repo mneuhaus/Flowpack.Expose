@@ -69,7 +69,10 @@ class ActionManager {
 
 				$a = $this->objectManager->get($actionClassName);
 				foreach ($a->getActionsForContext($being, $action, $id) as $actionName) {
-					$actions[$actionName] = $a;
+					$actions[] = array(
+						"actionName" => $actionName,
+						"controller" => $a
+					);
 				}
 			}
 			ksort($actions);

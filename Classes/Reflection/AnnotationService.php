@@ -126,6 +126,7 @@ class AnnotationService {
 		}else{
 			$this->runtimeCache[$identifier] = $classes = $cache->get($identifier);
 		}
+		var_dump($classes);
 		return $classes;
 	}
 
