@@ -1,5 +1,5 @@
 <?php
-namespace Foo\ContentManagement\Core\TypeConverter\ReverseConverter;
+namespace Foo\ContentManagement\Core\TypeFormatter;
 
 /*                                                                        *
  * This script belongs to the Foo.ContentManagement package.              *
@@ -14,17 +14,16 @@ namespace Foo\ContentManagement\Core\TypeConverter\ReverseConverter;
 use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
- * Converter which transforms a simple type to a float, by simply casting it.
  *
  * @api
  * @FLOW3\Scope("singleton")
  */
-class FloatConverter extends \TYPO3\FLOW3\Property\TypeConverter\AbstractTypeConverter {
+class BooleanFormatter extends \TYPO3\FLOW3\Property\TypeConverter\AbstractTypeConverter {
 
 	/**
 	 * @var array<string>
 	 */
-	protected $sourceTypes = array('float');
+	protected $sourceTypes = array('boolean');
 
 	/**
 	 * @var string
@@ -47,7 +46,7 @@ class FloatConverter extends \TYPO3\FLOW3\Property\TypeConverter\AbstractTypeCon
 	 * @api
 	 */
 	public function convertFrom($source, $targetType, array $convertedChildProperties = array(), \TYPO3\FLOW3\Property\PropertyMappingConfigurationInterface $configuration = NULL) {
-		return strval($source);
+		return $source ? "true" : "false";
 	}
 }
 ?>

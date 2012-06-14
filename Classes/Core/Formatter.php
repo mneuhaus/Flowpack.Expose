@@ -14,18 +14,13 @@ namespace Foo\ContentManagement\Core;
 use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
- * TODO: (SK) the reverse direction should be integrated directly into the property mapper; as per the existing concept.
- * 		 (MN) Agreed. Although the concept in forge probably won't cover this functionality perfectly.
- *    		  Maybe this should be refactored into an "Formatter" or something, because the main job ob this thing is
- *        	  to create a decent String Representation that is readable for the User and not revertable into its source
- *
- * The Property Mapper transforms simple types (arrays, strings, integers, floats, booleans) to objects or other simple types.
- * It is used most prominently to map incoming HTTP arguments to objects.
+ * Formatter to create a String representation for almost any kinf of value.
+ * Based on the PropertyMapper
  *
  * @FLOW3\Scope("singleton")
  * @api
  */
-class PropertyMapper extends \TYPO3\FLOW3\Property\PropertyMapper {
+class Formatter extends \TYPO3\FLOW3\Property\PropertyMapper {
 	/**
 	 * Determine the type of the source data, or throw an exception if source was an unsupported format.
 	 *

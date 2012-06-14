@@ -1,5 +1,5 @@
 <?php
-namespace Foo\ContentManagement\Core\TypeConverter\ReverseConverter;
+namespace Foo\ContentManagement\Core\TypeFormatter;
 
 /*                                                                        *
  * This script belongs to the Foo.ContentManagement package.              *
@@ -14,39 +14,53 @@ namespace Foo\ContentManagement\Core\TypeConverter\ReverseConverter;
 use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
- *
  * @api
  * @FLOW3\Scope("singleton")
  */
-class BooleanConverter extends \TYPO3\FLOW3\Property\TypeConverter\AbstractTypeConverter {
-
+class DateTimeFormatter extends \TYPO3\FLOW3\Property\TypeConverter\DateTimeConverter {
+	
 	/**
 	 * @var array<string>
 	 */
-	protected $sourceTypes = array('boolean');
-
+	protected $sourceTypes = array("object");
+	
 	/**
 	 * @var string
 	 */
 	protected $targetType = 'string';
-
+	
 	/**
 	 * @var integer
 	 */
-	protected $priority = 1;
-
+	protected $priority = 30;
+	
 	/**
-	 * Actually convert from $source to $targetType, by doing a typecast.
+	 * Empty strings can't be converted
 	 *
 	 * @param string $source
 	 * @param string $targetType
-	 * @param array $convertedChildProperties
+	 * @return boolean
+	 */
+	public function canConvertFrom($source, $targetType) {
+		if(is_object($source) && $source instanceof \DateTime && $targetType == "string"){
+			return TRUE;
+		}
+	}
+
+	/**
+	 * Converts $source to a \DateTime using the configured dateFormat
+	 *
+	 * @param string $source the string to be converted to a \DateTime object
+	 * @param string $targetType must be "DateTime"
+	 * @param array $convertedChildProperties not used currently
 	 * @param \TYPO3\FLOW3\Property\PropertyMappingConfigurationInterface $configuration
-	 * @return float
-	 * @api
+	 * @return \DateTime
 	 */
 	public function convertFrom($source, $targetType, array $convertedChildProperties = array(), \TYPO3\FLOW3\Property\PropertyMappingConfigurationInterface $configuration = NULL) {
-		return $source ? "true" : "false";
+		if(is_object($source) && $source instanceof \DateTime && $targetType == "string"){
+			return $source->format($this->getDefaultDateFormat($configuration));
+		}
 	}
+	
 }
 ?>

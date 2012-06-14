@@ -35,11 +35,11 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 class StringViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
-	 * @var \Foo\ContentManagement\Core\PropertyMapper
+	 * @var \Foo\ContentManagement\Core\Formatter
 	 * @api
 	 * @FLOW3\Inject
 	 */
-	protected $propertyMapper;
+	protected $formatter;
 
 	/**
 	 *
@@ -55,7 +55,7 @@ class StringViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 			// $this->parentProperty->representation->datetimeFormat
 		 //    )
 		);
-		$string = $this->propertyMapper->convert($value, "string", \Foo\ContentManagement\Core\PropertyMappingConfiguration::getConfiguration('\Foo\ContentManagement\Core\PropertyMappingConfiguration', $options));
+		$string = $this->formatter->convert($value, "string", \Foo\ContentManagement\Core\PropertyMappingConfiguration::getConfiguration('\Foo\ContentManagement\Core\PropertyMappingConfiguration', $options));
 		return $string;
 	}
 }

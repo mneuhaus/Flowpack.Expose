@@ -1,5 +1,5 @@
 <?php
-namespace Foo\ContentManagement\Core\TypeConverter\ReverseConverter;
+namespace Foo\ContentManagement\Core\TypeFormatter;
 
 /*                                                                        *
  * This script belongs to the Foo.ContentManagement package.              *
@@ -19,7 +19,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * @FLOW3\Scope("singleton")
  * @todo Implement functionality for converting collection properties.
  */
-class CollectionConverter extends \TYPO3\FLOW3\Property\TypeConverter\AbstractTypeConverter {
+class CollectionFormatter extends \TYPO3\FLOW3\Property\TypeConverter\AbstractTypeConverter {
 
 	/**
 	 * @var string
@@ -37,11 +37,11 @@ class CollectionConverter extends \TYPO3\FLOW3\Property\TypeConverter\AbstractTy
 	protected $priority = 51;
 	
 	/**
-	 * @var \Foo\ContentManagement\Core\PropertyMapper
+	 * @var \Foo\ContentManagement\Core\Formatter
 	 * @api
 	 * @FLOW3\Inject
 	 */
-	protected $propertyMapper;
+	protected $formatter;
 	
 	/**
 	 * This implementation always returns TRUE for this method.
