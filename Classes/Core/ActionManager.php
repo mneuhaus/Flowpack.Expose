@@ -27,7 +27,6 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 /**
  * ActionManager to retrieve and Initialize Actions
  *
- * TODO: (SK) why does the action manager have a reference to $controller $request and view? This should be refactored and moved away from here.
  * TODO: (SK) the ActionManager should be fully tested by unit tests or functional tests.
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
@@ -108,28 +107,6 @@ class ActionManager {
 			}
 		}
 		return false;
-	}
-
-	// TODO: (SK) this redirect duplicates the default functionality of FLOW3
-	// 		 (MN) The reason for this was to make this Public because i needed
-	// 		      a way to initiate redirects from the AbstractActions
-	public function redirect($actionName, $arguments, $delay = 0, $statusCode = 303) {
-		$uriBuilder = new \TYPO3\FLOW3\Mvc\Routing\UriBuilder();
-		$uriBuilder->setRequest($this->request);
-		$uriBuilder->reset();
-
-		$uri = $uriBuilder->uriFor($actionName, $arguments);
-		$uri = $this->request->getHttpRequest()->getBaseUri() . $uri;
-
-		$escapedUri = htmlentities($uri, ENT_QUOTES, 'utf-8');
-		$response = new \TYPO3\FLOW3\Http\Response();
-		$response->setContent('<html><head><meta http-equiv="refresh" content="' . $delay . ';url=' . $escapedUri . '"/></head></html>');
-		$response->setStatus($statusCode);
-		if ($delay === 0) {
-			$response->setHeader('Location', (string)$uri);
-		}
-		$response->send();
-		throw new \TYPO3\FLOW3\Mvc\Exception\StopActionException();
 	}
 
 	public function setFormRuntime($formRuntime) {
