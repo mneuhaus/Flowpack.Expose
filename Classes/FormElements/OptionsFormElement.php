@@ -18,7 +18,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  */
 class OptionsFormElement extends ComplexFormElement {
 	/**
-	 * @var \Foo\ContentManagement\Adapters\ContentManager
+	 * @var \Foo\ContentManagement\Core\ContentManager
 	 * @FLOW3\Inject
 	 */
 	protected $contentManager;	

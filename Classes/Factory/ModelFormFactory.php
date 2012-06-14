@@ -7,7 +7,7 @@ use TYPO3\Form\Core\Model\FormDefinition;
 
 class ModelFormFactory extends \TYPO3\Form\Factory\AbstractFormFactory {
     /**
-     * @var \Foo\ContentManagement\Adapters\ContentManager
+     * @var \Foo\ContentManagement\Core\ContentManager
      * @FLOW3\Inject
      */
     protected $contentManager;

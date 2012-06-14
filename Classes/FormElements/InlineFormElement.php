@@ -36,7 +36,7 @@ class InlineFormElement extends \TYPO3\Form\FormElements\Section {
 	protected $namespace;
 
 	/**
-	 * @var \Foo\ContentManagement\Adapters\ContentManager
+	 * @var \Foo\ContentManagement\Core\ContentManager
 	 * @FLOW3\Inject
 	 */
 	protected $contentManager;

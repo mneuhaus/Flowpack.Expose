@@ -36,16 +36,16 @@ abstract class AbstractAction extends \TYPO3\FLOW3\Mvc\Controller\ActionControll
 	protected $actionManager;
 
 	/**
-	 * @var \Foo\ContentManagement\Adapters\ContentManager
+	 * @var \Foo\ContentManagement\Core\ContentManager
 	 */
 	protected $contentManager;
 
 	/**
 	 * 
-	 * @param \Foo\ContentManagement\Adapters\ContentManager $contentManager
+	 * @param \Foo\ContentManagement\Core\ContentManager $contentManager
 	 * @param \Foo\ContentManagement\Core\ActionManager   $actionManager
 	 */
-	public function __construct(\Foo\ContentManagement\Core\ActionManager $actionManager, \Foo\ContentManagement\Adapters\ContentManager $contentManager) {
+	public function __construct(\Foo\ContentManagement\Core\ActionManager $actionManager, \Foo\ContentManagement\Core\ContentManager $contentManager) {
 		$this->actionManager = $actionManager;
 		$this->contentManager = $contentManager;
 	}

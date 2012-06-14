@@ -1,6 +1,6 @@
 <?php
 
-namespace Foo\ContentManagement\Adapters;
+namespace Foo\ContentManagement\Core;
 
 /* *
  * This script belongs to the Foo.ContentManagement package.              *
