@@ -26,8 +26,6 @@ use Doctrine\ORM\Mapping as ORM;
 use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
- * TODO: (SK) implement opposite direction in property mapper and then get rid of this view helper
- * 		 (MN) See comments in the Propertymapper
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  * @api
