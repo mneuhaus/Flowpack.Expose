@@ -1,0 +1,5 @@
+Foo:
+  ContentManagement:
+    Annotations:
+      Foo\ContentManagement\Tests\Functional\Actions\Fixtures\Domain\Model\Post:
+        active: true
