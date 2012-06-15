@@ -26,12 +26,12 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 use Foo\ContentManagement\Annotations as CM;
 
 /**
- * ContentManager to retrieve and Initialize Adapters
+ * PersistentStorageService to retrieve and Initialize Adapters
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  * @FLOW3\Scope("singleton")
  */
-class ContentManager {
+class PersistentStorageService {
 	/**
 	 * @var \TYPO3\FLOW3\Configuration\ConfigurationManager
 	 * @FLOW3\Inject
@@ -73,9 +73,22 @@ class ContentManager {
 	 * return the Adapter responsible for the class
 	 *
 	 * @return $groups Array
-	 * @CM\Cache
 	 */
 	public function getAdapterByClass($class){
+		$implementations = class_implements("\\" . ltrim($class, "\\"));
+		if(in_array("Doctrine\ORM\Proxy\Proxy", $implementations))
+			$class = get_parent_class("\\" . ltrim($class, "\\"));
+
+		return $this->adapters[$this->getAdapterClassByClass($class)];
+	}
+
+	/**
+	 * return the Adapter responsible for the class
+	 *
+	 * @return strint $adapterClass
+	 * @CM\Cache
+	 */
+	public function getAdapterClassByClass($class){
 		$implementations = class_implements("\\" . ltrim($class, "\\"));
 		if(in_array("Doctrine\ORM\Proxy\Proxy", $implementations))
 			$class = get_parent_class("\\" . ltrim($class, "\\"));
@@ -89,9 +102,7 @@ class ContentManager {
 			}
 		}
 		
-		$adapterClass = $adaptersByBeings[$class];
-
-		return $this->adapters[$adapterClass];
+		return $adaptersByBeings[$class];
 	}
 
 	public function getAdapter() {

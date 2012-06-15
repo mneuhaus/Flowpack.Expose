@@ -31,10 +31,10 @@ class ActionRuntime {
 	protected $annotationService;
 
 	/**
-	 * @var \Foo\ContentManagement\Core\ContentManager
+	 * @var \Foo\ContentManagement\Core\PersistentStorageService
 	 * @FLOW3\Inject
 	 */
-	protected $contentManager;
+	protected $persistentStorageService;
 
 	/**
 	 * @var \TYPO3\FLOW3\Mvc\Dispatcher

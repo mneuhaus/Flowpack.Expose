@@ -22,7 +22,7 @@ Foo:
         Representation:
           DatetimeFormat: Y-m-d\TH:i:s
     Adapters:
-      Foo\ContentManagement\Adapters\DoctrineAdapter: active
+      Foo\ContentManagement\PersistentStorageAdapter\DoctrinePersistentStorageAdapter: active
     AnnotationProvider:
       - Foo\ContentManagement\Reflection\Provider\DefaultsAnnotationProvider
       - Foo\ContentManagement\Reflection\Provider\ReflectionAnnotationProvider

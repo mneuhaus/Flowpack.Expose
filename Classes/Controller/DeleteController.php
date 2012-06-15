@@ -63,11 +63,11 @@ class DeleteController extends \Foo\ContentManagement\Core\Actions\AbstractActio
 		if(count($ids) > 0){
 			$objects = array();
 			foreach ($ids as $id) {
-				$objects[] = $this->contentManager->getObject($being, $id);
+				$objects[] = $this->persistentStorageService->getObject($being, $id);
 			}
 			$this->view->assign("objects", $objects);
 			$this->view->assign("ids", implode(",", $ids));
-			$this->view->assign("class", $this->contentManager->getClassShortName($being));
+			$this->view->assign("class", $this->persistentStorageService->getClassShortName($being));
 		}
 	}
 
@@ -86,10 +86,10 @@ class DeleteController extends \Foo\ContentManagement\Core\Actions\AbstractActio
 
 		if( is_array($ids) ) {
 			foreach($ids as $id) {
-				$this->contentManager->deleteObject($being, $id);
+				$this->persistentStorageService->deleteObject($being, $id);
 			}
 			
-			$arguments = array("being" => $this->contentManager->getClassShortName($being));
+			$arguments = array("being" => $this->persistentStorageService->getClassShortName($being));
 			$this->redirect('index', "list", null, $arguments);
 		}
 	}

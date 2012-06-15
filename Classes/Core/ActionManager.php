@@ -34,10 +34,10 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  */
 class ActionManager {
 	/**
-	 * @var \Foo\ContentManagement\Core\ContentManager
+	 * @var \Foo\ContentManagement\Core\PersistentStorageService
 	 * @FLOW3\Inject
 	 */
-	protected $contentManager;
+	protected $persistentStorageService;
 
 	/**
 	 * @var \TYPO3\FLOW3\Reflection\ReflectionService
@@ -81,7 +81,7 @@ class ActionManager {
 			$action = $action."Action";
 		$actions = array();
 		foreach($this->reflectionService->getAllImplementationClassNamesForInterface('Foo\ContentManagement\Core\Actions\ActionInterface') as $actionClassName) {
-			$actionName = $this->contentManager->getShortName($actionClassName);
+			$actionName = $this->persistentStorageService->getShortName($actionClassName);
 			if(strtolower($actionName) == strtolower($action)){
 				return $this->objectManager->get($actionClassName);
 			}
@@ -96,7 +96,7 @@ class ActionManager {
 	 */
 	public function hasAction($action) {
 		foreach($this->reflectionService->getAllImplementationClassNamesForInterface('Foo\ContentManagement\Core\Actions\ActionInterface') as $actionClassName) {
-			$actionName = $this->contentManager->getShortName($actionClassName);
+			$actionName = $this->persistentStorageService->getShortName($actionClassName);
 			if(strtolower($actionName) == strtolower($action)){
 				return true;
 			}

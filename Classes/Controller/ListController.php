@@ -38,18 +38,18 @@ class ListController extends \Foo\ContentManagement\Core\Actions\AbstractAction 
 	 */
 	public function indexAction() {
 		if($this->request->hasArgument("being")){
-			$this->being = $this->contentManager->getClassShortName($this->request->getArgument("being"));
+			$this->being = $this->persistentStorageService->getClassShortName($this->request->getArgument("being"));
 			$this->view->assign('className', $this->being);
 
 			$this->settings = $this->getSettings();
 			
-			$this->contentManager->initQuery($this->being);
-			$results = $this->contentManager->getQuery($this->being)->execute();
+			$this->persistentStorageService->initQuery($this->being);
+			$results = $this->persistentStorageService->getQuery($this->being)->execute();
 			$this->view->assign("objects", $results);
 			
 			// Redirect to creating a new Object if there aren't any (Clean Slate)
 			if( $results->count() < 1 ) {
-				$arguments = array("being" => $this->contentManager->getClassShortName($this->being));
+				$arguments = array("being" => $this->persistentStorageService->getClassShortName($this->being));
 				$this->actionManager->redirect("create", $arguments);
 			}
 			

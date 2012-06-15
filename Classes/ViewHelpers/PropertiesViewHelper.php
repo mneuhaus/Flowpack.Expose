@@ -32,10 +32,10 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 class PropertiesViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
-	 * @var \Foo\ContentManagement\Core\ContentManager
+	 * @var \Foo\ContentManagement\Core\PersistentStorageService
 	 * @FLOW3\Inject
 	 */
-	protected $contentManager;	
+	protected $persistentStorageService;	
 	
 	/**
 	 *
@@ -50,7 +50,7 @@ class PropertiesViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelp
 		if(is_null($object) && !is_null($className))
 			$object = new $className;
 		
-		$properties = $this->contentManager->getProperties($object, $context);
+		$properties = $this->persistentStorageService->getProperties($object, $context);
 		
 		$this->templateVariableContainer->add($as, $properties);
 		$content = $this->renderChildren();

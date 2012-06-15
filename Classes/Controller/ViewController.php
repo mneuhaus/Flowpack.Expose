@@ -51,7 +51,7 @@ class ViewController extends \Foo\ContentManagement\Core\Actions\AbstractAction 
 	 *
 	 */
 	public function indexAction() {
-		$being = $this->contentManager->getClassShortName($this->request->getArgument("being"));
+		$being = $this->persistentStorageService->getClassShortName($this->request->getArgument("being"));
 		
 		$ids = array();
 		if($this->request->hasArgument("id"))
@@ -59,7 +59,7 @@ class ViewController extends \Foo\ContentManagement\Core\Actions\AbstractAction 
 		else if($this->request->hasArgument("ids"))
 			$ids = $this->request->getArgument("ids");
 
-		$being = $this->contentManager->getObject($being, current($ids));
+		$being = $this->persistentStorageService->getObject($being, current($ids));
 		$this->view->assign("object", $being);
 	}
 

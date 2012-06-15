@@ -1,6 +1,6 @@
 <?php
 
-namespace Foo\ContentManagement\Core\Adapters;
+namespace Foo\ContentManagement\Core\PersistentStorageAdapter;
 
 /*                                                                        *
  * This script belongs to the Foo.ContentManagement package.              *
@@ -23,11 +23,11 @@ namespace Foo\ContentManagement\Core\Adapters;
  *                                                                        */
 
 /**
- * Interface for the Adapters
+ * Interface for the PersistentStorageAdapter
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-interface AdapterInterface {
+interface PersistentStorageAdapterInterface {
 	
 	/**
 	 * apply filters

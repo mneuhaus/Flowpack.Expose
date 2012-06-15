@@ -36,18 +36,18 @@ abstract class AbstractAction extends \TYPO3\FLOW3\Mvc\Controller\ActionControll
 	protected $actionManager;
 
 	/**
-	 * @var \Foo\ContentManagement\Core\ContentManager
+	 * @var \Foo\ContentManagement\Core\PersistentStorageService
 	 */
-	protected $contentManager;
+	protected $persistentStorageService;
 
 	/**
 	 * 
-	 * @param \Foo\ContentManagement\Core\ContentManager $contentManager
+	 * @param \Foo\ContentManagement\Core\PersistentStorageService $persistentStorageService
 	 * @param \Foo\ContentManagement\Core\ActionManager   $actionManager
 	 */
-	public function __construct(\Foo\ContentManagement\Core\ActionManager $actionManager, \Foo\ContentManagement\Core\ContentManager $contentManager) {
+	public function __construct(\Foo\ContentManagement\Core\ActionManager $actionManager, \Foo\ContentManagement\Core\PersistentStorageService $persistentStorageService) {
 		$this->actionManager = $actionManager;
-		$this->contentManager = $contentManager;
+		$this->persistentStorageService = $persistentStorageService;
 	}
 
 	public function getActionsForContext($class, $context, $id) {
@@ -59,7 +59,7 @@ abstract class AbstractAction extends \TYPO3\FLOW3\Mvc\Controller\ActionControll
 	}
 
 	public function getController() {
-		$controller = $this->contentManager->getShortName($this);
+		$controller = $this->persistentStorageService->getShortName($this);
 		return str_replace("Controller", "", $controller);
 	}
 
@@ -76,7 +76,7 @@ abstract class AbstractAction extends \TYPO3\FLOW3\Mvc\Controller\ActionControll
 	}
 
 	public function getActionName() {
-		$action = $this->contentManager->getShortName($this);
+		$action = $this->persistentStorageService->getShortName($this);
 		return str_replace("Controller", "", $action);
 	}
 
@@ -114,7 +114,7 @@ abstract class AbstractAction extends \TYPO3\FLOW3\Mvc\Controller\ActionControll
 		$paths[] = ucfirst($this->getAction());
 		if(!is_null($path))
 			$paths[] = $path;
- 		return $this->contentManager->getSettings(implode(".", $paths));
+ 		return $this->persistentStorageService->getSettings(implode(".", $paths));
 	}
 
 	public function setRequest($request) {

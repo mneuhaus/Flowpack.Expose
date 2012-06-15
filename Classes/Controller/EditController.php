@@ -51,8 +51,8 @@ class EditController extends \Foo\ContentManagement\Core\Actions\AbstractAction 
 	 */
 	public function indexAction() {
 		if($this->request->hasArgument("being") && $this->request->hasArgument("id")){
-			$being = $this->contentManager->getClassShortName($this->request->getArgument("being"));
-			$object = $this->contentManager->getObject($being, $this->request->getArgument("id"));
+			$being = $this->persistentStorageService->getClassShortName($this->request->getArgument("being"));
+			$object = $this->persistentStorageService->getObject($being, $this->request->getArgument("id"));
 			$this->view->assign("object", $object);
 		}
 	}
@@ -61,7 +61,7 @@ class EditController extends \Foo\ContentManagement\Core\Actions\AbstractAction 
 		$formValues = $formRuntime->getFormState()->getFormValues();
 		$object = $formValues["item"];
 		$class = get_class($object);
-		$this->contentManager->updateObject($class, $object);
+		$this->persistentStorageService->updateObject($class, $object);
 
 		$this->redirect("index", "List", null, array( "being" => $class ));
 	}

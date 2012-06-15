@@ -34,9 +34,9 @@ class RelationOptionsProvider extends \Foo\ContentManagement\Core\OptionsProvide
 	
 	public function getOptions(){
 		$options = array();
-		$objects = $this->contentManager->getObjects($this->annotations->getType());
+		$objects = $this->persistentStorageService->getObjects($this->annotations->getType());
 		foreach ($objects as $object) {
-			$options[$this->contentManager->getId($object)] = $this->contentManager->getString($object);
+			$options[$this->persistentStorageService->getId($object)] = $this->persistentStorageService->getString($object);
 		}
 		return $objects;
 	}

@@ -38,10 +38,10 @@ abstract class AbstractOptionsProvider implements OptionsProviderInterface {
 	protected $objectManager;
 
 	/**
-	 * @var \Foo\ContentManagement\Core\ContentManager
+	 * @var \Foo\ContentManagement\Core\PersistentStorageService
 	 * @FLOW3\Inject
 	 */
-	protected $contentManager;	
+	protected $persistentStorageService;	
 
 	public function __construct($annotations = array()) {
 		$this->annotations = $annotations;

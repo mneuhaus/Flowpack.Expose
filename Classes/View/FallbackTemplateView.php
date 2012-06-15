@@ -43,10 +43,10 @@ class FallbackTemplateView extends \TYPO3\Fluid\View\TemplateView {
 	protected $cacheManager;
 
 	/**
-	 * @var \Foo\ContentManagement\Core\ContentManager
+	 * @var \Foo\ContentManagement\Core\PersistentStorageService
 	 * @FLOW3\Inject
 	 */
-	protected $contentManager;
+	protected $persistentStorageService;
 
 	/**
 	 * Resolve the template path and filename for the given action. If $actionName
@@ -76,7 +76,7 @@ class FallbackTemplateView extends \TYPO3\Fluid\View\TemplateView {
 			if(class_exists($being, false) && false){
 #				$replacements["@package"] = $this->helper->getPackageByClassName($being) ? $this->helper->getPackageByClassName($being) : "Admin";
 
-				$replacements["@being"] = $this->contentManager->getShortName($being);
+				$replacements["@being"] = $this->persistentStorageService->getShortName($being);
 
 				// TODO: Reimplement Variants
 				#$being = $this->helper->getBeing($being);
@@ -117,7 +117,7 @@ class FallbackTemplateView extends \TYPO3\Fluid\View\TemplateView {
 	public function getPathByPatternFallbacks($patterns, $replacements){
 		if(is_string($patterns)){
 			$paths = explode(".",$patterns);
-			$patterns = $this->contentManager->getSettings();
+			$patterns = $this->persistentStorageService->getSettings();
 			$patterns = $patterns["Fallbacks"];
 			foreach ($paths as $path) {
 				$patterns = $patterns[$path];

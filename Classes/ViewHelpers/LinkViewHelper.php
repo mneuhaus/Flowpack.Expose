@@ -49,10 +49,10 @@ class LinkViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractTagBasedViewHe
 	protected $objectManager;
 
 	/**
-	 * @var \Foo\ContentManagement\Core\ContentManager
+	 * @var \Foo\ContentManagement\Core\PersistentStorageService
 	 * @FLOW3\Inject
 	 */
-	protected $contentManager;
+	protected $persistentStorageService;
 
 	/**
 	 * @var string
@@ -97,12 +97,12 @@ class LinkViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractTagBasedViewHe
 		$uriBuilder = $this->controllerContext->getUriBuilder();
 
 		if($object !== NULL){
-			$arguments["being"] = $this->contentManager->getClassShortName(get_class($object));
-			$arguments["id"] = $this->contentManager->getId($object);
+			$arguments["being"] = $this->persistentStorageService->getClassShortName(get_class($object));
+			$arguments["id"] = $this->persistentStorageService->getId($object);
 		}
 
 		if($being !== NULL)
-			$arguments["being"] = $this->contentManager->getClassShortName($being);
+			$arguments["being"] = $this->persistentStorageService->getClassShortName($being);
 
 		try {
 			$uri = $uriBuilder

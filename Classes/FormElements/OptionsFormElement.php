@@ -17,12 +17,6 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * A generic form element
  */
 class OptionsFormElement extends ComplexFormElement {
-	/**
-	 * @var \Foo\ContentManagement\Core\ContentManager
-	 * @FLOW3\Inject
-	 */
-	protected $contentManager;	
-
 	public function getProperties() {
 		$optionsProvider = $this->getOptionsProvider();
 		$this->properties["options"] = $this->getOptionsProvider()->getOptions();

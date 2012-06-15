@@ -1,6 +1,6 @@
 <?php
 
-namespace Foo\ContentManagement\Core\Adapters;
+namespace Foo\ContentManagement\Core\PersistentStorageAdapter;
 
 /*                                                                        *
  * This script belongs to the Foo.ContentManagement package.              *
@@ -26,11 +26,11 @@ use Doctrine\ORM\Mapping as ORM;
 use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
- * abstract base class for the Adapters
+ * abstract base class for the PersistentStorageAdapter
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-abstract class AbstractAdapter implements \Foo\ContentManagement\Core\Adapters\AdapterInterface {
+abstract class AbstractPersistentStorageAdapter implements \Foo\ContentManagement\Core\PersistentStorageAdapter\PersistentStorageAdapterInterface {
 	/**
 	 * @var \Foo\ContentManagement\Reflection\AnnotationService
 	 * @FLOW3\Inject

@@ -32,7 +32,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  */
 class IndexController extends \Foo\ContentManagement\Core\Actions\AbstractAction {
 	public function indexAction() {
-		$groups = $this->contentManager->getGroups();
+		$groups = $this->persistentStorageService->getGroups();
 		ksort($groups);
 		$this->view->assign('groups',$groups);
 	}

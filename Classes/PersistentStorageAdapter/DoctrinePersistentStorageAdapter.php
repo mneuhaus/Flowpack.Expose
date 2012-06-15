@@ -1,5 +1,5 @@
 <?php
-namespace Foo\ContentManagement\Adapters;
+namespace Foo\ContentManagement\PersistentStorageAdapter;
 
 /*                                                                        *
  * This script belongs to the Foo.ContentManagement package.              *
@@ -25,13 +25,13 @@ use Doctrine\ORM\Mapping as ORM;
 use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
- * Adapter for the Doctrine engine
+ * PersistentStorageAdapter for the Doctrine engine
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  *
  * @FLOW3\Scope("singleton")
  */
-class DoctrineAdapter extends \Foo\ContentManagement\Core\Adapters\AbstractAdapter {
+class DoctrinePersistentStorageAdapter extends \Foo\ContentManagement\Core\PersistentStorageAdapter\AbstractPersistentStorageAdapter {
     /**
      * @var \TYPO3\FLOW3\Persistence\PersistenceManagerInterface
          * @FLOW3\Inject

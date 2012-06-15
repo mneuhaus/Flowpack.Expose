@@ -51,7 +51,7 @@ class NewController extends \Foo\ContentManagement\Core\Actions\AbstractAction {
 	 *
 	 */
 	public function indexAction() {
-		$being = $this->contentManager->getClassShortName($this->request->getArgument("being"));
+		$being = $this->persistentStorageService->getClassShortName($this->request->getArgument("being"));
 		$object = new $being();
 		$this->view->assign("object", $object);
 	}
@@ -60,7 +60,7 @@ class NewController extends \Foo\ContentManagement\Core\Actions\AbstractAction {
 		$formValues = $formRuntime->getFormState()->getFormValues();
 		$object = $formValues["item"];
 		$class = get_class($object);
-		$this->contentManager->createObject($class, $object);
+		$this->persistentStorageService->createObject($class, $object);
 
 		$this->redirect("index", "List", null, array( "being" => $class ));
 	}

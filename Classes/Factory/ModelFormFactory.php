@@ -7,10 +7,10 @@ use TYPO3\Form\Core\Model\FormDefinition;
 
 class ModelFormFactory extends \TYPO3\Form\Factory\AbstractFormFactory {
     /**
-     * @var \Foo\ContentManagement\Core\ContentManager
+     * @var \Foo\ContentManagement\Core\PersistentStorageService
      * @FLOW3\Inject
      */
-    protected $contentManager;
+    protected $persistentStorageService;
 
     /**
      * @var \TYPO3\FLOW3\Mvc\ActionRequest
@@ -41,7 +41,7 @@ class ModelFormFactory extends \TYPO3\Form\Factory\AbstractFormFactory {
         $this->setRequest($factorySpecificConfiguration["request"]);
         
         if(isset($factorySpecificConfiguration["class"]))
-            $object = $this->contentManager->getObject($factorySpecificConfiguration["class"]);
+            $object = $this->persistentStorageService->getObject($factorySpecificConfiguration["class"]);
 
         if(isset($factorySpecificConfiguration["object"]))
             $object = $factorySpecificConfiguration["object"];
@@ -59,8 +59,8 @@ class ModelFormFactory extends \TYPO3\Form\Factory\AbstractFormFactory {
     }
 
     public function generateElements($object, $section, $namespace = ""){
-        $class = $this->contentManager->getClass($object);
-        $classAnnotations = $this->contentManager->getClassAnnotations($class);
+        $class = $this->persistentStorageService->getClass($object);
+        $classAnnotations = $this->persistentStorageService->getClassAnnotations($class);
         $classAnnotations->setObject($object);
 
         $elements = array();
@@ -83,7 +83,7 @@ class ModelFormFactory extends \TYPO3\Form\Factory\AbstractFormFactory {
 
                     $inlineVariant = $propertyAnnotations->getInline()->getVariant();
                     $type = $propertyAnnotations->getType();
-                    $inlineAnnotations = $this->contentManager->getClassAnnotations($type);
+                    $inlineAnnotations = $this->persistentStorageService->getClassAnnotations($type);
                     
                     // Create a Container for the "Rows" outside the later processed namespace
                     $containerSection = $section->createElement("container.".$namespacedName, $inlineVariant);
@@ -151,9 +151,9 @@ class ModelFormFactory extends \TYPO3\Form\Factory\AbstractFormFactory {
         }
 
         $object = $classAnnotations->getObject();
-        if(!$this->contentManager->isNewObject($object)){
+        if(!$this->persistentStorageService->isNewObject($object)){
             $elements["__identity"] = $section->createElement($namespace . ".__identity", "Foo.ContentManagement:Hidden");
-            $elements["__identity"]->setDefaultValue($this->contentManager->getId($object));
+            $elements["__identity"]->setDefaultValue($this->persistentStorageService->getId($object));
         }
 
         return $elements;
