@@ -23,6 +23,7 @@ namespace Foo\ContentManagement\Reflection;
  *                                                                        */
 
 use TYPO3\FLOW3\Annotations as FLOW3;
+use Foo\ContentManagement\Annotations as CM;
 
 /**
  * TODO: (SK) while this makes sense in general, we should see how to integrate that into the reflection or annotation packages in FLOW3.
@@ -33,11 +34,6 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * @FLOW3\Scope("singleton")
  */
 class AnnotationService {
-	/**
-	 * @var \Foo\ContentManagement\Core\CacheManager
-	 * @FLOW3\Inject
-	 */
-	protected $cacheManager;
 
 	/**
 	 * @var \TYPO3\FLOW3\Configuration\ConfigurationManager
@@ -58,75 +54,57 @@ class AnnotationService {
 	 */
 	protected $reflectionService;
 
-	protected $runtimeCache = array();
-
+	/**
+	 * returns ClassAnnotations
+	 *
+	 * @param string $class
+	 * @return array $classAnnotations
+	 * @CM\Cache
+	 */
 	public function getClassAnnotations($class){
 		$implementations = class_implements("\\" . ltrim($class, "\\"));
 		if(in_array("Doctrine\ORM\Proxy\Proxy", $implementations))
 			$class = get_parent_class("\\" . ltrim($class, "\\"));
 
-		$cache = $this->cacheManager->getCache('Foo_ContentManagement_Annotations');
-		$identifier = $this->cacheManager->createIdentifier($class);
-
-		if(!$cache->has($identifier)){
-
-			$annotations = array();
-			$annotationProviders = $this->configurationManager->getConfiguration(\TYPO3\FLOW3\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, "Foo.ContentManagement.AnnotationProvider");
-			foreach($annotationProviders as $annotationProviderClass){
-				$annotationProvider = new $annotationProviderClass();
-				$annotations = $this->merge($annotations, $annotationProvider->getClassAnnotations($class));
-			}
-
-			$this->runtimeCache[$class] = new Wrapper\ClassAnnotationWrapper($annotations);
-			$this->runtimeCache[$class]->setClass($class);
-
-			$cache->set($identifier, $this->runtimeCache[$class]);
-
-		}else if(!isset($this->runtimeCache[$class])){
-
-			$this->runtimeCache[$class] = $cache->get($identifier);
-
+		$annotations = array();
+		$annotationProviders = $this->configurationManager->getConfiguration(\TYPO3\FLOW3\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, "Foo.ContentManagement.AnnotationProvider");
+		foreach($annotationProviders as $annotationProviderClass){
+			$annotationProvider = new $annotationProviderClass();
+			$annotations = $this->merge($annotations, $annotationProvider->getClassAnnotations($class));
 		}
 
-		return $this->runtimeCache[$class];
+		$annotations = new Wrapper\ClassAnnotationWrapper($annotations);
+		$annotations->setClass($class);
+
+		return $annotations;
 	}
 
 	/**
 	 * returns classes that are taged with all of the specified tags
 	 *
 	 * @param string $tags
-	 * @return void
-		 */
+	 * @return array $classes
+	 * @CM\Cache
+	 */
 	public function getClassesAnnotatedWith($tags){
-		$cache = $this->cacheManager->getCache('Admin_ImplementationCache');
-		$identifier = "ClassesTaggedWith-".implode("_", $tags);
+		$classes = array();
 
-		if(!$cache->has($identifier) || true){
-			$classes = array();
+		$activePackages = $this->packageManager->getActivePackages();
+		foreach($activePackages as $packageName => $package) {
+			if(substr($packageName, 0, 8) === "Doctrine") continue;
+			foreach($package->getClassFiles() as $class => $file) {
+				$annotations = $this->getClassAnnotations($class);
 
-			$activePackages = $this->packageManager->getActivePackages();
-			foreach($activePackages as $packageName => $package) {
-				if(substr($packageName, 0, 8) === "Doctrine") continue;
-				foreach($package->getClassFiles() as $class => $file) {
-					$annotations = $this->getClassAnnotations($class);
-
-					$tagged = true;
-					foreach($tags as $tag){
-						if(!$annotations->has($tag)) $tagged = false;
-					}
-
-					if($tagged)
-						$classes[$class] = $packageName;
+				$tagged = true;
+				foreach($tags as $tag){
+					if(!$annotations->has($tag)) $tagged = false;
 				}
-			}
 
-			$cache->set($identifier,$classes);
-		}elseif(isset($this->runtimeCache[$identifier])){
-			$classes = $this->runtimeCache[$identifier];
-		}else{
-			$this->runtimeCache[$identifier] = $classes = $cache->get($identifier);
+				if($tagged)
+					$classes[$class] = $packageName;
+			}
 		}
-		var_dump($classes);
+
 		return $classes;
 	}
 

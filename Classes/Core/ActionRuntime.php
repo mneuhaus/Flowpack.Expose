@@ -31,12 +31,6 @@ class ActionRuntime {
 	protected $annotationService;
 
 	/**
-	 * @var \Foo\ContentManagement\Core\CacheManager
-	 * @FLOW3\Inject
-	 */
-	protected $cacheManager;
-
-	/**
 	 * @var \Foo\ContentManagement\Core\ContentManager
 	 * @FLOW3\Inject
 	 */

@@ -38,12 +38,6 @@ abstract class AbstractAdapter implements \Foo\ContentManagement\Core\Adapters\A
 	protected $annotationService;
 		
 	/**
-	 * @var TYPO3\FLOW3\Cache\CacheManager
-	 * @FLOW3\Inject
-	 */
-	protected $cacheManager;
-	
-	/**
 	 * @var \TYPO3\FLOW3\Configuration\ConfigurationManager
 	 * @FLOW3\Inject
 	 */

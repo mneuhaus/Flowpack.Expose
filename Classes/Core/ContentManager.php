@@ -23,6 +23,7 @@ namespace Foo\ContentManagement\Core;
  *                                                                        */
 
 use TYPO3\FLOW3\Annotations as FLOW3;
+use Foo\ContentManagement\Annotations as CM;
 
 /**
  * ContentManager to retrieve and Initialize Adapters
@@ -31,12 +32,6 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * @FLOW3\Scope("singleton")
  */
 class ContentManager {
-	/**
-	 * @var \Foo\ContentManagement\Core\CacheManager
-	 * @FLOW3\Inject
-	 */
-	protected $cacheManager;
-
 	/**
 	 * @var \TYPO3\FLOW3\Configuration\ConfigurationManager
 	 * @FLOW3\Inject
@@ -78,7 +73,8 @@ class ContentManager {
 	 * return the Adapter responsible for the class
 	 *
 	 * @return $groups Array
-		 */
+	 * @CM\Cache
+	 */
 	public function getAdapterByClass($class){
 		$implementations = class_implements("\\" . ltrim($class, "\\"));
 		if(in_array("Doctrine\ORM\Proxy\Proxy", $implementations))
@@ -86,22 +82,13 @@ class ContentManager {
 
 		$this->adapters = $this->getAdapters();
 		
-		$cache = $this->cacheManager->getCache('Admin_Cache');
-		$identifier = "AdaptersByBeing-".sha1($class);
-		
-		if(!$cache->has($identifier) || true){
-			$adaptersByBeings = array();
-			foreach ($this->adapters as $adapter) {
-				foreach ($adapter->getClasses() as $class) {
-					$adaptersByBeings[$class] = get_class($adapter);
-				}
+		$adaptersByBeings = array();
+		foreach ($this->adapters as $adapter) {
+			foreach ($adapter->getClasses() as $class) {
+				$adaptersByBeings[$class] = get_class($adapter);
 			}
-			
-			$cache->set($identifier,$adaptersByBeings);
-		}else{
-			$adaptersByBeings = $cache->get($identifier);
 		}
-
+		
 		$adapterClass = $adaptersByBeings[$class];
 
 		return $this->adapters[$adapterClass];
@@ -119,7 +106,7 @@ class ContentManager {
 	 * Returns all active adapters
 	 *
 	 * @return $adapters
-		 */
+	 */
 	public function getAdapters(){
 		$settings = $this->getSettings();
 		$adapters = array();
@@ -148,55 +135,25 @@ class ContentManager {
 
 	public function getClassShortName($class) {
 		return $class;
-		$cache = $this->cacheManager->getCache('Admin_Cache');
-		$identifier = "ClassShortNames-".sha1(implode("-", array_keys($this->getAdapters())));
-
-		if(!$cache->has($identifier)){
-			$shortNames = array();
-			foreach ($this->adapters as $adapter) {
-				foreach ($adapter->getGroups() as $group => $beings) {
-					foreach ($beings as $conf) {
-						$being = $conf["being"];
-						$shortName = str_replace("domain_model_", "", strtolower(str_replace("\\", "_", $being)));
-						$shortNames[$being] = $shortName;
-						$shortNames[$shortName] = $being;
-					}
-				}
-			}
-
-			$cache->set($identifier,$shortNames);
-		}else{
-			$shortNames = $cache->get($identifier);
-		}
-
-		return $shortNames[$class];
 	}
 
 	/**
 	 * returns all active groups
 	 *
 	 * @return $groups Array
-		 */
+	 * @CM\Cache
+	 */
 	public function getGroups(){
-		$cache = $this->cacheManager->getCache('Admin_Cache');
-		$identifier = "Groups-".sha1(implode("-", array_keys($this->adapters)));
-		
-		if(!$cache->has($identifier)){
-			$groups = array();
-			$adapters = array();
-			foreach ($this->adapters as $adapter) {
-				foreach ($adapter->getGroups() as $group => $beings) {
-					foreach ($beings as $conf) {
-						$being = $conf["being"];
-						$conf["adapter"] = get_class($adapter);
-						$groups[$group]["beings"][$being] = $conf;
-					}
+		$groups = array();
+		$adapters = array();
+		foreach ($this->adapters as $adapter) {
+			foreach ($adapter->getGroups() as $group => $beings) {
+				foreach ($beings as $conf) {
+					$being = $conf["being"];
+					$conf["adapter"] = get_class($adapter);
+					$groups[$group]["beings"][$being] = $conf;
 				}
 			}
-
-			$cache->set($identifier,$groups);
-		}else{
-			$groups = $cache->get($identifier);
 		}
 
 		return $groups;
@@ -207,26 +164,17 @@ class ContentManager {
 	 *
 	 * @param string $class 
 	 * @return $group string
-		 */
+	 * @CM\Cache
+	 */
 	public function getGroupByClass($class){
-		$cache = $this->cacheManager->getCache('Admin_Cache');
-		$identifier = $this->cacheManager->createIdentifier("getGroupByClass-".$class);
-
-		if(!$cache->has($identifier)){
-			foreach ($this->adapters as $adapter) {
-				foreach ($adapter->getGroups() as $group => $beings) {
-					foreach ($beings as $beingName => $conf) {
-						if($class == $beingName)
-							break;
-					}
+		foreach ($this->adapters as $adapter) {
+			foreach ($adapter->getGroups() as $group => $beings) {
+				foreach ($beings as $beingName => $conf) {
+					if($class == $beingName)
+						break;
 				}
 			}
-			
-			$cache->set($identifier, $group);
-		}else{
-			$group = $cache->get($identifier);
 		}
-		
 		return $group;
 	}
 

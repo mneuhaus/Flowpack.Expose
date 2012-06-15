@@ -52,34 +52,26 @@ class ActionManager {
 	protected $objectManager;
 
 	public function getActions($action = null, $being = null, $id = false){
-#		$cache = $this->cacheManager->getCache('Admin_ActionCache');
-#		$identifier = sha1($action.$being.$id.$this->adapter);
-
-#		if(!$cache->has($identifier) && false){
-			$actions = array();
-			foreach($this->reflectionService->getAllImplementationClassNamesForInterface('Foo\ContentManagement\Core\Actions\ActionInterface') as $actionClassName) {
-				$inheritingClasses = $this->reflectionService->getAllSubClassNamesForClass($actionClassName);
-				foreach($inheritingClasses as $inheritingClass){
-					$inheritedObject = $this->objectManager->get($actionClassName);
-					if($inheritedObject->override($actionClassName,$being)){
-						$actionClassName = $inheritedObject;
-					}
-					unset($inheritedObject);
+		$actions = array();
+		foreach($this->reflectionService->getAllImplementationClassNamesForInterface('Foo\ContentManagement\Core\Actions\ActionInterface') as $actionClassName) {
+			$inheritingClasses = $this->reflectionService->getAllSubClassNamesForClass($actionClassName);
+			foreach($inheritingClasses as $inheritingClass){
+				$inheritedObject = $this->objectManager->get($actionClassName);
+				if($inheritedObject->override($actionClassName,$being)){
+					$actionClassName = $inheritedObject;
 				}
-
-				$a = $this->objectManager->get($actionClassName);
-				foreach ($a->getActionsForContext($being, $action, $id) as $actionName) {
-					$actions[] = array(
-						"actionName" => $actionName,
-						"controller" => $a
-					);
-				}
+				unset($inheritedObject);
 			}
-			ksort($actions);
-			#$cache->set($identifier,$actions);
-#		}else{
-#			$actions = $cache->get($identifier);
-#		}
+
+			$a = $this->objectManager->get($actionClassName);
+			foreach ($a->getActionsForContext($being, $action, $id) as $actionName) {
+				$actions[] = array(
+					"actionName" => $actionName,
+					"controller" => $a
+				);
+			}
+		}
+		ksort($actions);
 
 		return $actions;
 	}

@@ -30,11 +30,6 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
 abstract class AbstractAnnotationProvider implements AnnotationProviderInterface {
-    /**
-	 * @var TYPO3\FLOW3\Cache\CacheManager
-	 * @FLOW3\Inject
-	 */
-	protected $cacheManager;
 
 	/**
 	 * @var \TYPO3\FLOW3\Object\ObjectManagerInterface
