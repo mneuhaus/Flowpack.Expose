@@ -75,6 +75,7 @@ class ModelFormFactory extends \TYPO3\Form\Factory\AbstractFormFactory {
                 $propertyAnnotations = $classAnnotations->getPropertyAnnotations($name);
                 
                 if($propertyAnnotations->has("ignore") && $propertyAnnotations->get("ignore")->ignoreContext("form")) continue;
+                if($propertyAnnotations->has("inject")) continue;
 
                 $namespacedName = $namespace . "." . $name;
                 $this->form->getProcessingRule($namespacedName)->getPropertyMappingConfiguration()->allowAllProperties();
