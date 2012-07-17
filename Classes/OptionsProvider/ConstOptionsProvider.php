@@ -46,11 +46,11 @@ class ConstOptionsProvider extends \Foo\ContentManagement\Core\OptionsProvider\A
 
 	public function getOptions(){
 		$reflection = new \ReflectionClass($this->annotations->getClass());
-		$constants = $reflection->getConstants();
 		$regex = $this->annotations->getOptionsProvider()->regex;
-		foreach ($constants as $key => $value) {
-			if(!preg_match("/".$regex."/", $key))
-				unset($constants[$key]);
+		$constants = array();
+		foreach ($reflection->getConstants() as $key => $value) {
+			if(preg_match("/".$regex."/", $key))
+				$constants[constant($this->annotations->getClass() . '::' . $key)] = $value;
 		}
 		return $constants;
 	}
