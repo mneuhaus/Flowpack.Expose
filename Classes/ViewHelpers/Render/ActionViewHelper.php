@@ -22,13 +22,14 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  */
 class ActionViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 	/**
-	 * @param action $action name of the entry action
+	 * @param string $action name of the entry action
+	 * @param string $controller name of the entry controller
 	 * @param string $class the class to render the form for
 	 * @param object $object the object to rende the form for
 	 * @param array $overrideConfiguration factory specific configuration
 	 * @return string the rendered form
 	 */
-	public function render($action = "index" , $class = NULL, $object = NULL, array $overrideConfiguration = array()) {
+	public function render($action = "index" , $controller = "Foo\ContentManagement\Controller\IndexController", $class = NULL, $object = NULL, array $overrideConfiguration = array()) {
 		$response = new \TYPO3\FLOW3\Http\Response($this->controllerContext->getResponse());
 		$request = $this->controllerContext->getRequest();
 		$actionRuntime = new \Foo\ContentManagement\Core\ActionRuntime($request, $response);
@@ -37,6 +38,7 @@ class ActionViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 			$actionRuntime->setDefaultBeing($class);
 
 		$actionRuntime->setDefaultAction($action);
+		$actionRuntime->setDefaultController($controller);
 
 		return $actionRuntime->execute();
 	}
