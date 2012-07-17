@@ -95,7 +95,7 @@ class ActionRuntime {
 	 * @var string
 	 * @internal
 	 */
-	protected $defaultBeing;
+	protected $defaultBeing = null;
 
 	/**
 	 *
@@ -124,13 +124,6 @@ class ActionRuntime {
 		}
 		$this->request->setFormat("html");
 
-		$controllerObjectName = $this->request->getControllerObjectName();
-		if(empty($controllerObjectName))
-			$this->request->setControllerObjectName($this->defaultController);
-
-		if(is_null($this->request->getControllerActionName()))
-			$this->request->setControllerActionName($this->defaultAction);
-
 		$this->response = new \TYPO3\FLOW3\Http\Response($response);
 	}
 
@@ -140,6 +133,17 @@ class ActionRuntime {
 	 * @api
 	 */
 	public function execute() {
+		$controllerObjectName = $this->request->getControllerObjectName();
+
+		if(empty($controllerObjectName))
+			$this->request->setControllerObjectName($this->defaultController);
+
+		if(is_null($this->request->getControllerActionName()))
+			$this->request->setControllerActionName($this->defaultAction);
+
+		if(!$this->request->hasArgument("being"))
+			$this->request->setArgument("being", $this->defaultBeing);
+
 		$this->dispatcher->dispatch($this->request, $this->response);
 		return ($this->response->getContent());
 	}
@@ -202,6 +206,10 @@ class ActionRuntime {
 
 	public function setDefaultAction($action) {
 		$this->defaultAction = $action;
+	}
+
+	public function setDefaultController($controller) {
+		$this->defaultController = $controller;
 	}
 
 	public function setDefaultBeing($being) {
