@@ -21,7 +21,7 @@ use Symfony\Component\DomCrawler\Crawler;
  *
  * @group large
  */
-class ActionsTest extends \TYPO3\FLOW3\Tests\FunctionalTestCase {
+class EditControllerTest extends \TYPO3\FLOW3\Tests\FunctionalTestCase {
 
 	/**
 	 * @var boolean
@@ -57,6 +57,11 @@ class ActionsTest extends \TYPO3\FLOW3\Tests\FunctionalTestCase {
 		$this->router->addRoute($route);
 	}
 
+	public function callAction($uriArguments) {
+		$class = "Foo\ContentManagement\Tests\Functional\Actions\Fixtures\Domain\Model\Post";
+		return $this->browser->request('http://localhost/test/contentmanagement/actions?' . http_build_query($uriArguments));
+	}
+
 	public function createDummyPost() {
 		$post = new Fixtures\Domain\Model\Post();
 		$post->setEmail('foo@bar.org');
@@ -68,27 +73,68 @@ class ActionsTest extends \TYPO3\FLOW3\Tests\FunctionalTestCase {
 
 		return $postIdentifier;
 	}
-	
+
+
 	/**
 	 * @test
 	 */
-	public function postListIsRendered() {
-		$this->createDummyPost();
+	public function editPostFormIsRendered() {
+		return;
+		$identifier = $this->createDummyPost();
 
-		$uriArguments = array(
+		$response = $this->callAction(array(
 			'--actionRuntime' => array(
 				'being' => 'Foo\ContentManagement\Tests\Functional\Actions\Fixtures\Domain\Model\Post',
+				'id' => $identifier,
 				'@action' => 'index',
-				'@controller' => 'list',
+				'@controller' => 'edit',
 				'@package' => 'foo.contentmanagement'
 			)
-		);
-		$class = "Foo\ContentManagement\Tests\Functional\Actions\Fixtures\Domain\Model\Post";
-		$this->browser->request('http://localhost/test/contentmanagement/actions?' . http_build_query($uriArguments));
-		
-		$content = $this->browser->getLastResponse()->getContent();
+		));
 
-		$this->assertTrue((boolean) stristr($content, "foo@bar.org"));
+		$form = $this->browser->getForm();
+		$this->assertTrue($form->has("contentForm[item][name]"));
+		$this->assertEquals("myName", $form->get("contentForm[item][name]")->getValue());
+
+		$this->assertTrue($form->has("contentForm[item][email]"));
+		$this->assertEquals("foo@bar.org", $form->get("contentForm[item][email]")->getValue());
+	}
+
+	/**
+	 * @test
+	 */
+	public function editedPostIsSavedFromEditController() {
+		$identifier = $this->createDummyPost();
+
+		$response = $this->callAction(array(
+			'--actionRuntime' => array(
+				'being' => 'Foo\ContentManagement\Tests\Functional\Actions\Fixtures\Domain\Model\Post',
+				'id' => $identifier,
+				'@action' => 'index',
+				'@controller' => 'edit',
+				'@package' => 'foo.contentmanagement'
+			)
+		));
+
+		$content = $response->getContent();
+
+		$form = $this->browser->getForm();
+		$form["--contentForm[item][name]"] = "Tony Tester";
+		$form["--contentForm[item][email]"] = "tony@tester.com";
+		$response = $this->browser->submit($form);
+
+		// $response = $this->callAction(array(
+		// 	'--actionRuntime' => array(
+		// 		'being' => 'Foo\ContentManagement\Tests\Functional\Actions\Fixtures\Domain\Model\Post',
+		// 		'@action' => 'index',
+		// 		'@controller' => 'list',
+		// 		'@package' => 'foo.contentmanagement'
+		// 	)
+		// ));
+		
+		$content = $response->getContent();
+		#var_dump($content);
+		#$this->assertTrue((boolean) stristr($content, "foo@bar.org"));
 	}
 }
 ?>
