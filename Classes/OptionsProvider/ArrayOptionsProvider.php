@@ -33,25 +33,19 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 class ArrayOptionsProvider extends \Foo\ContentManagement\Core\OptionsProvider\AbstractOptionsProvider {
 	
 	public function getOptions(){
-		$being = $this->property->parent;
+		$class = $this->annotations->getClass();
 		$options = array();
 		
-		if(isset($this->property->optionsProvider->property))
-			$optionsProperty = $this->property->optionsProvider->property;
+		if(isset($this->annotations->getOptionsProvider()->property))
+			$optionsProperty = $this->annotations->getOptionsProvider()->property;
 		else
-			$optionsProperty = "_" . $this->property->name;
+			$optionsProperty = "_" . $this->annotations->getProperty();
 		
-		if(!empty($this->property->optionsProvider->options))
-			$rawOptions = $this->property->optionsProvider->options;
+		if(!empty($this->annotations->getOptionsProvider()->options))
+			$options = $this->annotations->getOptionsProvider()->options;
 		else
-			$rawOptions = $being->getValue($optionsProperty);
-		
-		if(is_array($rawOptions)){
-			foreach($rawOptions as $key => $value) {
-				$options[] = new \Foo\ContentManagement\Core\Option($key, $value, $this->isSelected($key));
-			}
-		}
-		
+			$options = $class->getValue($optionsProperty);
+			
 		return $options;
 	}
 }
