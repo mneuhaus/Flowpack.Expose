@@ -17,7 +17,7 @@ use TYPO3\FLOW3\Mvc\ActionRequest;
 /**
  * @api
  */
-class ActionRuntime {
+class ActionRuntime extends AbstractRuntime {
 	/**
 	 * @var \Foo\ContentManagement\Core\ActionManager
 	 * @FLOW3\Inject
@@ -35,40 +35,6 @@ class ActionRuntime {
 	 * @FLOW3\Inject
 	 */
 	protected $persistentStorageService;
-
-	/**
-	 * @var \TYPO3\FLOW3\Mvc\Dispatcher
-	 * @FLOW3\Inject
-	 */
-	protected $dispatcher;
-
-	/**
-	 * @var \TYPO3\FLOW3\Mvc\ActionRequest
-	 * @internal
-	 */
-	protected $request;
-
-	/**
-	 * @var \TYPO3\FLOW3\Http\Response
-	 * @internal
-	 */
-	protected $response;
-
-	/**
-	 * @FLOW3\Inject
-	 * @var \TYPO3\FLOW3\Security\Cryptography\HashService
-	 * @internal
-	 */
-	protected $hashService;
-
-	/**
-	 * Workaround...
-	 *
-	 * @FLOW3\Inject
-	 * @var \TYPO3\FLOW3\Mvc\FlashMessageContainer
-	 * @internal
-	 */
-	protected $flashMessageContainer;
 
 	/**
 	 * Default action to render if nothing else is specified 
@@ -111,109 +77,14 @@ class ActionRuntime {
 	protected $namespace = "actionRuntime";
 
 	/**
-	 * @param \TYPO3\FLOW3\Mvc\ActionRequest $request
-	 * @param \TYPO3\FLOW3\Http\Response $response
-	 * @internal
-	 */
-	public function __construct(\TYPO3\FLOW3\Mvc\ActionRequest $request, \TYPO3\FLOW3\Http\Response $response) {
-		$arguments = $request->getPluginArguments();
-		$this->request = new ActionRequest($request);
-		$this->request->setArgumentNamespace("--" . $this->namespace);
-		if (isset($arguments[$this->namespace])) {
-			$this->request->setArguments($arguments[$this->namespace]);
-		}
-		$this->request->setFormat("html");
-
-		$this->response = new \TYPO3\FLOW3\Http\Response($response);
-	}
-
-	/**
 	 *
-	 * @return string rendered form
-	 * @api
 	 */
-	public function execute() {
-		$controllerObjectName = $this->request->getControllerObjectName();
-
-		if(empty($controllerObjectName))
-			$this->request->setControllerObjectName($this->defaultController);
-
-		if(is_null($this->request->getControllerActionName()))
-			$this->request->setControllerActionName($this->defaultAction);
+	public function prepareExecution() {
+		parent::prepareExecution();
 
 		if(!$this->request->hasArgument("being"))
 			$this->request->setArgument("being", $this->defaultBeing);
-
-		$this->dispatcher->dispatch($this->request, $this->response);
-		return ($this->response->getContent());
 	}
 
-	/**
-	 * Get the request this object is bound to.
-	 *
-	 * This is mostly relevant inside Finishers, where you f.e. want to redirect
-	 * the user to another page.
-	 *
-	 * @return \TYPO3\FLOW3\Mvc\ActionRequest the request this object is bound to
-	 * @api
-	 */
-	public function getRequest() {
-		return $this->request;
-	}
-
-	/**
-	 * @param \TYPO3\FLOW3\Mvc\ActionRequest $request
-	 */
-	public function setRequest(\TYPO3\FLOW3\Mvc\ActionRequest $request) {
-		$this->request = $request;
-	}
-
-	/**
-	 * Get the response this object is bound to.
-	 *
-	 * This is mostly relevant inside Finishers, where you f.e. want to set response
-	 * headers or output content.
-	 *
-	 * @return \TYPO3\FLOW3\Http\Response the response this object is bound to
-	 * @api
-	 */
-	public function getResponse() {
-		return $this->response;
-	}
-	
-	/**
-	 * @param \TYPO3\FLOW3\Http\Response $response
-	 */
-	public function setResponse(\TYPO3\FLOW3\Http\Response $response) {
-		$this->response = $response;
-	}
-
-	/**
-	 * @return \TYPO3\FLOW3\Mvc\Controller\ControllerContext
-	 */
-	public function getControllerContext() {
-		$uriBuilder = new \TYPO3\FLOW3\Mvc\Routing\UriBuilder();
-		$uriBuilder->setRequest($this->request);
-
-		return new \TYPO3\FLOW3\Mvc\Controller\ControllerContext(
-			$this->request,
-			$this->response,
-			new \TYPO3\FLOW3\Mvc\Controller\Arguments(array()),
-			$uriBuilder,
-			$this->flashMessageContainer
-		);
-	}
-
-	public function setDefaultAction($action) {
-		$this->defaultAction = $action;
-	}
-
-	public function setDefaultController($controller) {
-		$this->defaultController = $controller;
-	}
-
-	public function setDefaultBeing($being) {
-		$this->defaultBeing = $being;
-	}
 }
 ?>
