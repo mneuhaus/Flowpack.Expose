@@ -40,7 +40,22 @@ class ClassAnnotationWrapper extends AbstractAnnotationWrapper {
 	}
 
 	public function getSets() {
-		return array("" => $this->getProperties());
+		$propertyObjects = $this->getProperties();
+		if($this->has("set")){
+			$sets = array();
+			foreach ($this->get("set") as $set) {
+				$properties = array_flip(explode(",", $set->properties));
+				foreach($properties as $property => $value){
+					if(!isset($propertyObjects[$property])){
+						throw new \TYPO3\FLOW3\Error\Exception('The Property "' . $property . '" doesn\'t exist in the class ' . $this->getClass(), 1343382125);
+					}
+					$properties[$property] = $propertyObjects[$property];
+				}
+				$sets[$set->title] = $properties;
+			}
+			return $sets;
+		}
+		return array("" => $propertyObjects);
 	}
 }
 
