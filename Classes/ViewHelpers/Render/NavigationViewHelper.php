@@ -1,23 +1,12 @@
 <?php
- 
 namespace Foo\ContentManagement\ViewHelpers\Render;
 
 /*                                                                        *
  * This script belongs to the Foo.ContentManagement package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
- * the terms of the GNU Lesser General Public License as published by the *
- * Free Software Foundation, either version 3 of the License, or (at your *
- * option) any later version.                                             *
- *                                                                        *
- * This script is distributed in the hope that it will be useful, but     *
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHAN-    *
- * TABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser       *
- * General Public License for more details.                               *
- *                                                                        *
- * You should have received a copy of the GNU Lesser General Public       *
- * License along with the script.                                         *
- * If not, see http://www.gnu.org/licenses/lgpl.html                      *
+ * the terms of the GNU Lesser General Public License, either version 3   *
+ *  of the License, or (at your option) any later version.                *
  *                                                                        *
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
@@ -25,38 +14,44 @@ namespace Foo\ContentManagement\ViewHelpers\Render;
 use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
- * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
+ * Render a Action for an Object or class
+ *
+ * The factory class must implement {@link TYPO3\Form\Factory\FormFactoryInterface}.
+ *
  * @api
  */
-class NavigationViewHelper extends AbstractRenderViewHelper {
+class NavigationViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 	/**
-	 * Renders the content.
-	 *
-	 * @param mixed $objects
-	 * @param string $variant
-	 * @return string
-	 * @api
+	 * @param string $action name of the entry action
+	 * @param string $controller name of the entry controller
+	 * @param string $navigationProvider the class to render the form for
+	 * @param array $options the object to rende the form for
+	 * @param string $navigationListElement TypoScript Element to use to render the ListElement
+	 * @param array $context
+	 * @return string the rendered form
 	 */
-	public function render($objects = array(), $variant = "List") {
-		$navigationProvider = new \Foo\ContentManagement\NavigationProvider\EntityNavigationProvider($objects);
-		return $this->view->renderContent("Navigation", array(
-			"objects" => $objects,
-			"navigationProvider" => $navigationProvider,
-			"linkRenderer" => $this
-		), $variant);
-	}
+	public function render($action = null , $controller = null, $navigationProvider = null, $options = array(), $navigationListElement = null, $context = array()) {
+		$response = new \TYPO3\FLOW3\Http\Response($this->controllerContext->getResponse());
+		$request = $this->controllerContext->getRequest();
+		$navigationRuntime = new \Foo\ContentManagement\Core\NavigationRuntime($request, $response);
 
-	public function renderLink($variables) {
-		foreach($variables as $key => $value)
-			$this->templateVariableContainer->add($key, $value);
-		
-		$output = $this->renderChildren();
-		
-		foreach($variables as $key => $value)
-			$this->templateVariableContainer->remove($key);
+		if (!is_null($action)){
+			$navigationRuntime->setDefaultAction($action);
+		}
 
-		return $output;
+		if (!is_null($controller)){
+			$navigationRuntime->setDefaultController($controller);
+		}
+
+		if (!is_null($navigationListElement)){
+			$navigationRuntime->setNavigationListElement($navigationListElement);
+		}
+
+		if (!empty($context)){
+			$navigationRuntime->setContext($context);
+		}
+		
+		return $navigationRuntime->execute();
 	}
 }
-
 ?>

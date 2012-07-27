@@ -27,9 +27,10 @@ class ActionViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 	 * @param string $class the class to render the form for
 	 * @param object $object the object to rende the form for
 	 * @param array $overrideConfiguration factory specific configuration
+	 * @param array $context
 	 * @return string the rendered form
 	 */
-	public function render($action = "index" , $controller = "Foo\ContentManagement\Controller\IndexController", $class = NULL, $object = NULL, array $overrideConfiguration = array()) {
+	public function render($action = "index" , $controller = "Foo\ContentManagement\Controller\IndexController", $class = NULL, $object = NULL, array $overrideConfiguration = array(), $context = null) {
 		$response = new \TYPO3\FLOW3\Http\Response($this->controllerContext->getResponse());
 		$request = $this->controllerContext->getRequest();
 		$actionRuntime = new \Foo\ContentManagement\Core\ActionRuntime($request, $response);
@@ -39,6 +40,9 @@ class ActionViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 		$actionRuntime->setDefaultAction($action);
 		$actionRuntime->setDefaultController($controller);
+
+		if(!is_null($context))
+			$actionRuntime->setContext($context);
 
 		return $actionRuntime->execute();
 	}
