@@ -133,7 +133,6 @@ class EditControllerTest extends \TYPO3\FLOW3\Tests\FunctionalTestCase {
 		// ));
 		
 		$content = $response->getContent();
-		#var_dump($content);
 		#$this->assertTrue((boolean) stristr($content, "foo@bar.org"));
 	}
 }

@@ -96,7 +96,6 @@ class FallbackTemplateView extends \TYPO3\Fluid\View\TemplateView {
 				$template = $this->getPathByPatternFallbacks("Views", $replacements);
 			//}catch (\Exception $e){
 			//	$noTemplate = true;
-			//	var_dump($e);
 			//}
 			//if(!$noTemplate)
 				$cache->set($identifier,$template);
