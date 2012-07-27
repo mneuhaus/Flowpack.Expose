@@ -1,0 +1,65 @@
+prototype(Foo.ContentManagement:Navigation.List) < prototype(TYPO3.TypoScript:Case)
+prototype(Foo.ContentManagement:Navigation.List) {
+	skipNonExistingTypes = ${true}
+}
+
+# Catch-all condition for the default case
+prototype(Foo.ContentManagement:Navigation.List).matchers.999999999999 {
+	condition = ${true}
+	type = 'Foo.ContentManagement:Navigation.DefaultList'
+}
+
+prototype(Foo.ContentManagement:Navigation.List).matchers.10000 {
+	condition = ${q(navigationListType).notEmpty()}
+	type = ${navigationListType}
+}
+
+prototype(Foo.ContentManagement:Navigation.DefaultList) < prototype(Foo.ContentManagement:NavigationRenderer)
+prototype(Foo.ContentManagement:Navigation.DefaultList) {
+	itemName = 'item'
+	itemRenderer = Foo.ContentManagement:Navigation.ListElement
+	providerClass = ${q(navigationProvider).default('\\Foo\\ContentManagement\\NavigationProvider\\EntityOverviewNavigationProvider')}
+	providerOptions = ${navigationProviderOptions}
+}
+
+prototype(Foo.ContentManagement:Navigation.EntityActionList) < prototype(Foo.ContentManagement:Navigation.DefaultList)
+prototype(Foo.ContentManagement:Navigation.EntityActionList) {
+	providerClass = ${q(navigationProvider).default('\\Foo\\ContentManagement\\NavigationProvider\\EntityNavigationProvider')}
+	providerOptions = ${options}
+	overrideContext {
+		navigationListElementType = ${q(navigationListElementType).default('Foo.ContentManagement:Navigation.EntityActionListElement')}
+		navigationLinkType = ${q(navigationLinkType).default('Foo.ContentManagement:Navigation.EntityActionLink')}
+	}
+}
+
+prototype(Foo.ContentManagement:Navigation.EntityFilterList) < prototype(Foo.ContentManagement:Navigation.DefaultList)
+prototype(Foo.ContentManagement:Navigation.EntityFilterList) {
+	providerClass = ${q(navigationProvider).default('\\Foo\\ContentManagement\\NavigationProvider\\EntityFilterNavigationProvider')}
+	providerOptions = ${options}
+	overrideContext {
+		navigationListElementType = ${q(navigationListElementType).default('Foo.ContentManagement:Navigation.EntityFilterElement')}
+		navigationLinkType = ${q(navigationLinkType).default('Foo.ContentManagement:Navigation.EntityFilterLink')}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+# Catch-all condition for the default case
+#prototype(Foo.ContentManagement:NavigationCase).matchers {
+#	900000.condition = ${typeExists()}
+#	900000.type = ${getClassName(item).transformToTypoScriptType() + "ListElement"}
+#	900000.fallThroughIfNonExisting = true
+#}
+
+#prototype(Foo.ContentManagement:Navigation.EntityOverview) < prototype(TYPO3.TypoScript:FluidRenderer)
+#prototype(Foo.ContentManagement:Navigation.EntityOverview) {
+#	templatePath = 'resource://Foo.ContentManagement/Private/Elements/Navigation/SimpleListElement.html'
+#	item = ${item}
+#}

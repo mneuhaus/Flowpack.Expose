@@ -34,14 +34,11 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
 abstract class AbstractNavigationProvider implements NavigationProviderInterface, \RecursiveIterator {
-    private $items;
-    private $position = 0;
+    protected $items = array();
+    protected $position = 0;
 
-    public function __construct($items) {
-    	if(is_object($items)){
-    		$items = iterator_to_array($items);
-    	}
-        $this->items = $items;
+    public function __construct($options) {
+        $this->options = $options;
     }
 
     public function valid() {

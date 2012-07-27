@@ -1,6 +1,6 @@
 <?php
 
-namespace Foo\ContentManagement\Reflection\Provider;
+namespace Foo\ContentManagement\Controller;
 
 /* *
  * This script belongs to the Foo.ContentManagement package.              *
@@ -22,48 +22,28 @@ namespace Foo\ContentManagement\Reflection\Provider;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
+use Doctrine\ORM\Mapping as ORM;
 use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
- * abstract base class for the ConfigurationProviders
+ * Standard controller for the Admin package
+ *
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-abstract class AbstractAnnotationProvider implements AnnotationProviderInterface {
+class NavigationController extends \TYPO3\TYPO3\Controller\Module\StandardController {
+	protected $defaultViewObjectName = 'TYPO3\TypoScript\View\TypoScriptView';
 
 	/**
-	 * @var \TYPO3\FLOW3\Object\ObjectManagerInterface
-	 * @FLOW3\Inject
+	 * Index action
+	 *
+	 * @return void
 	 */
-	protected $objectManager;
-
-	public function addAnnotation(&$annotations, $annotation) {
-		if(is_array($annotation)){
-			foreach ($annotation as $annotation1) {
-				$this->addAnnotation($annotations, $annotation1);
-			}
-			return;
+	public function indexAction() {
+		foreach ($this->request->getInternalArgument("__context") as $key => $value) {
+			$this->view->assign($key, $value);
 		}
-		
-		$annotationClass = get_class($annotation);
-
-		if($annotation instanceof \Foo\ContentManagement\Annotations\SingleAnnotationInterface){
-			$annotations[$annotationClass] = $annotation;
-		}else{
-			if(!isset($annotations[$annotationClass]))
-				$annotations[$annotationClass] = array();
-			$annotations[$annotationClass][] = $annotation;
-		}
-	}
-
-	public function findAnnotationByName($annotationName) {
-		if(class_exists($annotationName))
-			return $annotationName;
-
-		if(class_exists("Foo\ContentManagement\Annotations\\" . $annotationName))
-			return "Foo\ContentManagement\Annotations\\" . $annotationName;
-
-		throw new \TYPO3\FLOW3\Error\Exception('No AnnotationClass for the Annotation "'.$annotationName.'" could be found', 1342706668);
 	}
 }
+
 ?>

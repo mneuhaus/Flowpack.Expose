@@ -1,0 +1,12 @@
+{namespace cm=Foo\ContentManagement\ViewHelpers}
+<cm:annotations object="{item}">
+<cm:identity object="{item}">
+<cm:helper.buildFilter property="{options.property}" value="{identity}" as="filter">
+<f:link.action additionalParams="{--actionRuntime:{
+	filter: filter
+}}">
+	{item}
+</f:link.action>
+</cm:helper.buildFilter>
+</cm:identity>
+</cm:annotations>

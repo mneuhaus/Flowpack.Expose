@@ -1,8 +1,8 @@
 <?php
 
-namespace Foo\ContentManagement\Reflection\Provider;
+namespace Foo\ContentManagement\ViewHelpers\Helper;
 
-/* *
+/*                                                                        *
  * This script belongs to the Foo.ContentManagement package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
@@ -22,48 +22,32 @@ namespace Foo\ContentManagement\Reflection\Provider;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
+use Doctrine\ORM\Mapping as ORM;
 use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
- * abstract base class for the ConfigurationProviders
- *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
+ * @api
  */
-abstract class AbstractAnnotationProvider implements AnnotationProviderInterface {
-
+class BuildFilterViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
+	
 	/**
-	 * @var \TYPO3\FLOW3\Object\ObjectManagerInterface
-	 * @FLOW3\Inject
+	 *
+	 * @param string $property
+	 * @param string $value
+	 * @param string $as
+	 * @return string Rendered string
+	 * @api
 	 */
-	protected $objectManager;
-
-	public function addAnnotation(&$annotations, $annotation) {
-		if(is_array($annotation)){
-			foreach ($annotation as $annotation1) {
-				$this->addAnnotation($annotations, $annotation1);
-			}
-			return;
-		}
+	public function render($property, $value, $as = "filter") {
+		$filter = array($property => $value);
 		
-		$annotationClass = get_class($annotation);
-
-		if($annotation instanceof \Foo\ContentManagement\Annotations\SingleAnnotationInterface){
-			$annotations[$annotationClass] = $annotation;
-		}else{
-			if(!isset($annotations[$annotationClass]))
-				$annotations[$annotationClass] = array();
-			$annotations[$annotationClass][] = $annotation;
-		}
-	}
-
-	public function findAnnotationByName($annotationName) {
-		if(class_exists($annotationName))
-			return $annotationName;
-
-		if(class_exists("Foo\ContentManagement\Annotations\\" . $annotationName))
-			return "Foo\ContentManagement\Annotations\\" . $annotationName;
-
-		throw new \TYPO3\FLOW3\Error\Exception('No AnnotationClass for the Annotation "'.$annotationName.'" could be found', 1342706668);
+		$this->templateVariableContainer->add($as, $filter);
+		$content = $this->renderChildren();
+		$this->templateVariableContainer->remove($as);
+		
+		return $content;
 	}
 }
+
 ?>

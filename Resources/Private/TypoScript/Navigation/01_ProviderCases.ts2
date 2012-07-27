@@ -1,0 +1,20 @@
+prototype(Foo.ContentManagement:Navigation.Provider) < prototype(TYPO3.TypoScript:Case)
+#prototype(Foo.ContentManagement:Navigation.Provider) {
+#	skipNonExistingTypes = ${true}
+#}
+
+# Catch-all condition for the default case
+prototype(Foo.ContentManagement:Navigation.Provider).matchers.999999999999 {
+	condition = ${true}
+	type = 'Foo.ContentManagement:Navigation.DefaultProvider'
+}
+
+prototype(Foo.ContentManagement:Navigation.Provider).matchers.10000 {
+	condition = ${!q(navigationProviderType).empty()}
+	type = ${navigationProviderType}
+}
+
+prototype(Foo.ContentManagement:Navigation.DefaultProvider) < prototype(Foo.ContentManagement:NavigationRenderer)
+prototype(Foo.ContentManagement:Navigation.DefaultProvider) {
+	providerClass = '\\Foo\\ContentManagement\\NavigationProvider\\EntityOverviewNavigationProvider'
+}

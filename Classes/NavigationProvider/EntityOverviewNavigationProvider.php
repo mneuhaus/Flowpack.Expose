@@ -33,10 +33,18 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-class EntityNavigationProvider extends AbstractNavigationProvider {
+class EntityOverviewNavigationProvider extends AbstractNavigationProvider {
 	public function __construct($options, \Foo\ContentManagement\Core\PersistentStorageService $persistentStorageService) {
-		$this->items = $persistentStorageService->getObjects($options["class"]);
+		$groups = $persistentStorageService->getGroups();
+		foreach ($persistentStorageService->getGroups() as $groupTitle => $group) {
+			$group["title"] = $groupTitle;
+			$this->items[] = $group;
+		}
 	}
+
+	public function getChildren() {
+        return $this->items[$this->position]["beings"];
+    }
 }
 
 ?>

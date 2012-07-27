@@ -113,7 +113,7 @@ abstract class AbstractPersistentStorageAdapter implements \Foo\ContentManagemen
 			if(is_object($mixed) || is_array($mixed))
 				$value = \TYPO3\FLOW3\Reflection\ObjectAccess::getProperty($mixed, $property);
 		} catch(\TYPO3\FLOW3\Reflection\Exception\PropertyNotAccessibleException $e) {
-			var_dump($e);
+			throw $e;
 		}
 		return $value;
 	}

@@ -1,0 +1,36 @@
+prototype(Foo.ContentManagement:Navigation.ListElement) < prototype(TYPO3.TypoScript:Case)
+#prototype(Foo.ContentManagement:Navigation.ListElement) {
+#	skipNonExistingTypes = ${true}
+#}
+
+# Catch-all condition for the default case
+prototype(Foo.ContentManagement:Navigation.ListElement).matchers.999999999999 {
+	condition = ${true}
+	type = 'Foo.ContentManagement:Navigation.EntityOverviewListElement'
+}
+
+prototype(Foo.ContentManagement:Navigation.ListElement).matchers.10000 {
+	condition = ${q(navigationListElementType).notEmpty()}
+	type = ${navigationListElementType}
+}
+
+
+
+prototype(Foo.ContentManagement:Navigation.EntityOverviewListElement) < prototype(TYPO3.TypoScript:FluidRenderer)
+prototype(Foo.ContentManagement:Navigation.EntityOverviewListElement) {
+	templatePath = 'resource://Foo.ContentManagement/Private/Elements/Navigation/EntityOverviewListElement.html'
+	item = ${item}
+	options = ${options}
+	navigationLinkType = ${navigationLinkType}
+	link = Foo.ContentManagement:Navigation.Link
+}
+
+prototype(Foo.ContentManagement:Navigation.EntityFilterElement) < prototype(Foo.ContentManagement:Navigation.EntityOverviewListElement)
+prototype(Foo.ContentManagement:Navigation.EntityFilterElement) {
+	templatePath = 'resource://Foo.ContentManagement/Private/Elements/Navigation/EntityFilterElement.html'
+}
+
+prototype(Foo.ContentManagement:Navigation.EntityActionListElement) < prototype(Foo.ContentManagement:Navigation.EntityOverviewListElement)
+prototype(Foo.ContentManagement:Navigation.EntityActionListElement) {
+	templatePath = 'resource://Foo.ContentManagement/Private/Elements/Navigation/EntityActionListElement.html'
+}

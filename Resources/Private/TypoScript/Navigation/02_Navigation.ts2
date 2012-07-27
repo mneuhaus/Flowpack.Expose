@@ -1,0 +1,14 @@
+prototype(Foo.ContentManagement:Navigation) < prototype(TYPO3.TypoScript:FluidRenderer)
+prototype(Foo.ContentManagement:Navigation) {
+	partialRootPath = 'resource://Foo.ContentManagement/Private/Partials/Navigation'
+	templatePath = 'resource://Foo.ContentManagement/Private/Layouts/Navigation.html'
+	mainbox = TYPO3.TypoScript:FluidRenderer
+	provider = ${provider}
+}
+
+Foo.ContentManagement.NavigationController.index = Foo.ContentManagement:Navigation
+Foo.ContentManagement.NavigationController.index.mainbox {
+	templatePath = 'resource://Foo.ContentManagement/Private/Templates/Navigation/Index.html'
+	provider = ${provider}
+	itemsList = Foo.ContentManagement:Navigation.List
+}

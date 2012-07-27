@@ -32,11 +32,10 @@ interface PersistentStorageAdapterInterface {
 	/**
 	 * apply filters
 	 *
-	 * @param string $beings 
 	 * @param string $filters 
 	 * @return void
 		 */
-	public function applyFilters($beings, $filters);
+	public function applyFilters($filters);
 	
 	public function applyLimit($limit);
 	

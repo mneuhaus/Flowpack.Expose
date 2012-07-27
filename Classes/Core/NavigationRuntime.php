@@ -17,24 +17,7 @@ use TYPO3\FLOW3\Mvc\ActionRequest;
 /**
  * @api
  */
-class ActionRuntime extends AbstractRuntime {
-	/**
-	 * @var \Foo\ContentManagement\Core\ActionManager
-	 * @FLOW3\Inject
-	 */
-	protected $actionManager;
-
-	/**
-	 * @var \Foo\ContentManagement\Reflection\AnnotationService
-	 * @FLOW3\Inject
-	 */
-	protected $annotationService;
-
-	/**
-	 * @var \Foo\ContentManagement\Core\PersistentStorageService
-	 * @FLOW3\Inject
-	 */
-	protected $persistentStorageService;
+class NavigationRuntime extends AbstractRuntime {
 
 	/**
 	 * Default action to render if nothing else is specified 
@@ -43,7 +26,7 @@ class ActionRuntime extends AbstractRuntime {
 	 * @var string
 	 * @internal
 	 */
-	protected $defaultController = "Foo\ContentManagement\Controller\IndexController";
+	protected $defaultController = "\Foo\ContentManagement\Controller\NavigationController";
 
 	/**
 	 * Default action to render if nothing else is specified 
@@ -55,38 +38,27 @@ class ActionRuntime extends AbstractRuntime {
 	protected $defaultAction = "index";
 
 	/**
-	 * Default being to render if nothing else is specified 
-	 * or present in the arguments
 	 *
 	 * @var string
-	 * @internal
 	 */
-	protected $defaultBeing = null;
-
-	/**
-	 *
-	 * @var string
-	 * @internal
-	 */
-	protected $being;
+	protected $namespace = "navigationRuntime";
 
 	/**
 	 *
 	 * @var string
 	 */
-	protected $namespace = "actionRuntime";
+	protected $navigationProvider = "\Foo\ContentManagement\NavigationProvider\EntityNavigationProvider";
 
 	/**
 	 *
+	 * @var array
 	 */
-	public function prepareExecution() {
-		parent::prepareExecution();
+	protected $context = array(
+		'navigationProviderOptions' => array()
+	);
 
-		if(!$this->request->hasArgument("being"))
-			$this->request->setArgument("being", $this->defaultBeing);
-
-		$this->request->setArgument("being", $this->defaultBeing);
+	public function setNavigationListElement($navigationListElement) {
+		$this->request->setArgument("__navigationListElement", $navigationListElement);
 	}
-
 }
 ?>

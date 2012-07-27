@@ -33,9 +33,11 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-class EntityNavigationProvider extends AbstractNavigationProvider {
+class EntityFilterNavigationProvider extends AbstractNavigationProvider {
 	public function __construct($options, \Foo\ContentManagement\Core\PersistentStorageService $persistentStorageService) {
-		$this->items = $persistentStorageService->getObjects($options["class"]);
+		$annotations = $persistentStorageService->getClassAnnotations($options["class"]);
+		$propertyAnnotations = $annotations->getPropertyAnnotations($options["property"]);
+		$this->items = $persistentStorageService->getObjects($propertyAnnotations->getType());
 	}
 }
 

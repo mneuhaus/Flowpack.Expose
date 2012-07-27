@@ -32,38 +32,49 @@ use TYPO3\FLOW3\Mvc\ActionRequest;
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
 class ListController extends \Foo\ContentManagement\Core\Actions\AbstractAction {
+	protected $defaultViewObjectName = 'TYPO3\TypoScript\View\TypoScriptView';
 
 	/**
 	 * List objects
 	 */
 	public function indexAction() {
+
+		foreach ($this->request->getInternalArgument("__context") as $key => $value) {
+			$this->view->assign($key, $value);
+		}
+
 		if($this->request->hasArgument("being")){
 			$this->being = $this->persistentStorageService->getClassShortName($this->request->getArgument("being"));
 			$this->view->assign('className', $this->being);
 
 			$this->settings = $this->getSettings();
-			
-			$this->persistentStorageService->initQuery($this->being);
-			$results = $this->persistentStorageService->getQuery($this->being)->execute();
+
+			$adapter = $this->persistentStorageService->initQuery($this->being);
+
+			if($this->request->hasArgument("filter")){
+				$adapter->applyFilters($this->request->getArgument("filter"));
+			}
+
+			$results = $adapter->executeQuery();
 			$this->view->assign("objects", $results);
-			
+
 			// Redirect to creating a new Object if there aren't any (Clean Slate)
-			if( $results->count() < 1 ) {
+			if( $results->count() < 1 && !$this->request->hasArgument("filter") ) {
 				$arguments = array("being" => $this->persistentStorageService->getClassShortName($this->being));
 				$this->redirect("create", NULL, NULL, $arguments);
 			}
-			
+
 			$listActions = $this->actionManager->getActions("list", $this->being, true);
 			$this->view->assign('listActions', $listActions);
 
 			$hasId = isset($this->id) ? true : false;
 			$topBarActions = $this->actionManager->getActions("list", $this->being, $hasId);
 			$this->view->assign('topBarActions',$topBarActions);
-			
+
 			return $this->handleBulkActions();
 		}
 	}
-	
+
 	public function handleBulkActions(){
 		$actions = $this->actionManager->getActions("bulk", $this->being, true);
 		$this->view->assign("bulkActions", $actions);
@@ -84,7 +95,7 @@ class ListController extends \Foo\ContentManagement\Core\Actions\AbstractAction 
 
 				if($action->getAction() !== $bulkAction)
 					$action = $this->actionManager->getActionByShortName($action->getAction() . "Action");
-				
+
 				$action->execute($this->being, $request->getArgument("bulkItems"));
 				return $action->view->render();
 			}

@@ -41,7 +41,7 @@ abstract class AbstractAction extends \TYPO3\FLOW3\Mvc\Controller\ActionControll
 	protected $persistentStorageService;
 
 	/**
-	 * 
+	 *
 	 * @param \Foo\ContentManagement\Core\PersistentStorageService $persistentStorageService
 	 * @param \Foo\ContentManagement\Core\ActionManager   $actionManager
 	 */
@@ -53,9 +53,9 @@ abstract class AbstractAction extends \TYPO3\FLOW3\Mvc\Controller\ActionControll
 	public function getActionsForContext($class, $context, $id) {
 		return array();
 	}
-	
+
 	public function getPackage() {
-		return null;
+		return "Foo.ContentManagement";
 	}
 
 	public function getController() {
@@ -66,7 +66,7 @@ abstract class AbstractAction extends \TYPO3\FLOW3\Mvc\Controller\ActionControll
 	public function getTarget() {
 		return "_self";
 	}
-	
+
 	public function getClass() {
 		return "btn";
 	}
@@ -83,7 +83,7 @@ abstract class AbstractAction extends \TYPO3\FLOW3\Mvc\Controller\ActionControll
 	public function getAction() {
 		return lcfirst(self::__toString());
 	}
-	
+
 	public function getShortcut(){
 		return false;
 	}
@@ -94,6 +94,11 @@ abstract class AbstractAction extends \TYPO3\FLOW3\Mvc\Controller\ActionControll
 
 	public function render() {
 		$this->initializeView();
+		
+		foreach ($this->request->getInternalArgument("__context") as $key => $value) {
+			$this->view->assign($key, $value);
+		}
+
 		$actionResult = $this->execute();
 		if ($actionResult === NULL && $this->view instanceof \TYPO3\FLOW3\Mvc\View\ViewInterface) {
 			return $this->view->render($this->getActionName());
@@ -108,7 +113,7 @@ abstract class AbstractAction extends \TYPO3\FLOW3\Mvc\Controller\ActionControll
 #		$this->view = new \Foo\ContentManagement\View\FallbackTemplateView();
 #		$this->view->setControllerContext($this->actionRuntime->getControllerContext());
 #	}
-	
+
 	public function getSettings($path = null){
 		$paths = array("Foo.ContentManagement.ViewSettings");
 		$paths[] = ucfirst($this->getAction());
@@ -129,7 +134,7 @@ abstract class AbstractAction extends \TYPO3\FLOW3\Mvc\Controller\ActionControll
 	 * Initializes the controller
 	 *
 	 * This method should be called by the concrete processRequest() method.
-	 * 
+	 *
 	 * ( I need this function to be public to call it from the ControllerCallbackFinisher )
 	 *
 	 * @param \TYPO3\FLOW3\Mvc\RequestInterface $request

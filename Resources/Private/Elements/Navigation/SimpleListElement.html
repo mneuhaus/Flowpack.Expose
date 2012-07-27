@@ -1,0 +1,12 @@
+{namespace cm=Foo\ContentManagement\ViewHelpers}
+<li>
+<cm:annotations object="{item}">
+<cm:identity object="{item}">
+<f:link.action additionalParams="{--actionRuntime:{
+	controller: '\Foo\ContentManagement\Controller\EditController', 
+	being: annotations.class, 
+	id: identity
+}}">{item}</f:link.action>
+</cm:identity>
+</cm:annotations>
+</li>

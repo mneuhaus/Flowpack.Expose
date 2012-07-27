@@ -1,0 +1,55 @@
+Foo.ContentManagement.ListController.index = Foo.ContentManagement:ListController.Index
+
+prototype(Foo.ContentManagement:ListController.Index).matchers.10000 {
+	condition = ${q(listControllerType).notEmpty()}
+	type = ${listControllerType}
+}
+
+
+
+prototype(Foo.ContentManagement:ListController.Index) < prototype(TYPO3.TypoScript:Case)
+prototype(Foo.ContentManagement:ListController.Index).matchers.999999999999 {
+	condition = ${true}
+	type = 'Foo.ContentManagement.ListController.DefaultIndex'
+}
+
+prototype(Foo.ContentManagement.ListController.DefaultIndex) < prototype(TYPO3.TypoScript:FluidRenderer)
+prototype(Foo.ContentManagement.ListController.DefaultIndex) {
+	templatePath = 'resource://Foo.ContentManagement/Private/Elements/List/Table.html'
+	list = Foo.ContentManagement:List.List
+	objects = ${objects}
+	listActions = ${listActions}
+	topBarActions = ${topBarActions}
+	elementType = ${elementType}
+}
+
+
+
+prototype(Foo.ContentManagement:ListController.Index).matchers.20000 {
+	condition = ${q('resource://' + q(objects).getClassPackage() + '/Private/Elements/List/' + q(objects).getClassShortName() + 'List.html').fileExists()}
+	type = 'Foo.ContentManagement.ListController.DefaultEntityIndex'
+}
+
+prototype(Foo.ContentManagement.ListController.DefaultEntityIndex) < prototype(Foo.ContentManagement.ListController.DefaultIndex)
+prototype(Foo.ContentManagement.ListController.DefaultEntityIndex) {
+	templatePath = ${q('resource://' + q(objects).getClassPackage() + '/Private/Elements/List/' + q(objects).getClassShortName() + 'List.html')}
+}
+
+
+prototype(Foo.ContentManagement:List.List) < prototype(TYPO3.TypoScript:Case)
+
+# Catch-all condition for the default case
+prototype(Foo.ContentManagement:List.List).matchers.999999999999 {
+	condition = ${true}
+	type = 'Foo.ContentManagement:List.DefaultList'
+}
+
+prototype(Foo.ContentManagement:List.DefaultList) < prototype(Foo.ContentManagement:CollectionRenderer)
+prototype(Foo.ContentManagement:List.DefaultList) {
+	collection = ${items}
+	itemName = 'item'
+	itemRenderer = Foo.ContentManagement:List.Element
+#	overrideContext {
+#		elementType = ${q(elementType).default('Foo.ContentManagement:List.DefaultElement')}
+#	}
+}

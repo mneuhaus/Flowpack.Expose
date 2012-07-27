@@ -70,6 +70,12 @@ class AbstractRuntime {
 	protected $namespace = "actionRuntime";
 
 	/**
+	 *
+	 * @var array
+	 */
+	protected $context = array();
+
+	/**
 	 * @param \TYPO3\FLOW3\Mvc\ActionRequest $request
 	 * @param \TYPO3\FLOW3\Http\Response $response
 	 * @internal
@@ -83,6 +89,12 @@ class AbstractRuntime {
 		}
 		$this->request->setFormat("html");
 
+		if($this->request->hasArgument("action"))
+			$this->request->setControllerActionName($this->request->getArgument("action"));
+
+		if($this->request->hasArgument("controller"))
+			$this->request->setControllerObjectName($this->request->getArgument("controller"));
+
 		$this->response = new \TYPO3\FLOW3\Http\Response($response);
 	}
 
@@ -94,6 +106,8 @@ class AbstractRuntime {
 
 		if(is_null($this->request->getControllerActionName()))
 			$this->request->setControllerActionName($this->defaultAction);
+
+		$this->request->setArgument("__context", $this->context);
 	}
 
 	/**
@@ -139,7 +153,7 @@ class AbstractRuntime {
 	public function getResponse() {
 		return $this->response;
 	}
-	
+
 	/**
 	 * @param \TYPO3\FLOW3\Http\Response $response
 	 */
@@ -173,6 +187,10 @@ class AbstractRuntime {
 
 	public function setDefaultBeing($being) {
 		$this->defaultBeing = $being;
+	}
+
+	public function setContext($context) {
+		$this->context = array_merge($this->context, $context);
 	}
 }
 ?>

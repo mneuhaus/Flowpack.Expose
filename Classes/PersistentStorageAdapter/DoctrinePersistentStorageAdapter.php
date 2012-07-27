@@ -54,11 +54,13 @@ class DoctrinePersistentStorageAdapter extends \Foo\ContentManagement\Core\Persi
     /**
      * apply filters
      *
-     * @param string $beings
      * @param string $filters
      * @return void
-         */
-    public function applyFilters($beings, $filters) {
+     */
+    public function applyFilters($filters) {
+        foreach ($filters as $property => $value) {
+            $this->query->matching($this->query->contains($property, $value));
+        }
     }
 
     public function applyLimit($limit) {
@@ -90,6 +92,7 @@ class DoctrinePersistentStorageAdapter extends \Foo\ContentManagement\Core\Persi
             $this->repository = $this->objectManager->get($repository);
             $this->query = $this->repository->createQuery();
         }
+        return $this;
     }
 
     public function getClasses(){
