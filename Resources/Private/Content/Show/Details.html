@@ -1,14 +1,16 @@
 {namespace cm=Foo\ContentManagement\ViewHelpers}
 
+<cm:annotations object="{object}">
 <div class="box centered">
-	<h3 class="box-header">{being}</h3>
+	<h3 class="box-header">{object}</h3>
 	<div class="whitespace">
 		<br />
 		<dl>
-		<f:for each="{being.__properties}" as="value" key="property">
-			<dt>{property}</dt>
-			<dd>{value.string}</dd>
+		<f:for each="{annotations.properties}" as="property">
+			<dt>{property.label}</dt>
+			<dd>{property.value}</dd>
 		</f:for>
 		</dl>
 	</div>
 </div>
+</cm:annotations>
