@@ -68,7 +68,7 @@ class ModelFormFactory extends \TYPO3\Form\Factory\AbstractFormFactory {
         $this->form->getProcessingRule($namespace)->setDataType($class);
         $this->form->getProcessingRule($namespace)->getPropertyMappingConfiguration()->setTypeConverterOption('TYPO3\FLOW3\Property\TypeConverter\PersistentObjectConverter', \TYPO3\FLOW3\Property\TypeConverter\PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED, TRUE);
         $this->form->getProcessingRule($namespace)->getPropertyMappingConfiguration()->setTypeConverterOption('TYPO3\FLOW3\Property\TypeConverter\PersistentObjectConverter', \TYPO3\FLOW3\Property\TypeConverter\PersistentObjectConverter::CONFIGURATION_MODIFICATION_ALLOWED, TRUE);
-        $this->form->getProcessingRule($namespace)->getPropertyMappingConfiguration()->allowAllProperties();
+        $this->form->getProcessingRule($namespace)->getPropertyMappingConfiguration()->allowAllPropertiesRecursivly();
 
         foreach ($classAnnotations->getSets() as $set => $properties) {
             foreach ($properties as $name => $property) {
@@ -78,7 +78,7 @@ class ModelFormFactory extends \TYPO3\Form\Factory\AbstractFormFactory {
                 if($propertyAnnotations->has("inject")) continue;
 
                 $namespacedName = $namespace . "." . $name;
-                $this->form->getProcessingRule($namespacedName)->getPropertyMappingConfiguration()->allowAllProperties();
+                $this->form->getProcessingRule($namespacedName)->getPropertyMappingConfiguration()->allowAllPropertiesRecursivly();
 
                 if($propertyAnnotations->has("inline")){
 
