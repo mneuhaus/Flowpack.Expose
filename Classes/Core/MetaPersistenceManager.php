@@ -14,12 +14,12 @@ namespace Foo\ContentManagement\Core;
 use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
- * FLOW3's PersistenceService
+ * FLOW3's MetaPersistenceManager
  *
  * @FLOW3\Scope("singleton")
  * @api
  */
-class PersistenceService {
+class MetaPersistenceManager {
     /**
      * @var \TYPO3\FLOW3\Object\ObjectManagerInterface
      * @FLOW3\Inject
