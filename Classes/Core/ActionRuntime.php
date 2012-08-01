@@ -19,10 +19,10 @@ use TYPO3\FLOW3\Mvc\ActionRequest;
  */
 class ActionRuntime extends AbstractRuntime {
 	/**
-	 * @var \Foo\ContentManagement\Core\ActionManager
+	 * @var \Foo\ContentManagement\Core\FeatureManager
 	 * @FLOW3\Inject
 	 */
-	protected $actionManager;
+	protected $featureManager;
 
 	/**
 	 * @var \Foo\ContentManagement\Reflection\AnnotationService

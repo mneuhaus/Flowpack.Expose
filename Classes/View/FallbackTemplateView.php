@@ -31,10 +31,10 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  */
 class FallbackTemplateView extends \TYPO3\Fluid\View\TemplateView {
 	/**
-	 * @var \Foo\ContentManagement\Core\ActionManager
+	 * @var \Foo\ContentManagement\Core\FeatureManager
 	 * @FLOW3\Inject
 	 */
-	protected $actionManager;
+	protected $featureManager;
 
 	/**
 	 * @var \Foo\ContentManagement\Core\CacheManager

@@ -31,9 +31,9 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  */
 abstract class AbstractAction extends \TYPO3\FLOW3\Mvc\Controller\ActionController implements ActionInterface {
 	/**
-	 * @var \Foo\ContentManagement\Core\ActionManager
+	 * @var \Foo\ContentManagement\Core\FeatureManager
 	 */
-	protected $actionManager;
+	protected $featureManager;
 
 	/**
 	 * @var \Foo\ContentManagement\Core\PersistentStorageService
@@ -43,10 +43,10 @@ abstract class AbstractAction extends \TYPO3\FLOW3\Mvc\Controller\ActionControll
 	/**
 	 *
 	 * @param \Foo\ContentManagement\Core\PersistentStorageService $persistentStorageService
-	 * @param \Foo\ContentManagement\Core\ActionManager   $actionManager
+	 * @param \Foo\ContentManagement\Core\FeatureManager   $featureManager
 	 */
-	public function __construct(\Foo\ContentManagement\Core\ActionManager $actionManager, \Foo\ContentManagement\Core\PersistentStorageService $persistentStorageService) {
-		$this->actionManager = $actionManager;
+	public function __construct(\Foo\ContentManagement\Core\FeatureManager $featureManager, \Foo\ContentManagement\Core\PersistentStorageService $persistentStorageService) {
+		$this->featureManager = $featureManager;
 		$this->persistentStorageService = $persistentStorageService;
 	}
 

@@ -64,11 +64,11 @@ class ListController extends \Foo\ContentManagement\Core\Actions\AbstractAction 
 				$this->redirect("index", "new", NULL, $arguments);
 			}
 
-			$listActions = $this->actionManager->getActions("list", $this->being, true);
+			$listActions = $this->featureManager->getActions("list", $this->being, true);
 			$this->view->assign('listActions', $listActions);
 
 			$hasId = isset($this->id) ? true : false;
-			$topBarActions = $this->actionManager->getActions("list", $this->being, $hasId);
+			$topBarActions = $this->featureManager->getActions("list", $this->being, $hasId);
 			$this->view->assign('topBarActions',$topBarActions);
 
 			return $this->handleBulkActions();
@@ -76,7 +76,7 @@ class ListController extends \Foo\ContentManagement\Core\Actions\AbstractAction 
 	}
 
 	public function handleBulkActions(){
-		$actions = $this->actionManager->getActions("bulk", $this->being, true);
+		$actions = $this->featureManager->getActions("bulk", $this->being, true);
 		$this->view->assign("bulkActions", $actions);
 
 		$request = $this->request;
@@ -91,10 +91,10 @@ class ListController extends \Foo\ContentManagement\Core\Actions\AbstractAction 
 			if( isset($actions[$bulkAction]) ) {
 				$action = $actions[$bulkAction];
 
-				$this->actionManager->getView()->setTemplateByAction($action->getAction());
+				$this->featureManager->getView()->setTemplateByAction($action->getAction());
 
 				if($action->getAction() !== $bulkAction)
-					$action = $this->actionManager->getActionByShortName($action->getAction() . "Action");
+					$action = $this->featureManager->getActionByShortName($action->getAction() . "Action");
 
 				$action->execute($this->being, $request->getArgument("bulkItems"));
 				return $action->view->render();
