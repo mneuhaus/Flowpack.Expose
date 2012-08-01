@@ -20,6 +20,7 @@ prototype(Foo.ContentManagement.ListController.DefaultIndex) {
 	objects = ${objects}
 	listActions = ${listActions}
 	topBarActions = ${topBarActions}
+	className = ${className}
 	elementType = ${elementType}
 }
 

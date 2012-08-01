@@ -11,6 +11,7 @@ prototype(Foo.ContentManagement:List.DefaultElement) {
 	templatePath = 'resource://Foo.ContentManagement/Private/Elements/List/Row.html'
 	item = ${item}
 	listActions = ${listActions}
+	className = ${className}
 	options = ${options}
 	#ListLinkType = ${ListLinkType}
 	#link = Foo.ContentManagement:List.Link

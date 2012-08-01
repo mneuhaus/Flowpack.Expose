@@ -44,7 +44,7 @@ class ListController extends \Foo\ContentManagement\Core\Actions\AbstractAction 
 		}
 
 		if($this->request->hasArgument("being")){
-			$this->being = $this->persistentStorageService->getClassShortName($this->request->getArgument("being"));
+			$this->being = $this->request->getArgument("being");
 			$this->view->assign('className', $this->being);
 
 			$this->settings = $this->getSettings();
