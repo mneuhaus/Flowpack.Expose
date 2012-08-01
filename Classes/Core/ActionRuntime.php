@@ -82,10 +82,9 @@ class ActionRuntime extends AbstractRuntime {
 	public function prepareExecution() {
 		parent::prepareExecution();
 
-		if(!$this->request->hasArgument("being"))
+		if (!$this->request->hasArgument("being") && $this->defaultBeing !== NULL){
 			$this->request->setArgument("being", $this->defaultBeing);
-
-		$this->request->setArgument("being", $this->defaultBeing);
+		}
 	}
 
 }
