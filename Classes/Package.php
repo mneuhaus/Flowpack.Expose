@@ -18,7 +18,7 @@ class Package extends BasePackage {
 	 */
 	public function boot(\TYPO3\FLOW3\Core\Bootstrap $bootstrap) {
 		$dispatcher = $bootstrap->getSignalSlotDispatcher();
-		$dispatcher->connect('TYPO3\FLOW3\Monitor\FileMonitor', 'filesHaveChanged', 'Foo\ContentManagement\Core\CacheManager', 'flushCachesByChangedFiles');
+		#$dispatcher->connect('TYPO3\FLOW3\Monitor\FileMonitor', 'filesHaveChanged', 'Foo\ContentManagement\Core\CacheManager', 'flushCachesByChangedFiles');
 	}
 }
 ?>
