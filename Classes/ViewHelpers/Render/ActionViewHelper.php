@@ -33,18 +33,18 @@ class ActionViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 	public function render($action = "index" , $controller = "Foo\ContentManagement\Controller\IndexController", $class = NULL, $object = NULL, array $overrideConfiguration = array(), $context = null) {
 		$response = new \TYPO3\FLOW3\Http\Response($this->controllerContext->getResponse());
 		$request = $this->controllerContext->getRequest();
-		$actionRuntime = new \Foo\ContentManagement\Core\ActionRuntime($request, $response);
+		$featureRuntime = new \Foo\ContentManagement\Core\FeatureRuntime($request, $response);
 
 		if(!is_null($class))
-			$actionRuntime->setDefaultBeing($class);
+			$featureRuntime->setDefaultBeing($class);
 
-		$actionRuntime->setDefaultAction($action);
-		$actionRuntime->setDefaultController($controller);
+		$featureRuntime->setDefaultAction($action);
+		$featureRuntime->setDefaultController($controller);
 
 		if(!is_null($context))
-			$actionRuntime->setContext($context);
+			$featureRuntime->setContext($context);
 
-		return $actionRuntime->execute();
+		return $featureRuntime->execute();
 	}
 }
 ?>

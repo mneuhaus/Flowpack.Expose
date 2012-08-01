@@ -83,7 +83,7 @@ class EditControllerTest extends \TYPO3\FLOW3\Tests\FunctionalTestCase {
 		$identifier = $this->createDummyPost();
 
 		$response = $this->callAction(array(
-			'--actionRuntime' => array(
+			'--featureRuntime' => array(
 				'being' => 'Foo\ContentManagement\Tests\Functional\Actions\Fixtures\Domain\Model\Post',
 				'id' => $identifier,
 				'@action' => 'index',
@@ -107,7 +107,7 @@ class EditControllerTest extends \TYPO3\FLOW3\Tests\FunctionalTestCase {
 		$identifier = $this->createDummyPost();
 
 		$response = $this->callAction(array(
-			'--actionRuntime' => array(
+			'--featureRuntime' => array(
 				'being' => 'Foo\ContentManagement\Tests\Functional\Actions\Fixtures\Domain\Model\Post',
 				'id' => $identifier,
 				'@action' => 'index',
@@ -124,7 +124,7 @@ class EditControllerTest extends \TYPO3\FLOW3\Tests\FunctionalTestCase {
 		$response = $this->browser->submit($form);
 
 		// $response = $this->callAction(array(
-		// 	'--actionRuntime' => array(
+		// 	'--featureRuntime' => array(
 		// 		'being' => 'Foo\ContentManagement\Tests\Functional\Actions\Fixtures\Domain\Model\Post',
 		// 		'@action' => 'index',
 		// 		'@controller' => 'list',

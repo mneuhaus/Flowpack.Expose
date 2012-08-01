@@ -67,7 +67,7 @@ class AbstractRuntime {
 	 *
 	 * @var string
 	 */
-	protected $namespace = "actionRuntime";
+	protected $namespace = "featureRuntime";
 
 	/**
 	 *

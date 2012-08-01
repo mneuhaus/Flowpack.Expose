@@ -111,7 +111,7 @@ abstract class AbstractAction extends \TYPO3\FLOW3\Mvc\Controller\ActionControll
 
 #	public function initializeView() {
 #		$this->view = new \Foo\ContentManagement\View\FallbackTemplateView();
-#		$this->view->setControllerContext($this->actionRuntime->getControllerContext());
+#		$this->view->setControllerContext($this->featureRuntime->getControllerContext());
 #	}
 
 	public function getSettings($path = null){
@@ -126,8 +126,8 @@ abstract class AbstractAction extends \TYPO3\FLOW3\Mvc\Controller\ActionControll
 		$this->request = $request;
 	}
 
-	public function setActionRuntime($actionRuntime) {
-		$this->actionRuntime = $actionRuntime;
+	public function setFeatureRuntime($featureRuntime) {
+		$this->featureRuntime = $featureRuntime;
 	}
 
 	/**

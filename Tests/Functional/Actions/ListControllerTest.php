@@ -81,7 +81,7 @@ class ListControllerTest extends \TYPO3\FLOW3\Tests\FunctionalTestCase {
 		$this->createDummyPost();
 
 		$uriArguments = array(
-			'--actionRuntime' => array(
+			'--featureRuntime' => array(
 				'being' => 'Foo\ContentManagement\Tests\Functional\Actions\Fixtures\Domain\Model\Post',
 				'@action' => 'index',
 				'@controller' => 'list',

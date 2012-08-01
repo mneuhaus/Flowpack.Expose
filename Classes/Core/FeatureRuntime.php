@@ -17,7 +17,7 @@ use TYPO3\FLOW3\Mvc\ActionRequest;
 /**
  * @api
  */
-class ActionRuntime extends AbstractRuntime {
+class FeatureRuntime extends AbstractRuntime {
 	/**
 	 * @var \Foo\ContentManagement\Core\FeatureManager
 	 * @FLOW3\Inject
@@ -74,7 +74,7 @@ class ActionRuntime extends AbstractRuntime {
 	 *
 	 * @var string
 	 */
-	protected $namespace = "actionRuntime";
+	protected $namespace = "featureRuntime";
 
 	/**
 	 *

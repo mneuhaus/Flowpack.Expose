@@ -82,7 +82,7 @@ class NewControllerTest extends \TYPO3\FLOW3\Tests\FunctionalTestCase {
 		$this->createDummyPost();
 
 		$this->callAction(array(
-			'--actionRuntime' => array(
+			'--featureRuntime' => array(
 				'being' => 'Foo\ContentManagement\Tests\Functional\Actions\Fixtures\Domain\Model\Post',
 				'@action' => 'index',
 				'@controller' => 'new',
@@ -101,7 +101,7 @@ class NewControllerTest extends \TYPO3\FLOW3\Tests\FunctionalTestCase {
 	public function newPostIsCreatedFromNewController() {
 		return;
 		$this->callAction(array(
-			'--actionRuntime' => array(
+			'--featureRuntime' => array(
 				'being' => 'Foo\ContentManagement\Tests\Functional\Actions\Fixtures\Domain\Model\Post',
 				'@action' => 'index',
 				'@controller' => 'new',
@@ -115,7 +115,7 @@ class NewControllerTest extends \TYPO3\FLOW3\Tests\FunctionalTestCase {
 		$response = $this->browser->submit($form);
 
 		$response = $this->callAction(array(
-			'--actionRuntime' => array(
+			'--featureRuntime' => array(
 				'being' => 'Foo\ContentManagement\Tests\Functional\Actions\Fixtures\Domain\Model\Post',
 				'@action' => 'index',
 				'@controller' => 'list',
