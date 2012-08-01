@@ -1,0 +1,13 @@
+--- Application/TYPO3.TypoScript/Classes/TypoScriptObjects/FluidRenderer.php 
++++ (clipboard) 
+@@ -98,6 +98,10 @@
+ 
+ 		$templatePath = $this->tsValue('templatePath');
+ 		
++		if ($templatePath instanceof \TYPO3\Eel\FlowQuery\FlowQuery) {
++			$templatePath = current($templatePath->getContext());
++		}
++		
+ 		if ($templatePath === NULL) {
+ 			throw new \Exception('Template path "' . $templatePath . '" at path "' . $this->path . '"  not found');
+ 		}
