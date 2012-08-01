@@ -35,11 +35,11 @@ class EntityNavigationProvider extends AbstractNavigationProvider {
     * Constructor to load the items into the provider
     * 
     * @param array $options An array of options for this provider
-    * @param \Foo\ContentManagement\Core\PersistentStorageService $persistentStorageService to get the entities
-    * @return void
-    */
-    public function __construct($options, \Foo\ContentManagement\Core\PersistentStorageService $persistentStorageService) {
-        $this->items = $persistentStorageService->getObjects($options['class']);
+     * @param \Foo\ContentManagement\Core\PersistenceService $persistenceService to get the entities
+     * @return void
+     */
+    public function __construct($options, \Foo\ContentManagement\Core\PersistenceService $persistenceService) {
+        $this->items = $persistenceService->createQueryForType($options['class'])->execute();
     }
 
 }

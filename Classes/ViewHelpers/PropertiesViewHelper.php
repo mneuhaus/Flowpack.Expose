@@ -32,11 +32,11 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 class PropertiesViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
-	 * @var \Foo\ContentManagement\Core\PersistentStorageService
+	 * @var \Foo\ContentManagement\Reflection\AnnotationService
 	 * @FLOW3\Inject
 	 */
-	protected $persistentStorageService;	
-	
+	protected $annotationService;
+
 	/**
 	 *
 	 * @param object $object
@@ -49,8 +49,10 @@ class PropertiesViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelp
 	public function render($object = null, $className = null, $as = "properties", $context = "template") {
 		if(is_null($object) && !is_null($className))
 			$object = new $className;
-		
-		$properties = $this->persistentStorageService->getProperties($object, $context);
+
+		$classAnnotations = $this->annotationService->getClassAnnotations(get_class($object));
+		$classAnnotations->setObject($object);
+		$properties = $classAnnotations->getProperties();
 		
 		$this->templateVariableContainer->add($as, $properties);
 		$content = $this->renderChildren();

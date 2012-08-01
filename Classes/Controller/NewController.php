@@ -30,7 +30,12 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
 class NewController extends \Foo\ContentManagement\Core\Features\AbstractFeature {
-
+	/**
+	 * @var \Foo\ContentManagement\Core\PersistenceService
+     * @FLOW3\Inject
+	 */
+	protected $persistenceService;
+	
 	/**
 	 * Function to return the Actions to be displayed for this context
 	 */
@@ -51,7 +56,7 @@ class NewController extends \Foo\ContentManagement\Core\Features\AbstractFeature
 	 *
 	 */
 	public function indexAction() {
-		$being = $this->persistentStorageService->getClassShortName($this->request->getArgument("being"));
+		$being = $this->request->getArgument("being");
 		$object = new $being();
 		$this->view->assign("object", $object);
 	}
@@ -59,9 +64,9 @@ class NewController extends \Foo\ContentManagement\Core\Features\AbstractFeature
 	public function create($formRuntime) {
 		$formValues = $formRuntime->getFormState()->getFormValues();
 		$object = $formValues["item"];
-		$class = get_class($object);
-		$this->persistentStorageService->createObject($class, $object);
+		$this->persistenceService->add($object);
 
+		$class = get_class($object);
 		$this->redirect("index", "List", null, array( "being" => $class ));
 	}
 }

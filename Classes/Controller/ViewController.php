@@ -32,6 +32,12 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  */
 class ViewController extends \Foo\ContentManagement\Core\Features\AbstractFeature {
 	/**
+	 * @var \Foo\ContentManagement\Core\PersistenceService
+     * @FLOW3\Inject
+	 */
+	protected $persistenceService;
+
+	/**
 	 * Function to return the Actions to be displayed for this context
 	 */
 	public function getActionsForContext($class, $action, $id) {
@@ -51,7 +57,7 @@ class ViewController extends \Foo\ContentManagement\Core\Features\AbstractFeatur
 	 *
 	 */
 	public function indexAction() {
-		$being = $this->persistentStorageService->getClassShortName($this->request->getArgument("being"));
+		$class = $this->request->getArgument("being");
 		
 		$ids = array();
 		if($this->request->hasArgument("id"))
@@ -59,8 +65,8 @@ class ViewController extends \Foo\ContentManagement\Core\Features\AbstractFeatur
 		else if($this->request->hasArgument("ids"))
 			$ids = $this->request->getArgument("ids");
 
-		$being = $this->persistentStorageService->getObject($being, current($ids));
-		$this->view->assign("object", $being);
+		$object = $this->persistenceService->getObjectByIdentifier(current($ids), $class);
+		$this->view->assign("object", $object);
 	}
 
 }

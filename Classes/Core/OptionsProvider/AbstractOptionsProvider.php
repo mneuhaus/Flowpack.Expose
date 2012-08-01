@@ -31,18 +31,6 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * 
  */
 abstract class AbstractOptionsProvider implements OptionsProviderInterface {
-	/**
-	 * @var \TYPO3\FLOW3\Object\ObjectManagerInterface
-	 * @FLOW3\Inject
-	 */
-	protected $objectManager;
-
-	/**
-	 * @var \Foo\ContentManagement\Core\PersistentStorageService
-	 * @FLOW3\Inject
-	 */
-	protected $persistentStorageService;	
-
 	public function __construct($annotations = array()) {
 		$this->annotations = $annotations;
 	}

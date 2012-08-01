@@ -35,13 +35,14 @@ class EntityFilterNavigationProvider extends AbstractNavigationProvider {
      * Constructor to load the items into the provider based on a property relation
      *
      * @param array $options An array of options for this provider
-     * @param \Foo\ContentManagement\Core\PersistentStorageService $persistentStorageService to get the entities
+     * @param \Foo\ContentManagement\Core\PersistenceService $persistenceService to get the entities
+     * @param \Foo\ContentManagement\Reflection\AnnotationService $annotationService
      * @return void
      */
-    public function __construct($options, \Foo\ContentManagement\Core\PersistentStorageService $persistentStorageService) {
-        $annotations = $persistentStorageService->getClassAnnotations($options['class']);
+    public function __construct($options, \Foo\ContentManagement\Core\PersistenceService $persistenceService, \Foo\ContentManagement\Reflection\AnnotationService $annotationService) {
+        $annotations = $annotationService->getClassAnnotations($options['class']);
         $propertyAnnotations = $annotations->getPropertyAnnotations($options['property']);
-        $this->items = $persistentStorageService->getObjects($propertyAnnotations->getType());
+        $this->items = $persistenceService->createQueryForType($propertyAnnotations->getType())->execute();
     }
 
 }

@@ -21,8 +21,6 @@ Foo:
         OptionsProvider: \Foo\ContentManagement\OptionsProvider\RelationOptionsProvider
         Representation:
           DatetimeFormat: Y-m-d\TH:i:s
-    Adapters:
-      Foo\ContentManagement\PersistentStorageAdapter\DoctrinePersistentStorageAdapter: active
     AnnotationProvider:
       - Foo\ContentManagement\Reflection\Provider\DefaultsAnnotationProvider
       - Foo\ContentManagement\Reflection\Provider\ReflectionAnnotationProvider

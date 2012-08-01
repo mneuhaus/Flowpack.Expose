@@ -18,23 +18,6 @@ use TYPO3\FLOW3\Mvc\ActionRequest;
  * @api
  */
 class FeatureRuntime extends AbstractRuntime {
-	/**
-	 * @var \Foo\ContentManagement\Core\FeatureManager
-	 * @FLOW3\Inject
-	 */
-	protected $featureManager;
-
-	/**
-	 * @var \Foo\ContentManagement\Reflection\AnnotationService
-	 * @FLOW3\Inject
-	 */
-	protected $annotationService;
-
-	/**
-	 * @var \Foo\ContentManagement\Core\PersistentStorageService
-	 * @FLOW3\Inject
-	 */
-	protected $persistentStorageService;
 
 	/**
 	 * Default action to render if nothing else is specified 

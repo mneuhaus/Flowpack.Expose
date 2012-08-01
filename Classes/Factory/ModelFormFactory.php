@@ -6,11 +6,18 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 use TYPO3\Form\Core\Model\FormDefinition;
 
 class ModelFormFactory extends \TYPO3\Form\Factory\AbstractFormFactory {
+
     /**
-     * @var \Foo\ContentManagement\Core\PersistentStorageService
+     * @var \Foo\ContentManagement\Reflection\AnnotationService
      * @FLOW3\Inject
      */
-    protected $persistentStorageService;
+    protected $annotationService;
+
+    /**
+     * @var \Foo\ContentManagement\Core\PersistenceService
+     * @FLOW3\Inject
+     */
+    protected $persistenceService;
 
     /**
      * @var \TYPO3\FLOW3\Mvc\ActionRequest
@@ -41,7 +48,7 @@ class ModelFormFactory extends \TYPO3\Form\Factory\AbstractFormFactory {
         $this->setRequest($factorySpecificConfiguration["request"]);
         
         if(isset($factorySpecificConfiguration["class"]))
-            $object = $this->persistentStorageService->getObject($factorySpecificConfiguration["class"]);
+            $object = new $factorySpecificConfiguration["class"]();
 
         if(isset($factorySpecificConfiguration["object"]))
             $object = $factorySpecificConfiguration["object"];
@@ -59,8 +66,8 @@ class ModelFormFactory extends \TYPO3\Form\Factory\AbstractFormFactory {
     }
 
     public function generateElements($object, $section, $namespace = ""){
-        $class = $this->persistentStorageService->getClass($object);
-        $classAnnotations = $this->persistentStorageService->getClassAnnotations($class);
+        $class = get_class($object);
+        $classAnnotations = $this->annotationService->getClassAnnotations($class);
         $classAnnotations->setObject($object);
 
         $elements = array();
@@ -84,7 +91,7 @@ class ModelFormFactory extends \TYPO3\Form\Factory\AbstractFormFactory {
 
                     $inlineVariant = $propertyAnnotations->getInline()->getVariant();
                     $type = $propertyAnnotations->getType();
-                    $inlineAnnotations = $this->persistentStorageService->getClassAnnotations($type);
+                    $inlineAnnotations = $this->annotationService->getClassAnnotations($type);
                     
                     // Create a Container for the "Rows" outside the later processed namespace
                     $containerSection = $section->createElement("container.".$namespacedName, $inlineVariant);
@@ -152,9 +159,9 @@ class ModelFormFactory extends \TYPO3\Form\Factory\AbstractFormFactory {
         }
 
         $object = $classAnnotations->getObject();
-        if(!$this->persistentStorageService->isNewObject($object)){
+        if(!$this->persistenceService->isNewObject($object)){
             $elements["__identity"] = $section->createElement($namespace . ".__identity", "Foo.ContentManagement:Hidden");
-            $elements["__identity"]->setDefaultValue($this->persistentStorageService->getId($object));
+            $elements["__identity"]->setDefaultValue($this->persistenceService->getIdentifierByObject($object));
         }
 
         return $elements;

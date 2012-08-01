@@ -32,10 +32,10 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 class IdentityViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
-	 * @var \Foo\ContentManagement\Core\PersistentStorageService
+	 * @var \Foo\ContentManagement\Core\PersistenceService
 	 * @FLOW3\Inject
 	 */
-	protected $persistentStorageService;
+	protected $persistenceService;
 	
 	/**
 	 *
@@ -45,7 +45,7 @@ class IdentityViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper
 		 * @api
 	 */
 	public function render($object = null, $as = "identity") {
-		$identity = $this->persistentStorageService->getId($object);
+		$identity = $this->persistenceService->getIdentifierByObject($object);
 		
 		$this->templateVariableContainer->add($as, $identity);
 		$content = $this->renderChildren();

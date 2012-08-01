@@ -35,6 +35,18 @@ class ListController extends \Foo\ContentManagement\Core\Features\AbstractFeatur
 	protected $defaultViewObjectName = 'TYPO3\TypoScript\View\TypoScriptView';
 
 	/**
+	 * @var \Foo\ContentManagement\Core\PersistenceService
+     * @FLOW3\Inject
+	 */
+	protected $persistenceService;
+
+	/**
+	 * @var \Foo\ContentManagement\Core\FeatureManager
+     * @FLOW3\Inject
+	 */
+	protected $featureManager;
+
+	/**
 	 * List objects
 	 */
 	public function indexAction() {
@@ -47,20 +59,21 @@ class ListController extends \Foo\ContentManagement\Core\Features\AbstractFeatur
 			$this->being = $this->request->getArgument("being");
 			$this->view->assign('className', $this->being);
 
-			$this->settings = $this->getSettings();
-
-			$adapter = $this->persistentStorageService->initQuery($this->being);
+			$query = $this->persistenceService->createQueryForType($this->being);
 
 			if($this->request->hasArgument("filter")){
-				$adapter->applyFilters($this->request->getArgument("filter"));
+				$filters = $this->request->getArgument("filter");
+				foreach ($filters as $property => $value) {
+            		$query->matching($query->contains($property, $value));
+        		}
 			}
 
-			$results = $adapter->executeQuery();
+			$results = $query->execute();
 			$this->view->assign("objects", $results);
 
 			// Redirect to creating a new Object if there aren't any (Clean Slate)
 			if( $results->count() < 1 && !$this->request->hasArgument("filter") ) {
-				$arguments = array("being" => $this->persistentStorageService->getClassShortName($this->being));
+				$arguments = array("being" => $this->being);
 				$this->redirect("index", "new", NULL, $arguments);
 			}
 

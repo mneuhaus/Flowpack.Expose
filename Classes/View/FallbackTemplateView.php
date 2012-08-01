@@ -43,10 +43,10 @@ class FallbackTemplateView extends \TYPO3\Fluid\View\TemplateView {
 	protected $cacheManager;
 
 	/**
-	 * @var \Foo\ContentManagement\Core\PersistentStorageService
+	 * @var \TYPO3\FLOW3\Configuration\ConfigurationManager
 	 * @FLOW3\Inject
 	 */
-	protected $persistentStorageService;
+	protected $configurationManager;
 
 	/**
 	 * Resolve the template path and filename for the given action. If $actionName
@@ -76,7 +76,7 @@ class FallbackTemplateView extends \TYPO3\Fluid\View\TemplateView {
 			if(class_exists($being, false) && false){
 #				$replacements["@package"] = $this->helper->getPackageByClassName($being) ? $this->helper->getPackageByClassName($being) : "Admin";
 
-				$replacements["@being"] = $this->persistentStorageService->getShortName($being);
+				$replacements["@being"] = $this->getShortName($being);
 
 				// TODO: Reimplement Variants
 				#$being = $this->helper->getBeing($being);
@@ -116,7 +116,7 @@ class FallbackTemplateView extends \TYPO3\Fluid\View\TemplateView {
 	public function getPathByPatternFallbacks($patterns, $replacements){
 		if(is_string($patterns)){
 			$paths = explode(".",$patterns);
-			$patterns = $this->persistentStorageService->getSettings();
+			$patterns = $this->configurationManager->getConfiguration(\TYPO3\FLOW3\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, "Foo.ContentManagement");
 			$patterns = $patterns["Fallbacks"];
 			foreach ($paths as $path) {
 				$patterns = $patterns[$path];
@@ -189,6 +189,14 @@ class FallbackTemplateView extends \TYPO3\Fluid\View\TemplateView {
 		} else {
 			return str_replace('@packageResourcesPath', 'resource://Foo.ContentManagement', $this->layoutRootPathPattern);
 		}
+	}
+
+	public function getShortName($class){
+		if(is_object($class))
+			$class = get_class($class);
+
+		$parts = explode("\\", $class);
+		return array_pop($parts);
 	}
 }
 

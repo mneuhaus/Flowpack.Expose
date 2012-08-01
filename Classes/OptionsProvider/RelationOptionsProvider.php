@@ -31,12 +31,23 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
 class RelationOptionsProvider extends \Foo\ContentManagement\Core\OptionsProvider\AbstractOptionsProvider {
-	
+	/**
+	 * @var \Foo\ContentManagement\Core\PersistenceService
+     * @FLOW3\Inject
+	 */
+	protected $persistenceService;
+
+	/**
+	 * @var \Foo\ContentManagement\Core\Formatter
+	 * @FLOW3\Inject
+	 */
+	protected $formatter;
+
 	public function getOptions(){
 		$options = array();
-		$objects = $this->persistentStorageService->getObjects($this->annotations->getType());
+		$objects = $this->persistenceService->getQueryByType($this->annotations->getType())->execute();
 		foreach ($objects as $object) {
-			$options[$this->persistentStorageService->getId($object)] = $this->persistentStorageService->getString($object);
+			$options[$this->persistenceService->getIdentifierByObject($object)] = $this->formatter->convert($object, "string");
 		}
 		return $objects;
 	}

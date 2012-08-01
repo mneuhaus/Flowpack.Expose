@@ -31,6 +31,12 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  */
 class DeleteController extends \Foo\ContentManagement\Core\Features\AbstractFeature {
 	/**
+	 * @var \Foo\ContentManagement\Core\PersistenceService
+     * @FLOW3\Inject
+	 */
+	protected $persistenceService;
+
+	/**
 	 * Function to return the Actions to be displayed for this context
 	 */
 	public function getActionsForContext($class, $action, $id) {
@@ -52,7 +58,7 @@ class DeleteController extends \Foo\ContentManagement\Core\Features\AbstractFeat
 	 *
 	 */
 	public function indexAction() {
-		$being = $this->request->getArgument("being");
+		$class = $this->request->getArgument("being");
 		
 		$ids = array();
 		if($this->request->hasArgument("id"))
@@ -63,11 +69,11 @@ class DeleteController extends \Foo\ContentManagement\Core\Features\AbstractFeat
 		if(count($ids) > 0){
 			$objects = array();
 			foreach ($ids as $id) {
-				$objects[] = $this->persistentStorageService->getObject($being, $id);
+				$objects[] = $this->persistenceService->getObjectByIdentifier($id, $class);
 			}
 			$this->view->assign("objects", $objects);
 			$this->view->assign("ids", implode(",", $ids));
-			$this->view->assign("class", $this->persistentStorageService->getClassShortName($being));
+			$this->view->assign("class", $class);
 		}
 	}
 
@@ -76,7 +82,7 @@ class DeleteController extends \Foo\ContentManagement\Core\Features\AbstractFeat
 	 *
 	 */
 	public function deleteAction() {
-		$being = $this->request->getArgument("being");
+		$class = $this->request->getArgument("being");
 		
 		$ids = array();
 		if($this->request->hasArgument("id"))
@@ -86,10 +92,11 @@ class DeleteController extends \Foo\ContentManagement\Core\Features\AbstractFeat
 
 		if( is_array($ids) ) {
 			foreach($ids as $id) {
-				$this->persistentStorageService->deleteObject($being, $id);
+				$object = $this->persistenceService->getObjectByIdentifier($id, $class);
+				$this->persistenceService->remove($object);
 			}
 			
-			$arguments = array("being" => $this->persistentStorageService->getClassShortName($being));
+			$arguments = array("being" => $class);
 			$this->redirect('index', "list", null, $arguments);
 		}
 	}

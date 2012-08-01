@@ -32,6 +32,12 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  */
 class EditController extends \Foo\ContentManagement\Core\Features\AbstractFeature {
 	/**
+	 * @var \Foo\ContentManagement\Core\PersistenceService
+     * @FLOW3\Inject
+	 */
+	protected $persistenceService;
+
+	/**
 	 * Function to return the Actions to be displayed for this context
 	 */
 	public function getActionsForContext($class, $action, $id) {
@@ -51,8 +57,8 @@ class EditController extends \Foo\ContentManagement\Core\Features\AbstractFeatur
 	 */
 	public function indexAction() {
 		if($this->request->hasArgument("being") && $this->request->hasArgument("id")){
-			$being = $this->persistentStorageService->getClassShortName($this->request->getArgument("being"));
-			$object = $this->persistentStorageService->getObject($being, $this->request->getArgument("id"));
+			$class = $this->request->getArgument("being");
+			$object = $this->persistenceService->getObjectByIdentifier($this->request->getArgument("id"), $class);
 			$this->view->assign("object", $object);
 		}
 	}
@@ -61,7 +67,7 @@ class EditController extends \Foo\ContentManagement\Core\Features\AbstractFeatur
 		$formValues = $formRuntime->getFormState()->getFormValues();
 		$object = $formValues["item"];
 		$class = get_class($object);
-		$this->persistentStorageService->updateObject($class, $object);
+		$this->persistenceService->update($object);
 
 		$this->redirect("index", "List", null, array( "being" => $class ));
 	}

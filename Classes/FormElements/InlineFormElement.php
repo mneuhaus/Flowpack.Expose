@@ -36,12 +36,6 @@ class InlineFormElement extends \TYPO3\Form\FormElements\Section {
 	protected $namespace;
 
 	/**
-	 * @var \Foo\ContentManagement\Core\PersistentStorageService
-	 * @FLOW3\Inject
-	 */
-	protected $persistentStorageService;
-
-	/**
 	 * @var \Foo\ContentManagement\Factory\ModelFormFactory
 	 * @FLOW3\Inject
 	 */

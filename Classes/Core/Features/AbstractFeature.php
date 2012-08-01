@@ -36,18 +36,11 @@ abstract class AbstractFeature extends \TYPO3\FLOW3\Mvc\Controller\ActionControl
 	protected $featureManager;
 
 	/**
-	 * @var \Foo\ContentManagement\Core\PersistentStorageService
-	 */
-	protected $persistentStorageService;
-
-	/**
 	 *
-	 * @param \Foo\ContentManagement\Core\PersistentStorageService $persistentStorageService
-	 * @param \Foo\ContentManagement\Core\FeatureManager   $featureManager
+	 * @param \Foo\ContentManagement\Core\FeatureManager $featureManager
 	 */
-	public function __construct(\Foo\ContentManagement\Core\FeatureManager $featureManager, \Foo\ContentManagement\Core\PersistentStorageService $persistentStorageService) {
+	public function __construct(\Foo\ContentManagement\Core\FeatureManager $featureManager) {
 		$this->featureManager = $featureManager;
-		$this->persistentStorageService = $persistentStorageService;
 	}
 
 	public function getActionsForContext($class, $context, $id) {
@@ -59,7 +52,7 @@ abstract class AbstractFeature extends \TYPO3\FLOW3\Mvc\Controller\ActionControl
 	}
 
 	public function getController() {
-		$controller = $this->persistentStorageService->getShortName($this);
+		$controller = $this->getShortName($this);
 		return str_replace("Controller", "", $controller);
 	}
 
@@ -76,7 +69,7 @@ abstract class AbstractFeature extends \TYPO3\FLOW3\Mvc\Controller\ActionControl
 	}
 
 	public function getActionName() {
-		$action = $this->persistentStorageService->getShortName($this);
+		$action = $this->getShortName($this);
 		return str_replace("Controller", "", $action);
 	}
 
@@ -90,6 +83,14 @@ abstract class AbstractFeature extends \TYPO3\FLOW3\Mvc\Controller\ActionControl
 
 	public function override($class, $being){
 		return false;
+	}
+
+	public function getShortName($class){
+		if(is_object($class))
+			$class = get_class($class);
+
+		$parts = explode("\\", $class);
+		return array_pop($parts);
 	}
 
 	public function render() {
@@ -107,19 +108,6 @@ abstract class AbstractFeature extends \TYPO3\FLOW3\Mvc\Controller\ActionControl
 		} elseif (is_object($actionResult) && method_exists($actionResult, '__toString')) {
 			return (string) $actionResult;
 		}
-	}
-
-#	public function initializeView() {
-#		$this->view = new \Foo\ContentManagement\View\FallbackTemplateView();
-#		$this->view->setControllerContext($this->featureRuntime->getControllerContext());
-#	}
-
-	public function getSettings($path = null){
-		$paths = array("Foo.ContentManagement.ViewSettings");
-		$paths[] = ucfirst($this->getAction());
-		if(!is_null($path))
-			$paths[] = $path;
- 		return $this->persistentStorageService->getSettings(implode(".", $paths));
 	}
 
 	public function setRequest($request) {

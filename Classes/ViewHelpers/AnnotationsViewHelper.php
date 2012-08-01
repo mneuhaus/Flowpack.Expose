@@ -32,10 +32,10 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 class AnnotationsViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
-	 * @var \Foo\ContentManagement\Core\PersistentStorageService
+	 * @var \Foo\ContentManagement\Reflection\AnnotationService
 	 * @FLOW3\Inject
 	 */
-	protected $persistentStorageService;
+	protected $annotationService;
 	
 	/**
 	 *
@@ -49,7 +49,7 @@ class AnnotationsViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHel
 		if(is_null($className) && !is_null($object))
 			$className = get_class($object);
 		
-		$classAnnotations = $this->persistentStorageService->getClassAnnotations($className);
+		$classAnnotations = $this->annotationService->getClassAnnotations($className);
 
 		$this->templateVariableContainer->add($as, $classAnnotations);
 		$content = $this->renderChildren();

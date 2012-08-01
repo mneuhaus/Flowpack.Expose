@@ -25,7 +25,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
  * NavigationProvider to show entities which are marked to be shown through
- * the annotation @CM\Active seperated into groups
+ * the annotation CM\Active seperated into groups
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
@@ -35,17 +35,47 @@ class EntityOverviewNavigationProvider extends AbstractNavigationProvider {
      * Constructor to load the entities grouped into the provider
      *
      * @param array $options An array of options for this provider
-     * @param \Foo\ContentManagement\Core\PersistentStorageService $persistentStorageService to get the entities
+     * @param \Foo\ContentManagement\Reflection\AnnotationService $annotationService
      * @return void
      */
-    public function __construct($options, \Foo\ContentManagement\Core\PersistentStorageService $persistentStorageService) {
-        $groups = $persistentStorageService->getGroups();
-        foreach ($persistentStorageService->getGroups() as $groupTitle => $group) {
+    public function __construct($options, \Foo\ContentManagement\Reflection\AnnotationService $annotationService) {
+        $this->annotationService = $annotationService;
+
+        $groups = $this->getGroups();
+        foreach ($groups as $groupTitle => $group) {
             $group['title'] = $groupTitle;
             $this->items[] = $group;
         }
     }
 
+    public function getGroups() {
+        $groups = array();
+        $classes = $this->annotationService->getClassesAnnotatedWith(array("Active"));
+
+        foreach ($classes as $class => $packageName) {
+            $annotations = $this->annotationService->getClassAnnotations($class);
+            $group = $packageName;
+            $name = $this->getShortName($class);
+
+            if ($annotations->has("group"))
+                $group = (string) $annotations->get("group");
+
+            #if ($annotations->get("label"))
+            #    $name = strval(current($annotations->get("label")));
+
+            $groups[$group][] = array("being" => $class, "name" => $name);
+        }
+
+        return $groups;
+    }
+
+    public function getShortName($class){
+        if(is_object($class))
+            $class = get_class($class);
+
+        $parts = explode("\\", $class);
+        return array_pop($parts);
+    }
 }
 
 ?>

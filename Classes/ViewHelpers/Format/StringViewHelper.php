@@ -34,7 +34,6 @@ class StringViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
 	 * @var \Foo\ContentManagement\Core\Formatter
-	 * @api
 	 * @FLOW3\Inject
 	 */
 	protected $formatter;
@@ -43,7 +42,6 @@ class StringViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 	 *
 	 * @param mixed $value
 	 * @return string Rendered string
-		 * @api
 	 */
 	public function render($value) {
 		$options = array(

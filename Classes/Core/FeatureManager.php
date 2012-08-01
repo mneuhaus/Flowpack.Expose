@@ -40,12 +40,6 @@ class FeatureManager {
     protected $objectManager;
 
     /**
-     * @var \Foo\ContentManagement\Core\PersistentStorageService
-     * @FLOW3\Inject
-     */
-    protected $persistentStorageService;
-
-    /**
      * @var \TYPO3\FLOW3\Reflection\ReflectionService
      * @FLOW3\Inject
      */
@@ -62,7 +56,7 @@ class FeatureManager {
 
         );
         foreach ($this->reflectionService->getAllImplementationClassNamesForInterface('Foo\\ContentManagement\\Core\\Features\\FeatureInterface') as $actionClassName) {
-            $actionName = $this->persistentStorageService->getShortName($actionClassName);
+            $actionName = $this->getShortName($actionClassName);
             if (strtolower($actionName) == strtolower($action)) {
                 return $this->objectManager->get($actionClassName);
             }
@@ -77,7 +71,7 @@ class FeatureManager {
      */
     public function hasAction($action) {
         foreach ($this->reflectionService->getAllImplementationClassNamesForInterface('Foo\\ContentManagement\\Core\\Features\\FeatureInterface') as $actionClassName) {
-            $actionName = $this->persistentStorageService->getShortName($actionClassName);
+            $actionName = $this->getShortName($actionClassName);
             if (strtolower($actionName) == strtolower($action)) {
                 return true;
             }
@@ -127,6 +121,13 @@ class FeatureManager {
         $this->formRuntime = $formRuntime;
     }
 
+    public function getShortName($class){
+        if(is_object($class))
+            $class = get_class($class);
+
+        $parts = explode("\\", $class);
+        return array_pop($parts);
+    }
 }
 
 ?>

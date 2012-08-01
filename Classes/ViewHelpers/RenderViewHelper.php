@@ -37,10 +37,10 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  */
 class RenderViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 	/**
-	 * @var \Foo\ContentManagement\Core\PersistentStorageService
+	 * @var \TYPO3\FLOW3\Configuration\ConfigurationManager
 	 * @FLOW3\Inject
 	 */
-	protected $persistentStorageService;
+	protected $configurationManager;
 
 	/**
 	 * @var \TYPO3\FLOW3\Object\ObjectManagerInterface
@@ -81,7 +81,6 @@ class RenderViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 				$replacements = array(
 					"@partial" => $partial,
 					"@package" => "Foo.ContentManagement",
-					#"@being" => $this->persistentStorageService->getShortName(\Foo\ContentManagement\Core\API::get("being")),
 					"@action" => $partial,
 					"@variant" => $variant
 				);
@@ -164,7 +163,7 @@ class RenderViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 	public function getPathByPatternFallbacks($patterns, $replacements){
 		if(is_string($patterns)){
 			$paths = explode(".",$patterns);
-			$patterns = $this->persistentStorageService->getSettings();
+			$patterns = $this->configurationManager->getConfiguration(\TYPO3\FLOW3\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, "Foo.ContentManagement");
 			$patterns = $patterns["Fallbacks"];
 			foreach ($paths as $path) {
 				$patterns = $patterns[$path];
