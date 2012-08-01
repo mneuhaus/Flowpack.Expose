@@ -33,7 +33,7 @@ prototype(Foo.ContentManagement:List.Element).matchers.20000 {
 
 prototype(Foo.ContentManagement:List.DefaultEntityElement) < prototype(Foo.ContentManagement:List.DefaultElement)
 prototype(Foo.ContentManagement:List.DefaultEntityElement) {
-	templatePath = ${q('resource://' + q(item).getClassPackage() + '/Private/Elements/List/' + q(item).getClassShortName() + 'Element.html')}
+	templatePath = ${'resource://' + q(item).getClassPackage() + '/Private/Elements/List/' + q(item).getClassShortName() + 'Element.html'}
 }
 
 
@@ -45,5 +45,5 @@ prototype(Foo.ContentManagement:List.Element).matchers.15000 {
 
 prototype(Foo.ContentManagement:List.InformationVariantElement) < prototype(Foo.ContentManagement:List.DefaultElement)
 prototype(Foo.ContentManagement:List.InformationVariantElement) {
-	templatePath = ${q('resource://' + q(item).getClassPackage() + '/Private/Elements/List/InformationElements/' + q(item).getOrDefault('variantType', 'Default') + '.html')}
+	templatePath = ${'resource://' + q(item).getClassPackage() + '/Private/Elements/List/InformationElements/' + q(item).getOrDefault('variantType', 'Default') + '.html'}
 }
