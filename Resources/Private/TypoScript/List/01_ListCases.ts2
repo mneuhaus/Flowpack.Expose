@@ -32,7 +32,7 @@ prototype(Foo.ContentManagement:ListController.Index).matchers.20000 {
 
 prototype(Foo.ContentManagement.ListController.DefaultEntityIndex) < prototype(Foo.ContentManagement.ListController.DefaultIndex)
 prototype(Foo.ContentManagement.ListController.DefaultEntityIndex) {
-	templatePath = ${q('resource://' + q(objects).getClassPackage() + '/Private/Elements/List/' + q(objects).getClassShortName() + 'List.html')}
+	templatePath = ${'resource://' + q(objects).getClassPackage() + '/Private/Elements/List/' + q(objects).getClassShortName() + 'List.html'}
 }
 
 
