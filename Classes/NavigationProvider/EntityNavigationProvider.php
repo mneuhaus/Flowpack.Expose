@@ -1,5 +1,4 @@
 <?php
-
 namespace Foo\ContentManagement\NavigationProvider;
 
 /*                                                                       *
@@ -25,18 +24,24 @@ namespace Foo\ContentManagement\NavigationProvider;
 use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
- * TODO: (SK) get rid of this class as it is empty
- *       (MN) this class was my starting point for creating NavigationProviders for things like Navigations
- *            and hierarchical views. This is just an wip-prototype currently.
  *
- * OptionsProvider for related Beings
+ * This NavigationProvider provides all available items of a specific entity
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
 class EntityNavigationProvider extends AbstractNavigationProvider {
-	public function __construct($options, \Foo\ContentManagement\Core\PersistentStorageService $persistentStorageService) {
-		$this->items = $persistentStorageService->getObjects($options["class"]);
-	}
+
+    /**
+    * Constructor to load the items into the provider
+    * 
+    * @param array $options An array of options for this provider
+    * @param \Foo\ContentManagement\Core\PersistentStorageService $persistentStorageService to get the entities
+    * @return void
+    */
+    public function __construct($options, \Foo\ContentManagement\Core\PersistentStorageService $persistentStorageService) {
+        $this->items = $persistentStorageService->getObjects($options['class']);
+    }
+
 }
 
 ?>

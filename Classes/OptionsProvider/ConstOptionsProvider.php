@@ -1,5 +1,4 @@
 <?php
-
 namespace Foo\ContentManagement\OptionsProvider;
 
 /*                                                                        *
@@ -26,34 +25,41 @@ use Doctrine\ORM\Mapping as ORM;
 use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
- * TODO: (SK) what are "Option Providers" in general?
- * 		 (MN) An OptionsProvider is used for FormElements like Select and such to provide Options :)
- *   		  This on uses an RegEx from the Annotation to match Constants in the same class.
- *      	  Example:
- *        		    TYPO3\Party\Domain\Model\ElectronicAddress:
- *                		Properties:
- *                  		type:
- *                    			Element: TYPO3.Form:SingleSelectDropdown
- *                       		OptionsProvider: 
- *                         			Name: ConstOptionsProvider
- *                            		RegEx: TYPE_.+
  *
- * OptionsProvider for constants
+ * This OptionsProvider is used to load options from an Entities class
+ * by using a regular expression to match existing constants
+ *
+ * Example:
+ * 		TYPO3\Party\Domain\Model\ElectronicAddress:
+ *      	Properties:
+ *          	type:
+ *              	Element: TYPO3.Form:SingleSelectDropdown
+ *                  OptionsProvider:
+ *                  	Name: ConstOptionsProvider
+ *                      RegEx: TYPE_.+
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
 class ConstOptionsProvider extends \Foo\ContentManagement\Core\OptionsProvider\AbstractOptionsProvider {
 
-	public function getOptions(){
-		$reflection = new \ReflectionClass($this->annotations->getClass());
-		$regex = $this->annotations->getOptionsProvider()->regex;
-		$constants = array();
-		foreach ($reflection->getConstants() as $key => $value) {
-			if(preg_match("/".$regex."/", $key))
-				$constants[constant($this->annotations->getClass() . '::' . $key)] = $value;
-		}
-		return $constants;
-	}
+    /**
+     * Load the Options by searching the Entities constants based on the specified regular
+     * expression
+     *
+     * @return array $options
+     */
+    public function getOptions() {
+        $reflection = new \ReflectionClass($this->annotations->getClass());
+        $regex = $this->annotations->getOptionsProvider()->regex;
+        $constants = array();
+        foreach ($reflection->getConstants() as $key => $value) {
+            if (preg_match(('/' . $regex) . '/', $key)) {
+                $constants[constant(($this->annotations->getClass() . '::') . $key)] = $value;
+            }
+        }
+        return $constants;
+    }
+
 }
 
 ?>

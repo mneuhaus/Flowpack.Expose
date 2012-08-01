@@ -25,11 +25,7 @@ namespace Foo\ContentManagement\NavigationProvider;
 use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
- * TODO: (SK) is this class realy needed? seems only like a wrapper of an $items array...
- *       (MN) this class was my starting point for creating NavigationProviders for things like Navigations
- *            and hierarchical views. This is just an wip-prototype currently.
- *
- * OptionsProvider for related Beings
+ * OptionsProvider
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
