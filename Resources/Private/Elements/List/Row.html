@@ -2,19 +2,19 @@
 {namespace ts=TYPO3\TypoScript\ViewHelpers}
 
 <cm:properties object="{item}" context="Content.List.Table">
-<tr data-klove="row">
-	<td class="tiny">
-		<input type="checkbox" name="bulkItems[]" value="{being.id}" class="select-row" data-klove-row-shortcut="x"/>
-	</td>
-	<f:for each="{properties}" as="property">
-		<td>
-			<cm:format.string value="{property.value}" />
+	<tr data-klove="row">
+		<td class="tiny">
+			<input type="checkbox" name="bulkItems[]" value="{being.id}" class="select-row" data-klove-row-shortcut="x"/>
 		</td>
-	</f:for>
-	<td class="table-actions">
-		<f:for each="{listActions}" as="action" key="actionName">
-			<f:render partial="ActionButton" arguments="{action: action, object: item}" />
+		<f:for each="{properties}" as="property">
+			<td>
+				<cm:format.string value="{property.value}" />
+			</td>
 		</f:for>
-	</td>
-</tr>
+		<td class="table-actions">
+			<f:for each="{listElementFeatures}" as="feature">
+				<cm:featureLink feature="{feature}" type="{type}" object="{item}" />
+			</f:for>
+		</td>
+	</tr>
 </cm:properties>

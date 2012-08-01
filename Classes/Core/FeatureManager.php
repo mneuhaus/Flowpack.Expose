@@ -33,100 +33,38 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  */
 class FeatureManager {
 
-    /**
-     * @var \TYPO3\FLOW3\Object\ObjectManagerInterface
-     * @FLOW3\Inject
-     */
-    protected $objectManager;
+	/**
+	* @var \TYPO3\FLOW3\Object\ObjectManagerInterface
+	* @FLOW3\Inject
+	*/
+	protected $objectManager;
 
-    /**
-     * @var \Foo\ContentManagement\Core\PersistentStorageService
-     * @FLOW3\Inject
-     */
-    protected $persistentStorageService;
+	/**
+	* @var \TYPO3\FLOW3\Reflection\ReflectionService
+	* @FLOW3\Inject
+	*/
+	protected $reflectionService;
 
-    /**
-     * @var \TYPO3\FLOW3\Reflection\ReflectionService
-     * @FLOW3\Inject
-     */
-    protected $reflectionService;
+	/**
+	* Find the features which should be linked at a certain $context of the application.
+	*
+	* @param string $context the context to find related features for, like "List" or "List.Element"
+	* @param string $type the type of the objects currently being worked with
+	* @return array an array of Feature objects being available for linking
+	*/
+	public function findRelatedFeaturesByContext($context, $type = NULL) {
+		$relatedFeatures = array();
+		foreach ($this->reflectionService->getAllImplementationClassNamesForInterface('Foo\\ContentManagement\\Core\\Features\\FeatureInterface') as $featureClassName) {
+			var_dump($featureClassName);
+			$feature = $this->objectManager->get($featureClassName);
 
-    /**
-    * TODO: Document this Method! ( getActionByShortName )
-    */
-    public function getActionByShortName($action = null) {
-        if (!stristr($action, 'Action')) {
-            $action = $action . 'Action';
-        }
-        $actions = array(
-
-        );
-        foreach ($this->reflectionService->getAllImplementationClassNamesForInterface('Foo\\ContentManagement\\Core\\Features\\FeatureInterface') as $actionClassName) {
-            $actionName = $this->persistentStorageService->getShortName($actionClassName);
-            if (strtolower($actionName) == strtolower($action)) {
-                return $this->objectManager->get($actionClassName);
-            }
-        }
-        return null;
-    }
-
-    /**
-     *
-     * @param  string  $action
-     * @return boolean
-     */
-    public function hasAction($action) {
-        foreach ($this->reflectionService->getAllImplementationClassNamesForInterface('Foo\\ContentManagement\\Core\\Features\\FeatureInterface') as $actionClassName) {
-            $actionName = $this->persistentStorageService->getShortName($actionClassName);
-            if (strtolower($actionName) == strtolower($action)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-    * TODO: Document this Method! ( getActions )
-    */
-    public function getActions($action = null, $being = null, $id = false) {
-        $actions = array(
-
-        );
-        foreach ($this->reflectionService->getAllImplementationClassNamesForInterface('Foo\\ContentManagement\\Core\\Features\\FeatureInterface') as $actionClassName) {
-            $inheritingClasses = $this->reflectionService->getAllSubClassNamesForClass($actionClassName);
-            foreach ($inheritingClasses as $inheritingClass) {
-                $inheritedObject = $this->objectManager->get($actionClassName);
-                if ($inheritedObject->override($actionClassName, $being)) {
-                    $actionClassName = $inheritedObject;
-                }
-                unset($inheritedObject);
-            }
-            $a = $this->objectManager->get($actionClassName);
-            foreach ($a->getActionsForContext($being, $action, $id) as $actionName) {
-                $actions[] = array(
-                	'actionName' => $actionName,
-                	'controller' => $a
-                );
-            }
-        }
-        ksort($actions);
-        return $actions;
-    }
-
-    /**
-    * TODO: Document this Method! ( getFormRuntime )
-    */
-    public function getFormRuntime() {
-        return $this->formRuntime;
-    }
-
-    /**
-    * TODO: Document this Method! ( setFormRuntime )
-    */
-    public function setFormRuntime($formRuntime) {
-        $this->formRuntime = $formRuntime;
-    }
-
+			$sorting = $feature->isFeatureRelatedForContext($context, $type);
+			if (is_integer($sorting) && $sorting > 0) {
+				$relatedFeatures[$sorting] = $feature;
+			}
+		}
+		ksort($relatedFeatures);
+		return $relatedFeatures;
+	}
 }
-
 ?>

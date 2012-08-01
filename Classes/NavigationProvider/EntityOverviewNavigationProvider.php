@@ -25,7 +25,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
  * NavigationProvider to show entities which are marked to be shown through
- * the annotation @CM\Active seperated into groups
+ * the annotation CM\Active seperated into groups
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */

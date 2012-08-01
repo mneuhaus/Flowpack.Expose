@@ -32,23 +32,15 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 abstract class AbstractFeature extends \TYPO3\FLOW3\Mvc\Controller\ActionController implements FeatureInterface {
 	/**
 	 * @var \Foo\ContentManagement\Core\FeatureManager
+	 * @FLOW3\Inject
 	 */
 	protected $featureManager;
 
 	/**
-	 * @var \Foo\ContentManagement\Core\PersistentStorageService
+	 * @var \TYPO3\FLOW3\Persistence\PersistenceManagerInterface
+	 * @FLOW3\Inject
 	 */
-	protected $persistentStorageService;
-
-	/**
-	 *
-	 * @param \Foo\ContentManagement\Core\PersistentStorageService $persistentStorageService
-	 * @param \Foo\ContentManagement\Core\FeatureManager   $featureManager
-	 */
-	public function __construct(\Foo\ContentManagement\Core\FeatureManager $featureManager, \Foo\ContentManagement\Core\PersistentStorageService $persistentStorageService) {
-		$this->featureManager = $featureManager;
-		$this->persistentStorageService = $persistentStorageService;
-	}
+	protected $persistenceManager;
 
 	public function getActionsForContext($class, $context, $id) {
 		return array();
@@ -94,7 +86,7 @@ abstract class AbstractFeature extends \TYPO3\FLOW3\Mvc\Controller\ActionControl
 
 	public function render() {
 		$this->initializeView();
-		
+
 		foreach ($this->request->getInternalArgument("__context") as $key => $value) {
 			$this->view->assign($key, $value);
 		}

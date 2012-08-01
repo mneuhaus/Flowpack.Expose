@@ -30,22 +30,18 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
 class DeleteController extends \Foo\ContentManagement\Core\Features\AbstractFeature {
-	/**
-	 * Function to return the Actions to be displayed for this context
-	 */
-	public function getActionsForContext($class, $action, $id) {
-		$actions = array();
-		if(!in_array($action, array("view", "bulk", "update", "confirm", "create")) && $id == true)
-			$actions[] = "index";
-
-		return $actions;
+	public function isFeatureRelatedForContext($context, $type = NULL) {
+		if (in_array($context, array('List.Element'))) {
+			return 1000;
+		}
+		return FALSE;
 	}
 
     /**
      * @return string
      */
-    public function getShortcut(){
-		return "c";
+    public function getName(){
+		return 'delete';
 	}
 
 	/**
@@ -53,13 +49,13 @@ class DeleteController extends \Foo\ContentManagement\Core\Features\AbstractFeat
 	 */
 	public function indexAction() {
 		$being = $this->request->getArgument("being");
-		
+
 		$ids = array();
 		if($this->request->hasArgument("id"))
 			$ids = array( $this->request->getArgument("id") );
 		else if($this->request->hasArgument("ids"))
 			$ids = $this->request->getArgument("ids");
-		
+
 		if(count($ids) > 0){
 			$objects = array();
 			foreach ($ids as $id) {
@@ -77,7 +73,7 @@ class DeleteController extends \Foo\ContentManagement\Core\Features\AbstractFeat
 	 */
 	public function deleteAction() {
 		$being = $this->request->getArgument("being");
-		
+
 		$ids = array();
 		if($this->request->hasArgument("id"))
 			$ids = array( $this->request->getArgument("id") );
@@ -88,7 +84,7 @@ class DeleteController extends \Foo\ContentManagement\Core\Features\AbstractFeat
 			foreach($ids as $id) {
 				$this->persistentStorageService->deleteObject($being, $id);
 			}
-			
+
 			$arguments = array("being" => $this->persistentStorageService->getClassShortName($being));
 			$this->redirect('index', "list", null, $arguments);
 		}

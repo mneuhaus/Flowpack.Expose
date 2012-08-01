@@ -1,0 +1,25 @@
+########################################
+# Foo.ContentManagement:RecordList.Table.Row
+# --------------------------------------
+# Render a single row of this table.
+#
+# Required Variables:
+# - item: The object being rendered in this row
+# - listElementFeatures: The list of features which can be executed for this item.
+########################################
+
+prototype(Foo.ContentManagement:RecordList.Table.Row) < prototype(TYPO3.TypoScript:Case)
+
+# Catch-all condition for the default case
+prototype(Foo.ContentManagement:RecordList.Table.Row).matchers.999999999999 {
+	condition = ${true}
+	type = 'Foo.ContentManagement:RecordList.Table.DefaultRow'
+}
+
+prototype(Foo.ContentManagement:RecordList.Table.DefaultRow) < prototype(TYPO3.TypoScript:FluidRenderer)
+prototype(Foo.ContentManagement:RecordList.Table.DefaultRow) {
+	templatePath = 'resource://Foo.ContentManagement/Private/Elements/List/Row.html'
+	item = ${item}
+	listElementFeatures = ${listElementFeatures}
+	type = ${type}
+}

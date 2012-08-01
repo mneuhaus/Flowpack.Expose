@@ -31,20 +31,17 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  */
 class NewController extends \Foo\ContentManagement\Core\Features\AbstractFeature {
 
-	/**
-	 * Function to return the Actions to be displayed for this context
-	 */
-	public function getActionsForContext($class, $action, $id) {
-		$actions = array();
-		if($action == "list" && !$id)
-			$actions[] = "index";
-
-		return $actions;
+	public function isFeatureRelatedForContext($context, $type = NULL) {
+		if (in_array($context, array('List'))) {
+			return 500;
+		}
+		return FALSE;
 	}
 
-	public function getShortcut(){
-		return "n";
+	public function getName() {
+		return 'New';
 	}
+
 
 	/**
 	 * Create objects

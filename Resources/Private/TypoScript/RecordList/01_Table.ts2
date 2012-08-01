@@ -1,0 +1,22 @@
+
+Foo.ContentManagement.ListController.index = Foo.ContentManagement:RecordList.Table
+
+########################################
+# Foo.ContentManagement:RecordList.Table
+# --------------------------------------
+# Display a list of common records as table
+########################################
+
+prototype(Foo.ContentManagement:RecordList.Table) < prototype(TYPO3.TypoScript:FluidRenderer)
+prototype(Foo.ContentManagement:RecordList.Table) {
+	templatePath = 'resource://Foo.ContentManagement/Private/Elements/List/Table.html'
+	tableBody = Foo.ContentManagement:CollectionRenderer
+	tableBody {
+		collection = ${objects}
+		itemName = 'item'
+		itemRenderer = Foo.ContentManagement:RecordList.Table.Row
+	}
+	objects = ${objects}
+	globalFeatures = ${globalFeatures}
+	type = ${type}
+}

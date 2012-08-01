@@ -36,6 +36,7 @@ class CollectionRenderer extends \TYPO3\TypoScript\TypoScriptObjects\CollectionR
 	 * @return string
 	 */
 	public function evaluate($context) {
+		// TODO: should be moved to a generic place in abstractTsObject
 		foreach ($this->tsValue('overrideContext') as $contextName => $context) {
 			$this->tsRuntime->pushContext($contextName, $this->tsValue('overrideContext.' . $contextName));
 		}

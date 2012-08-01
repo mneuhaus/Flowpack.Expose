@@ -34,71 +34,34 @@ use TYPO3\FLOW3\Mvc\ActionRequest;
 class ListController extends \Foo\ContentManagement\Core\Features\AbstractFeature {
 	protected $defaultViewObjectName = 'TYPO3\TypoScript\View\TypoScriptView';
 
-	/**
-	 * List objects
-	 */
-	public function indexAction() {
-
-		foreach ($this->request->getInternalArgument("__context") as $key => $value) {
-			$this->view->assign($key, $value);
-		}
-
-		if($this->request->hasArgument("being")){
-			$this->being = $this->request->getArgument("being");
-			$this->view->assign('className', $this->being);
-
-			$this->settings = $this->getSettings();
-
-			$adapter = $this->persistentStorageService->initQuery($this->being);
-
-			if($this->request->hasArgument("filter")){
-				$adapter->applyFilters($this->request->getArgument("filter"));
-			}
-
-			$results = $adapter->executeQuery();
-			$this->view->assign("objects", $results);
-
-			// Redirect to creating a new Object if there aren't any (Clean Slate)
-			if( $results->count() < 1 && !$this->request->hasArgument("filter") ) {
-				$arguments = array("being" => $this->persistentStorageService->getClassShortName($this->being));
-				$this->redirect("index", "new", NULL, $arguments);
-			}
-
-			$listActions = $this->featureManager->getActions("list", $this->being, true);
-			$this->view->assign('listActions', $listActions);
-
-			$hasId = isset($this->id) ? true : false;
-			$topBarActions = $this->featureManager->getActions("list", $this->being, $hasId);
-			$this->view->assign('topBarActions',$topBarActions);
-
-			return $this->handleBulkActions();
-		}
+	public function isFeatureRelatedForContext($context, $type = NULL) {
+		return FALSE;
 	}
 
-	public function handleBulkActions(){
-		$actions = $this->featureManager->getActions("bulk", $this->being, true);
-		$this->view->assign("bulkActions", $actions);
+	/**
+	 * List objects, all being of the same $type.
+	 *
+	 * TODO: Filtering of this list, bulk
+	 *
+	 * @param string $type
+	 */
+	public function indexAction($type) {
+		$query = $this->persistenceManager->createQueryForType($type);
 
-		$request = $this->request;
-		do{
-			if ($request->hasArgument("bulkAction"))
-				break;
-			$request = $request->getParentRequest();
-		} while ($request->getParentRequest() instanceof ActionRequest);
+		$objects = $query->execute();
+		$this->redirectToNewFormIfNoObjectsFound($objects);
 
-		if( $request->hasArgument("bulkAction") ) {
-			$bulkAction = $request->getArgument("bulkAction");
-			if( isset($actions[$bulkAction]) ) {
-				$action = $actions[$bulkAction];
 
-				$this->featureManager->getView()->setTemplateByAction($action->getAction());
+		$this->view->assign('type', $type);
+		$this->view->assign('objects', $objects);
+		$this->view->assign('listElementFeatures', $this->featureManager->findRelatedFeaturesByContext('List.Element', $type));
+		$this->view->assign('globalFeatures', $this->featureManager->findRelatedFeaturesByContext('List', $type));
+	}
 
-				if($action->getAction() !== $bulkAction)
-					$action = $this->featureManager->getActionByShortName($action->getAction() . "Action");
-
-				$action->execute($this->being, $request->getArgument("bulkItems"));
-				return $action->view->render();
-			}
+	protected function redirectToNewFormIfNoObjectsFound(\TYPO3\FLOW3\Persistence\QueryResultInterface $result) {
+		if (count($result) === 0) {
+			$arguments = array('type' => $this->arguments['type']->getValue());
+			$this->redirect('index', 'new', NULL, $arguments);
 		}
 	}
 }

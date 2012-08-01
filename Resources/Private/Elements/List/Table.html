@@ -4,11 +4,10 @@
 <form method="post">
 	<div class="list-actions">
 		<div class="pull-left">
-			<cm:render partial="Toolbar" fallbacks="Partials" vars="{actions: bulkActions}" />
 		</div>
 		<div class="pull-right">
-			<f:for each="{topBarActions}" as="action">
-				<f:render partial="ActionButton" arguments="{action: action, class: className}" />
+			<f:for each="{globalFeatures}" as="feature">
+				<cm:featureLink feature="{feature}" type="{type}" />
 			</f:for>
 		</div>
 	</div>
@@ -36,7 +35,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<ts:renderTypoScript path="list" context="{items: objects, listActions: listActions}" />
+			<ts:renderTypoScript path="tableBody"  />
 		</tbody>
 	</table>
 </form>

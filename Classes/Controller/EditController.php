@@ -31,21 +31,17 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
 class EditController extends \Foo\ContentManagement\Core\Features\AbstractFeature {
-	/**
-	 * Function to return the Actions to be displayed for this context
-	 */
-	public function getActionsForContext($class, $action, $id) {
-		$actions = array();
-		if($action !== "bulk" && $action !== "update" && $action !== "confirm" && $action !== "create" && $id == true)
-			$actions[] = "index";
+	public function isFeatureRelatedForContext($context, $type = NULL) {
+		if (in_array($context, array('List.Element'))) {
+			return 500;
+		}
+		return FALSE;
+	}
 
-		return $actions;
+	public function getName(){
+		return 'Edit';
 	}
-	
-	public function getShortcut(){
-		return "e";
-	}
-	
+
 	/**
 	 * Edit object
 	 */
