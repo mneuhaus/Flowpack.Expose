@@ -61,7 +61,7 @@ class FeatureManager {
         $actions = array(
 
         );
-        foreach ($this->reflectionService->getAllImplementationClassNamesForInterface('Foo\\ContentManagement\\Core\\Actions\\ActionInterface') as $actionClassName) {
+        foreach ($this->reflectionService->getAllImplementationClassNamesForInterface('Foo\\ContentManagement\\Core\\Features\\FeatureInterface') as $actionClassName) {
             $actionName = $this->persistentStorageService->getShortName($actionClassName);
             if (strtolower($actionName) == strtolower($action)) {
                 return $this->objectManager->get($actionClassName);
@@ -76,7 +76,7 @@ class FeatureManager {
      * @return boolean
      */
     public function hasAction($action) {
-        foreach ($this->reflectionService->getAllImplementationClassNamesForInterface('Foo\\ContentManagement\\Core\\Actions\\ActionInterface') as $actionClassName) {
+        foreach ($this->reflectionService->getAllImplementationClassNamesForInterface('Foo\\ContentManagement\\Core\\Features\\FeatureInterface') as $actionClassName) {
             $actionName = $this->persistentStorageService->getShortName($actionClassName);
             if (strtolower($actionName) == strtolower($action)) {
                 return true;
@@ -92,7 +92,7 @@ class FeatureManager {
         $actions = array(
 
         );
-        foreach ($this->reflectionService->getAllImplementationClassNamesForInterface('Foo\\ContentManagement\\Core\\Actions\\ActionInterface') as $actionClassName) {
+        foreach ($this->reflectionService->getAllImplementationClassNamesForInterface('Foo\\ContentManagement\\Core\\Features\\FeatureInterface') as $actionClassName) {
             $inheritingClasses = $this->reflectionService->getAllSubClassNamesForClass($actionClassName);
             foreach ($inheritingClasses as $inheritingClass) {
                 $inheritedObject = $this->objectManager->get($actionClassName);

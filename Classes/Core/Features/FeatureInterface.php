@@ -1,6 +1,6 @@
 <?php
 
-namespace Foo\ContentManagement\Core\Actions;
+namespace Foo\ContentManagement\Core\Features;
 
 /* *
  * This script belongs to the Foo.ContentManagement package.              *
@@ -27,7 +27,7 @@ namespace Foo\ContentManagement\Core\Actions;
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-interface ActionInterface {
+interface FeatureInterface {
 	
 }
 ?>

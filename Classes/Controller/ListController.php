@@ -31,7 +31,7 @@ use TYPO3\FLOW3\Mvc\ActionRequest;
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-class ListController extends \Foo\ContentManagement\Core\Actions\AbstractAction {
+class ListController extends \Foo\ContentManagement\Core\Features\AbstractFeature {
 	protected $defaultViewObjectName = 'TYPO3\TypoScript\View\TypoScriptView';
 
 	/**

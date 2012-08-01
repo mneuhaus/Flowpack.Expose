@@ -30,7 +30,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-class IndexController extends \Foo\ContentManagement\Core\Actions\AbstractAction {
+class IndexController extends \Foo\ContentManagement\Core\Features\AbstractFeature {
 	public function indexAction() {
 		$groups = $this->persistentStorageService->getGroups();
 		ksort($groups);

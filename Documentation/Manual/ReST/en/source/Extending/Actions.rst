@@ -4,7 +4,7 @@ Actions
 Actions for the Admin need to implement the following interaface::
 
 	namespace Admin\Core\Actions;
-	interface ActionInterface {
+	interface FeatureInterface {
 
 		/**
 		 * Function to Check if this Requested Action is supported
@@ -50,7 +50,7 @@ Examples
 
 The Delete action needs $ids to delete, so it returns true if there are ids to receive::
 
-    class DeleteAction extends \Admin\Core\Actions\AbstractAction {
+    class DeleteAction extends \Admin\Core\Actions\AbstractFeature {
         public function canHandle($being, $action = null, $id = false) {
             return $id;
         }
@@ -58,7 +58,7 @@ The Delete action needs $ids to delete, so it returns true if there are ids to r
 
 The Update action needs $ids to update, but can't handle bulk actions::
 
-    class UpdateAction extends \Admin\Core\Actions\AbstractAction {
+    class UpdateAction extends \Admin\Core\Actions\AbstractFeature {
         public function canHandle($being, $action = null, $id = false) {
             switch($action) {
                 case "bulk":

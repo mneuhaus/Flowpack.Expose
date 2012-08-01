@@ -1,6 +1,6 @@
 <?php
 
-namespace Foo\ContentManagement\Core\Actions;
+namespace Foo\ContentManagement\Core\Features;
 
 /* *
  * This script belongs to the Foo.ContentManagement package.              *
@@ -29,7 +29,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-abstract class AbstractAction extends \TYPO3\FLOW3\Mvc\Controller\ActionController implements ActionInterface {
+abstract class AbstractFeature extends \TYPO3\FLOW3\Mvc\Controller\ActionController implements FeatureInterface {
 	/**
 	 * @var \Foo\ContentManagement\Core\FeatureManager
 	 */
