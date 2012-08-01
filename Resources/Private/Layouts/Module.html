@@ -1,8 +1,7 @@
 {namespace cm=Foo\ContentManagement\ViewHelpers}
-{namespace as=TYPO3\Asset\ViewHelpers}
 
 <cm:render section='container' optional="true">
-	<as:bundle.css name="Foo.ContentManagement:Styles" />
+	<link rel="stylesheet" href="{f:uri.resource(path: 'css/main.css', package: 'Foo.ContentManagement')}" />
 
 	<div class="container-fluid content-management">
 		<div class="row-fluid">
@@ -45,6 +44,8 @@
 		</div>
 
 	</div>
+	
+	<script src="{f:uri.resource(path: 'js/jquery.1.7.1.min.js', package: 'Foo.ContentManagement')}"></script>
+	<script src="{f:uri.resource(path: 'js/jquery.inlineHelper.js', package: 'Foo.ContentManagement')}"></script>
+	<script src="{f:uri.resource(path: 'js/main.js', package: 'Foo.ContentManagement')}"></script>
 </cm:render>
-
-<as:bundle.js name="Foo.ContentManagement:Scripts" />

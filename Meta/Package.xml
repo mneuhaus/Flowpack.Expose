@@ -7,10 +7,7 @@
 
     <constraints>
         <depends>
-            <package>TYPO3.Form</package>
-            <package>TYPO3.Asset</package>
-            <package>Twitter.Bootstrap</package>
-            <package>LessPHP</package>
+            <package>TYPO3.TypoScript</package>
         </depends>
         <conflicts/>
         <suggests/>
