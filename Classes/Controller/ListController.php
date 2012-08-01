@@ -61,7 +61,7 @@ class ListController extends \Foo\ContentManagement\Core\Actions\AbstractAction 
 			// Redirect to creating a new Object if there aren't any (Clean Slate)
 			if( $results->count() < 1 && !$this->request->hasArgument("filter") ) {
 				$arguments = array("being" => $this->persistentStorageService->getClassShortName($this->being));
-				$this->redirect("create", NULL, NULL, $arguments);
+				$this->redirect("index", "new", NULL, $arguments);
 			}
 
 			$listActions = $this->actionManager->getActions("list", $this->being, true);
