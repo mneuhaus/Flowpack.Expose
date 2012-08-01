@@ -4,12 +4,13 @@
 
 * Get rid of Action abstraction, and rather use Controller API directly.
 * See code comments (grep for: "TODO: (SK)")
+* Get rid of assetic for now.
 
 ## Installation
 
 ```
-  git clone --recursive git://git.typo3.org/TYPO3v5/Distributions/Base.git FLOW3
-  cd FLOW3
+  git clone --recursive git://git.typo3.org/TYPO3v5/Distributions/Base.git PhoenixContentManagement
+  cd PhoenixContentManagement
 
   git clone https://github.com/afoeder/Assetic-Package Packages/Application/Assetic
   git clone https://github.com/afoeder/Symfony.Component.Process.git Packages/Application/Symfony.Component.Process
@@ -28,4 +29,6 @@
   git clone git@github.com:mneuhaus/Foo.ContentManagement.git Packages/Application/Foo.ContentManagement
 ```
 
-Apply patches from 'Packages/Application/Foo.ContentManagement/Patches'
+Apply patches from 'Packages/Application/Foo.ContentManagement/Patches' and 'https://review.typo3.org/#/q/status:open+project:FLOW3/Packages/TYPO3.TypoScript+branch:master+topic:typoscript_38692,n,z'
+
+See corresponding forge issue: http://forge.typo3.org/issues/37293
