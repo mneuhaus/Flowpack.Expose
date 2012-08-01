@@ -90,7 +90,7 @@ class InlineFormElement extends \TYPO3\Form\FormElements\Section {
 		$class = $this->annotations->getClass();
 		$object = new $class();
 
-		if(!is_object($this->modelFormFactory->form))
+		if(!isset($this->modelFormFactory->form) || !is_object($this->modelFormFactory->form))
 			$this->modelFormFactory->form = $this->getRootForm();
         $elements = $this->modelFormFactory->generateElements($object, $itemSection, $namespacedName . "." . $key);
 
@@ -106,7 +106,7 @@ class InlineFormElement extends \TYPO3\Form\FormElements\Section {
 		$class = $this->annotations->getClass();
 		$object = new $class();
 
-		if(!is_object($this->modelFormFactory->form))
+		if(!isset($this->modelFormFactory->form) || !is_object($this->modelFormFactory->form))
 			$this->modelFormFactory->form = $this->getRootForm();
         $elements = $this->modelFormFactory->generateElements($object, $itemSection, $namespacedName . ".000");
 
