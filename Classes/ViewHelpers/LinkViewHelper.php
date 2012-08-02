@@ -49,7 +49,7 @@ class LinkViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractTagBasedViewHe
 	protected $objectManager;
 
 	/**
-	 * @var \Foo\ContentManagement\Core\PersistenceService
+	 * @var \Foo\ContentManagement\Core\MetaPersistenceManager
 	 * @FLOW3\Inject
 	 */
 	protected $persistenceService;

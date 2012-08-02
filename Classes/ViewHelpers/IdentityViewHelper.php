@@ -32,7 +32,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 class IdentityViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
-	 * @var \Foo\ContentManagement\Core\PersistenceService
+	 * @var \Foo\ContentManagement\Core\MetaPersistenceManager
 	 * @FLOW3\Inject
 	 */
 	protected $persistenceService;

@@ -31,11 +31,11 @@ use TYPO3\FLOW3\Mvc\ActionRequest;
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-class ListController extends \Foo\ContentManagement\Core\Features\AbstractFeature {
+class ListController extends \Foo\ContentManagement\Core\Features\FeatureController {
 	protected $defaultViewObjectName = 'TYPO3\TypoScript\View\TypoScriptView';
 
 	/**
-	 * @var \Foo\ContentManagement\Core\PersistenceService
+	 * @var \Foo\ContentManagement\Core\MetaPersistenceManager
      * @FLOW3\Inject
 	 */
 	protected $persistenceService;

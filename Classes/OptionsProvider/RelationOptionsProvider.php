@@ -32,7 +32,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  */
 class RelationOptionsProvider extends \Foo\ContentManagement\Core\OptionsProvider\AbstractOptionsProvider {
 	/**
-	 * @var \Foo\ContentManagement\Core\PersistenceService
+	 * @var \Foo\ContentManagement\Core\MetaPersistenceManager
      * @FLOW3\Inject
 	 */
 	protected $persistenceService;

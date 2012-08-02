@@ -29,9 +29,9 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-class NewController extends \Foo\ContentManagement\Core\Features\AbstractFeature {
+class NewController extends \Foo\ContentManagement\Core\Features\FeatureController {
 	/**
-	 * @var \Foo\ContentManagement\Core\PersistenceService
+	 * @var \Foo\ContentManagement\Core\MetaPersistenceManager
      * @FLOW3\Inject
 	 */
 	protected $persistenceService;

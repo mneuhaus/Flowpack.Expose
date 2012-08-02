@@ -14,7 +14,7 @@ class ModelFormFactory extends \TYPO3\Form\Factory\AbstractFormFactory {
     protected $annotationService;
 
     /**
-     * @var \Foo\ContentManagement\Core\PersistenceService
+     * @var \Foo\ContentManagement\Core\MetaPersistenceManager
      * @FLOW3\Inject
      */
     protected $persistenceService;

@@ -35,10 +35,10 @@ class EntityNavigationProvider extends AbstractNavigationProvider {
     * Constructor to load the items into the provider
     * 
     * @param array $options An array of options for this provider
-     * @param \Foo\ContentManagement\Core\PersistenceService $persistenceService to get the entities
+     * @param \Foo\ContentManagement\Core\MetaPersistenceManager $persistenceService to get the entities
      * @return void
      */
-    public function __construct($options, \Foo\ContentManagement\Core\PersistenceService $persistenceService) {
+    public function __construct($options, \Foo\ContentManagement\Core\MetaPersistenceManager $persistenceService) {
         $this->items = $persistenceService->createQueryForType($options['class'])->execute();
     }
 
