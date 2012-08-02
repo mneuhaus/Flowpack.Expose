@@ -14,7 +14,7 @@ namespace Foo\ContentManagement\Annotations;
 /**
  * @Annotation
  */
-final class Label {
+final class Label implements SingleAnnotationInterface {
 	/**
 	 * @var string
 	 */

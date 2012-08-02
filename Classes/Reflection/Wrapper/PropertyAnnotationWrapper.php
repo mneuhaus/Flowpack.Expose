@@ -23,6 +23,8 @@ class PropertyAnnotationWrapper extends AbstractAnnotationWrapper {
 	protected $configurationManager;
 
 	public function getLabel() {
+		if($this->has("Label"))
+			return strval($this->get("Label"));
 		return ucfirst($this->get("property"));
 	}
 
