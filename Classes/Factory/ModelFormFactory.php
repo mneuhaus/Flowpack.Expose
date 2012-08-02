@@ -11,23 +11,12 @@ class ModelFormFactory extends \TYPO3\Form\Factory\AbstractFormFactory {
      * @FLOW3\Inject
      */
     protected $persistentStorageService;
-
-    /**
-     * @var \TYPO3\FLOW3\Mvc\ActionRequest
-     * @internal
-     */
-    protected $request;
-
     /**
      * @var \TYPO3\FLOW3\Validation\ValidatorResolver
      * @FLOW3\Inject
      */
     protected $validatorResolver;
-    
 
-    public function setRequest(\TYPO3\FLOW3\Mvc\ActionRequest $request) {
-        $this->request = $request;
-    }
 
     /**
      * @param array $factorySpecificConfiguration
@@ -38,8 +27,6 @@ class ModelFormFactory extends \TYPO3\Form\Factory\AbstractFormFactory {
         $formConfiguration = $this->getPresetConfiguration($presetName);
         $this->form = new FormDefinition('contentForm', $formConfiguration);
 
-        $this->setRequest($factorySpecificConfiguration["request"]);
-        
         if(isset($factorySpecificConfiguration["class"]))
             $object = $this->persistentStorageService->getObject($factorySpecificConfiguration["class"]);
 
@@ -54,7 +41,7 @@ class ModelFormFactory extends \TYPO3\Form\Factory\AbstractFormFactory {
         $actionFinisher->setOption('class', get_class($object));
         $actionFinisher->setOption('controllerCallback', $factorySpecificConfiguration["controllerCallback"]);
         $this->form->addFinisher($actionFinisher);
-        
+
         return $this->form;
     }
 
@@ -73,7 +60,7 @@ class ModelFormFactory extends \TYPO3\Form\Factory\AbstractFormFactory {
         foreach ($classAnnotations->getSets() as $set => $properties) {
             foreach ($properties as $name => $property) {
                 $propertyAnnotations = $classAnnotations->getPropertyAnnotations($name);
-                
+
                 if($propertyAnnotations->has("ignore") && $propertyAnnotations->get("ignore")->ignoreContext("form")) continue;
                 if($propertyAnnotations->has("inject")) continue;
 
@@ -85,7 +72,7 @@ class ModelFormFactory extends \TYPO3\Form\Factory\AbstractFormFactory {
                     $inlineVariant = $propertyAnnotations->getInline()->getVariant();
                     $type = $propertyAnnotations->getType();
                     $inlineAnnotations = $this->persistentStorageService->getClassAnnotations($type);
-                    
+
                     // Create a Container for the "Rows" outside the later processed namespace
                     $containerSection = $section->createElement("container.".$namespacedName, $inlineVariant);
                     $containerSection->setLabel($property->getLabel());
@@ -94,7 +81,8 @@ class ModelFormFactory extends \TYPO3\Form\Factory\AbstractFormFactory {
 
                     if($propertyAnnotations->has("ManyToMany") || $propertyAnnotations->has("OneToMany")){
                         // Check if the request contains the current namespace
-                        $arguments = $this->request->getArguments();
+						// TODO
+                        $arguments = array(); // $this->request->getArguments();
                         $objects = \TYPO3\FLOW3\Reflection\ObjectAccess::getPropertyPath($arguments, $namespacedName);
                         if(is_array($objects)){
                             foreach ($objects as $key => $value) {

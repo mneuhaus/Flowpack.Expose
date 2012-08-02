@@ -34,10 +34,6 @@ use TYPO3\FLOW3\Mvc\ActionRequest;
 class SameTypeListController extends \Foo\ContentManagement\Core\Features\AbstractFeature {
 	protected $defaultViewObjectName = 'TYPO3\TypoScript\View\TypoScriptView';
 
-	public function isFeatureRelatedForContext($context, $type = NULL) {
-		return FALSE;
-	}
-
 	/**
 	 * List objects, all being of the same $type.
 	 *
@@ -55,8 +51,6 @@ class SameTypeListController extends \Foo\ContentManagement\Core\Features\Abstra
 		$this->view->assign('type', $type);
 		$this->view->assign('format', $format);
 		$this->view->assign('objects', $objects);
-#		$this->view->assign('listElementFeatures', $this->featureManager->findRelatedFeaturesByContext('List.Element', $type));
-#		$this->view->assign('globalFeatures', $this->featureManager->findRelatedFeaturesByContext('List', $type));
 	}
 
 	protected function redirectToNewFormIfNoObjectsFound(\TYPO3\FLOW3\Persistence\QueryResultInterface $result) {

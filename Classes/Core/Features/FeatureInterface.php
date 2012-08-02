@@ -36,7 +36,7 @@ interface FeatureInterface {
 	 * @param type $type
 	 * @return integer 0 or FALSE if feature is not related; numeric value determines the sorting.
 	 */
-	public function isFeatureRelatedForContext($context, $type = NULL);
+//	public function isFeatureRelatedForContext($context, $type = NULL);
 
 //	public function indexAction($type = NULL, $identifier = NULL);
 

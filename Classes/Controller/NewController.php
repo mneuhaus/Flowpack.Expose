@@ -30,18 +30,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
 class NewController extends \Foo\ContentManagement\Core\Features\AbstractFeature {
-
-	public function isFeatureRelatedForContext($context, $type = NULL) {
-		if (in_array($context, array('List'))) {
-			return 500;
-		}
-		return FALSE;
-	}
-
-	public function getName() {
-		return 'New';
-	}
-
+	protected $defaultViewObjectName = 'TYPO3\TypoScript\View\TypoScriptView';
 
 	/**
 	 * Create objects

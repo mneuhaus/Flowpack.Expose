@@ -82,7 +82,7 @@ class FeatureLinkViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractTagBase
 		$this->tag->addAttribute('href', $uri);
 		$this->tag->addAttribute('class', 'btn');
 
-		$this->tag->setContent($feature->getName());
+		$this->tag->setContent($this->renderChildren());
 		$this->tag->forceClosingTag(TRUE);
 
 		return $this->tag->render();
