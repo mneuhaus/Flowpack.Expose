@@ -42,9 +42,11 @@ class EntityOverviewNavigationProvider extends AbstractNavigationProvider {
         $this->annotationService = $annotationService;
 
         $groups = $this->getGroups();
-        foreach ($groups as $groupTitle => $group) {
-            $group['title'] = $groupTitle;
-            $this->items[] = $group;
+        foreach ($groups as $groupTitle => $beings) {
+            $this->items[] = array(
+                'title' => $groupTitle,
+                'beings' => $beings
+            );
         }
     }
 
