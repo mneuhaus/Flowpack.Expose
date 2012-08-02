@@ -26,6 +26,13 @@ class ModelFormFactory extends \TYPO3\Form\Factory\AbstractFormFactory {
     protected $request;
 
     /**
+     * @var \TYPO3\FLOW3\Reflection\ReflectionService
+     * @api
+     * @FLOW3\Inject
+     */
+    protected $reflectionService;
+
+    /**
      * @var \TYPO3\FLOW3\Validation\ValidatorResolver
      * @FLOW3\Inject
      */
@@ -66,7 +73,7 @@ class ModelFormFactory extends \TYPO3\Form\Factory\AbstractFormFactory {
     }
 
     public function generateElements($object, $section, $namespace = ""){
-        $class = get_class($object);
+        $class = $this->reflectionService->getClassNameByObject($object);
         $classAnnotations = $this->annotationService->getClassAnnotations($class);
         $classAnnotations->setObject($object);
 
