@@ -46,10 +46,10 @@ class NewController extends \Foo\ContentManagement\Core\Features\AbstractFeature
 	/**
 	 * Create objects
 	 *
+	 * @param string $type
 	 */
-	public function indexAction() {
-		$being = $this->persistentStorageService->getClassShortName($this->request->getArgument("being"));
-		$object = new $being();
+	public function indexAction($type) {
+		$object = new $type();
 		$this->view->assign("object", $object);
 	}
 

@@ -8,6 +8,8 @@ prototype(Foo.ContentManagement:RecordList.GlobalFeatureLinks) < prototype(TYPO3
 prototype(Foo.ContentManagement:RecordList.GlobalFeatureLinks) {
 	10 = Foo.ContentManagement:RecordList.GlobalFeatureLinks.Button
 	10.label = 'New'
+	10.feature = 'Foo\\ContentManagement\\Controller\\NewController'
+	10.arguments.type = ${type}
 }
 
 #
@@ -22,8 +24,8 @@ prototype(Foo.ContentManagement:RecordList.GlobalFeatureLinks) {
 # - iconClass: CSS-class name used for the icon, if any
 #
 # TODO: implement
-prototype(Foo.ContentManagement:RecordList.GlobalFeatureLinks.Button) < prototype(TYPO3.TypoScript:FluidRenderer)
 prototype(Foo.ContentManagement:RecordList.GlobalFeatureLinks.Button) {
+	implementationClassName = 'Foo\\ContentManagement\\TypoScriptObjects\\FeatureLinkButton'
 	templatePath = 'resource://Foo.ContentManagement/Private/Elements/RecordList/FeatureLinkButton.html'
 }
 

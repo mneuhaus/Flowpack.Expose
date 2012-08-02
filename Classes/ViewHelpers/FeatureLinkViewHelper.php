@@ -25,6 +25,12 @@ class FeatureLinkViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractTagBase
 	protected $persistenceManager;
 
 	/**
+	 * @var \TYPO3\FLOW3\Object\ObjectManagerInterface
+	 * @FLOW3\Inject
+	 */
+	protected $objectManager;
+
+	/**
 	 * @var string
 	 */
 	protected $tagName = 'a';
@@ -42,17 +48,19 @@ class FeatureLinkViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractTagBase
 	/**
 	 * Render the link.
 	 *
-	 * @param \Foo\ContentManagement\Core\Features\FeatureInterface $feature the fully qualified class name of the feature being linked.
+	 * @param mixed $feature the fully qualified class name of the feature being linked, or the feature class itself
 	 * @param string $type
 	 * @param object $object the object to link to
+	 * @param array $arguments
 	 * @return string The rendered link
 	 * @api
 	 */
-	public function render(\Foo\ContentManagement\Core\Features\FeatureInterface $feature, $type = NULL, $object = NULL) {
+	public function render($feature, $type = NULL, $object = NULL, $arguments = array()) {
+		if (is_string($feature)) {
+			$feature = $this->objectManager->get($feature);
+		}
 
 		$uriBuilder = $this->controllerContext->getUriBuilder();
-
-		$arguments = array();
 
 		if ($type !== NULL) {
 			$arguments['type'] = $type;
