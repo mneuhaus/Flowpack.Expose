@@ -18,74 +18,21 @@ use TYPO3\FLOW3\Mvc\ActionRequest;
  * @api
  */
 class FeatureRuntime extends AbstractRuntime {
-	/**
-	 * @var \Foo\ContentManagement\Core\FeatureManager
-	 * @FLOW3\Inject
-	 */
-	protected $featureManager;
 
 	/**
-	 * @var \Foo\ContentManagement\Reflection\AnnotationService
-	 * @FLOW3\Inject
-	 */
-	protected $annotationService;
-
-	/**
-	 * @var \Foo\ContentManagement\Core\PersistentStorageService
-	 * @FLOW3\Inject
-	 */
-	protected $persistentStorageService;
-
-	/**
-	 * Default action to render if nothing else is specified 
+	 * Default action to render if nothing else is specified
 	 * or present in the arguments
 	 *
 	 * @var string
 	 * @internal
 	 */
-	protected $defaultController = "Foo\ContentManagement\Controller\IndexController";
-
-	/**
-	 * Default action to render if nothing else is specified 
-	 * or present in the arguments
-	 *
-	 * @var string
-	 * @internal
-	 */
-	protected $defaultAction = "index";
-
-	/**
-	 * Default being to render if nothing else is specified 
-	 * or present in the arguments
-	 *
-	 * @var string
-	 * @internal
-	 */
-	protected $defaultBeing = null;
-
-	/**
-	 *
-	 * @var string
-	 * @internal
-	 */
-	protected $being;
+	protected $defaultControllerClassName = "Foo\ContentManagement\Controller\IndexController";
 
 	/**
 	 *
 	 * @var string
 	 */
 	protected $namespace = "featureRuntime";
-
-	/**
-	 *
-	 */
-	public function prepareExecution() {
-		parent::prepareExecution();
-
-		if (!$this->request->hasArgument("being") && $this->defaultBeing !== NULL){
-			$this->request->setArgument("being", $this->defaultBeing);
-		}
-	}
 
 }
 ?>

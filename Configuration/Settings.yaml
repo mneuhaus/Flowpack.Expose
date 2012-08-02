@@ -88,6 +88,9 @@ TYPO3:
             content:
               label: 'Content'
               controller: '\Foo\ContentManagement\Controller\StandardController'
+              defaultFeatureClassName: '\Foo\ContentManagement\Controller\SameTypeListController'
+              defaultFeatureArguments:
+                type: 'TYPO3\TYPO3\Domain\Model\User'
 
   Form:
     presets:

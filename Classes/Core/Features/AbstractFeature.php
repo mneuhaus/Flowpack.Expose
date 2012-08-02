@@ -101,11 +101,6 @@ abstract class AbstractFeature extends \TYPO3\FLOW3\Mvc\Controller\ActionControl
 		}
 	}
 
-#	public function initializeView() {
-#		$this->view = new \Foo\ContentManagement\View\FallbackTemplateView();
-#		$this->view->setControllerContext($this->featureRuntime->getControllerContext());
-#	}
-
 	public function getSettings($path = null){
 		$paths = array("Foo.ContentManagement.ViewSettings");
 		$paths[] = ucfirst($this->getAction());

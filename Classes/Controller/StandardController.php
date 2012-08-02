@@ -26,8 +26,8 @@ use Doctrine\ORM\Mapping as ORM;
 use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
- * Standard controller for the Admin package
- *
+ * Standard controller for the Admin package; main entry point when this package is
+ * used inside Phoenix.
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
@@ -39,8 +39,14 @@ class StandardController extends \TYPO3\TYPO3\Controller\Module\StandardControll
 	 */
 	public function indexAction() {
 		$featureRuntime = new \Foo\ContentManagement\Core\FeatureRuntime($this->request);
+		if (isset($this->moduleConfiguration['defaultFeatureClassName'])) {
+			$featureRuntime->setDefaultFeatureClassName($this->moduleConfiguration['defaultFeatureClassName']);
+		}
+		if (isset($this->moduleConfiguration['defaultFeatureArguments'])) {
+			$featureRuntime->setDefaultFeatureArguments($this->moduleConfiguration['defaultFeatureArguments']);
+		}
+
 		return $featureRuntime->execute();
 	}
 }
-
 ?>
