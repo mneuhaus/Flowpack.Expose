@@ -45,7 +45,7 @@ class RelationOptionsProvider extends \Foo\ContentManagement\Core\OptionsProvide
 
 	public function getOptions(){
 		$options = array();
-		$objects = $this->persistenceService->getQueryByType($this->annotations->getType())->execute();
+		$objects = $this->persistenceService->createQueryForType($this->annotations->getType())->execute();
 		foreach ($objects as $object) {
 			$options[$this->persistenceService->getIdentifierByObject($object)] = $this->formatter->convert($object, "string");
 		}
