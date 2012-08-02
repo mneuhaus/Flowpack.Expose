@@ -44,14 +44,7 @@ class StringViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 	 * @return string Rendered string
 	 */
 	public function render($value) {
-		$options = array(
-		 //    array(
-			// 'TYPO3\FLOW3\Property\TypeConverter\DateTimeConverter',
-			// \TYPO3\FLOW3\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT,
-			// $this->parentProperty->representation->datetimeFormat
-		 //    )
-		);
-		$string = $this->formatter->convert($value, "string", \Foo\ContentManagement\Core\PropertyMappingConfiguration::getConfiguration('\Foo\ContentManagement\Core\PropertyMappingConfiguration', $options));
+		$string = $this->formatter->convert($value, "string");
 		return $string;
 	}
 }
