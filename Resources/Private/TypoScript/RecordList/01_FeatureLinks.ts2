@@ -1,3 +1,9 @@
+# This TypoScript file contains link-buttons to other relevant features depending
+# on the context. It contains two different kinds of feature links: First, "Global"
+# feature links, which are always displayed for a certain RecordList (usually at the
+# top; like "new" or a wizard for creating elements).
+# Second, there are "Element" feature links, which contain features relevant for a
+# certain element (like Edit, Delete)
 #
 # RecordList.GlobalFeatureLinks
 # -----------------------------
@@ -6,14 +12,22 @@
 
 prototype(Foo.ContentManagement:RecordList.GlobalFeatureLinks) < prototype(TYPO3.TypoScript:TypoScriptArrayRenderer)
 prototype(Foo.ContentManagement:RecordList.GlobalFeatureLinks) {
-	10 = Foo.ContentManagement:RecordList.GlobalFeatureLinks.Button
+	10 = Foo.ContentManagement:RecordList.FeatureLinkButton
 	10.label = 'New'
 	10.feature = 'Foo\\ContentManagement\\Controller\\NewController'
 	10.arguments.type = ${type}
 }
 
+prototype(Foo.ContentManagement:RecordList.ElementFeatureLinks) < prototype(TYPO3.TypoScript:TypoScriptArrayRenderer)
+prototype(Foo.ContentManagement:RecordList.ElementFeatureLinks) {
+	10 = Foo.ContentManagement:RecordList.FeatureLinkButton
+	10.label = 'Edit'
+	10.feature = 'Foo\\ContentManagement\\Controller\\EditController'
+	10.arguments.object = ${item}
+}
+
 #
-# RecordList.GlobalFeatureLinks.Button
+# RecordList.FeatureLinkButton
 # ------------------------------------
 #
 # Render a single feature link-button inside the "global actions" bar
@@ -24,7 +38,7 @@ prototype(Foo.ContentManagement:RecordList.GlobalFeatureLinks) {
 # - iconClass: CSS-class name used for the icon, if any
 #
 # TODO: implement
-prototype(Foo.ContentManagement:RecordList.GlobalFeatureLinks.Button) {
+prototype(Foo.ContentManagement:RecordList.FeatureLinkButton) {
 	implementationClassName = 'Foo\\ContentManagement\\TypoScriptObjects\\FeatureLinkButton'
 	templatePath = 'resource://Foo.ContentManagement/Private/Elements/RecordList/FeatureLinkButton.html'
 }

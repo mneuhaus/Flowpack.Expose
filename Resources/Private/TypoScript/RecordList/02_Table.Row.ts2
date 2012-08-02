@@ -20,6 +20,6 @@ prototype(Foo.ContentManagement:RecordList.Table.DefaultRow) < prototype(TYPO3.T
 prototype(Foo.ContentManagement:RecordList.Table.DefaultRow) {
 	templatePath = 'resource://Foo.ContentManagement/Private/Elements/List/Row.html'
 	item = ${item}
-	listElementFeatures = ${listElementFeatures}
 	type = ${type}
+	elementFeatureLinks = Foo.ContentManagement:RecordList.ElementFeatureLinks
 }

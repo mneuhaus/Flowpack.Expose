@@ -12,9 +12,7 @@
 			</td>
 		</f:for>
 		<td class="table-actions">
-			<f:for each="{listElementFeatures}" as="feature">
-				<cm:featureLink feature="{feature}" type="{type}" object="{item}" />
-			</f:for>
+			<ts:renderTypoScript path="elementFeatureLinks" />
 		</td>
 	</tr>
 </cm:properties>
