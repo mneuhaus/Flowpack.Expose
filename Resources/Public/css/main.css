@@ -4762,66 +4762,66 @@ body > .container-fluid {
   padding-right: 15px;
   margin-bottom: 0;
 }
-.content-management .t3-ui .box table {
+.content-management .box table {
   width: 100%;
   margin: 0;
 }
-.content-management .t3-ui .box .inline tr th:first-child,
-.content-management .t3-ui .box .inline tr td:first-child {
+.content-management .box .inline tr th:first-child,
+.content-management .box .inline tr td:first-child {
   padding-left: 20px;
 }
-.content-management .t3-ui .box .inline tr th:last-child,
-.content-management .t3-ui .box .inline tr td:last-child {
+.content-management .box .inline tr th:last-child,
+.content-management .box .inline tr td:last-child {
   padding-right: 20px;
 }
-.content-management .t3-ui .box th {
+.content-management .box th {
   border-top: none;
   padding: 4px 10px;
 }
-.content-management .t3-ui .box .box .legend {
+.content-management .box .box .legend {
   font-size: 14px;
 }
-.content-management .t3-ui .box .form-inline .control-group {
+.content-management .box .form-inline .control-group {
   margin: 10px 10px 0;
 }
-.content-management .t3-ui .box .inline-template,
-.content-management .t3-ui .box .inline-template input,
-.content-management .t3-ui .box .inline-template select,
-.content-management .t3-ui .box .inline-template textarea {
+.content-management .box .inline-template,
+.content-management .box .inline-template input,
+.content-management .box .inline-template select,
+.content-management .box .inline-template textarea {
   display: none;
 }
-.content-management .t3-ui .box div.inline-item {
+.content-management .box div.inline-item {
   border-bottom: 1px solid #DDD;
   overflow: hidden;
 }
-.content-management .t3-ui .box div.inline-item .close {
+.content-management .box div.inline-item .close {
   margin-right: 20px;
   margin-top: 10px;
   display: none;
 }
-.content-management .t3-ui .box tr.inline-item .close {
+.content-management .box tr.inline-item .close {
   margin-right: 20px;
   margin-top: 8px;
   margin-left: 10px;
   display: none;
 }
-.content-management .t3-ui .box tr.inline-item td.tiny {
+.content-management .box tr.inline-item td.tiny {
   width: 20px;
   padding: 1px 0;
 }
-.content-management .t3-ui .box .inline-unused {
+.content-management .box .inline-unused {
   background: #FAFAFA;
 }
-.content-management .t3-ui .box tr.inline-item .control-label {
+.content-management .box tr.inline-item .control-label {
   display: none;
 }
-.content-management .t3-ui .box tr.inline-item .controls {
+.content-management .box tr.inline-item .controls {
   margin-left: 0;
 }
-.content-management .t3-ui .box tr.inline-item .control-group {
+.content-management .box tr.inline-item .control-group {
   margin: 0;
 }
-.content-management .t3-ui .box tr.inline-item .controls input {
+.content-management .box tr.inline-item .controls input {
   width: 100%;
 }
 .content-management .box .chzn-container .chzn-results li {
