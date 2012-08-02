@@ -1,9 +1,11 @@
-
 Foo.ContentManagement.NewController.index = Foo.ContentManagement:ObjectForm
+Foo.ContentManagement.EditController.index = Foo.ContentManagement:ObjectForm
+Foo.ContentManagement.EditController.index {
+	controllerCallback = 'update'
+}
 
 prototype(Foo.ContentManagement:ObjectForm) {
 	implementationClassName = 'Foo\\ContentManagement\\TypoScriptObjects\\FormRenderer'
-	templatePath = 'resource://Foo.ContentManagement/Private/Elements/Form/Index.html'
 	object = ${object}
-	controllerCallback = 'new'
+	controllerCallback = 'create'
 }

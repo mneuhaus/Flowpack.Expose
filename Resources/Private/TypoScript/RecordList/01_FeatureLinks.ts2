@@ -24,6 +24,7 @@ prototype(Foo.ContentManagement:RecordList.ElementFeatureLinks) {
 	10.label = 'Edit'
 	10.feature = 'Foo\\ContentManagement\\Controller\\EditController'
 	10.arguments.object = ${item}
+	10.arguments.type = ${type}
 }
 
 #

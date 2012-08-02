@@ -31,31 +31,29 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
 class EditController extends \Foo\ContentManagement\Core\Features\AbstractFeature {
-	public function isFeatureRelatedForContext($context, $type = NULL) {
-		if (in_array($context, array('List.Element'))) {
-			return 500;
-		}
-		return FALSE;
-	}
 
-	public function getName(){
-		return 'Edit';
-	}
+	protected $defaultViewObjectName = 'TYPO3\TypoScript\View\TypoScriptView';
+
+	/**
+	 * @var \TYPO3\FLOW3\Property\PropertyMapper
+	 * @FLOW3\Inject
+	 */
+	protected $propertyMapper;
 
 	/**
 	 * Edit object
+	 *
+	 * @param string $type
+	 * @param array $object
 	 */
-	public function indexAction() {
-		if($this->request->hasArgument("being") && $this->request->hasArgument("id")){
-			$being = $this->persistentStorageService->getClassShortName($this->request->getArgument("being"));
-			$object = $this->persistentStorageService->getObject($being, $this->request->getArgument("id"));
-			$this->view->assign("object", $object);
-		}
+	public function indexAction($type, $object) {
+		$object = $this->propertyMapper->convert($object, $type);
+		$this->view->assign('object', $object);
 	}
 
 	public function update($formRuntime) {
 		$formValues = $formRuntime->getFormState()->getFormValues();
-		$object = $formValues["item"];
+		$object = $formValues['item'];
 		$class = get_class($object);
 		$this->persistentStorageService->updateObject($class, $object);
 
