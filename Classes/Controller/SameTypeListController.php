@@ -27,11 +27,11 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 use TYPO3\FLOW3\Mvc\ActionRequest;
 
 /**
- * Action to display the list and apply Bulk aktions and filter if necessary
+ * Action to display a list of records of the same type
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-class ListController extends \Foo\ContentManagement\Core\Features\AbstractFeature {
+class SameTypeListController extends \Foo\ContentManagement\Core\Features\AbstractFeature {
 	protected $defaultViewObjectName = 'TYPO3\TypoScript\View\TypoScriptView';
 
 	public function isFeatureRelatedForContext($context, $type = NULL) {
@@ -44,18 +44,19 @@ class ListController extends \Foo\ContentManagement\Core\Features\AbstractFeatur
 	 * TODO: Filtering of this list, bulk
 	 *
 	 * @param string $type
+	 * @param string $format
 	 */
-	public function indexAction($type) {
+	public function indexAction($type, $format = 'table') {
 		$query = $this->persistenceManager->createQueryForType($type);
 
 		$objects = $query->execute();
 		$this->redirectToNewFormIfNoObjectsFound($objects);
 
-
 		$this->view->assign('type', $type);
+		$this->view->assign('format', $format);
 		$this->view->assign('objects', $objects);
-		$this->view->assign('listElementFeatures', $this->featureManager->findRelatedFeaturesByContext('List.Element', $type));
-		$this->view->assign('globalFeatures', $this->featureManager->findRelatedFeaturesByContext('List', $type));
+#		$this->view->assign('listElementFeatures', $this->featureManager->findRelatedFeaturesByContext('List.Element', $type));
+#		$this->view->assign('globalFeatures', $this->featureManager->findRelatedFeaturesByContext('List', $type));
 	}
 
 	protected function redirectToNewFormIfNoObjectsFound(\TYPO3\FLOW3\Persistence\QueryResultInterface $result) {

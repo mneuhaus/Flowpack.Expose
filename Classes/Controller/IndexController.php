@@ -32,6 +32,12 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  */
 class IndexController extends \Foo\ContentManagement\Core\Features\AbstractFeature {
 
+	/**
+	 * @var \Foo\ContentManagement\Core\PersistentStorageService
+	 * @FLOW3\Inject
+	 */
+	protected $persistentStorageService;
+
 	public function isFeatureRelatedForContext($context, $type = NULL) {
 		return FALSE;
 	}

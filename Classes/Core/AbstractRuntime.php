@@ -46,7 +46,7 @@ class AbstractRuntime {
 	protected $flashMessageContainer;
 
 	/**
-	 * Default action to render if nothing else is specified 
+	 * Default action to render if nothing else is specified
 	 * or present in the arguments
 	 *
 	 * @var string
@@ -55,7 +55,7 @@ class AbstractRuntime {
 	protected $defaultController = "Foo\ContentManagement\Controller\IndexController";
 
 	/**
-	 * Default action to render if nothing else is specified 
+	 * Default action to render if nothing else is specified
 	 * or present in the arguments
 	 *
 	 * @var string
@@ -76,13 +76,13 @@ class AbstractRuntime {
 	protected $context = array();
 
 	/**
-	 * @param \TYPO3\FLOW3\Mvc\ActionRequest $request
+	 * @param \TYPO3\FLOW3\Mvc\ActionRequest $parentRequest
 	 * @param \TYPO3\FLOW3\Http\Response $response
 	 * @internal
 	 */
-	public function __construct(\TYPO3\FLOW3\Mvc\ActionRequest $request, \TYPO3\FLOW3\Http\Response $response) {
-		$arguments = $request->getPluginArguments();
-		$this->request = new ActionRequest($request);
+	public function __construct(\TYPO3\FLOW3\Mvc\ActionRequest $parentRequest) {
+		$arguments = $parentRequest->getPluginArguments();
+		$this->request = new ActionRequest($parentRequest);
 		$this->request->setArgumentNamespace("--" . $this->namespace);
 		if (isset($arguments[$this->namespace])) {
 			$this->request->setArguments($arguments[$this->namespace]);
@@ -95,7 +95,8 @@ class AbstractRuntime {
 		if($this->request->hasArgument("controller"))
 			$this->request->setControllerObjectName($this->request->getArgument("controller"));
 
-		$this->response = new \TYPO3\FLOW3\Http\Response($response);
+			// TODO: the response below should be an MVC response
+		$this->response = new \TYPO3\FLOW3\Http\Response();
 	}
 
 	public function prepareExecution() {

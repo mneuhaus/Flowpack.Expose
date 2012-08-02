@@ -1,0 +1,11 @@
+{namespace cm=Foo\ContentManagement\ViewHelpers}
+{namespace ts=TYPO3\TypoScript\ViewHelpers}
+<div class="well">
+	<cm:properties object="{item}" context="Content.List.Table">
+		<f:for each="{properties}" as="property">
+			<p>
+				<b>{property.label}</b>: <cm:format.string value="{property.value}" />
+			</p>
+		</f:for>
+	</cm:properties>
+</div>

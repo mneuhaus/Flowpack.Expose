@@ -1,0 +1,16 @@
+{namespace cm=Foo\ContentManagement\ViewHelpers}
+{namespace ts=TYPO3\TypoScript\ViewHelpers}
+
+<form method="POST">
+	<div class="list-actions">
+		<input type="text" placeholder="filter" />
+		<div class="pull-left">
+			<ts:renderTypoScript path="formatSelector" />
+		</div>
+		<div class="pull-right">
+			<ts:renderTypoScript path="globalFeatureLinks" />
+		</div>
+	</div>
+
+	<ts:renderTypoScript path="recordList/{currentFormat}" />
+</form>

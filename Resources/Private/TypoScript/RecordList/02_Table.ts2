@@ -1,6 +1,3 @@
-
-Foo.ContentManagement.ListController.index = Foo.ContentManagement:RecordList.Table
-
 ########################################
 # Foo.ContentManagement:RecordList.Table
 # --------------------------------------
@@ -17,6 +14,4 @@ prototype(Foo.ContentManagement:RecordList.Table) {
 		itemRenderer = Foo.ContentManagement:RecordList.Table.Row
 	}
 	objects = ${objects}
-	globalFeatures = ${globalFeatures}
-	type = ${type}
 }

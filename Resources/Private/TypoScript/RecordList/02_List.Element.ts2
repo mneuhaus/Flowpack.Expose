@@ -1,0 +1,19 @@
+########################################
+# Foo.ContentManagement:RecordList.List.Element
+# --------------------------------------
+# Display a single list element
+########################################
+
+prototype(Foo.ContentManagement:RecordList.List.Element) < prototype(TYPO3.TypoScript:Case)
+
+# Catch-all condition for the default case
+prototype(Foo.ContentManagement:RecordList.List.Element).matchers.999999999999 {
+	condition = ${true}
+	type = 'Foo.ContentManagement:RecordList.List.DefaultElement'
+}
+
+prototype(Foo.ContentManagement:RecordList.List.DefaultElement) < prototype(TYPO3.TypoScript:FluidRenderer)
+prototype(Foo.ContentManagement:RecordList.List.DefaultElement) {
+	templatePath = 'resource://Foo.ContentManagement/Private/Elements/List/Element.html'
+	item = ${item}
+}

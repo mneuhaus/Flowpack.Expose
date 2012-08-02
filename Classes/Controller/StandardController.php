@@ -37,7 +37,10 @@ class StandardController extends \TYPO3\TYPO3\Controller\Module\StandardControll
 	 *
 	 * @return void
 	 */
-	public function indexAction() {}
+	public function indexAction() {
+		$featureRuntime = new \Foo\ContentManagement\Core\FeatureRuntime($this->request);
+		return $featureRuntime->execute();
+	}
 }
 
 ?>
