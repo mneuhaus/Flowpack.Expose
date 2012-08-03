@@ -4,8 +4,7 @@
 # Display a list of common records as table
 ########################################
 
-prototype(Foo.ContentManagement:RecordList.Table) < prototype(TYPO3.TypoScript:FluidRenderer)
-prototype(Foo.ContentManagement:RecordList.Table) {
+prototype(Foo.ContentManagement:RecordList.Table) < prototype(TYPO3.TypoScript:FluidRenderer) {
 	templatePath = 'resource://Foo.ContentManagement/Private/Elements/List/Table.html'
 	tableBody = Foo.ContentManagement:CollectionRenderer
 	tableBody {

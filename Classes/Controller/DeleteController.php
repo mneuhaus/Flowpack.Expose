@@ -30,41 +30,23 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
 class DeleteController extends \Foo\ContentManagement\Core\Features\AbstractFeature {
-	public function isFeatureRelatedForContext($context, $type = NULL) {
-		if (in_array($context, array('List.Element'))) {
-			return 1000;
-		}
-		return FALSE;
-	}
 
-    /**
-     * @return string
-     */
-    public function getName(){
-		return 'delete';
-	}
+	protected $defaultViewObjectName = 'TYPO3\TypoScript\View\TypoScriptView';
 
 	/**
-	 *
+	 * @var \TYPO3\FLOW3\Property\PropertyMapper
+	 * @FLOW3\Inject
 	 */
-	public function indexAction() {
-		$being = $this->request->getArgument("being");
+	protected $propertyMapper;
 
-		$ids = array();
-		if($this->request->hasArgument("id"))
-			$ids = array( $this->request->getArgument("id") );
-		else if($this->request->hasArgument("ids"))
-			$ids = $this->request->getArgument("ids");
-
-		if(count($ids) > 0){
-			$objects = array();
-			foreach ($ids as $id) {
-				$objects[] = $this->persistentStorageService->getObject($being, $id);
-			}
-			$this->view->assign("objects", $objects);
-			$this->view->assign("ids", implode(",", $ids));
-			$this->view->assign("class", $this->persistentStorageService->getClassShortName($being));
-		}
+	/**
+	 * @param string $type
+	 * @param array $object
+	 */
+	public function indexAction($type, $object) {
+		$object = $this->propertyMapper->convert($object, $type);
+		$this->view->assign('object', $object);
+		$this->view->assign('type', $type);
 	}
 
 	/**

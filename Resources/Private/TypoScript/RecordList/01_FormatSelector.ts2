@@ -8,8 +8,7 @@
 
 namespace: default = TYPO3\TypoScript\Processors
 
-prototype(Foo.ContentManagement:RecordList.FormatSelector) < prototype(TYPO3.TypoScript:TypoScriptArrayRenderer)
-prototype(Foo.ContentManagement:RecordList.FormatSelector) {
+prototype(Foo.ContentManagement:RecordList.FormatSelector) < prototype(TYPO3.TypoScript:TypoScriptArrayRenderer) {
 	10 = Foo.ContentManagement:RecordList.FormatSelector.Button
 	10.format = 'table'
 	10.label = 'Table'
@@ -31,8 +30,7 @@ prototype(Foo.ContentManagement:RecordList.FormatSelector) << 1.wrap(prefix: '<d
 # - iconClass: CSS-class name used for the icon, if any
 #
 # TODO: implement
-prototype(Foo.ContentManagement:RecordList.FormatSelector.Button) < prototype(TYPO3.TypoScript:FluidRenderer)
-prototype(Foo.ContentManagement:RecordList.FormatSelector.Button) {
+prototype(Foo.ContentManagement:RecordList.FormatSelector.Button) < prototype(TYPO3.TypoScript:FluidRenderer) {
 	templatePath = 'resource://Foo.ContentManagement/Private/Elements/RecordList/FormatSelector.Button.html'
 	currentFormat = ${format}
 }

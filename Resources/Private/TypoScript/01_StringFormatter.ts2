@@ -1,5 +1,5 @@
-prototype(Foo.ContentManagement:StringFormatter) < prototype(TYPO3.TypoScript:Case)
-prototype(Foo.ContentManagement:StringFormatter).matchers {
-	10.condition = ${q(value).type() == 'string'}
-	
+prototype(Foo.ContentManagement:StringFormatter) < prototype(TYPO3.TypoScript:Case) {
+	matchers {
+		10.condition = ${q(value).type() == 'string'}
+	}
 }

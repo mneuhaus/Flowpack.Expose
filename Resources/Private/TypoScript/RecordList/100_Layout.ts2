@@ -1,8 +1,7 @@
 
 Foo.ContentManagement.SameTypeListController.index = Foo.ContentManagement:RecordList
 
-prototype(Foo.ContentManagement:RecordList) < prototype(TYPO3.TypoScript:FluidRenderer)
-prototype(Foo.ContentManagement:RecordList) {
+prototype(Foo.ContentManagement:RecordList) < prototype(TYPO3.TypoScript:FluidRenderer) {
 	templatePath = 'resource://Foo.ContentManagement/Private/Elements/RecordList/Layout.html'
 	currentFormat = ${format}
 

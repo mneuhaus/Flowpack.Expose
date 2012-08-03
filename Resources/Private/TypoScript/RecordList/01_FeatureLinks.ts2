@@ -10,22 +10,24 @@
 #
 # Render a list of links to all global features available in a certain context
 
-prototype(Foo.ContentManagement:RecordList.GlobalFeatureLinks) < prototype(TYPO3.TypoScript:TypoScriptArrayRenderer)
-prototype(Foo.ContentManagement:RecordList.GlobalFeatureLinks) {
+prototype(Foo.ContentManagement:RecordList.GlobalFeatureLinks) < prototype(TYPO3.TypoScript:TypoScriptArrayRenderer) {
 	10 = Foo.ContentManagement:RecordList.FeatureLinkButton
 	10.label = 'New'
 	10.feature = 'Foo\\ContentManagement\\Controller\\NewController'
 	10.arguments.type = ${type}
 }
 
-prototype(Foo.ContentManagement:RecordList.ElementFeatureLinks) < prototype(TYPO3.TypoScript:TypoScriptArrayRenderer)
-prototype(Foo.ContentManagement:RecordList.ElementFeatureLinks) {
-	10 = Foo.ContentManagement:RecordList.FeatureLinkButton
+prototype(Foo.ContentManagement:RecordList.ElementFeatureLinks) < prototype(TYPO3.TypoScript:TypoScriptArrayRenderer) {
+	10 = Foo.ContentManagement:RecordList.LocalFeatureLinkButton
 	10.label = 'Edit'
 	10.feature = 'Foo\\ContentManagement\\Controller\\EditController'
-	10.arguments.object = ${item}
-	10.arguments.type = ${type}
+
+	20 = Foo.ContentManagement:RecordList.LocalFeatureLinkButton
+	20.label = 'Delete'
+	20.feature = 'Foo\\ContentManagement\\Controller\\DeleteController'
 }
+
+
 
 #
 # RecordList.FeatureLinkButton
@@ -44,3 +46,8 @@ prototype(Foo.ContentManagement:RecordList.FeatureLinkButton) {
 	templatePath = 'resource://Foo.ContentManagement/Private/Elements/RecordList/FeatureLinkButton.html'
 }
 
+
+prototype(Foo.ContentManagement:RecordList.LocalFeatureLinkButton) < prototype(Foo.ContentManagement:RecordList.FeatureLinkButton) {
+	arguments.object = ${item}
+	arguments.type = ${type}
+}

@@ -16,8 +16,7 @@ prototype(Foo.ContentManagement:RecordList.Table.Row).matchers.999999999999 {
 	type = 'Foo.ContentManagement:RecordList.Table.DefaultRow'
 }
 
-prototype(Foo.ContentManagement:RecordList.Table.DefaultRow) < prototype(TYPO3.TypoScript:FluidRenderer)
-prototype(Foo.ContentManagement:RecordList.Table.DefaultRow) {
+prototype(Foo.ContentManagement:RecordList.Table.DefaultRow) < prototype(TYPO3.TypoScript:FluidRenderer) {
 	templatePath = 'resource://Foo.ContentManagement/Private/Elements/List/Row.html'
 	item = ${item}
 	type = ${type}

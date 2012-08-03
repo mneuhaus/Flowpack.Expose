@@ -12,8 +12,9 @@ prototype(Foo.ContentManagement:RecordList.List.Element).matchers.999999999999 {
 	type = 'Foo.ContentManagement:RecordList.List.DefaultElement'
 }
 
-prototype(Foo.ContentManagement:RecordList.List.DefaultElement) < prototype(TYPO3.TypoScript:FluidRenderer)
-prototype(Foo.ContentManagement:RecordList.List.DefaultElement) {
+prototype(Foo.ContentManagement:RecordList.List.DefaultElement) < prototype(TYPO3.TypoScript:FluidRenderer) {
 	templatePath = 'resource://Foo.ContentManagement/Private/Elements/List/Element.html'
 	item = ${item}
+
+	elementFeatureLinks = Foo.ContentManagement:RecordList.ElementFeatureLinks
 }
