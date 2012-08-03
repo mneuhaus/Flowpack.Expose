@@ -83,15 +83,35 @@ Foo:
 TYPO3:
   TYPO3:
       modules:
-        management:
+        administration:
           submodules:
-            content:
-              label: 'Content'
+            usernew:
+              label: 'New User Administration'
               controller: '\Foo\ContentManagement\Controller\StandardController'
               defaultFeatureClassName: '\Foo\ContentManagement\Controller\SameTypeListController'
               defaultFeatureArguments:
                 type: 'TYPO3\TYPO3\Domain\Model\User'
+        management:
+          submodules:
+            content:
+              label: 'Manage Content'
+              controller: '\Foo\ContentManagement\Controller\StandardController'
+              defaultFeatureClassName: '\Foo\ContentManagement\Controller\ContentListController'
 
+  TYPO3CR:
+    contentTypes:
+      'TYPO3.TYPO3:Section':
+        nodeLabelGenerator: 'Foo\ContentManagement\EelNodeLabelGenerator'
+        nodeLabelGeneratorOptions:
+          expression: '"Section " + context.property("_name")'
+      'TYPO3.TYPO3:Text':
+        nodeLabelGenerator: 'Foo\ContentManagement\EelNodeLabelGenerator'
+        nodeLabelGeneratorOptions:
+          expression: 'strings.crop(strings.cleanup(context.property("headline") + " " + context.property("text")), 50)'
+      'TYPO3.TYPO3:Html':
+        nodeLabelGenerator: 'Foo\ContentManagement\EelNodeLabelGenerator'
+        nodeLabelGeneratorOptions:
+          expression: 'strings.crop(strings.cleanup(context.property("source")), 50)'
   Form:
     presets:
       contentManagement:

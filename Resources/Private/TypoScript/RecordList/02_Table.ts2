@@ -6,8 +6,7 @@
 
 prototype(Foo.ContentManagement:RecordList.Table) < prototype(TYPO3.TypoScript:FluidRenderer) {
 	templatePath = 'resource://Foo.ContentManagement/Private/Elements/List/Table.html'
-	tableBody = Foo.ContentManagement:CollectionRenderer
-	tableBody {
+	tableBody = Foo.ContentManagement:CollectionRenderer {
 		collection = ${objects}
 		itemName = 'item'
 		itemRenderer = Foo.ContentManagement:RecordList.Table.Row
