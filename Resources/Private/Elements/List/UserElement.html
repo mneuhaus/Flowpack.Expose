@@ -1,0 +1,10 @@
+{namespace b=Brain\ViewHelpers}
+
+<div class="span4 well">
+	<b:gravatar email="{item.email}" size="48"/>
+	<h3>{item.username}</h3>
+	
+	<f:for each="{listActions}" as="action" key="actionName">
+		<f:render partial="ActionButton" arguments="{action: action, object: item}" />
+	</f:for>
+</div>

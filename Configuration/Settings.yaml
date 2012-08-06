@@ -4,7 +4,6 @@
 
 Foo:
   ContentManagement:
-    Annotations: []
     Pagination:
       Limits:
         - 10
@@ -78,6 +77,67 @@ Foo:
         ^\\Doctrine\\Common\\Collections\\Collection\<\\[A-Za-z0-9\\]+\\Security\\[A-za-z]+>$: TYPO3.Form:MultipleSelectDropdown
         ^\\ArrayObject\<\\[A-Za-z0-9\\]+>$: TYPO3.Form:MultipleSelectDropdown
 
+    Annotations:
+      TYPO3\TYPO3\Domain\Model\User:
+        active: true
+        Properties: 
+          name: 
+            Inline: Foo.ContentManagement:InlineSeamless
+          electronicAddresses:
+            Inline: Foo.ContentManagement:InlineTabular
+            Ignore: List
+          preferences:
+            Ignore: true
+          accounts:
+            Inline: Foo.ContentManagement:InlineSeamless
+
+      TYPO3\Party\Domain\Model\PersonName:
+        Properties:
+          title:
+            Ignore: true
+          otherName:
+            Ignore: true
+          middleName:
+            Ignore: true
+          fullName:
+            Ignore: true
+          alias:
+            Ignore: true
+
+      TYPO3\FLOW3\Security\Account:
+        Properties:
+          accountIdentifier:
+            Label: Username
+            Title: true
+          credentialsSource:
+            Label: Passwort
+            Element: Foo.ContentManagement:PasswordWithHashing
+          roles:
+            OptionsProvider: 
+              Name: RoleOptionsProvider
+          creationDate:
+            Ignore: true
+          party:
+            Ignore: true
+          expirationDate:
+            Ignore: true
+          authenticationProviderName:
+            Ignore: true
+
+      TYPO3\Party\Domain\Model\ElectronicAddress:
+        Properties:
+          type:
+            Element: TYPO3.Form:SingleSelectDropdown
+            OptionsProvider: 
+              Name: ConstOptionsProvider
+              RegEx: TYPE_.+
+          usage:
+            Element: TYPO3.Form:SingleSelectDropdown
+            OptionsProvider: 
+              Name: ConstOptionsProvider
+              RegEx: USAGE_.+
+
+
 TYPO3:
   TYPO3:
       modules:
@@ -86,6 +146,13 @@ TYPO3:
             content:
               label: 'Content'
               controller: '\Foo\ContentManagement\Controller\StandardController'
+        administration:
+          submodules:
+            users:
+              label: 'User Management'
+              controller: '\Foo\ContentManagement\Controller\UserController'
+              description: "The User Management module provides you with an overview of all backend users. You can group them by their properties so you're able to monitor their permissions, filemounts, member groups etc.. This module is an indispensable tool in order to make sure the users are correctly configured."
+              icon: 'resource://TYPO3.TYPO3/Public/Images/Icons/Black/users_icon-24.png'
 
   Form:
     presets:
@@ -105,6 +172,10 @@ TYPO3:
 
           'TYPO3.Form:SelectionMixin':
             implementationClassName: 'Foo\ContentManagement\FormElements\OptionsFormElement'
+          
+          'Foo.ContentManagement:PasswordWithHashing':
+            superTypes: ['TYPO3.Form:PasswordWithConfirmation']
+            implementationClassName: 'Foo\ContentManagement\FormElements\PasswordWithHashing'
 
 
           ### FORM ELEMENTS: CONTAINER ###

@@ -1,0 +1,19 @@
+{namespace cm=Foo\ContentManagement\ViewHelpers}
+{namespace ts=TYPO3\TypoScript\ViewHelpers}
+
+<form method="post">
+	<div class="list-actions">
+		<div class="pull-left">
+			<cm:render partial="Toolbar" fallbacks="Partials" vars="{actions: bulkActions}" />
+		</div>
+		<div class="pull-right">
+			<f:for each="{topBarActions}" as="action">
+				<f:render partial="ActionButton" arguments="{action: action, class: className}" />
+			</f:for>
+		</div>
+	</div>
+
+	<section class="row">
+		<ts:renderTypoScript path="list" context="{items: objects, listActions: listActions, elementType: elementType}" />
+	</section>
+</form>
