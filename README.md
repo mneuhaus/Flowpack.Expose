@@ -47,4 +47,16 @@ See corresponding forge issue: http://forge.typo3.org/issues/37293
 
 	# http://review.typo3.org/13499
 	git fetch git://git.typo3.org/FLOW3/Packages/TYPO3.TYPO3CR refs/changes/99/13499/1 && git cherry-pick FETCH_HEAD
+
+
+	TYPO3.Party:
+
+	# apply the patch from Patches/AbstractParty.diff
+
+
+	TYPO3.FLOW3:
+
+	# apply the patch from Patches/PropertyMapper.diff
+	# apply the patch from Patches/PropertyMappingConfiguration.diff
+
 ```
