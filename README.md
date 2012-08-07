@@ -43,12 +43,6 @@ See corresponding forge issue: http://forge.typo3.org/issues/37293
 	git fetch git://git.typo3.org/FLOW3/Packages/TYPO3.TypoScript refs/changes/00/13500/1 && git cherry-pick FETCH_HEAD
 
 
-	TYPO3.TYPO3CR:
-
-	# http://review.typo3.org/13499
-	git fetch git://git.typo3.org/FLOW3/Packages/TYPO3.TYPO3CR refs/changes/99/13499/1 && git cherry-pick FETCH_HEAD
-
-
 	TYPO3.Party:
 
 	# apply the patch from Patches/AbstractParty.diff
