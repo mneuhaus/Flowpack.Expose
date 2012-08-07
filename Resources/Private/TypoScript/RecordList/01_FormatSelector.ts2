@@ -6,7 +6,7 @@
 #
 #
 
-namespace: default = TYPO3\TypoScript\Processors
+namespace: default = TYPO3\TYPO3\TypoScript
 
 prototype(Foo.ContentManagement:RecordList.FormatSelector) < prototype(TYPO3.TypoScript:TypoScriptArrayRenderer) {
 	10 = Foo.ContentManagement:RecordList.FormatSelector.Button
