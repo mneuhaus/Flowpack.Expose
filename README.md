@@ -2,8 +2,9 @@
 
 ## TODO list
 
-* Get rid of Action abstraction, and rather use Controller API directly.
-* See code comments (grep for: "TODO: (SK)")
+* Refactor Reflection API
+* Naming: change package namespace to "TYPO3.Admin"
+* Naming: change "Feature" to "Admin Controller"
 
 ## Installation
 
@@ -15,6 +16,35 @@
   git clone git@github.com:mneuhaus/Foo.ContentManagement.git Packages/Application/Foo.ContentManagement
 ```
 
-Apply patches from 'Packages/Application/Foo.ContentManagement/Patches' and 'https://review.typo3.org/#/q/status:open+project:FLOW3/Packages/TYPO3.TypoScript+branch:master+topic:typoscript_38692,n,z'
-
 See corresponding forge issue: http://forge.typo3.org/issues/37293
+
+
+### Apply the following changesets:
+
+```
+	TYPO3.TYPO3:
+
+	# https://review.typo3.org/#/c/13491/
+	git fetch git://git.typo3.org/FLOW3/Packages/TYPO3.TYPO3 refs/changes/91/13491/4 && git cherry-pick FETCH_HEAD
+
+
+	TYPO3.TypoScript:
+
+	# https://review.typo3.org/#/c/12648/
+	git fetch git://git.typo3.org/FLOW3/Packages/TYPO3.TypoScript refs/changes/48/12648/1 && git cherry-pick FETCH_HEAD
+
+	# https://review.typo3.org/#/c/12655/
+	git fetch git://git.typo3.org/FLOW3/Packages/TYPO3.TypoScript refs/changes/55/12655/1 && git cherry-pick FETCH_HEAD
+
+	# https://review.typo3.org/#/c/12649/
+	git fetch git://git.typo3.org/FLOW3/Packages/TYPO3.TypoScript refs/changes/49/12649/3 && git cherry-pick FETCH_HEAD
+
+	# http://review.typo3.org/13500
+	git fetch git://git.typo3.org/FLOW3/Packages/TYPO3.TypoScript refs/changes/00/13500/1 && git cherry-pick FETCH_HEAD
+
+
+	TYPO3.TYPO3CR:
+
+	# http://review.typo3.org/13499
+	git fetch git://git.typo3.org/FLOW3/Packages/TYPO3.TYPO3CR refs/changes/99/13499/1 && git cherry-pick FETCH_HEAD
+```
