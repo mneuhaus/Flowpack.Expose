@@ -14,9 +14,9 @@ namespace TYPO3\Admin\ViewHelpers;
 use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
- *
+ * // REVIEWED for release
  */
-class FeatureLinkViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper {
+class ControllerLinkViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper {
 
     /**
      * @var \TYPO3\FLOW3\Object\ObjectManagerInterface
@@ -48,16 +48,16 @@ class FeatureLinkViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractTagBase
     /**
      * Render the link.
      *
-     * @param mixed $feature the fully qualified class name of the feature being linked, or the feature class itself
+     * @param mixed $controller the fully qualified class name of the controller being linked, or the controller object itself
      * @param string $type
      * @param object $object the object to link to
      * @param array $arguments
      * @return string The rendered link
      * @api
      */
-    public function render($feature, $type = NULL, $object = NULL, $arguments = array()) {
-        if (is_string($feature)) {
-            $feature = $this->objectManager->get($feature);
+    public function render($controller, $type = NULL, $object = NULL, $arguments = array()) {
+        if (is_string($controller)) {
+            $controller = $this->objectManager->get($controller);
         }
         $uriBuilder = $this->controllerContext->getUriBuilder();
         if ($type !== NULL) {
@@ -66,9 +66,9 @@ class FeatureLinkViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractTagBase
         if ($object !== NULL) {
             $arguments['identifier'] = $this->persistenceManager->getIdentifierByObject($object);
         }
-        $featureClassName = get_class($feature);
+
         $request = new \TYPO3\FLOW3\Mvc\ActionRequest($this->controllerContext->getRequest());
-        $request->setControllerObjectName($featureClassName);
+        $request->setControllerObjectName(get_class($controller));
         $uri = $uriBuilder->reset()->setCreateAbsoluteUri(TRUE)->uriFor('index', $arguments, $request->getControllerName(), $request->getControllerPackageKey(), $request->getControllerSubpackageKey());
         $this->tag->addAttribute('href', $uri);
         $this->tag->addAttribute('class', 'btn');

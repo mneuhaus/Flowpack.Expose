@@ -25,12 +25,14 @@ use Doctrine\ORM\Mapping as ORM;
 use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
- * Standard controller for the Admin package; main entry point when this package is
+ * module controller for the Admin package; main entry point when this package is
  * used inside Phoenix.
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
+ *
+ * // REVIEWED for release.
  */
-class StandardController extends \TYPO3\TYPO3\Controller\Module\StandardController {
+class ModuleController extends \TYPO3\TYPO3\Controller\Module\StandardController {
 
     /**
      * Index action
@@ -38,14 +40,14 @@ class StandardController extends \TYPO3\TYPO3\Controller\Module\StandardControll
      * @return void
      */
     public function indexAction() {
-        $featureRuntime = new \TYPO3\Admin\Core\FeatureRuntime($this->request);
-        if (isset($this->moduleConfiguration['defaultFeatureClassName'])) {
-            $featureRuntime->setDefaultFeatureClassName($this->moduleConfiguration['defaultFeatureClassName']);
+        $adminRuntime = new \TYPO3\Admin\Core\AdminRuntime($this->request);
+        if (isset($this->moduleConfiguration['defaultAdminControllerClassName'])) {
+            $adminRuntime->setDefaultAdminContollerClassName($this->moduleConfiguration['defaultAdminControllerClassName']);
         }
-        if (isset($this->moduleConfiguration['defaultFeatureArguments'])) {
-            $featureRuntime->setDefaultFeatureArguments($this->moduleConfiguration['defaultFeatureArguments']);
+        if (isset($this->moduleConfiguration['defaultAdminControllerArguments'])) {
+            $adminRuntime->setDefaultAdminControllerArguments($this->moduleConfiguration['defaultAdminControllerArguments']);
         }
-        return $featureRuntime->execute();
+        return $adminRuntime->execute();
     }
 
 }

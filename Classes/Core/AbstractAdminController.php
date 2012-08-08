@@ -12,28 +12,24 @@ namespace TYPO3\Admin\Core;
  *                                                                        */
 
 use TYPO3\FLOW3\Annotations as FLOW3;
-use TYPO3\FLOW3\Mvc\ActionRequest;
 
 /**
- * @api
+ * Base class for admin controllers. An admin controller implements a certain
+ * functionality inside the Admin UI, such as "Edit", "New", "List" or "Delete".
+ *
+ * // REVIEWED for release.
  */
-class FeatureRuntime extends AbstractRuntime {
+abstract class AbstractAdminController extends \TYPO3\FLOW3\Mvc\Controller\ActionController {
+	protected $defaultViewObjectName = 'TYPO3\\TypoScript\\View\\TypoScriptView';
 
     /**
-     * Default action to render if nothing else is specified
-     * or present in the arguments
-     *
-     * @var string
-     * @internal
+	 * Most admin controllers need the Property Mapper as they work for arbitrary
+	 * data types and need to perform the conversion manually. that's why we inject
+	 * it here for convenience reasons.
+	 *
+     * @var \TYPO3\FLOW3\Property\PropertyMapper
+     * @FLOW3\Inject
      */
-    protected $defaultControllerClassName = 'TYPO3\\Admin\\Controller\\IndexController';
-
-    /**
-     *
-     * @var string
-     */
-    protected $namespace = 'featureRuntime';
-
+    protected $propertyMapper;
 }
-
 ?>

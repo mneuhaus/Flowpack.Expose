@@ -30,20 +30,28 @@ use TYPO3\FLOW3\Mvc\ActionRequest;
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-class ContentListController extends \TYPO3\Admin\Core\Features\AbstractFeature {
+class ContentListController extends \TYPO3\Admin\Core\AbstractAdminController {
 
     /**
-    * TODO: Document this Property!
-    */
-    protected $defaultViewObjectName = 'TYPO3\\TypoScript\\View\\TypoScriptView';
-
-    /**
-     * @FLOW3\Inject
-     * @var \TYPO3\FLOW3\Property\PropertyMapper
+     * List objects, all being of the same $type.
+     *
+     * TODO: Filtering of this list, bulk
+     *
+     * @param string $format
+     * @param TYPO3\TYPO3CR\Domain\Model\NodeInterface $selectedFolderNode
      */
-    protected $propertyMapper;
+    public function indexAction($format = 'table', \TYPO3\TYPO3CR\Domain\Model\NodeInterface $selectedFolderNode = NULL) {
+        $siteNode = $this->getSiteNode();
+        $this->view->assign('format', $format);
+        $this->view->assign('siteNode', $siteNode);
+        $this->view->assign('selectedFolderNode', $selectedFolderNode);
+        if ($selectedFolderNode !== NULL) {
+            $contentNodes = $this->getContentElements($selectedFolderNode, TRUE);
+            $this->view->assign('objects', $contentNodes);
+        }
+    }
 
-    /**
+	/**
      *
      * !!! RECURSIVE FUNCTION
      *
@@ -73,26 +81,5 @@ class ContentListController extends \TYPO3\Admin\Core\Features\AbstractFeature {
     protected function getSiteNode() {
         return $this->propertyMapper->convert('/sites', 'TYPO3\\TYPO3CR\\Domain\\Model\\NodeInterface');
     }
-
-    /**
-     * List objects, all being of the same $type.
-     *
-     * TODO: Filtering of this list, bulk
-     *
-     * @param string $format
-     * @param TYPO3\TYPO3CR\Domain\Model\NodeInterface $selectedFolderNode
-     */
-    public function indexAction($format = 'table', \TYPO3\TYPO3CR\Domain\Model\NodeInterface $selectedFolderNode = NULL) {
-        $siteNode = $this->getSiteNode();
-        $this->view->assign('format', $format);
-        $this->view->assign('siteNode', $siteNode);
-        $this->view->assign('selectedFolderNode', $selectedFolderNode);
-        if ($selectedFolderNode !== NULL) {
-            $contentNodes = $this->getContentElements($selectedFolderNode, TRUE);
-            $this->view->assign('objects', $contentNodes);
-        }
-    }
-
 }
-
 ?>

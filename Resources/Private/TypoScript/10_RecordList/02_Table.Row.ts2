@@ -1,3 +1,5 @@
+// REVIEWED for release
+
 ########################################
 # TYPO3.Admin:RecordList.Table.Row
 # --------------------------------------
@@ -20,5 +22,5 @@ prototype(TYPO3.Admin:RecordList.Table.DefaultRow) < prototype(TYPO3.TypoScript:
 	templatePath = 'resource://TYPO3.Admin/Private/Elements/List/Row.html'
 	item = ${item}
 	type = ${type}
-	elementFeatureLinks = TYPO3.Admin:RecordList.ElementFeatureLinks
+	controllerLinks = TYPO3.Admin:LocalControllerLinks
 }

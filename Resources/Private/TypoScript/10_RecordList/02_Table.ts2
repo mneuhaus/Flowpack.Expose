@@ -1,3 +1,5 @@
+// REVIEWED for release
+
 ########################################
 # TYPO3.Admin:RecordList.Table
 # --------------------------------------
@@ -6,7 +8,7 @@
 
 prototype(TYPO3.Admin:RecordList.Table) < prototype(TYPO3.TypoScript:FluidRenderer) {
 	templatePath = 'resource://TYPO3.Admin/Private/Elements/List/Table.html'
-	tableBody = TYPO3.Admin:CollectionRenderer {
+	tableBody = TYPO3.TypoScript:CollectionRenderer {
 		collection = ${objects}
 		itemName = 'item'
 		itemRenderer = TYPO3.Admin:RecordList.Table.Row

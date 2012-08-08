@@ -1,3 +1,5 @@
+// REVIEWED for release
+
 TYPO3.Admin.NewController.index = TYPO3.Admin:ObjectForm
 TYPO3.Admin.EditController.index = TYPO3.Admin:ObjectForm
 TYPO3.Admin.EditController.index {

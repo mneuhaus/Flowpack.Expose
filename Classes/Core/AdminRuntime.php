@@ -15,15 +15,11 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 use TYPO3\FLOW3\Mvc\ActionRequest;
 
 /**
- * @api
+ * Runtime for admin controllers
+ *
+ * // REVIEWED for release.
  */
-class NavigationRuntime extends AbstractRuntime {
-
-    /**
-     *
-     * @var array
-     */
-    protected $context = array('navigationProviderOptions' => array());
+class AdminRuntime extends AbstractRuntime {
 
     /**
      * Default action to render if nothing else is specified
@@ -32,36 +28,12 @@ class NavigationRuntime extends AbstractRuntime {
      * @var string
      * @internal
      */
-    protected $defaultAction = 'index';
-
-    /**
-     * Default action to render if nothing else is specified
-     * or present in the arguments
-     *
-     * @var string
-     * @internal
-     */
-    protected $defaultController = '\\TYPO3\\Admin\\Controller\\NavigationController';
+    protected $defaultControllerClassName = 'TYPO3\\Admin\\Controller\\IndexController';
 
     /**
      *
      * @var string
      */
-    protected $namespace = 'navigationRuntime';
-
-    /**
-     *
-     * @var string
-     */
-    protected $navigationProvider = '\\TYPO3\\Admin\\NavigationProvider\\EntityNavigationProvider';
-
-    /**
-    * TODO: Document this Method! ( setNavigationListElement )
-    */
-    public function setNavigationListElement($navigationListElement) {
-        $this->request->setArgument('__navigationListElement', $navigationListElement);
-    }
-
+    protected $namespace = 'adminRuntime';
 }
-
 ?>

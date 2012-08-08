@@ -81,8 +81,8 @@ TYPO3:
     Annotations:
       TYPO3\TYPO3\Domain\Model\User:
         active: true
-        Properties: 
-          name: 
+        Properties:
+          name:
             Inline: TYPO3.Admin:InlineSeamless
           electronicAddresses:
             Inline: TYPO3.Admin:InlineTabular
@@ -114,7 +114,7 @@ TYPO3:
             Label: Passwort
             Element: TYPO3.Admin:PasswordWithHashing
           roles:
-            OptionsProvider: 
+            OptionsProvider:
               Name: RoleOptionsProvider
           creationDate:
             Ignore: true
@@ -129,12 +129,12 @@ TYPO3:
         Properties:
           type:
             Element: TYPO3.Form:SingleSelectDropdown
-            OptionsProvider: 
+            OptionsProvider:
               Name: ConstOptionsProvider
               RegEx: TYPE_.+
           usage:
             Element: TYPO3.Form:SingleSelectDropdown
-            OptionsProvider: 
+            OptionsProvider:
               Name: ConstOptionsProvider
               RegEx: USAGE_.+
 
@@ -144,29 +144,29 @@ TYPO3:
           submodules:
             usernew:
               label: 'New User Administration'
-              controller: '\TYPO3\Admin\Controller\StandardController'
-              defaultFeatureClassName: '\TYPO3\Admin\Controller\SameTypeListController'
-              defaultFeatureArguments:
+              controller: '\TYPO3\Admin\Controller\ModuleController'
+              defaultAdminControllerClassName: '\TYPO3\Admin\Controller\SameTypeListController'
+              defaultAdminControllerArguments:
                 type: 'TYPO3\TYPO3\Domain\Model\User'
         management:
           submodules:
             content:
               label: 'Manage Content'
-              controller: '\TYPO3\Admin\Controller\StandardController'
-              defaultFeatureClassName: '\TYPO3\Admin\Controller\ContentListController'
+              controller: '\TYPO3\Admin\Controller\ModuleController'
+              defaultAdminControllerClassName: '\TYPO3\Admin\Controller\ContentListController'
 
   TYPO3CR:
     contentTypes:
       'TYPO3.TYPO3:Section':
-        nodeLabelGenerator: 'TYPO3\Admin\EelNodeLabelGenerator'
+        nodeLabelGenerator: 'TYPO3\Admin\Phoenix\EelNodeLabelGenerator'
         nodeLabelGeneratorOptions:
           expression: '"Section " + context.property("_name")'
       'TYPO3.TYPO3:Text':
-        nodeLabelGenerator: 'TYPO3\Admin\EelNodeLabelGenerator'
+        nodeLabelGenerator: 'TYPO3\Admin\Phoenix\EelNodeLabelGenerator'
         nodeLabelGeneratorOptions:
           expression: 'strings.crop(strings.cleanup(context.property("headline") + " " + context.property("text")), 50)'
       'TYPO3.TYPO3:Html':
-        nodeLabelGenerator: 'TYPO3\Admin\EelNodeLabelGenerator'
+        nodeLabelGenerator: 'TYPO3\Admin\Phoenix\EelNodeLabelGenerator'
         nodeLabelGeneratorOptions:
           expression: 'strings.crop(strings.cleanup(context.property("source")), 50)'
   Form:
@@ -191,7 +191,7 @@ TYPO3:
           'TYPO3.Admin:PasswordWithHashing':
             superTypes: ['TYPO3.Form:PasswordWithConfirmation']
             implementationClassName: 'TYPO3\Admin\FormElements\PasswordWithHashing'
-          
+
 
           ### FORM ELEMENTS: CONTAINER ###
           'TYPO3.Admin:Page':

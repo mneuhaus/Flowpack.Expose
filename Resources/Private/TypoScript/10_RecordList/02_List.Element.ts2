@@ -1,3 +1,4 @@
+// REVIEWED for release
 ########################################
 # TYPO3.Admin:RecordList.List.Element
 # --------------------------------------
@@ -16,5 +17,5 @@ prototype(TYPO3.Admin:RecordList.List.DefaultElement) < prototype(TYPO3.TypoScri
 	templatePath = 'resource://TYPO3.Admin/Private/Elements/List/Element.html'
 	item = ${item}
 
-	elementFeatureLinks = TYPO3.Admin:RecordList.ElementFeatureLinks
+	controllerLinks = TYPO3.Admin:LocalControllerLinks
 }

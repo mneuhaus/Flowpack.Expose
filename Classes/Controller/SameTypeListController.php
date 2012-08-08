@@ -30,12 +30,7 @@ use TYPO3\FLOW3\Mvc\ActionRequest;
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-class SameTypeListController extends \TYPO3\Admin\Core\Features\AbstractFeature {
-
-    /**
-    * TODO: Document this Property!
-    */
-    protected $defaultViewObjectName = 'TYPO3\\TypoScript\\View\\TypoScriptView';
+class SameTypeListController extends \TYPO3\Admin\Core\AbstractAdminController {
 
     /**
      * List objects, all being of the same $type.

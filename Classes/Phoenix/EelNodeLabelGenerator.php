@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\Admin\Core\Features;
+namespace TYPO3\Admin\Phoenix;
 
 /* *
  * This script belongs to the TYPO3.Admin package.              *
@@ -21,14 +21,47 @@ namespace TYPO3\Admin\Core\Features;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
+use TYPO3\FLOW3\Annotations as FLOW3;
+
 /**
- * Interface for features such as "Create", "List", "Delete"
- *
- * Each feature can place itself at certain so-called "Contexts", which are linking points provided by other features.
+ * Eel Node Label Generator. Should be moved to permanent location lateron.
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
+ * @FLOW3\Scope("singleton")
  */
-interface FeatureInterface {
+
+/**
+ * A default Node label generator
+ */
+class EelNodeLabelGenerator implements \TYPO3\TYPO3CR\Domain\Model\NodeLabelGeneratorInterface {
+
+    /**
+     * @FLOW3\Inject
+     * @var \TYPO3\TYPO3CR\Domain\Service\ContentTypeManager
+     */
+    protected $contentTypeManager;
+
+    /**
+     * @FLOW3\Inject
+     * @var \TYPO3\Eel\EelEvaluatorInterface
+     */
+    protected $eelEvaluator;
+
+    /**
+     * Generate a default label for a node from an Eel expression
+     *
+     * @param \TYPO3\TYPO3CR\Domain\Model\NodeInterface $node
+     * @return string
+     */
+    public function getLabel(\TYPO3\TYPO3CR\Domain\Model\NodeInterface $node) {
+        $contentType = $this->contentTypeManager->getContentType($node->getContentType());
+        $options = $contentType->getNodeLabelGeneratorOptions();
+        $variables = array('context' => new \TYPO3\Eel\FlowQuery\FlowQuery(array($node
+        	)),
+        	'strings' => new \TYPO3\Eel\Helper\StringHelper()
+        );
+        return $this->eelEvaluator->evaluate($options['expression'], new \TYPO3\Eel\Context($variables));
+    }
 
 }
 

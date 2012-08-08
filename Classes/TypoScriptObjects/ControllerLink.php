@@ -17,13 +17,15 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * This is a WORKAROUND which evaluates all values of the "arguments" property through
  * TypoScript Processors and Eel Expressions; so one can write:
  *
- * 10 = TYPO3.Admin:RecordList.GlobalFeatureLinks.Button
+ * 10 = TYPO3.Admin:RecordList.ControllerLink
  * 10.label = 'New'
  * 10.feature = 'TYPO3\\Admin\\Controller\\NewController'
  * # THIS IS THE IMPORTANT LINE:
  * 10.arguments.type = ${type}
+ *
+ * // REVIEWED for release
  */
-class FeatureLinkButton extends \TYPO3\TypoScript\TypoScriptObjects\FluidRenderer {
+class ControllerLink extends \TYPO3\TypoScript\TypoScriptObjects\FluidRenderer {
 
     /**
      * @param mixed $context

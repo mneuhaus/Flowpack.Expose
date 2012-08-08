@@ -29,18 +29,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-class EditController extends \TYPO3\Admin\Core\Features\AbstractFeature {
-
-    /**
-    * TODO: Document this Property!
-    */
-    protected $defaultViewObjectName = 'TYPO3\\TypoScript\\View\\TypoScriptView';
-
-    /**
-     * @var \TYPO3\FLOW3\Property\PropertyMapper
-     * @FLOW3\Inject
-     */
-    protected $propertyMapper;
+class EditController extends \TYPO3\Admin\Core\AbstractAdminController {
 
     /**
      * Edit object
@@ -64,7 +53,5 @@ class EditController extends \TYPO3\Admin\Core\Features\AbstractFeature {
         $this->redirect('index', 'List', null, array('being' => $class
         ));
     }
-
 }
-
 ?>

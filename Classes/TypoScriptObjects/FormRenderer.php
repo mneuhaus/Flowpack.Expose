@@ -16,6 +16,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 /**
  * Render a Form using the Form framework
  *
+ * // REVIEWED for release
  */
 class FormRenderer extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTsObject {
 

@@ -29,12 +29,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-class NewController extends \TYPO3\Admin\Core\Features\AbstractFeature {
-
-    /**
-    * TODO: Document this Property!
-    */
-    protected $defaultViewObjectName = 'TYPO3\\TypoScript\\View\\TypoScriptView';
+class NewController extends \TYPO3\Admin\Core\AbstractAdminController {
 
     /**
     * TODO: Document this Method! ( create )

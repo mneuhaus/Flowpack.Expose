@@ -5,7 +5,7 @@ prototype(TYPO3.Admin:RecordList) < prototype(TYPO3.TypoScript:FluidRenderer) {
 	currentFormat = ${format}
 
 	formatSelector = TYPO3.Admin:RecordList.FormatSelector
-	globalFeatureLinks = TYPO3.Admin:RecordList.GlobalFeatureLinks
+	controllerLinks = TYPO3.Admin:GlobalControllerLinks
 	recordList.list = TYPO3.Admin:RecordList.List
 	recordList.table = TYPO3.Admin:RecordList.Table
 	navigationArea = TYPO3.TypoScript:TypoScriptArrayRenderer
