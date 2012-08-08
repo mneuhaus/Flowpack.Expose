@@ -2,7 +2,7 @@
 
 namespace Foo\ContentManagement\Reflection;
 
-/* *
+/* 
  * This script belongs to the Foo.ContentManagement package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *

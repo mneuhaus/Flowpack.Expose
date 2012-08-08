@@ -30,42 +30,27 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-class ViewController extends \Foo\ContentManagement\Core\Features\FeatureController {
-	/**
-	 * @var \Foo\ContentManagement\Core\MetaPersistenceManager
-     * @FLOW3\Inject
-	 */
-	protected $persistenceService;
+class ViewController extends \Foo\ContentManagement\Core\Features\AbstractFeature {
 
-	/**
-	 * Function to return the Actions to be displayed for this context
-	 */
-	public function getActionsForContext($class, $action, $id) {
-		$actions = array();
-		if(!in_array($action, array("view", "bulk", "update", "confirm", "create")) && $id == true)
-			$actions[] = "index";
+	public function isFeatureRelatedForContext($context, $type = NULL) {
+		if (in_array($context, array('List.Element'))) {
+			return 700;
+		}
+		return FALSE;
+	}
 
-		return $actions;
+	public function getName(){
+		return "View";
 	}
-	
-	public function getShortcut(){
-		return "v";
-	}
-	
+
 	/**
 	 * View objects
 	 *
+	 * @param string $type
+	 * @param string $identifier
 	 */
-	public function indexAction() {
-		$class = $this->request->getArgument("being");
-		
-		$ids = array();
-		if($this->request->hasArgument("id"))
-			$ids = array( $this->request->getArgument("id") );
-		else if($this->request->hasArgument("ids"))
-			$ids = $this->request->getArgument("ids");
-
-		$object = $this->persistenceService->getObjectByIdentifier(current($ids), $class);
+	public function indexAction($type, $identifier) {
+		$object = $this->persistenceManager->getObjectByIdentifier($identifier, $type);
 		$this->view->assign("object", $object);
 	}
 

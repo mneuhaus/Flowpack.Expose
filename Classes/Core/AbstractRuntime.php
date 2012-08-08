@@ -46,22 +46,19 @@ class AbstractRuntime {
 	protected $flashMessageContainer;
 
 	/**
-	 * Default action to render if nothing else is specified 
+	 * Default controller to render if nothing else is specified
 	 * or present in the arguments
 	 *
 	 * @var string
 	 * @internal
 	 */
-	protected $defaultController = "Foo\ContentManagement\Controller\IndexController";
+	protected $defaultFeatureClassName = "Foo\ContentManagement\Controller\IndexController";
 
 	/**
-	 * Default action to render if nothing else is specified 
-	 * or present in the arguments
 	 *
-	 * @var string
-	 * @internal
+	 * @var array
 	 */
-	protected $defaultAction = "index";
+	protected $defaultFeatureArguments = array();
 
 	/**
 	 *
@@ -70,44 +67,63 @@ class AbstractRuntime {
 	protected $namespace = "featureRuntime";
 
 	/**
-	 *
-	 * @var array
-	 */
-	protected $context = array();
-
-	/**
-	 * @param \TYPO3\FLOW3\Mvc\ActionRequest $request
+	 * @param \TYPO3\FLOW3\Mvc\ActionRequest $parentRequest
 	 * @param \TYPO3\FLOW3\Http\Response $response
 	 * @internal
 	 */
-	public function __construct(\TYPO3\FLOW3\Mvc\ActionRequest $request, \TYPO3\FLOW3\Http\Response $response) {
-		$arguments = $request->getPluginArguments();
-		$this->request = new ActionRequest($request);
+	public function __construct(\TYPO3\FLOW3\Mvc\ActionRequest $parentRequest) {
+		$arguments = $parentRequest->getPluginArguments();
+		$this->request = new ActionRequest($parentRequest);
 		$this->request->setArgumentNamespace("--" . $this->namespace);
 		if (isset($arguments[$this->namespace])) {
 			$this->request->setArguments($arguments[$this->namespace]);
 		}
 		$this->request->setFormat("html");
 
-		if($this->request->hasArgument("action"))
-			$this->request->setControllerActionName($this->request->getArgument("action"));
-
-		if($this->request->hasArgument("controller"))
-			$this->request->setControllerObjectName($this->request->getArgument("controller"));
-
-		$this->response = new \TYPO3\FLOW3\Http\Response($response);
+			// TODO: the response below should be an MVC response
+		$this->response = new \TYPO3\FLOW3\Http\Response();
 	}
 
-	public function prepareExecution() {
+	protected function prepareExecution() {
 		$controllerObjectName = $this->request->getControllerObjectName();
 
-		if(empty($controllerObjectName))
-			$this->request->setControllerObjectName($this->defaultController);
+		if(empty($controllerObjectName)) {
+			$this->request->setControllerObjectName($this->defaultFeatureClassName);
+			$this->request->setArguments($this->defaultFeatureArguments);
 
-		if(is_null($this->request->getControllerActionName()))
-			$this->request->setControllerActionName($this->defaultAction);
+			$this->setArgumentInParentRequests($this->request, $this->defaultFeatureArguments);
+		}
 
-		$this->request->setArgument("__context", $this->context);
+		if ($this->request->getControllerActionName() === NULL) {
+			$this->request->setControllerActionName('index');
+		}
+	}
+	/**
+	 * This method is a workaround for URI building in case of the first request.
+	 *
+	 * Normally, request arguments are not expected to be modified by the user;
+	 * and uri building relies on the fact that inside the main request, all nested
+	 * arguments are there. This is especially important when addQueryString=TRUE.
+	 *
+	 * In case of the configured default arguments, we need to set them in the parent requests
+	 * all up to the main request, such that they are caught by the URI builder when
+	 * addQueryString=TRUE.
+	 *
+	 * @param \TYPO3\FLOW3\Mvc\ActionRequest $request
+	 * @param array $argumentToSet
+	 * @return type
+	 */
+	protected function setArgumentInParentRequests(ActionRequest $request, array $argumentToSet) {
+		if ($request->getMainRequest() === $request) {
+			return;
+		}
+
+		$parentRequest = $request->getParentRequest();
+		$currentNamespace = $request->getArgumentNamespace();
+
+		$parentRequest->setArgument($currentNamespace, $argumentToSet);
+
+		$this->setArgumentInParentRequests($parentRequest, array($currentNamespace => $argumentToSet));
 	}
 
 	/**
@@ -118,79 +134,15 @@ class AbstractRuntime {
 	public function execute() {
 		$this->prepareExecution();
 		$this->dispatcher->dispatch($this->request, $this->response);
-		return ($this->response->getContent());
+		return $this->response->getContent();
 	}
 
-	/**
-	 * Get the request this object is bound to.
-	 *
-	 * This is mostly relevant inside Finishers, where you f.e. want to redirect
-	 * the user to another page.
-	 *
-	 * @return \TYPO3\FLOW3\Mvc\ActionRequest the request this object is bound to
-	 * @api
-	 */
-	public function getRequest() {
-		return $this->request;
+	public function setDefaultFeatureClassName($defaultFeatureClassName) {
+		$this->defaultFeatureClassName = $defaultFeatureClassName;
 	}
 
-	/**
-	 * @param \TYPO3\FLOW3\Mvc\ActionRequest $request
-	 */
-	public function setRequest(\TYPO3\FLOW3\Mvc\ActionRequest $request) {
-		$this->request = $request;
-	}
-
-	/**
-	 * Get the response this object is bound to.
-	 *
-	 * This is mostly relevant inside Finishers, where you f.e. want to set response
-	 * headers or output content.
-	 *
-	 * @return \TYPO3\FLOW3\Http\Response the response this object is bound to
-	 * @api
-	 */
-	public function getResponse() {
-		return $this->response;
-	}
-
-	/**
-	 * @param \TYPO3\FLOW3\Http\Response $response
-	 */
-	public function setResponse(\TYPO3\FLOW3\Http\Response $response) {
-		$this->response = $response;
-	}
-
-	/**
-	 * @return \TYPO3\FLOW3\Mvc\Controller\ControllerContext
-	 */
-	public function getControllerContext() {
-		$uriBuilder = new \TYPO3\FLOW3\Mvc\Routing\UriBuilder();
-		$uriBuilder->setRequest($this->request);
-
-		return new \TYPO3\FLOW3\Mvc\Controller\ControllerContext(
-			$this->request,
-			$this->response,
-			new \TYPO3\FLOW3\Mvc\Controller\Arguments(array()),
-			$uriBuilder,
-			$this->flashMessageContainer
-		);
-	}
-
-	public function setDefaultAction($action) {
-		$this->defaultAction = $action;
-	}
-
-	public function setDefaultController($controller) {
-		$this->defaultController = $controller;
-	}
-
-	public function setDefaultBeing($being) {
-		$this->defaultBeing = $being;
-	}
-
-	public function setContext($context) {
-		$this->context = array_merge($this->context, $context);
+	public function setDefaultFeatureArguments(array $defaultFeatureArguments) {
+		$this->defaultFeatureArguments = $defaultFeatureArguments;
 	}
 }
 ?>

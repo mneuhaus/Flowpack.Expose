@@ -1,0 +1,23 @@
+{namespace cm=Foo\ContentManagement\ViewHelpers}
+{namespace ts=TYPO3\TypoScript\ViewHelpers}
+
+<div class="row">
+	<div class="span3">
+		<ts:renderTypoScript path="navigationArea" />
+	</div>
+	<div class="span9">
+		<form method="POST">
+			<div class="list-actions">
+				<input type="text" placeholder="filter" />
+				<div class="pull-left">
+					<ts:renderTypoScript path="formatSelector" />
+				</div>
+				<div class="pull-right">
+					<ts:renderTypoScript path="globalFeatureLinks" />
+				</div>
+			</div>
+
+			<ts:renderTypoScript path="recordList/{currentFormat}" />
+		</form>
+	</div>
+</div>

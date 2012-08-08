@@ -1,0 +1,11 @@
+########################################
+# Foo.ContentManagement:RecordList.List
+# --------------------------------------
+# Display a list of records as List
+########################################
+
+prototype(Foo.ContentManagement:RecordList.List) < prototype(Foo.ContentManagement:CollectionRenderer) {
+	collection = ${objects}
+	itemName = 'item'
+	itemRenderer = Foo.ContentManagement:RecordList.List.Element
+}

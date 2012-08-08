@@ -1,18 +1,18 @@
 prototype(Foo.ContentManagement:Navigation.List) < prototype(TYPO3.TypoScript:Case)
 prototype(Foo.ContentManagement:Navigation.List) {
-	skipNonExistingTypes = ${true}
+#	skipNonExistingTypes = ${true}
 }
 
 # Catch-all condition for the default case
-prototype(Foo.ContentManagement:Navigation.List).matchers.999999999999 {
-	condition = ${true}
-	type = 'Foo.ContentManagement:Navigation.DefaultList'
-}
+#prototype(Foo.ContentManagement:Navigation.List).matchers.999999999999 {
+#	condition = ${true}
+#	type = 'Foo.ContentManagement:Navigation.DefaultList'
+#}
 
-prototype(Foo.ContentManagement:Navigation.List).matchers.10000 {
-	condition = ${q(navigationListType).notEmpty()}
-	type = ${navigationListType}
-}
+#prototype(Foo.ContentManagement:Navigation.List).matchers.10000 {
+#	condition = ${q(navigationListType).notEmpty()}
+#	type = ${navigationListType}
+#}
 
 prototype(Foo.ContentManagement:Navigation.DefaultList) < prototype(Foo.ContentManagement:NavigationRenderer)
 prototype(Foo.ContentManagement:Navigation.DefaultList) {

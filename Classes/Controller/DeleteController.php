@@ -29,52 +29,24 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-class DeleteController extends \Foo\ContentManagement\Core\Features\FeatureController {
-	/**
-	 * @var \Foo\ContentManagement\Core\MetaPersistenceManager
-     * @FLOW3\Inject
-	 */
-	protected $persistenceService;
+class DeleteController extends \Foo\ContentManagement\Core\Features\AbstractFeature {
+
+	protected $defaultViewObjectName = 'TYPO3\TypoScript\View\TypoScriptView';
 
 	/**
-	 * Function to return the Actions to be displayed for this context
+	 * @var \TYPO3\FLOW3\Property\PropertyMapper
+	 * @FLOW3\Inject
 	 */
-	public function getActionsForContext($class, $action, $id) {
-		$actions = array();
-		if(!in_array($action, array("view", "bulk", "update", "confirm", "create")) && $id == true)
-			$actions[] = "index";
-
-		return $actions;
-	}
-
-    /**
-     * @return string
-     */
-    public function getShortcut(){
-		return "c";
-	}
+	protected $propertyMapper;
 
 	/**
-	 *
+	 * @param string $type
+	 * @param array $object
 	 */
-	public function indexAction() {
-		$class = $this->request->getArgument("being");
-		
-		$ids = array();
-		if($this->request->hasArgument("id"))
-			$ids = array( $this->request->getArgument("id") );
-		else if($this->request->hasArgument("ids"))
-			$ids = $this->request->getArgument("ids");
-		
-		if(count($ids) > 0){
-			$objects = array();
-			foreach ($ids as $id) {
-				$objects[] = $this->persistenceService->getObjectByIdentifier($id, $class);
-			}
-			$this->view->assign("objects", $objects);
-			$this->view->assign("ids", implode(",", $ids));
-			$this->view->assign("class", $class);
-		}
+	public function indexAction($type, $object) {
+		$object = $this->propertyMapper->convert($object, $type);
+		$this->view->assign('object', $object);
+		$this->view->assign('type', $type);
 	}
 
 	/**
@@ -82,8 +54,8 @@ class DeleteController extends \Foo\ContentManagement\Core\Features\FeatureContr
 	 *
 	 */
 	public function deleteAction() {
-		$class = $this->request->getArgument("being");
-		
+		$being = $this->request->getArgument("being");
+
 		$ids = array();
 		if($this->request->hasArgument("id"))
 			$ids = array( $this->request->getArgument("id") );
@@ -92,11 +64,10 @@ class DeleteController extends \Foo\ContentManagement\Core\Features\FeatureContr
 
 		if( is_array($ids) ) {
 			foreach($ids as $id) {
-				$object = $this->persistenceService->getObjectByIdentifier($id, $class);
-				$this->persistenceService->remove($object);
+				$this->metaPersistenceManager->deleteObject($being, $id);
 			}
-			
-			$arguments = array("being" => $class);
+
+			$arguments = array("being" => $this->metaPersistenceManager->getClassShortName($being));
 			$this->redirect('index', "list", null, $arguments);
 		}
 	}

@@ -1,0 +1,37 @@
+#
+# RecordList.FormatSelector
+# -------------------------
+#
+# selector for the available formats in the RecordList view
+#
+#
+
+namespace: default = TYPO3\TYPO3\TypoScript
+
+prototype(Foo.ContentManagement:RecordList.FormatSelector) < prototype(TYPO3.TypoScript:TypoScriptArrayRenderer) {
+	10 = Foo.ContentManagement:RecordList.FormatSelector.Button
+	10.format = 'table'
+	10.label = 'Table'
+
+	20 = Foo.ContentManagement:RecordList.FormatSelector.Button
+	20.format = 'list'
+	20.label = 'List'
+}
+prototype(Foo.ContentManagement:RecordList.FormatSelector) << 1.wrap(prefix: '<div class="btn-group">', suffix: '</div>')
+
+#
+# RecordList.FormatSelector.Button
+# --------------------------------
+#
+# Render a single format selection button inside the format selector.
+# Parameters:
+# - format: machine-readable format name, needs to be understood by the rest of the framework
+# - label: human-readable label of the button
+# - iconClass: CSS-class name used for the icon, if any
+#
+# TODO: implement
+prototype(Foo.ContentManagement:RecordList.FormatSelector.Button) < prototype(TYPO3.TypoScript:FluidRenderer) {
+	templatePath = 'resource://Foo.ContentManagement/Private/Elements/RecordList/FormatSelector.Button.html'
+	currentFormat = ${format}
+}
+

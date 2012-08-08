@@ -1,0 +1,4 @@
+{namespace cm=Foo\ContentManagement\ViewHelpers}
+{namespace ts=TYPO3\TypoScript\ViewHelpers}
+
+<f:link.action arguments="{format: format}" addQueryString="1" class="btn{f:if(condition:'{format} == {currentFormat}', then: ' active')}">{label}</f:link.action>

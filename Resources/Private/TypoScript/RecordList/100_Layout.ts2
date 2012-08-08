@@ -1,0 +1,19 @@
+Foo.ContentManagement.SameTypeListController.index = Foo.ContentManagement:RecordList
+
+prototype(Foo.ContentManagement:RecordList) < prototype(TYPO3.TypoScript:FluidRenderer) {
+	templatePath = 'resource://Foo.ContentManagement/Private/Elements/RecordList/Layout.html'
+	currentFormat = ${format}
+
+	formatSelector = Foo.ContentManagement:RecordList.FormatSelector
+	globalFeatureLinks = Foo.ContentManagement:RecordList.GlobalFeatureLinks
+	recordList.list = Foo.ContentManagement:RecordList.List
+	recordList.table = Foo.ContentManagement:RecordList.Table
+	navigationArea = TYPO3.TypoScript:TypoScriptArrayRenderer
+}
+
+# EXAMPLE on adding a new button in a certain context
+#Foo.ContentManagement.SameTypeListController.prototype(Foo.ContentManagement:RecordList.FormatSelector) {
+#	30 = Foo.ContentManagement:RecordList.FormatSelector.Button
+#	30.format = 'foo'
+#	30.label = 'Foo'
+#}

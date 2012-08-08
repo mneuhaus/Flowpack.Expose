@@ -30,7 +30,22 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-class IndexController extends \Foo\ContentManagement\Core\Features\FeatureController {
-	public function indexAction() {}
+class IndexController extends \Foo\ContentManagement\Core\Features\AbstractFeature {
+
+	/**
+	 * @var \Foo\ContentManagement\Core\MetaPersistenceManager
+	 * @FLOW3\Inject
+	 */
+	protected $metaPersistenceManager;
+
+	public function isFeatureRelatedForContext($context, $type = NULL) {
+		return FALSE;
+	}
+
+	public function indexAction() {
+		$groups = $this->metaPersistenceManager->getGroups();
+		ksort($groups);
+		$this->view->assign('groups',$groups);
+	}
 }
 ?>

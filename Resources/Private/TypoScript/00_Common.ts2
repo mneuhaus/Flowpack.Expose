@@ -3,8 +3,8 @@ prototype(TYPO3.TypoScript:FluidRenderer).implementationClassName = 'TYPO3\\Typo
 prototype(TYPO3.TypoScript:CollectionRenderer).implementationClassName = 'TYPO3\\TypoScript\\TypoScriptObjects\\CollectionRenderer'
 prototype(TYPO3.TypoScript:Case).implementationClassName = 'TYPO3\\TypoScript\\TypoScriptObjects\\CaseTsObject'
 
-prototype(Foo.ContentManagement:NavigationRenderer).implementationClassName = '\\Foo\\ContentManagement\\TypoScriptObjects\\NavigationRenderer'
-prototype(Foo.ContentManagement:CollectionRenderer).implementationClassName = '\\Foo\\ContentManagement\\TypoScriptObjects\\CollectionRenderer'
+prototype(Foo.ContentManagement:NavigationRenderer).implementationClassName = 'Foo\\ContentManagement\\TypoScriptObjects\\NavigationRenderer'
+prototype(Foo.ContentManagement:CollectionRenderer).implementationClassName = 'Foo\\ContentManagement\\TypoScriptObjects\\CollectionRenderer'
 
 prototype(TYPO3.TypoScript:FluidRenderer) {
 	partialRootPath = 'resource://Foo.ContentManagement/Private/Partials'

@@ -1,5 +1,6 @@
 <?php
-namespace Foo\ContentManagement\Controller;
+
+namespace Foo\ContentManagement;
 
 /* *
  * This script belongs to the Foo.ContentManagement package.              *
@@ -21,34 +22,47 @@ namespace Foo\ContentManagement\Controller;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
-use Doctrine\ORM\Mapping as ORM;
 use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
- * Action to create a new Being
+ * Eel Node Label Generator. Should be moved to permanent location lateron.
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
+ * @FLOW3\Scope("singleton")
  */
-class NewController extends \Foo\ContentManagement\Core\Features\AbstractFeature {
-	protected $defaultViewObjectName = 'TYPO3\TypoScript\View\TypoScriptView';
+
+/**
+ * A default Node label generator
+ */
+class EelNodeLabelGenerator implements \TYPO3\TYPO3CR\Domain\Model\NodeLabelGeneratorInterface {
 
 	/**
-	 * Create objects
-	 *
-	 * @param string $type
+	 * @FLOW3\Inject
+	 * @var \TYPO3\Eel\EelEvaluatorInterface
 	 */
-	public function indexAction($type) {
-		$object = new $type();
-		$this->view->assign("object", $object);
-	}
+	protected $eelEvaluator;
 
-	public function create($formRuntime) {
-		$formValues = $formRuntime->getFormState()->getFormValues();
-		$object = $formValues["item"];
-		$class = get_class($object);
-		$this->metaPersistenceManager->createObject($class, $object);
+	/**
+	 * @FLOW3\Inject
+	 * @var \TYPO3\TYPO3CR\Domain\Service\ContentTypeManager
+	 */
+	protected $contentTypeManager;
 
-		$this->redirect("index", "List", null, array( "being" => $class ));
+	/**
+	 * Generate a default label for a node from an Eel expression
+	 *
+	 * @param \TYPO3\TYPO3CR\Domain\Model\NodeInterface $node
+	 * @return string
+	 */
+	public function getLabel(\TYPO3\TYPO3CR\Domain\Model\NodeInterface $node) {
+		$contentType = $this->contentTypeManager->getContentType($node->getContentType());
+		$options = $contentType->getNodeLabelGeneratorOptions();
+
+		$variables = array(
+			'context' => new \TYPO3\Eel\FlowQuery\FlowQuery(array($node)),
+			'strings' => new \TYPO3\Eel\Helper\StringHelper()
+		);
+		return $this->eelEvaluator->evaluate($options['expression'], new \TYPO3\Eel\Context($variables));
 	}
 }
 ?>

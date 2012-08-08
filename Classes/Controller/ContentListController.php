@@ -24,40 +24,75 @@ namespace Foo\ContentManagement\Controller;
 
 use Doctrine\ORM\Mapping as ORM;
 use TYPO3\FLOW3\Annotations as FLOW3;
+use TYPO3\FLOW3\Mvc\ActionRequest;
 
 /**
- * Action to Update the Being
+ * Feature to display a list of TYPO3CR content nodes
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-class EditController extends \Foo\ContentManagement\Core\Features\AbstractFeature {
-
+class ContentListController extends \Foo\ContentManagement\Core\Features\AbstractFeature {
 	protected $defaultViewObjectName = 'TYPO3\TypoScript\View\TypoScriptView';
 
 	/**
-	 * @var \TYPO3\FLOW3\Property\PropertyMapper
 	 * @FLOW3\Inject
+	 * @var \TYPO3\FLOW3\Property\PropertyMapper
 	 */
 	protected $propertyMapper;
 
 	/**
-	 * Edit object
+	 * List objects, all being of the same $type.
 	 *
-	 * @param string $type
-	 * @param array $object
+	 * TODO: Filtering of this list, bulk
+	 *
+	 * @param string $format
+	 * @param TYPO3\TYPO3CR\Domain\Model\NodeInterface $selectedFolderNode
 	 */
-	public function indexAction($type, $object) {
-		$object = $this->propertyMapper->convert($object, $type);
-		$this->view->assign('object', $object);
+	public function indexAction($format = 'table', \TYPO3\TYPO3CR\Domain\Model\NodeInterface $selectedFolderNode = NULL) {
+		$siteNode = $this->getSiteNode();
+
+		$this->view->assign('format', $format);
+		$this->view->assign('siteNode', $siteNode);
+		$this->view->assign('selectedFolderNode', $selectedFolderNode);
+
+		if ($selectedFolderNode !== NULL) {
+			$contentNodes = $this->getContentElements($selectedFolderNode, TRUE);
+			$this->view->assign('objects', $contentNodes);
+		}
 	}
 
-	public function update($formRuntime) {
-		$formValues = $formRuntime->getFormState()->getFormValues();
-		$object = $formValues['item'];
-		$class = get_class($object);
-		$this->metaPersistenceManager->updateObject($class, $object);
+	/**
+	 * @return \TYPO3\TYPO3CR\Domain\Model\NodeInterface
+	 */
+	protected function getSiteNode() {
+		return $this->propertyMapper->convert('/sites', 'TYPO3\TYPO3CR\Domain\Model\NodeInterface');
+	}
 
-		$this->redirect("index", "List", null, array( "being" => $class ));
+	/**
+	 *
+	 * !!! RECURSIVE FUNCTION
+	 *
+	 * @param \TYPO3\TYPO3CR\Domain\Model\NodeInterface $node
+	 * @param boolean $recursive
+	 * @return array
+	 */
+	protected function getContentElements(\TYPO3\TYPO3CR\Domain\Model\NodeInterface $node = NULL, $recursive) {
+		if ($node === NULL) {
+			return array();
+		}
+
+		$contentTypeFilter = NULL;
+		if ($recursive === FALSE) {
+			$contentTypeFilter = '!TYPO3.TYPO3:Page';
+		}
+		$childNodes = $node->getChildNodes($contentTypeFilter);
+		$result = $childNodes;
+		foreach ($childNodes as $childNode) {
+			$result = array_merge($result, $this->getContentElements($childNode, $recursive));
+		}
+
+
+		return $result;
 	}
 }
 ?>

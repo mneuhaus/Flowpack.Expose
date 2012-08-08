@@ -14,33 +14,27 @@ namespace Foo\ContentManagement\TypoScriptObjects;
 use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
- * Render a TypoScript navigation collection
+ * This is a WORKAROUND which evaluates all values of the "arguments" property through
+ * TypoScript Processors and Eel Expressions; so one can write:
  *
- * //tsPath collection *Collection
- * //tsPath itemRenderer the TS object which is triggered for each element in the node collection
+ * 10 = Foo.ContentManagement:RecordList.GlobalFeatureLinks.Button
+ * 10.label = 'New'
+ * 10.feature = 'Foo\\ContentManagement\\Controller\\NewController'
+ * # THIS IS THE IMPORTANT LINE:
+ * 10.arguments.type = ${type}
  */
-class CollectionRenderer extends \TYPO3\TypoScript\TypoScriptObjects\CollectionRenderer {
-	/**
-	 * @var array
-	 */
-	protected $overrideContext = array();
-
-	public function setOverrideContext($overrideContext) {
-		$this->overrideContext = $overrideContext;
-	}
+class FeatureLinkButton extends \TYPO3\TypoScript\TypoScriptObjects\FluidRenderer {
 
 	/**
-	 * Evaluate the collection nodes
-	 *
 	 * @param mixed $context
 	 * @return string
 	 */
 	public function evaluate($context) {
-		// TODO: should be moved to a generic place in abstractTsObject
-		foreach ($this->tsValue('overrideContext') as $contextName => $context) {
-			$this->tsRuntime->pushContext($contextName, $this->tsValue('overrideContext.' . $contextName));
+		if (isset($this->variables['arguments'])) {
+			foreach ($this->variables['arguments'] as $key => $value) {
+				$this->variables['arguments'][$key] = $this->tsRuntime->evaluateProcessor('arguments.' . $key, $this, $value);
+			}
 		}
-
 		return parent::evaluate($context);
 	}
 }

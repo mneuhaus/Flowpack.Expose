@@ -1,0 +1,31 @@
+# adjustments for TYPO3CR Nodes
+Foo.ContentManagement.ContentListController.index = Foo.ContentManagement:RecordList
+
+Foo.ContentManagement.ContentListController {
+	prototype(Foo.ContentManagement:RecordList) {
+		navigationArea = TYPO3.TypoScript:FluidRenderer {
+			templatePath = 'resource://Foo.ContentManagement/Private/Elements/RecordList/NodeTree.html'
+			siteNode = ${siteNode}
+			selectedFolderNode = ${selectedFolderNode}
+		}
+	}
+
+	prototype(Foo.ContentManagement:RecordList.LocalFeatureLinkButton).arguments.type = 'TYPO3\\TYPO3CR\\Domain\\Model\\NodeInterface'
+}
+
+prototype(Foo.ContentManagement:RecordList.List.Element).matchers.1000 {
+	condition = ${q(item).is('[ instanceof TYPO3.TYPO3:AbstractNode]')}
+	type = 'Foo.ContentManagement:RecordList.List.NodeElement'
+}
+
+prototype(Foo.ContentManagement:RecordList.List.NodeElement) < prototype(Foo.ContentManagement:RecordList.List.DefaultElement) {
+	templatePath = 'resource://Foo.ContentManagement/Private/Elements/List/NodeElement.html'
+
+	teaser = Foo.ContentManagement:RecordList.NodeTeaser
+}
+
+prototype(Foo.ContentManagement:RecordList.NodeTeaser) < prototype(TYPO3.TypoScript:Case) {
+	matchers {
+
+	}
+}

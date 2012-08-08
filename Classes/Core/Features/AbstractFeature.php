@@ -29,19 +29,18 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-abstract class FeatureController extends \TYPO3\FLOW3\Mvc\Controller\ActionController implements FeatureInterface {
+abstract class AbstractFeature extends \TYPO3\FLOW3\Mvc\Controller\ActionController implements FeatureInterface {
 	/**
 	 * @var \Foo\ContentManagement\Core\FeatureManager
+	 * @FLOW3\Inject
 	 */
 	protected $featureManager;
 
 	/**
-	 *
-	 * @param \Foo\ContentManagement\Core\FeatureManager $featureManager
+	 * @var \TYPO3\FLOW3\Persistence\PersistenceManagerInterface
+	 * @FLOW3\Inject
 	 */
-	public function __construct(\Foo\ContentManagement\Core\FeatureManager $featureManager) {
-		$this->featureManager = $featureManager;
-	}
+	protected $persistenceManager;
 
 	public function getActionsForContext($class, $context, $id) {
 		return array();
@@ -52,7 +51,7 @@ abstract class FeatureController extends \TYPO3\FLOW3\Mvc\Controller\ActionContr
 	}
 
 	public function getController() {
-		$controller = $this->getShortName($this);
+		$controller = $this->metaPersistenceManager->getShortName($this);
 		return str_replace("Controller", "", $controller);
 	}
 
@@ -69,7 +68,7 @@ abstract class FeatureController extends \TYPO3\FLOW3\Mvc\Controller\ActionContr
 	}
 
 	public function getActionName() {
-		$action = $this->getShortName($this);
+		$action = $this->metaPersistenceManager->getShortName($this);
 		return str_replace("Controller", "", $action);
 	}
 
@@ -85,17 +84,9 @@ abstract class FeatureController extends \TYPO3\FLOW3\Mvc\Controller\ActionContr
 		return false;
 	}
 
-	public function getShortName($class){
-		if(is_object($class))
-			$class = get_class($class);
-
-		$parts = explode("\\", $class);
-		return array_pop($parts);
-	}
-
 	public function render() {
 		$this->initializeView();
-		
+
 		foreach ($this->request->getInternalArgument("__context") as $key => $value) {
 			$this->view->assign($key, $value);
 		}
@@ -108,6 +99,14 @@ abstract class FeatureController extends \TYPO3\FLOW3\Mvc\Controller\ActionContr
 		} elseif (is_object($actionResult) && method_exists($actionResult, '__toString')) {
 			return (string) $actionResult;
 		}
+	}
+
+	public function getSettings($path = null){
+		$paths = array("Foo.ContentManagement.ViewSettings");
+		$paths[] = ucfirst($this->getAction());
+		if(!is_null($path))
+			$paths[] = $path;
+ 		return $this->metaPersistenceManager->getSettings(implode(".", $paths));
 	}
 
 	public function setRequest($request) {

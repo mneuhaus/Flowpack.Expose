@@ -2,11 +2,34 @@
 
 namespace Foo\ContentManagement\Factory;
 
+/*
+ * This script belongs to the Foo.ContentManagement package.              *
+ *                                                                        *
+ * It is free software; you can redistribute it and/or modify it under    *
+ * the terms of the GNU Lesser General Public License as published by the *
+ * Free Software Foundation, either version 3 of the License, or (at your *
+ * option) any later version.                                             *
+ *                                                                        *
+ * This script is distributed in the hope that it will be useful, but     *
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHAN-    *
+ * TABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser       *
+ * General Public License for more details.                               *
+ *                                                                        *
+ * You should have received a copy of the GNU Lesser General Public       *
+ * License along with the script.                                         *
+ * If not, see http://www.gnu.org/licenses/lgpl.html                      *
+ *                                                                        *
+ * The TYPO3 project - inspiring people to share!                         *
+ *                                                                        */
+
 use TYPO3\FLOW3\Annotations as FLOW3;
 use TYPO3\Form\Core\Model\FormDefinition;
 
+/**
+ * Fatory to create Forms based on Entities
+ *
+ **/
 class ModelFormFactory extends \TYPO3\Form\Factory\AbstractFormFactory {
-
     /**
      * @var \Foo\ContentManagement\Reflection\AnnotationService
      * @FLOW3\Inject
@@ -17,31 +40,19 @@ class ModelFormFactory extends \TYPO3\Form\Factory\AbstractFormFactory {
      * @var \Foo\ContentManagement\Core\MetaPersistenceManager
      * @FLOW3\Inject
      */
-    protected $persistenceService;
-
-    /**
-     * @var \TYPO3\FLOW3\Mvc\ActionRequest
-     * @internal
-     */
-    protected $request;
-
-    /**
-     * @var \TYPO3\FLOW3\Reflection\ReflectionService
-     * @api
-     * @FLOW3\Inject
-     */
-    protected $reflectionService;
+    protected $metaPersistenceManager;
 
     /**
      * @var \TYPO3\FLOW3\Validation\ValidatorResolver
      * @FLOW3\Inject
      */
     protected $validatorResolver;
-    
 
-    public function setRequest(\TYPO3\FLOW3\Mvc\ActionRequest $request) {
-        $this->request = $request;
-    }
+    /**
+     * @var \TYPO3\FLOW3\Reflection\ReflectionService
+     * @FLOW3\Inject
+     */
+    protected $reflectionService;
 
     /**
      * @param array $factorySpecificConfiguration
@@ -52,10 +63,8 @@ class ModelFormFactory extends \TYPO3\Form\Factory\AbstractFormFactory {
         $formConfiguration = $this->getPresetConfiguration($presetName);
         $this->form = new FormDefinition('contentForm', $formConfiguration);
 
-        $this->setRequest($factorySpecificConfiguration["request"]);
-        
         if(isset($factorySpecificConfiguration["class"]))
-            $object = new $factorySpecificConfiguration["class"]();
+            $object = $this->metaPersistenceManager->getObject($factorySpecificConfiguration["class"]);
 
         if(isset($factorySpecificConfiguration["object"]))
             $object = $factorySpecificConfiguration["object"];
@@ -68,7 +77,7 @@ class ModelFormFactory extends \TYPO3\Form\Factory\AbstractFormFactory {
         $actionFinisher->setOption('class', get_class($object));
         $actionFinisher->setOption('controllerCallback', $factorySpecificConfiguration["controllerCallback"]);
         $this->form->addFinisher($actionFinisher);
-        
+
         return $this->form;
     }
 
@@ -87,7 +96,7 @@ class ModelFormFactory extends \TYPO3\Form\Factory\AbstractFormFactory {
         foreach ($classAnnotations->getSets() as $set => $properties) {
             foreach ($properties as $name => $property) {
                 $propertyAnnotations = $classAnnotations->getPropertyAnnotations($name);
-                
+
                 if($propertyAnnotations->has("ignore") && $propertyAnnotations->get("ignore")->ignoreContext("form")) continue;
                 if($propertyAnnotations->has("inject")) continue;
 
@@ -99,7 +108,7 @@ class ModelFormFactory extends \TYPO3\Form\Factory\AbstractFormFactory {
                     $inlineVariant = $propertyAnnotations->getInline()->getVariant();
                     $type = $propertyAnnotations->getType();
                     $inlineAnnotations = $this->annotationService->getClassAnnotations($type);
-                    
+
                     // Create a Container for the "Rows" outside the later processed namespace
                     $containerSection = $section->createElement("container.".$namespacedName, $inlineVariant);
                     $containerSection->setLabel($property->getLabel());
@@ -108,7 +117,8 @@ class ModelFormFactory extends \TYPO3\Form\Factory\AbstractFormFactory {
 
                     if($propertyAnnotations->has("ManyToMany") || $propertyAnnotations->has("OneToMany")){
                         // Check if the request contains the current namespace
-                        $arguments = $this->request->getArguments();
+						// TODO
+                        $arguments = array(); // $this->request->getArguments();
                         $objects = \TYPO3\FLOW3\Reflection\ObjectAccess::getPropertyPath($arguments, $namespacedName);
                         if(is_array($objects)){
                             foreach ($objects as $key => $value) {
@@ -166,9 +176,9 @@ class ModelFormFactory extends \TYPO3\Form\Factory\AbstractFormFactory {
         }
 
         $object = $classAnnotations->getObject();
-        if(!$this->persistenceService->isNewObject($object)){
+        if(!$this->metaPersistenceManager->isNewObject($object)){
             $elements["__identity"] = $section->createElement($namespace . ".__identity", "Foo.ContentManagement:Hidden");
-            $elements["__identity"]->setDefaultValue($this->persistenceService->getIdentifierByObject($object));
+            $elements["__identity"]->setDefaultValue($this->metaPersistenceManager->getIdentifierByObject($object));
         }
 
         return $elements;

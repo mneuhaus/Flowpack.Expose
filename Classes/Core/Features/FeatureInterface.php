@@ -23,11 +23,24 @@ namespace Foo\ContentManagement\Core\Features;
  *                                                                        */
 
 /**
- * Interface for the actions
+ * Interface for features such as "Create", "List", "Delete"
+ *
+ * Each feature can place itself at certain so-called "Contexts", which are linking points provided by other features.
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
 interface FeatureInterface {
-	
+	/**
+	 * Determine if this feature is relevant in another context like "List" or "List.Element"
+	 * @param type $context
+	 * @param type $type
+	 * @return integer 0 or FALSE if feature is not related; numeric value determines the sorting.
+	 */
+//	public function isFeatureRelatedForContext($context, $type = NULL);
+
+//	public function indexAction($type = NULL, $identifier = NULL);
+
+
+//	public function getName();
 }
 ?>
