@@ -1,8 +1,8 @@
 <?php
-namespace Foo\ContentManagement\FormElements;
+namespace TYPO3\Admin\FormElements;
 
 /*                                                                        *
- * This script belongs to the Foo.ContentManagement package.              *
+ * This script belongs to the TYPO3.Admin package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -17,8 +17,14 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * A generic form element
  */
 class ComplexFormElement extends \TYPO3\Form\Core\Model\AbstractFormElement {
-	public function setAnnotations($annotations) {
-		$this->properties["annotations"] = $annotations;
-	}
+
+    /**
+    * TODO: Document this Method! ( setAnnotations )
+    */
+    public function setAnnotations($annotations) {
+        $this->properties['annotations'] = $annotations;
+    }
+
 }
+
 ?>

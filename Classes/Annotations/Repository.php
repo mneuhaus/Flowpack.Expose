@@ -1,8 +1,8 @@
 <?php
-namespace Foo\ContentManagement\Annotations;
+namespace TYPO3\Admin\Annotations;
 
 /*                                                                        *
- * This script belongs to the Foo.ContentManagement package.              *
+ * This script belongs to the TYPO3.Admin package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -15,23 +15,27 @@ namespace Foo\ContentManagement\Annotations;
  * @Annotation
  */
 final class Repository {
-	
-	/**
-	 * @var integer
-	 */
-	public $class = "";
-	
-	/**
-	 * @param string $value
-	 */
-	public function __construct(array $values = array()) {
-		$this->class = isset($values['value']) ? $values['value'] : $this->class;
-		$this->class = isset($values['class']) ? $values['class'] : $this->class;
-	}
-	
-	public function __toString(){
-		return $this->class;
-	}
+
+    /**
+     * @var integer
+     */
+    public $class = '';
+
+    /**
+     * @param string $value
+     */
+    public function __construct(array $values = array()) {
+        $this->class = isset($values['value']) ? $values['value'] : $this->class;
+        $this->class = isset($values['class']) ? $values['class'] : $this->class;
+    }
+
+    /**
+    * TODO: Document this Method! ( __toString )
+    */
+    public function __toString() {
+        return $this->class;
+    }
+
 }
 
 ?>

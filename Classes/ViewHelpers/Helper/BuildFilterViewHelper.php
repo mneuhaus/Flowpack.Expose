@@ -1,9 +1,8 @@
 <?php
-
-namespace Foo\ContentManagement\ViewHelpers\Helper;
+namespace TYPO3\Admin\ViewHelpers\Helper;
 
 /*                                                                        *
- * This script belongs to the Foo.ContentManagement package.              *
+ * This script belongs to the TYPO3.Admin package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License as published by the *
@@ -30,24 +29,24 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * @api
  */
 class BuildFilterViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
-	
-	/**
-	 *
-	 * @param string $property
-	 * @param string $value
-	 * @param string $as
-	 * @return string Rendered string
-	 * @api
-	 */
-	public function render($property, $value, $as = "filter") {
-		$filter = array($property => $value);
-		
-		$this->templateVariableContainer->add($as, $filter);
-		$content = $this->renderChildren();
-		$this->templateVariableContainer->remove($as);
-		
-		return $content;
-	}
+
+    /**
+     *
+     * @param string $property
+     * @param string $value
+     * @param string $as
+     * @return string Rendered string
+     * @api
+     */
+    public function render($property, $value, $as = 'filter') {
+        $filter = array($property => $value
+        );
+        $this->templateVariableContainer->add($as, $filter);
+        $content = $this->renderChildren();
+        $this->templateVariableContainer->remove($as);
+        return $content;
+    }
+
 }
 
 ?>

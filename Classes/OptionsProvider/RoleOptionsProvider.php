@@ -1,9 +1,8 @@
 <?php
-
-namespace Foo\ContentManagement\OptionsProvider;
+namespace TYPO3\Admin\OptionsProvider;
 
 /*                                                                        *
-* This script belongs to the Foo.ContentManagement package.              *
+* This script belongs to the TYPO3.Admin package.              *
 *                                                                        *
 * It is free software; you can redistribute it and/or modify it under    *
 * the terms of the GNU Lesser General Public License as published by the *
@@ -30,18 +29,22 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-class RoleOptionsProvider extends \Foo\ContentManagement\Core\OptionsProvider\AbstractOptionsProvider {
-	/**
-	 * @var \TYPO3\FLOW3\Configuration\ConfigurationManager
-	 * @FLOW3\Inject
-	 */
-	protected $configurationManager;
+class RoleOptionsProvider extends \TYPO3\Admin\Core\OptionsProvider\AbstractOptionsProvider {
 
-	public function getOptions(){
-		$acls = $this->configurationManager->getConfiguration(\TYPO3\FLOW3\Configuration\ConfigurationManager::CONFIGURATION_TYPE_POLICY, "acls");
+    /**
+     * @var \TYPO3\FLOW3\Configuration\ConfigurationManager
+     * @FLOW3\Inject
+     */
+    protected $configurationManager;
 
-		return array_keys($acls);
-	}
+    /**
+    * TODO: Document this Method! ( getOptions )
+    */
+    public function getOptions() {
+        $acls = $this->configurationManager->getConfiguration(\TYPO3\FLOW3\Configuration\ConfigurationManager::CONFIGURATION_TYPE_POLICY, 'acls');
+        return array_keys($acls);
+    }
+
 }
 
 ?>

@@ -1,9 +1,8 @@
 <?php
-
-namespace Foo\ContentManagement\ViewHelpers;
+namespace TYPO3\Admin\ViewHelpers;
 
 /*                                                                        *
- * This script belongs to the Foo.ContentManagement package.              *
+ * This script belongs to the TYPO3.Admin package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License as published by the *
@@ -31,35 +30,34 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  */
 class PropertiesViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 
-	/**
-	 * @var \Foo\ContentManagement\Reflection\AnnotationService
-	 * @FLOW3\Inject
-	 */
-	protected $annotationService;
+    /**
+     * @var \TYPO3\Admin\Reflection\AnnotationService
+     * @FLOW3\Inject
+     */
+    protected $annotationService;
 
-	/**
-	 *
-	 * @param object $object
-	 * @param string $className
-	 * @param string $as
-	 * @param string $context
-	 * @return string Rendered string
-		 * @api
-	 */
-	public function render($object = null, $className = null, $as = "properties", $context = "template") {
-		if(is_null($object) && !is_null($className))
-			$object = new $className;
+    /**
+     *
+     * @param object $object
+     * @param string $className
+     * @param string $as
+     * @param string $context
+     * @return string Rendered string
+     * @api
+     */
+    public function render($object = null, $className = null, $as = 'properties', $context = 'template') {
+        if (is_null($object) && !is_null($className)) {
+            $object = new $className();
+        }
+        $classAnnotations = $this->annotationService->getClassAnnotations(get_class($object));
+        $classAnnotations->setObject($object);
+        $properties = $classAnnotations->getProperties();
+        $this->templateVariableContainer->add($as, $properties);
+        $content = $this->renderChildren();
+        $this->templateVariableContainer->remove($as);
+        return $content;
+    }
 
-		$classAnnotations = $this->annotationService->getClassAnnotations(get_class($object));
-		$classAnnotations->setObject($object);
-		$properties = $classAnnotations->getProperties();
-		
-		$this->templateVariableContainer->add($as, $properties);
-		$content = $this->renderChildren();
-		$this->templateVariableContainer->remove($as);
-		
-		return $content;
-	}
 }
 
 ?>

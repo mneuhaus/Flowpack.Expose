@@ -1,8 +1,8 @@
 <?php
-namespace Foo\ContentManagement\Annotations;
+namespace TYPO3\Admin\Annotations;
 
 /*                                                                        *
- * This script belongs to the Foo.ContentManagement package.              *
+ * This script belongs to the TYPO3.Admin package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -15,41 +15,44 @@ namespace Foo\ContentManagement\Annotations;
  * @Annotation
  */
 final class OptionsProvider implements SingleAnnotationInterface {
-	
-	/**
-	 * @var integer
-	 */
-	public $name = "";
-	
-	/**
-	 * @var array
-	 */
-	public $options = array();
-	
-	/**
-	 * @param string $value
-	 */
-	public function __construct(array $values = array()) {
-		foreach ($values as $key => $value) {
-			$key = strtolower($key);
-			$values[$key] = $value;
-			$this->$key = $value;
-		}
-		$this->name = isset($values['value']) ? $values['value'] : $this->name;
-		$this->name = isset($values['name']) ? $values['name'] : $this->name;
-		
-		$this->options = isset($values['options']) ? $values['options'] : $this->options;
 
-		if(class_exists(sprintf("\\Foo\\ContentManagement\\OptionsProvider\\%sOptionsProvider", $this->name)))
-			$this->name = sprintf("\\Foo\\ContentManagement\\OptionsProvider\\%sOptionsProvider", $this->name);
+    /**
+     * @var integer
+     */
+    public $name = '';
 
-		if(class_exists(sprintf("\\Foo\\ContentManagement\\OptionsProvider\\%s", $this->name)))
-			$this->name = sprintf("\\Foo\\ContentManagement\\OptionsProvider\\%s", $this->name);
-	}
-	
-	public function __toString(){
-		return $this->name;
-	}
+    /**
+     * @var array
+     */
+    public $options = array();
+
+    /**
+     * @param string $value
+     */
+    public function __construct(array $values = array()) {
+        foreach ($values as $key => $value) {
+            $key = strtolower($key);
+            $values[$key] = $value;
+            $this->{$key} = $value;
+        }
+        $this->name = isset($values['value']) ? $values['value'] : $this->name;
+        $this->name = isset($values['name']) ? $values['name'] : $this->name;
+        $this->options = isset($values['options']) ? $values['options'] : $this->options;
+        if (class_exists(sprintf('\\TYPO3\\Admin\\OptionsProvider\\%sOptionsProvider', $this->name))) {
+            $this->name = sprintf('\\TYPO3\\Admin\\OptionsProvider\\%sOptionsProvider', $this->name);
+        }
+        if (class_exists(sprintf('\\TYPO3\\Admin\\OptionsProvider\\%s', $this->name))) {
+            $this->name = sprintf('\\TYPO3\\Admin\\OptionsProvider\\%s', $this->name);
+        }
+    }
+
+    /**
+    * TODO: Document this Method! ( __toString )
+    */
+    public function __toString() {
+        return $this->name;
+    }
+
 }
 
 ?>

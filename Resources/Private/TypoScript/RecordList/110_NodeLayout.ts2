@@ -1,30 +1,30 @@
 # adjustments for TYPO3CR Nodes
-Foo.ContentManagement.ContentListController.index = Foo.ContentManagement:RecordList
+TYPO3.Admin.ContentListController.index = TYPO3.Admin:RecordList
 
-Foo.ContentManagement.ContentListController {
-	prototype(Foo.ContentManagement:RecordList) {
+TYPO3.Admin.ContentListController {
+	prototype(TYPO3.Admin:RecordList) {
 		navigationArea = TYPO3.TypoScript:FluidRenderer {
-			templatePath = 'resource://Foo.ContentManagement/Private/Elements/RecordList/NodeTree.html'
+			templatePath = 'resource://TYPO3.Admin/Private/Elements/RecordList/NodeTree.html'
 			siteNode = ${siteNode}
 			selectedFolderNode = ${selectedFolderNode}
 		}
 	}
 
-	prototype(Foo.ContentManagement:RecordList.LocalFeatureLinkButton).arguments.type = 'TYPO3\\TYPO3CR\\Domain\\Model\\NodeInterface'
+	prototype(TYPO3.Admin:RecordList.LocalFeatureLinkButton).arguments.type = 'TYPO3\\TYPO3CR\\Domain\\Model\\NodeInterface'
 }
 
-prototype(Foo.ContentManagement:RecordList.List.Element).matchers.1000 {
+prototype(TYPO3.Admin:RecordList.List.Element).matchers.1000 {
 	condition = ${q(item).is('[ instanceof TYPO3.TYPO3:AbstractNode]')}
-	type = 'Foo.ContentManagement:RecordList.List.NodeElement'
+	type = 'TYPO3.Admin:RecordList.List.NodeElement'
 }
 
-prototype(Foo.ContentManagement:RecordList.List.NodeElement) < prototype(Foo.ContentManagement:RecordList.List.DefaultElement) {
-	templatePath = 'resource://Foo.ContentManagement/Private/Elements/List/NodeElement.html'
+prototype(TYPO3.Admin:RecordList.List.NodeElement) < prototype(TYPO3.Admin:RecordList.List.DefaultElement) {
+	templatePath = 'resource://TYPO3.Admin/Private/Elements/List/NodeElement.html'
 
-	teaser = Foo.ContentManagement:RecordList.NodeTeaser
+	teaser = TYPO3.Admin:RecordList.NodeTeaser
 }
 
-prototype(Foo.ContentManagement:RecordList.NodeTeaser) < prototype(TYPO3.TypoScript:Case) {
+prototype(TYPO3.Admin:RecordList.NodeTeaser) < prototype(TYPO3.TypoScript:Case) {
 	matchers {
 
 	}

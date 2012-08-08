@@ -1,8 +1,8 @@
 <?php
-namespace Foo\ContentManagement\Finishers;
+namespace TYPO3\Admin\Finishers;
 
 /*                                                                        *
- * This script belongs to the Foo.ContentManagement package.              *
+ * This script belongs to the TYPO3.Admin package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -17,22 +17,26 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * This finisher redirects to another Controller.
  */
 class ControllerCallbackFinisher extends \TYPO3\Form\Core\Model\AbstractFinisher {
-	/**
-	 * @var \TYPO3\FLOW3\Object\ObjectManagerInterface
-	 * @FLOW3\Inject
-	 */
-	protected $objectManager;
 
-	public function executeInternal() {
-		$formRuntime = $this->finisherContext->getFormRuntime();
-		$controllerCallback = $this->parseOption('controllerCallback');
+    /**
+     * @var \TYPO3\FLOW3\Object\ObjectManagerInterface
+     * @FLOW3\Inject
+     */
+    protected $objectManager;
 
-		$controllerRequest = $formRuntime->getRequest()->getParentRequest();
-		
-		$controllerName = $controllerRequest->getControllerObjectName();
-		$controller = $this->objectManager->get($controllerName);
-		$controller->initializeController($controllerRequest, $formRuntime->getResponse()->getParentResponse());
-		call_user_method_array($controllerCallback, $controller, array($formRuntime));
-	}
+    /**
+    * TODO: Document this Method! ( executeInternal )
+    */
+    public function executeInternal() {
+        $formRuntime = $this->finisherContext->getFormRuntime();
+        $controllerCallback = $this->parseOption('controllerCallback');
+        $controllerRequest = $formRuntime->getRequest()->getParentRequest();
+        $controllerName = $controllerRequest->getControllerObjectName();
+        $controller = $this->objectManager->get($controllerName);
+        $controller->initializeController($controllerRequest, $formRuntime->getResponse()->getParentResponse());
+        call_user_method_array($controllerCallback, $controller, array($formRuntime));
+    }
+
 }
+
 ?>

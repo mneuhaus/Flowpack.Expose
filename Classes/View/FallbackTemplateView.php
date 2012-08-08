@@ -1,8 +1,8 @@
 <?php
-namespace Foo\ContentManagement\View;
+namespace TYPO3\Admin\View;
 
 /*                                                                        *
- * This script belongs to the Foo.ContentManagement package.              *
+ * This script belongs to the TYPO3.Admin package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -22,182 +22,178 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  *           	- resource://@package/Private/Templates/Admin/@action/@variant.html
  *           	- resource://@package/Private/Templates/@being/@action.html
  *           	- resource://@package/Private/Templates/Admin/@action.html
- *           	- resource://Foo.ContentManagement/Private/Templates/Standard/@action/@variant.html
- *           	- resource://Foo.ContentManagement/Private/Templates/Standard/@action.html
+ *           	- resource://TYPO3.Admin/Private/Templates/Standard/@action/@variant.html
+ *           	- resource://TYPO3.Admin/Private/Templates/Standard/@action.html
  *
  * The main template view. Should be used as view if you want Fluid Templating
  *
  * @api
  */
 class FallbackTemplateView extends \TYPO3\Fluid\View\TemplateView {
-	/**
-	 * @var \Foo\ContentManagement\Core\FeatureManager
-	 * @FLOW3\Inject
-	 */
-	protected $featureManager;
 
-	/**
-	 * @var \Foo\ContentManagement\Core\CacheManager
-	 * @FLOW3\Inject
-	 */
-	protected $cacheManager;
+    /**
+     * @var \TYPO3\Admin\Core\CacheManager
+     * @FLOW3\Inject
+     */
+    protected $cacheManager;
 
-	/**
-	 * @var \TYPO3\FLOW3\Configuration\ConfigurationManager
-	 * @FLOW3\Inject
-	 */
-	protected $configurationManager;
+    /**
+     * @var \TYPO3\FLOW3\Configuration\ConfigurationManager
+     * @FLOW3\Inject
+     */
+    protected $configurationManager;
 
-	/**
-	 * Resolve the template path and filename for the given action. If $actionName
-	 * is NULL, looks into the current request.
-	 *
-	 * @param string $actionName Name of the action. If NULL, will be taken from request.
-	 * @return string Full path to template
-	 * @throws \TYPO3\Fluid\View\Exception\InvalidTemplateResourceException
-	 */
-	protected function getTemplatePathAndFilename($actionName = NULL) {
-		if(is_null($actionName))
-			if(isset($this->actionName))
-				$actionName = $this->actionName;
-			else
-				$actionName = "index";
-		else
-			$this->actionName = $actionName;
+    /**
+     * @var \TYPO3\Admin\Core\FeatureManager
+     * @FLOW3\Inject
+     */
+    protected $featureManager;
 
-		$replacements = array(
-			"@action" => ucfirst($actionName),
-			"@variant" => "Default",
-			"@package" => "Foo.ContentManagement",
-		);
+    /**
+     * Figures out which content to use.
+     *
+     * @param string $partialName The name of the partial
+     * @return string contents of the partial template
+     * @throws \TYPO3\Fluid\View\Exception\InvalidTemplateResourceException
+     */
+    protected function getContentSource($contentName, $variant = 'Default') {
+        $replacements = array('@content' => ucfirst($contentName),
+        	'@variant' => 'Default',
+        	'@package' => 'TYPO3.Admin',
+        	'@variant' => $variant
+        );
+        $contentPathAndFilename = $this->getPathByPatternFallbacks('Contents', $replacements);
+        $contentSource = \TYPO3\FLOW3\Utility\Files::getFileContents($contentPathAndFilename, FILE_TEXT);
+        if ($contentSource === FALSE) {
+            throw new \TYPO3\Fluid\View\Exception\InvalidTemplateResourceException(('"' . $contentPathAndFilename) . '" is not a valid template resource URI.', 1257246929);
+        }
+        return $contentSource;
+    }
 
-		if($this->controllerContext->getRequest()->hasArgument("being")){
-			$being = $this->controllerContext->getRequest()->getArgument("being");
-			if(class_exists($being, false) && false){
-#				$replacements["@package"] = $this->helper->getPackageByClassName($being) ? $this->helper->getPackageByClassName($being) : "Admin";
+    /**
+     * Resolves the layout root to be used inside other paths.
+     *
+     * @return string Path to layout root directory
+     */
+    protected function getLayoutRootPath() {
+        if ($this->layoutRootPath !== NULL) {
+            return $this->layoutRootPath;
+        } else {
+            return str_replace('@packageResourcesPath', 'resource://TYPO3.Admin', $this->layoutRootPathPattern);
+        }
+    }
 
-				$replacements["@being"] = $this->getShortName($being);
+    /**
+     * returns a template Path by checking configured fallbacks
+     *
+     * @param string $patterns
+     * @param string $replacements
+     * @return $path String
+     */
+    public function getPathByPatternFallbacks($patterns, $replacements) {
+        if (is_string($patterns)) {
+            $paths = explode('.', $patterns);
+            $patterns = $this->configurationManager->getConfiguration(\TYPO3\FLOW3\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, 'TYPO3.Admin');
+            $patterns = $patterns['Fallbacks'];
+            foreach ($paths as $path) {
+                $patterns = $patterns[$path];
+            }
+        }
+        foreach ($patterns as $pattern) {
+            $pattern = str_replace(array_keys($replacements), array_values($replacements), $pattern);
+            $tried[] = $pattern;
+            if (file_exists($pattern)) {
+                return $pattern;
+            }
+        }
+        throw new \Exception(('Could not find any Matching Path. Tried: ' . implode(', ', $tried)) . '');
+    }
 
-				// TODO: Reimplement Variants
-				#$being = $this->helper->getBeing($being);
-				#$replacements["@variant"] = $being->variant->getVariant($actionName);
-			}
-		}
+    /**
+    * TODO: Document this Method! ( getShortName )
+    */
+    public function getShortName($class) {
+        if (is_object($class)) {
+            $class = get_class($class);
+        }
+        $parts = explode('\\', $class);
+        return array_pop($parts);
+    }
 
-		if($this->controllerContext->getRequest()->hasArgument("variant")){
-			$replacements["@variant"] = $this->request->getArgument("variant");
-		}
+    /**
+    * TODO: Document this Method! ( setTemplateByAction )
+    */
+    public function setTemplateByAction($actionName) {
+        $this->setTemplatePathAndFilename($this->getTemplatePathAndFilename($actionName));
+    }
 
-		$cache = $this->cacheManager->getCache('Admin_TemplateCache');
-		$identifier = str_replace(".", "_", implode("-",$replacements));
-		$noTemplate = false;
-		if(!$cache->has($identifier)){
-			//try{
-				$template = $this->getPathByPatternFallbacks("Views", $replacements);
-			//}catch (\Exception $e){
-			//	$noTemplate = true;
-			//}
-			//if(!$noTemplate)
-				$cache->set($identifier,$template);
-		}else{
-			$template = $cache->get($identifier);
-		}
+    /**
+     * Resolve the template path and filename for the given action. If $actionName
+     * is NULL, looks into the current request.
+     *
+     * @param string $actionName Name of the action. If NULL, will be taken from request.
+     * @return string Full path to template
+     * @throws \TYPO3\Fluid\View\Exception\InvalidTemplateResourceException
+     */
+    protected function getTemplatePathAndFilename($actionName = NULL) {
+        if (is_null($actionName)) {
+            if (isset($this->actionName)) {
+                $actionName = $this->actionName;
+            } else {
+                $actionName = 'index';
+            }
+        } else {
+            $this->actionName = $actionName;
+        }
+        $replacements = array('@action' => ucfirst($actionName),
+        	'@variant' => 'Default',
+        	'@package' => 'TYPO3.Admin'
+        );
+        if ($this->controllerContext->getRequest()->hasArgument('being')) {
+            $being = $this->controllerContext->getRequest()->getArgument('being');
+            if (class_exists($being, false) && false) {
+                #				$replacements["@package"] = $this->helper->getPackageByClassName($being) ? $this->helper->getPackageByClassName($being) : "Admin";
+                $replacements['@being'] = $this->getShortName($being);
+            }
+        }
+        if ($this->controllerContext->getRequest()->hasArgument('variant')) {
+            $replacements['@variant'] = $this->request->getArgument('variant');
+        }
+        $cache = $this->cacheManager->getCache('Admin_TemplateCache');
+        $identifier = str_replace('.', '_', implode('-', $replacements));
+        $noTemplate = false;
+        if (!$cache->has($identifier)) {
+            //try{
+            $template = $this->getPathByPatternFallbacks('Views', $replacements);
+            //}catch (\Exception $e){
+            //	$noTemplate = true;
+            //}
+            //if(!$noTemplate)
+            $cache->set($identifier, $template);
+        } else {
+            $template = $cache->get($identifier);
+        }
+        return $template;
+    }
 
-		return $template;
-	}
+    /**
+    * TODO: Document this Method! ( renderContent )
+    */
+    public function renderContent($contentName, $variables = array(), $variant = 'Default', $sectionName = NULL) {
+        $parsedTemplate = $this->templateParser->parse($this->getContentSource($contentName, $variant));
+        $variableContainer = $this->objectManager->get('TYPO3\\Fluid\\Core\\ViewHelper\\TemplateVariableContainer', $variables);
+        $renderingContext = clone $this->baseRenderingContext;
+        $renderingContext->injectTemplateVariableContainer($variableContainer);
+        $this->startRendering(self::RENDERING_PARTIAL, $parsedTemplate, $renderingContext);
+        if ($sectionName !== NULL) {
+            $output = $this->renderSection($sectionName, $variables);
+        } else {
+            $output = $parsedTemplate->render($renderingContext);
+        }
+        $this->stopRendering();
+        return $output;
+    }
 
-	/**
-	 * returns a template Path by checking configured fallbacks
-	 *
-	 * @param string $patterns
-	 * @param string $replacements
-	 * @return $path String
-		 */
-	public function getPathByPatternFallbacks($patterns, $replacements){
-		if(is_string($patterns)){
-			$paths = explode(".",$patterns);
-			$patterns = $this->configurationManager->getConfiguration(\TYPO3\FLOW3\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, "Foo.ContentManagement");
-			$patterns = $patterns["Fallbacks"];
-			foreach ($paths as $path) {
-				$patterns = $patterns[$path];
-			}
-		}
-
-		foreach($patterns as $pattern){
-			$pattern = str_replace(array_keys($replacements),array_values($replacements),$pattern);
-			$tried[] = $pattern;
-			if(file_exists($pattern)){
-				return $pattern;
-			}
-		}
-
-		throw new \Exception('Could not find any Matching Path. Tried: '.implode(", ", $tried).'');
-	}
-
-	public function renderContent($contentName, $variables = array(), $variant = "Default", $sectionName = NULL) {
-		$parsedTemplate = $this->templateParser->parse($this->getContentSource($contentName, $variant));
-
-		$variableContainer = $this->objectManager->get('TYPO3\Fluid\Core\ViewHelper\TemplateVariableContainer', $variables);
-		$renderingContext = clone $this->baseRenderingContext;
-		$renderingContext->injectTemplateVariableContainer($variableContainer);
-
-		$this->startRendering(self::RENDERING_PARTIAL, $parsedTemplate, $renderingContext);
-		if ($sectionName !== NULL) {
-			$output = $this->renderSection($sectionName, $variables);
-		} else {
-			$output = $parsedTemplate->render($renderingContext);
-		}
-		$this->stopRendering();
-
-		return $output;
-	}
-
-	/**
-	 * Figures out which content to use.
-	 *
-	 * @param string $partialName The name of the partial
-	 * @return string contents of the partial template
-	 * @throws \TYPO3\Fluid\View\Exception\InvalidTemplateResourceException
-	 */
-	protected function getContentSource($contentName, $variant = "Default") {
-		$replacements = array(
-			"@content" => ucfirst($contentName),
-			"@variant" => "Default",
-			"@package" => "Foo.ContentManagement",
-			"@variant" => $variant
-		);
-		$contentPathAndFilename = $this->getPathByPatternFallbacks("Contents", $replacements);
-		$contentSource = \TYPO3\FLOW3\Utility\Files::getFileContents($contentPathAndFilename, FILE_TEXT);
-		if ($contentSource === FALSE) {
-			throw new \TYPO3\Fluid\View\Exception\InvalidTemplateResourceException('"' . $contentPathAndFilename . '" is not a valid template resource URI.', 1257246929);
-		}
-		return $contentSource;
-	}
-
-	public function setTemplateByAction($actionName) {
-		$this->setTemplatePathAndFilename($this->getTemplatePathAndFilename($actionName));
-	}
-
-	/**
-	 * Resolves the layout root to be used inside other paths.
-	 *
-	 * @return string Path to layout root directory
-	 */
-	protected function getLayoutRootPath() {
-		if ($this->layoutRootPath !== NULL) {
-			return $this->layoutRootPath;
-		} else {
-			return str_replace('@packageResourcesPath', 'resource://Foo.ContentManagement', $this->layoutRootPathPattern);
-		}
-	}
-
-	public function getShortName($class){
-		if(is_object($class))
-			$class = get_class($class);
-
-		$parts = explode("\\", $class);
-		return array_pop($parts);
-	}
 }
 
 ?>

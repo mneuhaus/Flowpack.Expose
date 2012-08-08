@@ -1,9 +1,8 @@
 <?php
-
-namespace Foo\ContentManagement\Controller;
+namespace TYPO3\Admin\Controller;
 
 /* *
- * This script belongs to the Foo.ContentManagement package.              *
+ * This script belongs to the TYPO3.Admin package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License as published by the *
@@ -30,34 +29,42 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-class EditController extends \Foo\ContentManagement\Core\Features\AbstractFeature {
+class EditController extends \TYPO3\Admin\Core\Features\AbstractFeature {
 
-	protected $defaultViewObjectName = 'TYPO3\TypoScript\View\TypoScriptView';
+    /**
+    * TODO: Document this Property!
+    */
+    protected $defaultViewObjectName = 'TYPO3\\TypoScript\\View\\TypoScriptView';
 
-	/**
-	 * @var \TYPO3\FLOW3\Property\PropertyMapper
-	 * @FLOW3\Inject
-	 */
-	protected $propertyMapper;
+    /**
+     * @var \TYPO3\FLOW3\Property\PropertyMapper
+     * @FLOW3\Inject
+     */
+    protected $propertyMapper;
 
-	/**
-	 * Edit object
-	 *
-	 * @param string $type
-	 * @param array $object
-	 */
-	public function indexAction($type, $object) {
-		$object = $this->propertyMapper->convert($object, $type);
-		$this->view->assign('object', $object);
-	}
+    /**
+     * Edit object
+     *
+     * @param string $type
+     * @param array $object
+     */
+    public function indexAction($type, $object) {
+        $object = $this->propertyMapper->convert($object, $type);
+        $this->view->assign('object', $object);
+    }
 
-	public function update($formRuntime) {
-		$formValues = $formRuntime->getFormState()->getFormValues();
-		$object = $formValues['item'];
-		$class = get_class($object);
-		$this->metaPersistenceManager->updateObject($class, $object);
+    /**
+    * TODO: Document this Method! ( update )
+    */
+    public function update($formRuntime) {
+        $formValues = $formRuntime->getFormState()->getFormValues();
+        $object = $formValues['item'];
+        $class = get_class($object);
+        $this->metaPersistenceManager->updateObject($class, $object);
+        $this->redirect('index', 'List', null, array('being' => $class
+        ));
+    }
 
-		$this->redirect("index", "List", null, array( "being" => $class ));
-	}
 }
+
 ?>

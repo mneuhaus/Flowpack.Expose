@@ -1,5 +1,5 @@
 ########################################
-# Foo.ContentManagement:RecordList.Table.Row
+# TYPO3.Admin:RecordList.Table.Row
 # --------------------------------------
 # Render a single row of this table.
 #
@@ -8,17 +8,17 @@
 # - listElementFeatures: The list of features which can be executed for this item.
 ########################################
 
-prototype(Foo.ContentManagement:RecordList.Table.Row) < prototype(TYPO3.TypoScript:Case)
+prototype(TYPO3.Admin:RecordList.Table.Row) < prototype(TYPO3.TypoScript:Case)
 
 # Catch-all condition for the default case
-prototype(Foo.ContentManagement:RecordList.Table.Row).matchers.999999999999 {
+prototype(TYPO3.Admin:RecordList.Table.Row).matchers.999999999999 {
 	condition = ${true}
-	type = 'Foo.ContentManagement:RecordList.Table.DefaultRow'
+	type = 'TYPO3.Admin:RecordList.Table.DefaultRow'
 }
 
-prototype(Foo.ContentManagement:RecordList.Table.DefaultRow) < prototype(TYPO3.TypoScript:FluidRenderer) {
-	templatePath = 'resource://Foo.ContentManagement/Private/Elements/List/Row.html'
+prototype(TYPO3.Admin:RecordList.Table.DefaultRow) < prototype(TYPO3.TypoScript:FluidRenderer) {
+	templatePath = 'resource://TYPO3.Admin/Private/Elements/List/Row.html'
 	item = ${item}
 	type = ${type}
-	elementFeatureLinks = Foo.ContentManagement:RecordList.ElementFeatureLinks
+	elementFeatureLinks = TYPO3.Admin:RecordList.ElementFeatureLinks
 }

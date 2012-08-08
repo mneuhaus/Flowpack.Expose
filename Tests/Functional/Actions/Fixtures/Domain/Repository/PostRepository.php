@@ -1,8 +1,8 @@
 <?php
-namespace Foo\ContentManagement\Tests\Functional\Actions\Fixtures\Domain\Repository;
+namespace TYPO3\Admin\Tests\Functional\Actions\Fixtures\Domain\Repository;
 
 /*                                                                        *
- * This script belongs to the FLOW3 package "Blog".                       *
+ * This script belongs to the TYPO3.Admin package.              		  *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU General Public License as published by the Free   *

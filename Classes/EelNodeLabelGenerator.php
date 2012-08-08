@@ -1,9 +1,8 @@
 <?php
-
-namespace Foo\ContentManagement;
+namespace TYPO3\Admin;
 
 /* *
- * This script belongs to the Foo.ContentManagement package.              *
+ * This script belongs to the TYPO3.Admin package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License as published by the *
@@ -36,33 +35,34 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  */
 class EelNodeLabelGenerator implements \TYPO3\TYPO3CR\Domain\Model\NodeLabelGeneratorInterface {
 
-	/**
-	 * @FLOW3\Inject
-	 * @var \TYPO3\Eel\EelEvaluatorInterface
-	 */
-	protected $eelEvaluator;
+    /**
+     * @FLOW3\Inject
+     * @var \TYPO3\TYPO3CR\Domain\Service\ContentTypeManager
+     */
+    protected $contentTypeManager;
 
-	/**
-	 * @FLOW3\Inject
-	 * @var \TYPO3\TYPO3CR\Domain\Service\ContentTypeManager
-	 */
-	protected $contentTypeManager;
+    /**
+     * @FLOW3\Inject
+     * @var \TYPO3\Eel\EelEvaluatorInterface
+     */
+    protected $eelEvaluator;
 
-	/**
-	 * Generate a default label for a node from an Eel expression
-	 *
-	 * @param \TYPO3\TYPO3CR\Domain\Model\NodeInterface $node
-	 * @return string
-	 */
-	public function getLabel(\TYPO3\TYPO3CR\Domain\Model\NodeInterface $node) {
-		$contentType = $this->contentTypeManager->getContentType($node->getContentType());
-		$options = $contentType->getNodeLabelGeneratorOptions();
+    /**
+     * Generate a default label for a node from an Eel expression
+     *
+     * @param \TYPO3\TYPO3CR\Domain\Model\NodeInterface $node
+     * @return string
+     */
+    public function getLabel(\TYPO3\TYPO3CR\Domain\Model\NodeInterface $node) {
+        $contentType = $this->contentTypeManager->getContentType($node->getContentType());
+        $options = $contentType->getNodeLabelGeneratorOptions();
+        $variables = array('context' => new \TYPO3\Eel\FlowQuery\FlowQuery(array($node
+        	)),
+        	'strings' => new \TYPO3\Eel\Helper\StringHelper()
+        );
+        return $this->eelEvaluator->evaluate($options['expression'], new \TYPO3\Eel\Context($variables));
+    }
 
-		$variables = array(
-			'context' => new \TYPO3\Eel\FlowQuery\FlowQuery(array($node)),
-			'strings' => new \TYPO3\Eel\Helper\StringHelper()
-		);
-		return $this->eelEvaluator->evaluate($options['expression'], new \TYPO3\Eel\Context($variables));
-	}
 }
+
 ?>

@@ -1,4 +1,4 @@
-# ContentManagement Module for TYPO3.TYPO3 using TYPO3.Form
+# Admin Module for TYPO3.TYPO3 using TYPO3.Form
 
 ## TODO list
 
@@ -13,7 +13,7 @@
   cd PhoenixContentManagement
 
   git clone git@github.com:mneuhaus/Demo.ContentManagement.git Packages/Application/Demo.ContentManagement
-  git clone git@github.com:mneuhaus/Foo.ContentManagement.git Packages/Application/Foo.ContentManagement
+  git clone git@github.com:mneuhaus/TYPO3.Admin.git Packages/Application/TYPO3.Admin
 ```
 
 See corresponding forge issue: http://forge.typo3.org/issues/37293

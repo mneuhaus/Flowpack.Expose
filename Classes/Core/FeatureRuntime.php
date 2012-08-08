@@ -1,8 +1,8 @@
 <?php
-namespace Foo\ContentManagement\Core;
+namespace TYPO3\Admin\Core;
 
 /*                                                                        *
- * This script belongs to the Foo.ContentManagement package.              *
+ * This script belongs to the TYPO3.Admin package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -19,20 +19,21 @@ use TYPO3\FLOW3\Mvc\ActionRequest;
  */
 class FeatureRuntime extends AbstractRuntime {
 
-	/**
-	 * Default action to render if nothing else is specified
-	 * or present in the arguments
-	 *
-	 * @var string
-	 * @internal
-	 */
-	protected $defaultControllerClassName = "Foo\ContentManagement\Controller\IndexController";
+    /**
+     * Default action to render if nothing else is specified
+     * or present in the arguments
+     *
+     * @var string
+     * @internal
+     */
+    protected $defaultControllerClassName = 'TYPO3\\Admin\\Controller\\IndexController';
 
-	/**
-	 *
-	 * @var string
-	 */
-	protected $namespace = "featureRuntime";
+    /**
+     *
+     * @var string
+     */
+    protected $namespace = 'featureRuntime';
 
 }
+
 ?>

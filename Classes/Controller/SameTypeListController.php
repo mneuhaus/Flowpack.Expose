@@ -1,9 +1,8 @@
 <?php
-
-namespace Foo\ContentManagement\Controller;
+namespace TYPO3\Admin\Controller;
 
 /* *
- * This script belongs to the Foo.ContentManagement package.              *
+ * This script belongs to the TYPO3.Admin package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License as published by the *
@@ -31,33 +30,41 @@ use TYPO3\FLOW3\Mvc\ActionRequest;
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-class SameTypeListController extends \Foo\ContentManagement\Core\Features\AbstractFeature {
-	protected $defaultViewObjectName = 'TYPO3\TypoScript\View\TypoScriptView';
+class SameTypeListController extends \TYPO3\Admin\Core\Features\AbstractFeature {
 
-	/**
-	 * List objects, all being of the same $type.
-	 *
-	 * TODO: Filtering of this list, bulk
-	 *
-	 * @param string $type
-	 * @param string $format
-	 */
-	public function indexAction($type, $format = 'table') {
-		$query = $this->persistenceManager->createQueryForType($type);
+    /**
+    * TODO: Document this Property!
+    */
+    protected $defaultViewObjectName = 'TYPO3\\TypoScript\\View\\TypoScriptView';
 
-		$objects = $query->execute();
-		$this->redirectToNewFormIfNoObjectsFound($objects);
+    /**
+     * List objects, all being of the same $type.
+     *
+     * TODO: Filtering of this list, bulk
+     *
+     * @param string $type
+     * @param string $format
+     */
+    public function indexAction($type, $format = 'table') {
+        $query = $this->persistenceManager->createQueryForType($type);
+        $objects = $query->execute();
+        $this->redirectToNewFormIfNoObjectsFound($objects);
+        $this->view->assign('type', $type);
+        $this->view->assign('format', $format);
+        $this->view->assign('objects', $objects);
+    }
 
-		$this->view->assign('type', $type);
-		$this->view->assign('format', $format);
-		$this->view->assign('objects', $objects);
-	}
+    /**
+    * TODO: Document this Method! ( redirectToNewFormIfNoObjectsFound )
+    */
+    protected function redirectToNewFormIfNoObjectsFound(\TYPO3\FLOW3\Persistence\QueryResultInterface $result) {
+        if (count($result) === 0) {
+            $arguments = array('type' => $this->arguments['type']->getValue()
+            );
+            $this->redirect('index', 'new', NULL, $arguments);
+        }
+    }
 
-	protected function redirectToNewFormIfNoObjectsFound(\TYPO3\FLOW3\Persistence\QueryResultInterface $result) {
-		if (count($result) === 0) {
-			$arguments = array('type' => $this->arguments['type']->getValue());
-			$this->redirect('index', 'new', NULL, $arguments);
-		}
-	}
 }
+
 ?>

@@ -1,8 +1,8 @@
 <?php
-namespace Foo\ContentManagement\Operations;
+namespace TYPO3\Admin\Operations;
 
 /*                                                                        *
- * This script belongs to the FLOW3 package "TYPO3.Eel".                  *
+ * This script belongs to the TYPO3.Admin package.              		  *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -18,34 +18,35 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  */
 class GetOrDefaultOperation extends \TYPO3\Eel\FlowQuery\Operations\AbstractOperation {
 
-	/**
-	 * {@inheritdoc}
-	 *
-	 * @var string
-	 */
-	static protected $shortName = 'getOrDefault';
+    /**
+     * {@inheritdoc}
+     *
+     * @var boolean
+     */
+    static protected $final = TRUE;
 
-	/**
-	 * {@inheritdoc}
-	 *
-	 * @var boolean
-	 */
-	static protected $final = TRUE;
+    /**
+     * {@inheritdoc}
+     *
+     * @var string
+     */
+    static protected $shortName = 'getOrDefault';
 
-	/**
-	 * {@inheritdoc}
-	 *$
-	 * @param \TYPO3\Eel\FlowQuery\FlowQuery $flowQuery the FlowQuery object
-	 * @param array $arguments the arguments for this operation
-	 * @return mixed|null if the operation is final, the return value
-	 */
-	public function evaluate(\TYPO3\Eel\FlowQuery\FlowQuery $flowQuery, array $arguments) {
-		$value = $flowQuery->getContext();
-		if(\TYPO3\FLOW3\Reflection\ObjectAccess::isPropertyGettable($value[0], $arguments[0])){
-			return \TYPO3\FLOW3\Reflection\ObjectAccess::getProperty($value[0], $arguments[0]);
-		}
-		return $arguments[1];
-	}
+    /**
+     * {@inheritdoc}
+     *$
+     * @param \TYPO3\Eel\FlowQuery\FlowQuery $flowQuery the FlowQuery object
+     * @param array $arguments the arguments for this operation
+     * @return mixed|null if the operation is final, the return value
+     */
+    public function evaluate(\TYPO3\Eel\FlowQuery\FlowQuery $flowQuery, array $arguments) {
+        $value = $flowQuery->getContext();
+        if (\TYPO3\FLOW3\Reflection\ObjectAccess::isPropertyGettable($value[0], $arguments[0])) {
+            return \TYPO3\FLOW3\Reflection\ObjectAccess::getProperty($value[0], $arguments[0]);
+        }
+        return $arguments[1];
+    }
+
 }
 
 ?>

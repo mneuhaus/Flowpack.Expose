@@ -1,8 +1,8 @@
 <?php
-namespace Foo\ContentManagement\NavigationProvider;
+namespace TYPO3\Admin\NavigationProvider;
 
 /*                                                                       *
-* This script belongs to the Foo.ContentManagement package.              *
+* This script belongs to the TYPO3.Admin package.              *
 *                                                                        *
 * It is free software; you can redistribute it and/or modify it under    *
 * the terms of the GNU Lesser General Public License as published by the *
@@ -35,11 +35,11 @@ class EntityFilterNavigationProvider extends AbstractNavigationProvider {
      * Constructor to load the items into the provider based on a property relation
      *
      * @param array $options An array of options for this provider
-     * @param \Foo\ContentManagement\Core\MetaPersistenceManager $persistenceService to get the entities
-     * @param \Foo\ContentManagement\Reflection\AnnotationService $annotationService
+     * @param \TYPO3\Admin\Core\MetaPersistenceManager $persistenceService to get the entities
+     * @param \TYPO3\Admin\Reflection\AnnotationService $annotationService
      * @return void
      */
-    public function __construct($options, \Foo\ContentManagement\Core\MetaPersistenceManager $persistenceService, \Foo\ContentManagement\Reflection\AnnotationService $annotationService) {
+    public function __construct($options, \TYPO3\Admin\Core\MetaPersistenceManager $persistenceService, \TYPO3\Admin\Reflection\AnnotationService $annotationService) {
         $annotations = $annotationService->getClassAnnotations($options['class']);
         $propertyAnnotations = $annotations->getPropertyAnnotations($options['property']);
         $this->items = $persistenceService->createQueryForType($propertyAnnotations->getType())->execute();

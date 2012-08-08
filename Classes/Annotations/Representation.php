@@ -1,8 +1,8 @@
 <?php
-namespace Foo\ContentManagement\Annotations;
+namespace TYPO3\Admin\Annotations;
 
 /*                                                                        *
- * This script belongs to the Foo.ContentManagement package.              *
+ * This script belongs to the TYPO3.Admin package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -15,28 +15,32 @@ namespace Foo\ContentManagement\Annotations;
  * @Annotation
  */
 final class Representation implements SingleAnnotationInterface {
-	/**
-	 * @param string $value
-	 */
-	public function __construct(array $values = array()) {
-		foreach ($values as $key => $value) {
-			$this->$key = $value;
-		}
-	}
-	
-	public function getDatetimeFormatJs(){
-	    $mapping = array(
-		    "Y" => "yyyy",
-		    "m" => "MM",
-		    "d" => "dd",
-		    "\T"=> "T",
-		    "H" => "HH",
-		    "i" => "mm",
-		    "s" => "ss",
-		    "P" => "TZD"
-	    );
-	    return str_replace(array_keys($mapping), array_values($mapping), $this->datetimeFormat);
-	}
+
+    /**
+     * @param string $value
+     */
+    public function __construct(array $values = array()) {
+        foreach ($values as $key => $value) {
+            $this->{$key} = $value;
+        }
+    }
+
+    /**
+    * TODO: Document this Method! ( getDatetimeFormatJs )
+    */
+    public function getDatetimeFormatJs() {
+        $mapping = array('Y' => 'yyyy',
+        	'm' => 'MM',
+        	'd' => 'dd',
+        	'\\T' => 'T',
+        	'H' => 'HH',
+        	'i' => 'mm',
+        	's' => 'ss',
+        	'P' => 'TZD'
+        );
+        return str_replace(array_keys($mapping), array_values($mapping), $this->datetimeFormat);
+    }
+
 }
 
 ?>

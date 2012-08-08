@@ -1,9 +1,8 @@
 <?php
-
-namespace Foo\ContentManagement\Controller;
+namespace TYPO3\Admin\Controller;
 
 /* *
- * This script belongs to the Foo.ContentManagement package.              *
+ * This script belongs to the TYPO3.Admin package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License as published by the *
@@ -32,12 +31,16 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
 class UserController extends \TYPO3\TYPO3\Controller\Module\StandardController {
-	/**
-	 * Index action
-	 *
-	 * @return void
-	 */
-	public function indexAction() {}
+
+    /**
+     * Index action
+     *
+     * @return void
+     */
+    public function indexAction() {
+
+    }
+
 }
 
 ?>

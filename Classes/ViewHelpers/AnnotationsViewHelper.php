@@ -1,9 +1,8 @@
 <?php
-
-namespace Foo\ContentManagement\ViewHelpers;
+namespace TYPO3\Admin\ViewHelpers;
 
 /*                                                                        *
- * This script belongs to the Foo.ContentManagement package.              *
+ * This script belongs to the TYPO3.Admin package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License as published by the *
@@ -31,32 +30,31 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  */
 class AnnotationsViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 
-	/**
-	 * @var \Foo\ContentManagement\Reflection\AnnotationService
-	 * @FLOW3\Inject
-	 */
-	protected $annotationService;
-	
-	/**
-	 *
-	 * @param object $object
-	 * @param string $className
-	 * @param string $as
-	 * @return string Rendered string
-		 * @api
-	 */
-	public function render($object = null, $className = null, $as = "annotations") {
-		if(is_null($className) && !is_null($object))
-			$className = get_class($object);
-		
-		$classAnnotations = $this->annotationService->getClassAnnotations($className);
+    /**
+     * @var \TYPO3\Admin\Reflection\AnnotationService
+     * @FLOW3\Inject
+     */
+    protected $annotationService;
 
-		$this->templateVariableContainer->add($as, $classAnnotations);
-		$content = $this->renderChildren();
-		$this->templateVariableContainer->remove($as);
-		
-		return $content;
-	}
+    /**
+     *
+     * @param object $object
+     * @param string $className
+     * @param string $as
+     * @return string Rendered string
+     * @api
+     */
+    public function render($object = null, $className = null, $as = 'annotations') {
+        if (is_null($className) && !is_null($object)) {
+            $className = get_class($object);
+        }
+        $classAnnotations = $this->annotationService->getClassAnnotations($className);
+        $this->templateVariableContainer->add($as, $classAnnotations);
+        $content = $this->renderChildren();
+        $this->templateVariableContainer->remove($as);
+        return $content;
+    }
+
 }
 
 ?>

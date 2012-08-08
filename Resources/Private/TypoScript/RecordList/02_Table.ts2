@@ -1,15 +1,15 @@
 ########################################
-# Foo.ContentManagement:RecordList.Table
+# TYPO3.Admin:RecordList.Table
 # --------------------------------------
 # Display a list of common records as table
 ########################################
 
-prototype(Foo.ContentManagement:RecordList.Table) < prototype(TYPO3.TypoScript:FluidRenderer) {
-	templatePath = 'resource://Foo.ContentManagement/Private/Elements/List/Table.html'
-	tableBody = Foo.ContentManagement:CollectionRenderer {
+prototype(TYPO3.Admin:RecordList.Table) < prototype(TYPO3.TypoScript:FluidRenderer) {
+	templatePath = 'resource://TYPO3.Admin/Private/Elements/List/Table.html'
+	tableBody = TYPO3.Admin:CollectionRenderer {
 		collection = ${objects}
 		itemName = 'item'
-		itemRenderer = Foo.ContentManagement:RecordList.Table.Row
+		itemRenderer = TYPO3.Admin:RecordList.Table.Row
 	}
 	objects = ${objects}
 }

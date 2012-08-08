@@ -2,8 +2,8 @@
 # Settings Configuration for the Admin package                           #
 #                                                                        #
 
-Foo:
-  ContentManagement:
+TYPO3:
+  Admin:
     Pagination:
       Limits:
         - 10
@@ -15,40 +15,40 @@ Foo:
       MaxPages: 9
     Defaults:
       Variant: Default
-      SearchProvider: \Foo\ContentManagement\SearchProvider\SimpleSearchProvider
+      SearchProvider: \TYPO3\Admin\SearchProvider\SimpleSearchProvider
       Properties:
-        OptionsProvider: \Foo\ContentManagement\OptionsProvider\RelationOptionsProvider
+        OptionsProvider: \TYPO3\Admin\OptionsProvider\RelationOptionsProvider
         Representation:
           DatetimeFormat: Y-m-d\TH:i:s
     Adapters:
-      Foo\ContentManagement\PersistentStorageAdapter\DoctrinePersistentStorageAdapter: active
+      TYPO3\Admin\PersistentStorageAdapter\DoctrinePersistentStorageAdapter: active
     AnnotationProvider:
-      - Foo\ContentManagement\Reflection\Provider\DefaultsAnnotationProvider
-      - Foo\ContentManagement\Reflection\Provider\ReflectionAnnotationProvider
-      - Foo\ContentManagement\Reflection\Provider\SettingsAnnotationProvider
+      - TYPO3\Admin\Reflection\Provider\DefaultsAnnotationProvider
+      - TYPO3\Admin\Reflection\Provider\ReflectionAnnotationProvider
+      - TYPO3\Admin\Reflection\Provider\SettingsAnnotationProvider
     Fallbacks:
       Views:
         - resource://@package/Private/Templates/@being/@action/@variant.html
         - resource://@package/Private/Templates/Admin/@action/@variant.html
         - resource://@package/Private/Templates/@being/@action.html
         - resource://@package/Private/Templates/Admin/@action.html
-        - resource://Foo.ContentManagement/Private/Templates/Standard/@action/@variant.html
-        - resource://Foo.ContentManagement/Private/Templates/Standard/@action.html
+        - resource://TYPO3.Admin/Private/Templates/Standard/@action/@variant.html
+        - resource://TYPO3.Admin/Private/Templates/Standard/@action.html
       Contents:
         - resource://@package/Private/Content/@being/@content/@variant.html
         - resource://@package/Private/Content/Admin/@content/@variant.html
         - resource://@package/Private/Content/@being/@content.html
         - resource://@package/Private/Content/Admin/@content.html
-        - resource://Foo.ContentManagement/Private/Content/@content/@variant.html
-        - resource://Foo.ContentManagement/Private/Content/@content/Default.html
+        - resource://TYPO3.Admin/Private/Content/@content/@variant.html
+        - resource://TYPO3.Admin/Private/Content/@content/Default.html
       ContentPartials:
         - resource://@package/Private/Content/@being/@content/@variant.html
         - resource://@package/Private/Content/Admin/@content/@variant.html
         - resource://@package/Private/Content/@being/@content.html
         - resource://@package/Private/Content/Admin/@content.html
-        - resource://Foo.ContentManagement/Private/Content/Partials/@partial/@variant.html
-        - resource://Foo.ContentManagement/Private/Content/Partials/@partial.html
-        - resource://Foo.ContentManagement/Private/Content/Partials/@partial/Default.html
+        - resource://TYPO3.Admin/Private/Content/Partials/@partial/@variant.html
+        - resource://TYPO3.Admin/Private/Content/Partials/@partial.html
+        - resource://TYPO3.Admin/Private/Content/Partials/@partial/Default.html
       Partials:
         - resource://@package/Private/Partials/@being/@action/@partial/@variant.html
         - resource://@package/Private/Partials/@being/@action/@partial.html
@@ -59,11 +59,11 @@ Foo:
         - resource://@package/Private/Partials/@partial/@variant.html
         - resource://@package/Private/Partials/@partial.html
         - resource://@package/Private/Partials/@partial/Default.html
-        - resource://Foo.ContentManagement/Private/Partials/@action/@partial.html
-        - resource://Foo.ContentManagement/Private/Partials/@action/@partial/@variant.html
-        - resource://Foo.ContentManagement/Private/Partials/@partial/@variant.html
-        - resource://Foo.ContentManagement/Private/Partials/@partial.html
-        - resource://Foo.ContentManagement/Private/Partials/@partial/Default.html
+        - resource://TYPO3.Admin/Private/Partials/@action/@partial.html
+        - resource://TYPO3.Admin/Private/Partials/@action/@partial/@variant.html
+        - resource://TYPO3.Admin/Private/Partials/@partial/@variant.html
+        - resource://TYPO3.Admin/Private/Partials/@partial.html
+        - resource://TYPO3.Admin/Private/Partials/@partial/Default.html
     Mapping:
       Elements:
         string:   TYPO3.Form:SingleLineText
@@ -83,14 +83,14 @@ Foo:
         active: true
         Properties: 
           name: 
-            Inline: Foo.ContentManagement:InlineSeamless
+            Inline: TYPO3.Admin:InlineSeamless
           electronicAddresses:
-            Inline: Foo.ContentManagement:InlineTabular
+            Inline: TYPO3.Admin:InlineTabular
             Ignore: List
           preferences:
             Ignore: true
           accounts:
-            Inline: Foo.ContentManagement:InlineSeamless
+            Inline: TYPO3.Admin:InlineSeamless
 
       TYPO3\Party\Domain\Model\PersonName:
         Properties:
@@ -112,7 +112,7 @@ Foo:
             Title: true
           credentialsSource:
             Label: Passwort
-            Element: Foo.ContentManagement:PasswordWithHashing
+            Element: TYPO3.Admin:PasswordWithHashing
           roles:
             OptionsProvider: 
               Name: RoleOptionsProvider
@@ -138,89 +138,88 @@ Foo:
               Name: ConstOptionsProvider
               RegEx: USAGE_.+
 
-TYPO3:
   TYPO3:
       modules:
         administration:
           submodules:
             usernew:
               label: 'New User Administration'
-              controller: '\Foo\ContentManagement\Controller\StandardController'
-              defaultFeatureClassName: '\Foo\ContentManagement\Controller\SameTypeListController'
+              controller: '\TYPO3\Admin\Controller\StandardController'
+              defaultFeatureClassName: '\TYPO3\Admin\Controller\SameTypeListController'
               defaultFeatureArguments:
                 type: 'TYPO3\TYPO3\Domain\Model\User'
         management:
           submodules:
             content:
               label: 'Manage Content'
-              controller: '\Foo\ContentManagement\Controller\StandardController'
-              defaultFeatureClassName: '\Foo\ContentManagement\Controller\ContentListController'
+              controller: '\TYPO3\Admin\Controller\StandardController'
+              defaultFeatureClassName: '\TYPO3\Admin\Controller\ContentListController'
 
   TYPO3CR:
     contentTypes:
       'TYPO3.TYPO3:Section':
-        nodeLabelGenerator: 'Foo\ContentManagement\EelNodeLabelGenerator'
+        nodeLabelGenerator: 'TYPO3\Admin\EelNodeLabelGenerator'
         nodeLabelGeneratorOptions:
           expression: '"Section " + context.property("_name")'
       'TYPO3.TYPO3:Text':
-        nodeLabelGenerator: 'Foo\ContentManagement\EelNodeLabelGenerator'
+        nodeLabelGenerator: 'TYPO3\Admin\EelNodeLabelGenerator'
         nodeLabelGeneratorOptions:
           expression: 'strings.crop(strings.cleanup(context.property("headline") + " " + context.property("text")), 50)'
       'TYPO3.TYPO3:Html':
-        nodeLabelGenerator: 'Foo\ContentManagement\EelNodeLabelGenerator'
+        nodeLabelGenerator: 'TYPO3\Admin\EelNodeLabelGenerator'
         nodeLabelGeneratorOptions:
           expression: 'strings.crop(strings.cleanup(context.property("source")), 50)'
   Form:
     presets:
-      contentManagement:
-        title: "Default Preset for ContentManagement"
+      admin:
+        title: "Default Preset for TYPO3.Admin"
         parentPreset: 'default'
         formElementTypes:
           ### override default layout path ###
           'TYPO3.Form:Base':
             renderingOptions:
-              layoutPathPattern: 'resource://Foo.ContentManagement/Private/Form/Layouts/{@type}.html'
+              layoutPathPattern: 'resource://TYPO3.Admin/Private/Form/Layouts/{@type}.html'
 
           ### override template path of TYPO3.Form:Form ###
           'TYPO3.Form:Form':
             renderingOptions:
-              templatePathPattern: 'resource://Foo.ContentManagement/Private/Form/Form.html'
+              templatePathPattern: 'resource://TYPO3.Admin/Private/Form/Form.html'
 
           'TYPO3.Form:SelectionMixin':
-            implementationClassName: 'Foo\ContentManagement\FormElements\OptionsFormElement'
+            implementationClassName: 'TYPO3\Admin\FormElements\OptionsFormElement'
 
-          'Foo.ContentManagement:PasswordWithHashing':
+          'TYPO3.Admin:PasswordWithHashing':
             superTypes: ['TYPO3.Form:PasswordWithConfirmation']
-            implementationClassName: 'Foo\ContentManagement\FormElements\PasswordWithHashing'
+            implementationClassName: 'TYPO3\Admin\FormElements\PasswordWithHashing'
           
 
           ### FORM ELEMENTS: CONTAINER ###
-          'Foo.ContentManagement:Page':
+          'TYPO3.Admin:Page':
             superTypes: ['TYPO3.Form:Page']
 
-          'Foo.ContentManagement:Hidden':
+          'TYPO3.Admin:Hidden':
             superTypes: ['TYPO3.Form:FormElement', 'TYPO3.Form:TextMixin']
-            implementationClassName: 'Foo\ContentManagement\FormElements\ComplexFormElement'
+            implementationClassName: 'TYPO3\Admin\FormElements\ComplexFormElement'
 
-          'Foo.ContentManagement:InlineStacked':
+          'TYPO3.Admin:InlineStacked':
             superTypes: ['TYPO3.Form:Section']
-            implementationClassName: 'Foo\ContentManagement\FormElements\InlineFormElement'
+            implementationClassName: 'TYPO3\Admin\FormElements\InlineFormElement'
             renderingOptions:
               renderableNameInTemplate: 'inline'
 
-          'Foo.ContentManagement:InlineStackedItem':
-            superTypes: ['Foo.ContentManagement:InlineStacked']
+          'TYPO3.Admin:InlineStackedItem':
+            superTypes: ['TYPO3.Admin:InlineStacked']
 
 
-          'Foo.ContentManagement:InlineTabular':
-            superTypes: ['Foo.ContentManagement:InlineStacked']
+          'TYPO3.Admin:InlineTabular':
+            superTypes: ['TYPO3.Admin:InlineStacked']
 
-          'Foo.ContentManagement:InlineTabularItem':
-            superTypes: ['Foo.ContentManagement:InlineStacked']
+          'TYPO3.Admin:InlineTabularItem':
+            superTypes: ['TYPO3.Admin:InlineStacked']
 
 
-          'Foo.ContentManagement:InlineSeamless':
-            superTypes: ['Foo.ContentManagement:InlineStacked']
+          'TYPO3.Admin:InlineSeamless':
+            superTypes: ['TYPO3.Admin:InlineStacked']
 
-          'Foo.ContentManagement:InlineSeamlessItem':
-            superTypes: ['Foo.ContentManagement:InlineStacked']
+          'TYPO3.Admin:InlineSeamlessItem':
+            superTypes: ['TYPO3.Admin:InlineStacked']

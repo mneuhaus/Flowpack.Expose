@@ -1,9 +1,8 @@
 <?php
-
-namespace Foo\ContentManagement\ViewHelpers\Query;
+namespace TYPO3\Admin\ViewHelpers\Query;
 
 /*                                                                        *
- * This script belongs to the Foo.ContentManagement package.              *
+ * This script belongs to the TYPO3.Admin package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License as published by the *
@@ -30,49 +29,50 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * @api
  */
 class SearchViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
-	/**
-	 * @var \Foo\ContentManagement\Reflection\AnnotationService
-	 * @FLOW3\Inject
-	 */
-	protected $annotationService;
-	
-	/**
-	 *
-	 * @param mixed $objects
-	 * @param string $as
-	 * @param string $searchAs
-	 * @return string Rendered string
-		 * @api
-	 */
-	public function render($objects = null, $as = "matchingObjects", $searchAs = "search") {
-		$this->objects = $objects;
-		$this->query = $objects->getQuery();
-		
-		$this->request = $this->controllerContext->getRequest();
-		
-		$search = $this->handleSearch();
-		
-		$this->templateVariableContainer->add($searchAs, $search);
-		$this->templateVariableContainer->add($as, $this->query->execute());
-		$content = $this->renderChildren();
-		$this->templateVariableContainer->remove($searchAs);
-		$this->templateVariableContainer->remove($as);
-		
-		return $content;
-	}
-	
-	public function handleSearch(){
-		if( $this->request->hasArgument("search") ) {
-			$search = $this->request->getArgument("search");
-			$configuration = $this->annotationService->getClassAnnotations($this->query->getType());
-			$searchProviderClass = strval(current($configuration["searchProvider"]));
-			$searchProvider = new $searchProviderClass();
-			$this->query = $searchProvider->search($search, $this->query);
-			return $search;
-		}else{
-			return "";
-		}
-	}
+
+    /**
+     * @var \TYPO3\Admin\Reflection\AnnotationService
+     * @FLOW3\Inject
+     */
+    protected $annotationService;
+
+    /**
+    * TODO: Document this Method! ( handleSearch )
+    */
+    public function handleSearch() {
+        if ($this->request->hasArgument('search')) {
+            $search = $this->request->getArgument('search');
+            $configuration = $this->annotationService->getClassAnnotations($this->query->getType());
+            $searchProviderClass = strval(current($configuration['searchProvider']));
+            $searchProvider = new $searchProviderClass();
+            $this->query = $searchProvider->search($search, $this->query);
+            return $search;
+        } else {
+            return '';
+        }
+    }
+
+    /**
+     *
+     * @param mixed $objects
+     * @param string $as
+     * @param string $searchAs
+     * @return string Rendered string
+     * @api
+     */
+    public function render($objects = null, $as = 'matchingObjects', $searchAs = 'search') {
+        $this->objects = $objects;
+        $this->query = $objects->getQuery();
+        $this->request = $this->controllerContext->getRequest();
+        $search = $this->handleSearch();
+        $this->templateVariableContainer->add($searchAs, $search);
+        $this->templateVariableContainer->add($as, $this->query->execute());
+        $content = $this->renderChildren();
+        $this->templateVariableContainer->remove($searchAs);
+        $this->templateVariableContainer->remove($as);
+        return $content;
+    }
+
 }
 
 ?>

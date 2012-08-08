@@ -1,8 +1,8 @@
 <?php
-namespace Foo\ContentManagement\NavigationProvider;
+namespace TYPO3\Admin\NavigationProvider;
 
 /*                                                                       *
-* This script belongs to the Foo.ContentManagement package.              *
+* This script belongs to the TYPO3.Admin package.              *
 *                                                                        *
 * It is free software; you can redistribute it and/or modify it under    *
 * the terms of the GNU Lesser General Public License as published by the *
@@ -32,13 +32,13 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 class EntityNavigationProvider extends AbstractNavigationProvider {
 
     /**
-    * Constructor to load the items into the provider
-    * 
-    * @param array $options An array of options for this provider
-     * @param \Foo\ContentManagement\Core\MetaPersistenceManager $persistenceService to get the entities
+     * Constructor to load the items into the provider
+     *
+     * @param array $options An array of options for this provider
+     * @param \TYPO3\Admin\Core\MetaPersistenceManager $persistenceService to get the entities
      * @return void
      */
-    public function __construct($options, \Foo\ContentManagement\Core\MetaPersistenceManager $persistenceService) {
+    public function __construct($options, \TYPO3\Admin\Core\MetaPersistenceManager $persistenceService) {
         $this->items = $persistenceService->createQueryForType($options['class'])->execute();
     }
 

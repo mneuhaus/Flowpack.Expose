@@ -1,8 +1,8 @@
 <?php
-namespace Foo\ContentManagement\Core\Aspect;
+namespace TYPO3\Admin\Core\Aspect;
 
 /*                                                                        *
- * This script belongs to the FLOW3 framework.                            *
+ * This script belongs to the TYPO3.Admin package.              		  *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -21,94 +21,93 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  */
 class CachingAspect {
 
-	/**
-	 * @var \TYPO3\FLOW3\Cache\CacheManager
-	 */
-	protected $cacheManager;
+    /**
+     * @var \TYPO3\FLOW3\Cache\CacheManager
+     */
+    protected $cacheManager;
 
-	/**
-	 * Injects the CacheManager
-	 *
-	 * @param \TYPO3\FLOW3\Cache\CacheManager $cacheManager
-	 * @return void
-	 */
-	public function injectCacheManager(\TYPO3\FLOW3\Cache\CacheManager $cacheManager) {
-		$this->cacheManager = $cacheManager;
-	}
+    /**
+     * @var \TYPO3\FLOW3\Reflection\ReflectionService
+     */
+    protected $reflectionService;
 
-	/**
-	 * @var \TYPO3\FLOW3\Reflection\ReflectionService
-	 */
-	protected $reflectionService;
+    /**
+     * Injects the CacheManager
+     *
+     * @param \TYPO3\FLOW3\Cache\CacheManager $cacheManager
+     * @return void
+     */
+    public function injectCacheManager(\TYPO3\FLOW3\Cache\CacheManager $cacheManager) {
+        $this->cacheManager = $cacheManager;
+    }
 
-	/**
-	 * Injects the CacheManager
-	 *
-	 * @param \TYPO3\FLOW3\Reflection\ReflectionService $reflectionService
-	 * @return void
-	 */
-	public function injectReflectionService(\TYPO3\FLOW3\Reflection\ReflectionService $reflectionService) {
-		$this->reflectionService = $reflectionService;
-	}
+    /**
+     * Injects the CacheManager
+     *
+     * @param \TYPO3\FLOW3\Reflection\ReflectionService $reflectionService
+     * @return void
+     */
+    public function injectReflectionService(\TYPO3\FLOW3\Reflection\ReflectionService $reflectionService) {
+        $this->reflectionService = $reflectionService;
+    }
 
-	/**
-	 * Around advice
-	 *
-	 * @FLOW3\Around("methodAnnotatedWith(Foo\ContentManagement\Annotations\Cache)")
-	 * @param \TYPO3\FLOW3\Aop\JoinPointInterface $joinPoint The current join point
-	 * @return array Result of the target method
-	 */
-	public function cacheMethodsAnnotatedWithCacheAnnotation(\TYPO3\FLOW3\Aop\JoinPointInterface $joinPoint) {
-		$cache = $this->cacheManager->getCache($this->createCacheName($joinPoint));
-		
-		$cacheIdentifier = $this->createCacheIdentifier($joinPoint);
+    /**
+     * Around advice
+     *
+     * @FLOW3\Around("methodAnnotatedWith(TYPO3\Admin\Annotations\Cache)")
+     * @param \TYPO3\FLOW3\Aop\JoinPointInterface $joinPoint The current join point
+     * @return array Result of the target method
+     */
+    public function cacheMethodsAnnotatedWithCacheAnnotation(\TYPO3\FLOW3\Aop\JoinPointInterface $joinPoint) {
+        $cache = $this->cacheManager->getCache($this->createCacheName($joinPoint));
+        $cacheIdentifier = $this->createCacheIdentifier($joinPoint);
+        if ($cache->has($cacheIdentifier)) {
+            return $cache->get($cacheIdentifier);
+        }
+        $result = $joinPoint->getAdviceChain()->proceed($joinPoint);
+        $cache->set($cacheIdentifier, $result);
+        return $result;
+    }
 
-		if ($cache->has($cacheIdentifier)) {
-			return $cache->get($cacheIdentifier);
-		}
+    /**
+    * TODO: Document this Method! ( convertValue )
+    */
+    public function convertValue($value) {
+        switch (true) {
+        case is_array($value):
+            foreach ($value as $k => $v) {
+                $value[$k] = $this->convertValue($v);
+            }
+            return implode('_', $value);
+        case is_object($value):
+            return spl_object_hash($value);
+        case is_int($value):
 
-		$result = $joinPoint->getAdviceChain()->proceed($joinPoint);
-		
-		$cache->set($cacheIdentifier, $result);
+        case is_float($value):
 
-		return $result;
-	}
+        case is_string($value):
 
-	public function createCacheName($joinPoint) {
-		return sprintf("%s-%s",
-			$this->convertValue($joinPoint->getClassName()),
-			$this->convertValue($joinPoint->getMethodName())
-		);
-	}
+        case is_bool($value):
+            return preg_replace('/[\\/\\/:\\.\\\\\\?%=]+/', '_', strval($value));
+        default:
+            return '';
+        }
+    }
 
-	public function createCacheIdentifier($joinPoint) {
-		return md5(
-			$this->convertValue($joinPoint->getClassName()) . 
-			$this->convertValue($joinPoint->getMethodName()) . 
-			$this->convertValue($joinPoint->getMethodArguments())
-		);
-	}
+    /**
+    * TODO: Document this Method! ( createCacheIdentifier )
+    */
+    public function createCacheIdentifier($joinPoint) {
+        return md5(($this->convertValue($joinPoint->getClassName()) . $this->convertValue($joinPoint->getMethodName())) . $this->convertValue($joinPoint->getMethodArguments()));
+    }
 
-	public function convertValue($value) {
-		switch(true){
-			case is_array($value):
-				foreach ($value as $k => $v) {
-					$value[$k] = $this->convertValue($v);
-				}
-				return implode("_", $value);
+    /**
+    * TODO: Document this Method! ( createCacheName )
+    */
+    public function createCacheName($joinPoint) {
+        return sprintf('%s-%s', $this->convertValue($joinPoint->getClassName()), $this->convertValue($joinPoint->getMethodName()));
+    }
 
-			case is_object($value):
-				return spl_object_hash($value);
-
-			case is_int($value):
-			case is_float($value):
-			case is_string($value):
-			case is_bool($value):
-				return preg_replace("/[\/\/:\.\\\\\\?%=]+/", "_", strval($value));
-
-			default:
-				return "";
-		}
-	}
 }
+
 ?>

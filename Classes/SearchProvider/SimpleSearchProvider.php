@@ -1,8 +1,8 @@
 <?php
-namespace Foo\ContentManagement\SearchProvider;
+namespace TYPO3\Admin\SearchProvider;
 
 /*                                                                        *
- * This script belongs to the Foo.ContentManagement package.              *
+ * This script belongs to the TYPO3.Admin package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License as published by the *
@@ -24,30 +24,34 @@ namespace Foo\ContentManagement\SearchProvider;
 use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
- * OptionsProvider for the SecurityPolicies which generates policies based
- * on the active beings and actions
- *
+* OptionsProvider for the SecurityPolicies which generates policies based
+* on the active beings and actions
+*
 * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
- */
-class SimpleSearchProvider extends AbstractSearchProvider{
-	/**
-	 * @var \Foo\ContentManagement\Reflection\AnnotationService
-	 * @FLOW3\Inject
-	 */
-	protected $annotationService;
-	
-	public function search($search, $query){
-		$constraints = array();
-		$configuration = $this->annotationService->getClassAnnotations($query->getType());
-		foreach ($configuration["properties"] as $property => $annotations) {
-			if(isset($annotations["search"])){
-				$constraints[] = $query->like($property, "%" . $search . "%", false);
-			}
-		}
-		$query->matching($query->logicalOr($constraints));
-		
-		return $query;
-	}
+*/
+class SimpleSearchProvider extends AbstractSearchProvider {
+
+    /**
+     * @var \TYPO3\Admin\Reflection\AnnotationService
+     * @FLOW3\Inject
+     */
+    protected $annotationService;
+
+    /**
+    * TODO: Document this Method! ( search )
+    */
+    public function search($search, $query) {
+        $constraints = array();
+        $configuration = $this->annotationService->getClassAnnotations($query->getType());
+        foreach ($configuration['properties'] as $property => $annotations) {
+            if (isset($annotations['search'])) {
+                $constraints[] = $query->like($property, ('%' . $search) . '%', false);
+            }
+        }
+        $query->matching($query->logicalOr($constraints));
+        return $query;
+    }
+
 }
 
 ?>

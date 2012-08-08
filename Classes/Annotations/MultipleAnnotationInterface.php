@@ -1,5 +1,5 @@
 <?php
-namespace Foo\ContentManagement\Annotations;
+namespace TYPO3\Admin\Annotations;
 
 /*
  * This file is part of the Imagine package.
@@ -14,4 +14,7 @@ namespace Foo\ContentManagement\Annotations;
  * Interface to indicate that the Annotation is meant to have multiple instance
  */
 interface MultipleAnnotationInterface {
+
 }
+
+?>

@@ -1,8 +1,8 @@
 <?php
-namespace Foo\ContentManagement\FormElements;
+namespace TYPO3\Admin\FormElements;
 
 /*                                                                        *
- * This script belongs to the Foo.ContentManagement package.              *
+ * This script belongs to the TYPO3.Admin package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -17,98 +17,124 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * A generic form element
  */
 class InlineFormElement extends \TYPO3\Form\FormElements\Section {
-	/**
-	 *
-	 * @var object
-	 **/
-	protected $annotations;
 
-	/**
-	 *
-	 * @var boolean
-	 **/
-	protected $multipleMode = false;
+    /**
+     *
+     * @var object
+     **/
+    protected $annotations;
 
-	/**
-	 *
-	 * @var string
-	 **/
-	protected $namespace;
+    /**
+     * @var \TYPO3\Admin\Factory\ModelFormFactory
+     * @FLOW3\Inject
+     */
+    protected $modelFormFactory;
 
-	/**
-	 * @var \Foo\ContentManagement\Factory\ModelFormFactory
-	 * @FLOW3\Inject
-	 */
-	protected $modelFormFactory;
+    /**
+     *
+     * @var boolean
+     **/
+    protected $multipleMode = false;
 
-	public function getPropertyNames() {
-		$propertyNames = array();
-		foreach ($this->getAnnotations()->getProperties() as $property) {
-			$propertyNames[] = $property->getLabel();
-		}
-		return $propertyNames;
-	}
+    /**
+     *
+     * @var string
+     **/
+    protected $namespace;
 
-	public function setAnnotations($annotations) {
-		$this->annotations = $annotations;
-	}
+    /**
+    * TODO: Document this Method! ( getAnnotations )
+    */
+    public function getAnnotations() {
+        return $this->annotations;
+    }
 
-	public function getAnnotations() {
-		return $this->annotations;
-	}
+    /**
+    * TODO: Document this Method! ( setAnnotations )
+    */
+    public function setAnnotations($annotations) {
+        $this->annotations = $annotations;
+    }
 
-	public function getMultipleMode() {
-		return $this->multipleMode;
-	}
+    /**
+    * TODO: Document this Method! ( getMultipleMode )
+    */
+    public function getMultipleMode() {
+        return $this->multipleMode;
+    }
 
-	public function setMultipleMode($mode) {
-		$this->multipleMode = $mode;
-	}
+    /**
+    * TODO: Document this Method! ( setMultipleMode )
+    */
+    public function setMultipleMode($mode) {
+        $this->multipleMode = $mode;
+    }
 
-	public function setNamespace($namespace) {
-		$this->namespace = $namespace;
-	}
+    /**
+    * TODO: Document this Method! ( getNamespace )
+    */
+    public function getNamespace() {
+        return $this->namespace;
+    }
 
-	public function getNamespace() {
-		return $this->namespace;
-	}
+    /**
+    * TODO: Document this Method! ( setNamespace )
+    */
+    public function setNamespace($namespace) {
+        $this->namespace = $namespace;
+    }
 
-	public function getUnusedElement() {
-		$containerSection = clone $this;
-		$namespacedName = $this->namespace;
+    /**
+    * TODO: Document this Method! ( getNextKey )
+    */
+    public function getNextKey() {
+        return count($this->getElements()) + 1;
+    }
 
-		$key = count($this->getElements());
+    /**
+    * TODO: Document this Method! ( getPropertyNames )
+    */
+    public function getPropertyNames() {
+        $propertyNames = array();
+        foreach ($this->getAnnotations()->getProperties() as $property) {
+            $propertyNames[] = $property->getLabel();
+        }
+        return $propertyNames;
+    }
 
-		$itemSection = $containerSection->createElement($namespacedName . "." . $key, $this->type.'Item');
-
-		$class = $this->annotations->getClass();
-		$object = new $class();
-
-		if(!isset($this->modelFormFactory->form) || !is_object($this->modelFormFactory->form))
-			$this->modelFormFactory->form = $this->getRootForm();
-        $elements = $this->modelFormFactory->generateElements($object, $itemSection, $namespacedName . "." . $key);
-
+    /**
+    * TODO: Document this Method! ( getTemplate )
+    */
+    public function getTemplate() {
+        $containerSection = clone $this;
+        $namespacedName = '_template.' . $this->namespace;
+        $itemSection = $containerSection->createElement($namespacedName . '.000', $this->type . 'Item');
+        $class = $this->annotations->getClass();
+        $object = new $class();
+        if (!isset($this->modelFormFactory->form) || !is_object($this->modelFormFactory->form)) {
+            $this->modelFormFactory->form = $this->getRootForm();
+        }
+        $elements = $this->modelFormFactory->generateElements($object, $itemSection, $namespacedName . '.000');
         return $itemSection;
-	}
+    }
 
-	public function getTemplate() {
-		$containerSection = clone $this;
-		$namespacedName = "_template.".$this->namespace;
-
-		$itemSection = $containerSection->createElement($namespacedName . ".000", $this->type.'Item');
-
-		$class = $this->annotations->getClass();
-		$object = new $class();
-
-		if(!isset($this->modelFormFactory->form) || !is_object($this->modelFormFactory->form))
-			$this->modelFormFactory->form = $this->getRootForm();
-        $elements = $this->modelFormFactory->generateElements($object, $itemSection, $namespacedName . ".000");
-
+    /**
+    * TODO: Document this Method! ( getUnusedElement )
+    */
+    public function getUnusedElement() {
+        $containerSection = clone $this;
+        $namespacedName = $this->namespace;
+        $key = count($this->getElements());
+        $itemSection = $containerSection->createElement(($namespacedName . '.') . $key, $this->type . 'Item');
+        $class = $this->annotations->getClass();
+        $object = new $class();
+        if (!isset($this->modelFormFactory->form) || !is_object($this->modelFormFactory->form)) {
+            $this->modelFormFactory->form = $this->getRootForm();
+        }
+        $elements = $this->modelFormFactory->generateElements($object, $itemSection, ($namespacedName . '.') . $key);
         return $itemSection;
-	}
+    }
 
-	public function getNextKey() {
-		return count($this->getElements()) + 1;
-	}
 }
+
 ?>

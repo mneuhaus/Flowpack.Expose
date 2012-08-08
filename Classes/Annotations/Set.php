@@ -1,8 +1,8 @@
 <?php
-namespace Foo\ContentManagement\Annotations;
+namespace TYPO3\Admin\Annotations;
 
 /*                                                                        *
- * This script belongs to the Foo.ContentManagement package.              *
+ * This script belongs to the TYPO3.Admin package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -15,32 +15,33 @@ namespace Foo\ContentManagement\Annotations;
  * @Annotation
  */
 final class Set {
-	/**
-	 * @var boolean
-	 */
-	protected $multiple = true;
 
-	/**
-	 * @var string
-	 */
-	public $title = '';
-	
-	/**
-	 * @var string
-	 */
-	public $properties = '';
+    /**
+     * @var boolean
+     */
+    protected $multiple = true;
 
-	/**
-	 * @param string $value
-	 */
-	public function __construct(array $values) {
-		if (isset($values['title'])) {
-			$this->title = $values['title'];
-		}
-		if (isset($values['properties'])) {
-			$this->properties = $values['properties'];
-		}
-	}
+    /**
+     * @var string
+     */
+    public $properties = '';
+
+    /**
+     * @var string
+     */
+    public $title = '';
+
+    /**
+     * @param string $value
+     */
+    public function __construct(array $values) {
+        if (isset($values['title'])) {
+            $this->title = $values['title'];
+        }
+        if (isset($values['properties'])) {
+            $this->properties = $values['properties'];
+        }
+    }
 
 }
 

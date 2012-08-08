@@ -1,9 +1,8 @@
 <?php
- 
-namespace Foo\ContentManagement\ViewHelpers\Render;
+namespace TYPO3\Admin\ViewHelpers\Render;
 
 /*                                                                        *
- * This script belongs to the Foo.ContentManagement package.              *
+ * This script belongs to the TYPO3.Admin package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License as published by the *
@@ -29,19 +28,20 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * @api
  */
 class ShowViewHelper extends AbstractRenderViewHelper {
-	/**
-	 * Renders the content.
-	 *
-	 * @param object $object
-	 * @param string $variant
-	 * @return string
-	 * @api
-	 */
-	public function render($object = array(), $variant = "Details") {
-		return $this->view->renderContent("Show", array(
-			"object" => $object
-		), $variant);
-	}
+
+    /**
+     * Renders the content.
+     *
+     * @param object $object
+     * @param string $variant
+     * @return string
+     * @api
+     */
+    public function render($object = array(), $variant = 'Details') {
+        return $this->view->renderContent('Show', array('object' => $object
+        ), $variant);
+    }
+
 }
 
 ?>

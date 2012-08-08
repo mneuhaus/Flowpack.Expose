@@ -10,8 +10,8 @@ The Admin Interface will check for the existence of each of this Fallbacks until
     resource://@package/Private/Templates/Admin/@action/@variant.html 
     resource://@package/Private/Templates/@being/@action.html
     resource://@package/Private/Templates/Admin/@action.html
-    resource://Foo.ContentManagement/Private/Templates/Standard/@action/@variant.html 
-    resource://Foo.ContentManagement/Private/Templates/Standard/@action.html
+    resource://TYPO3.Admin/Private/Templates/Standard/@action/@variant.html 
+    resource://TYPO3.Admin/Private/Templates/Standard/@action.html
 
 @package
     Name of the Package which Contains the Model to be Rendered
@@ -37,11 +37,11 @@ Partials are Subparts which can be Reused in more than one View (Form, Table, To
 	resource://@package/Private/Partials/@action/@partial.html
 	resource://@package/Private/Partials/@partial/@variant.html
 	resource://@package/Private/Partials/@partial.html
-	resource://Foo.ContentManagement/Private/Partials/@action/@partial.html
-	resource://Foo.ContentManagement/Private/Partials/@action/@partial/@variant.html
-	resource://Foo.ContentManagement/Private/Partials/@partial/@variant.html
-	resource://Foo.ContentManagement/Private/Partials/@partial.html
-	resource://Foo.ContentManagement/Private/Partials/@partial/Default.html
+	resource://TYPO3.Admin/Private/Partials/@action/@partial.html
+	resource://TYPO3.Admin/Private/Partials/@action/@partial/@variant.html
+	resource://TYPO3.Admin/Private/Partials/@partial/@variant.html
+	resource://TYPO3.Admin/Private/Partials/@partial.html
+	resource://TYPO3.Admin/Private/Partials/@partial/Default.html
 
 @package
     Name of the Package which Contains the Model to be Rendered
@@ -58,7 +58,7 @@ Widgets
 
     resource://@package/Private/Partials/@being/Widgets/@partial.html
     resource://@package/Private/Partials/Widgets/@partial.html
-    resource://Foo.ContentManagement/Private/Partials/Widgets/@partial.html
+    resource://TYPO3.Admin/Private/Partials/Widgets/@partial.html
     
 @package
     Name of the Package which Contains the Model to be Rendered
@@ -75,7 +75,7 @@ DashboardWidgets
 
     resource://@package/Private/Partials/@being/DashboardWidgets/@partial.html
     resource://@package/Private/Partials/DashboardWidgets/@partial.html
-    resource://Foo.ContentManagement/Private/Partials/DashboardWidgets/@partial.html
+    resource://TYPO3.Admin/Private/Partials/DashboardWidgets/@partial.html
 
 @package
     Name of the Package which Contains the Model to be Rendered

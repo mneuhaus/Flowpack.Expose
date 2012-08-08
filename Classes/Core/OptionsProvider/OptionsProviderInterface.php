@@ -1,9 +1,8 @@
 <?php
-
-namespace Foo\ContentManagement\Core\OptionsProvider;
+namespace TYPO3\Admin\Core\OptionsProvider;
 
 /*                                                                        *
- * This script belongs to the Foo.ContentManagement package.              *
+ * This script belongs to the TYPO3.Admin package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License as published by the *
@@ -25,9 +24,12 @@ namespace Foo\ContentManagement\Core\OptionsProvider;
 /**
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
- * 
+ *
  */
 interface OptionsProviderInterface {
+    /**
+    * TODO: Document this Method! ( getOptions )
+    */
     public function getOptions();
 }
 

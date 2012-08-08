@@ -1,8 +1,8 @@
 <?php
-namespace Foo\ContentManagement\ViewHelpers\Render;
+namespace TYPO3\Admin\ViewHelpers\Render;
 
 /*                                                                        *
- * This script belongs to the Foo.ContentManagement package.              *
+ * This script belongs to the TYPO3.Admin package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -21,37 +21,35 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * @api
  */
 class NavigationViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
-	/**
-	 * @param string $action name of the entry action
-	 * @param string $controller name of the entry controller
-	 * @param string $navigationProvider the class to render the form for
-	 * @param array $options the object to rende the form for
-	 * @param string $navigationListElement TypoScript Element to use to render the ListElement
-	 * @param array $context
-	 * @return string the rendered form
-	 */
-	public function render($action = null , $controller = null, $navigationProvider = null, $options = array(), $navigationListElement = null, $context = array()) {
-		$response = new \TYPO3\FLOW3\Http\Response($this->controllerContext->getResponse());
-		$request = $this->controllerContext->getRequest();
-		$navigationRuntime = new \Foo\ContentManagement\Core\NavigationRuntime($request, $response);
 
-		if (!is_null($action)){
-			$navigationRuntime->setDefaultAction($action);
-		}
+    /**
+     * @param string $action name of the entry action
+     * @param string $controller name of the entry controller
+     * @param string $navigationProvider the class to render the form for
+     * @param array $options the object to rende the form for
+     * @param string $navigationListElement TypoScript Element to use to render the ListElement
+     * @param array $context
+     * @return string the rendered form
+     */
+    public function render($action = null, $controller = null, $navigationProvider = null, $options = array(), $navigationListElement = null, $context = array()) {
+        $response = new \TYPO3\FLOW3\Http\Response($this->controllerContext->getResponse());
+        $request = $this->controllerContext->getRequest();
+        $navigationRuntime = new \TYPO3\Admin\Core\NavigationRuntime($request, $response);
+        if (!is_null($action)) {
+            $navigationRuntime->setDefaultAction($action);
+        }
+        if (!is_null($controller)) {
+            $navigationRuntime->setDefaultController($controller);
+        }
+        if (!is_null($navigationListElement)) {
+            $navigationRuntime->setNavigationListElement($navigationListElement);
+        }
+        if (!empty($context)) {
+            $navigationRuntime->setContext($context);
+        }
+        return $navigationRuntime->execute();
+    }
 
-		if (!is_null($controller)){
-			$navigationRuntime->setDefaultController($controller);
-		}
-
-		if (!is_null($navigationListElement)){
-			$navigationRuntime->setNavigationListElement($navigationListElement);
-		}
-
-		if (!empty($context)){
-			$navigationRuntime->setContext($context);
-		}
-		
-		return $navigationRuntime->execute();
-	}
 }
+
 ?>

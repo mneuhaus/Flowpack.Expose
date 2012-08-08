@@ -1,8 +1,8 @@
 <?php
-namespace Foo\ContentManagement\Annotations;
+namespace TYPO3\Admin\Annotations;
 
 /*                                                                        *
- * This script belongs to the Foo.ContentManagement package.              *
+ * This script belongs to the TYPO3.Admin package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -15,44 +15,52 @@ namespace Foo\ContentManagement\Annotations;
  * @Annotation
  */
 final class Variant implements SingleAnnotationInterface {
-	
-	/**
-	 * @var string
-	 */
-	public $variant = "Default";
-	
-	/**
-	 * @var array
-	 */
- 	public $values = array();
-	
-	/**
-	 * @var array
-	 */
-	public $options = array();
-	
-	/**
-	 * @param string $value
-	 */
-	public function __construct(array $values = array()) {
-		$this->variant = isset($values['value']) ? $values['value'] : $this->variant;
-		$this->variant = isset($values['variant']) ? $values['variant'] : $this->variant;
-		$this->options = isset($values['options']) ? $values['options'] : $this->options;
-		if(isset($this->options) && !is_array($this->options)) 
-			$this->options = explode(",", str_replace(" ", "", $this->options));
-		$this->values = $values;
-	}
-	
-	public function getDefault(){
-		return $this->variant == "Default";
-	}
-	
-	public function getVariant($action = null){
-		if(isset($this->values[$action]))
-			return $this->values[$action];
-		
-		return $this->variant;
-	}
+
+    /**
+     * @var array
+     */
+    public $options = array();
+
+    /**
+     * @var array
+     */
+    public $values = array();
+
+    /**
+     * @var string
+     */
+    public $variant = 'Default';
+
+    /**
+     * @param string $value
+     */
+    public function __construct(array $values = array()) {
+        $this->variant = isset($values['value']) ? $values['value'] : $this->variant;
+        $this->variant = isset($values['variant']) ? $values['variant'] : $this->variant;
+        $this->options = isset($values['options']) ? $values['options'] : $this->options;
+        if (isset($this->options) && !is_array($this->options)) {
+            $this->options = explode(',', str_replace(' ', '', $this->options));
+        }
+        $this->values = $values;
+    }
+
+    /**
+    * TODO: Document this Method! ( getDefault )
+    */
+    public function getDefault() {
+        return $this->variant == 'Default';
+    }
+
+    /**
+    * TODO: Document this Method! ( getVariant )
+    */
+    public function getVariant($action = null) {
+        if (isset($this->values[$action])) {
+            return $this->values[$action];
+        }
+        return $this->variant;
+    }
+
 }
 
 ?>

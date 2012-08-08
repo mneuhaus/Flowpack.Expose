@@ -1,9 +1,8 @@
 <?php
- 
-namespace Foo\ContentManagement\ViewHelpers\Render;
+namespace TYPO3\Admin\ViewHelpers\Render;
 
 /*                                                                        *
- * This script belongs to the Foo.ContentManagement package.              *
+ * This script belongs to the TYPO3.Admin package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License as published by the *
@@ -29,20 +28,20 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * @api
  */
 class ListViewHelper extends AbstractRenderViewHelper {
-	/**
-	 * Renders the content.
-	 *
-	 * @param array $objects
-	 * @param string $variant
-	 * @param array $arguments
-	 * @return string
-	 * @api
-	 */
-	public function render($objects = array(), $variant = "Table", $arguments = array()) {
-		return $this->view->renderContent("List", array_merge($arguments, array(
-			"objects" => $objects
-		)), $variant);
-	}
+
+    /**
+     * Renders the content.
+     *
+     * @param array $objects
+     * @param string $variant
+     * @param array $arguments
+     * @return string
+     * @api
+     */
+    public function render($objects = array(), $variant = 'Table', $arguments = array()) {
+        return $this->view->renderContent('List', array_merge($arguments, array('objects' => $objects)), $variant);
+    }
+
 }
 
 ?>

@@ -1,8 +1,8 @@
 <?php
-namespace Foo\ContentManagement\Annotations;
+namespace TYPO3\Admin\Annotations;
 
 /*                                                                        *
- * This script belongs to the Foo.ContentManagement package.              *
+ * This script belongs to the TYPO3.Admin package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -15,29 +15,38 @@ namespace Foo\ContentManagement\Annotations;
  * @Annotation
  */
 final class Cache implements SingleAnnotationInterface {
-	/**
-	 * @var string
-	 */
-	protected $name = '';
 
-	/**
-	 * @param string $value
-	 */
-	public function __construct(array $values) {
-		if (isset($values['value']))
-			$this->name = $values['value'];
+    /**
+     * @var string
+     */
+    protected $name = '';
 
-		if (isset($values['name']))
-			$this->name = $values['name'];
-	}
-	
-	public function __toString(){
-		return $this->name;
-	}
+    /**
+     * @param string $value
+     */
+    public function __construct(array $values) {
+        if (isset($values['value'])) {
+            $this->name = $values['value'];
+        }
+        if (isset($values['name'])) {
+            $this->name = $values['name'];
+        }
+    }
 
-	public function getName() {
-		return $this->name;
-	}
+    /**
+    * TODO: Document this Method! ( __toString )
+    */
+    public function __toString() {
+        return $this->name;
+    }
+
+    /**
+    * TODO: Document this Method! ( getName )
+    */
+    public function getName() {
+        return $this->name;
+    }
+
 }
 
 ?>

@@ -1,4 +1,4 @@
-Foo\ContentManagement\View\FallbackTemplateView:
+TYPO3\Admin\View\FallbackTemplateView:
   properties:
     renderingContext:
       object: TYPO3\Fluid\Core\Rendering\RenderingContext

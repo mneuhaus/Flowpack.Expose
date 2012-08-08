@@ -1,8 +1,8 @@
 <?php
-namespace Foo\ContentManagement\ViewHelpers\Form;
+namespace TYPO3\Admin\ViewHelpers\Form;
 
 /*                                                                        *
- * This script belongs to the FLOW3 package "Fluid".                      *
+ * This script belongs to the TYPO3.Admin package.              		  *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -10,7 +10,6 @@ namespace Foo\ContentManagement\ViewHelpers\Form;
  *                                                                        *
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
-
 
 /**
  * View Helper which creates a simple Password Text Box (<input type="password">).
@@ -28,45 +27,42 @@ namespace Foo\ContentManagement\ViewHelpers\Form;
  */
 class PasswordViewHelper extends \TYPO3\Fluid\ViewHelpers\Form\AbstractFormFieldViewHelper {
 
-	/**
-	 * @var string
-	 */
-	protected $tagName = 'input';
+    /**
+     * @var string
+     */
+    protected $tagName = 'input';
 
-	/**
-	 * Initialize the arguments.
-	 *
-	 * @return void
-	 * @api
-	 */
-	public function initializeArguments() {
-		parent::initializeArguments();
-		$this->registerTagAttribute('disabled', 'string', 'Specifies that the input element should be disabled when the page loads');
-		$this->registerTagAttribute('maxlength', 'int', 'The maxlength attribute of the input field (will not be validated)');
-		$this->registerTagAttribute('readonly', 'string', 'The readonly attribute of the input field');
-		$this->registerTagAttribute('size', 'int', 'The size of the input field');
-		$this->registerArgument('errorClass', 'string', 'CSS class to set if there are errors for this view helper', FALSE, 'f3-form-error');
-		$this->registerUniversalTagAttributes();
-	}
+    /**
+     * Initialize the arguments.
+     *
+     * @return void
+     * @api
+     */
+    public function initializeArguments() {
+        parent::initializeArguments();
+        $this->registerTagAttribute('disabled', 'string', 'Specifies that the input element should be disabled when the page loads');
+        $this->registerTagAttribute('maxlength', 'int', 'The maxlength attribute of the input field (will not be validated)');
+        $this->registerTagAttribute('readonly', 'string', 'The readonly attribute of the input field');
+        $this->registerTagAttribute('size', 'int', 'The size of the input field');
+        $this->registerArgument('errorClass', 'string', 'CSS class to set if there are errors for this view helper', FALSE, 'f3-form-error');
+        $this->registerUniversalTagAttributes();
+    }
 
-	/**
-	 * Renders the password input field.
-	 *
-	 * @return string
-	 * @api
-	 */
-	public function render() {
-		$name = $this->getName();
-		$this->registerFieldNameForFormTokenGeneration($name);
-
-		$this->tag->addAttribute('type', 'password');
-		$this->tag->addAttribute('name', $name);
-		$this->tag->addAttribute('value', '');
-
-		$this->setErrorClassAttribute();
-
-		return $this->tag->render();
-	}
+    /**
+     * Renders the password input field.
+     *
+     * @return string
+     * @api
+     */
+    public function render() {
+        $name = $this->getName();
+        $this->registerFieldNameForFormTokenGeneration($name);
+        $this->tag->addAttribute('type', 'password');
+        $this->tag->addAttribute('name', $name);
+        $this->tag->addAttribute('value', '');
+        $this->setErrorClassAttribute();
+        return $this->tag->render();
+    }
 
 }
 

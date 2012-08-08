@@ -1,5 +1,5 @@
-Foo:
-  ContentManagement:
+Admin:
+  TYPO3:
     Annotations:
-      Foo\ContentManagement\Tests\Functional\Actions\Fixtures\Domain\Model\Post:
+      TYPO3\Admin\Tests\Functional\Actions\Fixtures\Domain\Model\Post:
         active: true

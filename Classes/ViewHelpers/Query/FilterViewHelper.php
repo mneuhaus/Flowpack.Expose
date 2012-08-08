@@ -1,9 +1,8 @@
 <?php
-
-namespace Foo\ContentManagement\ViewHelpers\Query;
+namespace TYPO3\Admin\ViewHelpers\Query;
 
 /*                                                                        *
- * This script belongs to the Foo.ContentManagement package.              *
+ * This script belongs to the TYPO3.Admin package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License as published by the *
@@ -30,79 +29,69 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * @api
  */
 class FilterViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
-	/**
-	 * @var \TYPO3\FLOW3\Configuration\ConfigurationManager
-	 * @FLOW3\Inject
-	 */
-	protected $configurationManager;
-	
-	/**
-	 * @var \Foo\ContentManagement\Reflection\AnnotationService
-	 * @FLOW3\Inject
-	 */
-	protected $annotationService;
-	
-	/**
-	 *
-	 * @param mixed $objects
-	 * @param string $as
-	 * @param string $filtersAs
-	 * @return string Rendered string
-		 * @api
-	 */
-	public function render($objects = null, $as = "filteredObjects", $filtersAs = "filters") {
-		$this->objects = $objects;
-		$this->query = $objects->getQuery();
-		
-		$this->request = $this->controllerContext->getRequest();
-		
-		$filters = $this->handleFilters();
-		
-		$this->templateVariableContainer->add($filtersAs, $filters);
-		$this->templateVariableContainer->add($as, $this->query->execute());
-		$content = $this->renderChildren();
-		$this->templateVariableContainer->remove($filtersAs);
-		$this->templateVariableContainer->remove($as);
-		
-		return $content;
-	}
-	
-	public function handleFilters(){
-		if( $this->request->hasArgument("filters") ) {
-			$filters = $this->request->getArgument("filters");
-			foreach ($filters as $key => $value)
-				if(!empty($value))
-					$this->query->matching($this->query->equals($key, $value));
-			
-			return $this->getFilter($filters);
-		}else {
-			return $this->getFilter();
-		}
-	}
-	
-	public function getFilter($selected = array()){
-		$filters = array();
-		return $filters;
-		foreach ($this->objects as $object) {
-			// TODO (mn): Reimplement Filter
-			// $being = $this->helper->getBeing($object);
-			
-			// foreach($being->__properties as $property){
-			// 	if(isset($property->_filter)){
-			// 		if(!isset($filters[$property->name]))
-			// 			$filters[$property->name] = new \Foo\ContentManagement\Core\Filter();
 
-			// 		if(isset($selected[$property->name]) && $selected[$property->name] == $property->__toString())
-			// 			$property->selected = true;
-					
-			// 		#$string = $property->getString();
-			// 		#if(!empty($string))
-			// 			$filters[$property->name]->addProperty($property);
-			// 	}
-			// }
-		}
-		return $filters;
-	}
+    /**
+     * @var \TYPO3\Admin\Reflection\AnnotationService
+     * @FLOW3\Inject
+     */
+    protected $annotationService;
+
+    /**
+     * @var \TYPO3\FLOW3\Configuration\ConfigurationManager
+     * @FLOW3\Inject
+     */
+    protected $configurationManager;
+
+    /**
+    * TODO: Document this Method! ( getFilter )
+    */
+    public function getFilter($selected = array()) {
+        $filters = array();
+        return $filters;
+        foreach ($this->objects as $object) {
+
+        }
+        return $filters;
+    }
+
+    /**
+    * TODO: Document this Method! ( handleFilters )
+    */
+    public function handleFilters() {
+        if ($this->request->hasArgument('filters')) {
+            $filters = $this->request->getArgument('filters');
+            foreach ($filters as $key => $value) {
+                if (!empty($value)) {
+                    $this->query->matching($this->query->equals($key, $value));
+                }
+            }
+            return $this->getFilter($filters);
+        } else {
+            return $this->getFilter();
+        }
+    }
+
+    /**
+     *
+     * @param mixed $objects
+     * @param string $as
+     * @param string $filtersAs
+     * @return string Rendered string
+     * @api
+     */
+    public function render($objects = null, $as = 'filteredObjects', $filtersAs = 'filters') {
+        $this->objects = $objects;
+        $this->query = $objects->getQuery();
+        $this->request = $this->controllerContext->getRequest();
+        $filters = $this->handleFilters();
+        $this->templateVariableContainer->add($filtersAs, $filters);
+        $this->templateVariableContainer->add($as, $this->query->execute());
+        $content = $this->renderChildren();
+        $this->templateVariableContainer->remove($filtersAs);
+        $this->templateVariableContainer->remove($as);
+        return $content;
+    }
+
 }
 
 ?>

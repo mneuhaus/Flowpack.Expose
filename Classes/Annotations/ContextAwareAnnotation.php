@@ -1,8 +1,8 @@
 <?php
-namespace Foo\ContentManagement\Annotations;
+namespace TYPO3\Admin\Annotations;
 
 /*                                                                        *
- * This script belongs to the Foo.ContentManagement package.              *
+ * This script belongs to the TYPO3.Admin package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -15,15 +15,20 @@ namespace Foo\ContentManagement\Annotations;
  * @Annotation
  */
 abstract class ContextAwareAnnotation {
-	/**
-	 *
-	 * @var \Foo\ContentManagement\Reflection\Wrapper\ClassAnnotationWrapper
-	 **/
-	protected $annotationContext;
 
-	public function setAnnotationContext(\Foo\ContentManagement\Reflection\Wrapper\ClassAnnotationWrapper $annotationWrapper) {
-		$this->annotationContext = $annotationWrapper;
-	}
+    /**
+     *
+     * @var \TYPO3\Admin\Reflection\Wrapper\ClassAnnotationWrapper
+     **/
+    protected $annotationContext;
+
+    /**
+    * TODO: Document this Method! ( setAnnotationContext )
+    */
+    public function setAnnotationContext(\TYPO3\Admin\Reflection\Wrapper\ClassAnnotationWrapper $annotationWrapper) {
+        $this->annotationContext = $annotationWrapper;
+    }
+
 }
 
 ?>

@@ -1,8 +1,8 @@
 <?php
-namespace Foo\ContentManagement\Core;
+namespace TYPO3\Admin\Core;
 
 /* *
- * This script belongs to the Foo.ContentManagement package.              *
+ * This script belongs to the TYPO3.Admin package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License as published by the *
@@ -33,38 +33,39 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  */
 class FeatureManager {
 
-	/**
-	* @var \TYPO3\FLOW3\Object\ObjectManagerInterface
-	* @FLOW3\Inject
-	*/
-	protected $objectManager;
+    /**
+     * @var \TYPO3\FLOW3\Object\ObjectManagerInterface
+     * @FLOW3\Inject
+     */
+    protected $objectManager;
 
-	/**
-	* @var \TYPO3\FLOW3\Reflection\ReflectionService
-	* @FLOW3\Inject
-	*/
-	protected $reflectionService;
+    /**
+     * @var \TYPO3\FLOW3\Reflection\ReflectionService
+     * @FLOW3\Inject
+     */
+    protected $reflectionService;
 
-	/**
-	* Find the features which should be linked at a certain $context of the application.
-	*
-	* @param string $context the context to find related features for, like "List" or "List.Element"
-	* @param string $type the type of the objects currently being worked with
-	* @return array an array of Feature objects being available for linking
-	*/
-	public function findRelatedFeaturesByContext($context, $type = NULL) {
-		$relatedFeatures = array();
-		foreach ($this->reflectionService->getAllImplementationClassNamesForInterface('Foo\\ContentManagement\\Core\\Features\\FeatureInterface') as $featureClassName) {
-			var_dump($featureClassName);
-			$feature = $this->objectManager->get($featureClassName);
+    /**
+     * Find the features which should be linked at a certain $context of the application.
+     *
+     * @param string $context the context to find related features for, like "List" or "List.Element"
+     * @param string $type the type of the objects currently being worked with
+     * @return array an array of Feature objects being available for linking
+     */
+    public function findRelatedFeaturesByContext($context, $type = NULL) {
+        $relatedFeatures = array();
+        foreach ($this->reflectionService->getAllImplementationClassNamesForInterface('TYPO3\\Admin\\Core\\Features\\FeatureInterface') as $featureClassName) {
+            var_dump($featureClassName);
+            $feature = $this->objectManager->get($featureClassName);
+            $sorting = $feature->isFeatureRelatedForContext($context, $type);
+            if (is_integer($sorting) && $sorting > 0) {
+                $relatedFeatures[$sorting] = $feature;
+            }
+        }
+        ksort($relatedFeatures);
+        return $relatedFeatures;
+    }
 
-			$sorting = $feature->isFeatureRelatedForContext($context, $type);
-			if (is_integer($sorting) && $sorting > 0) {
-				$relatedFeatures[$sorting] = $feature;
-			}
-		}
-		ksort($relatedFeatures);
-		return $relatedFeatures;
-	}
 }
+
 ?>

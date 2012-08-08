@@ -10,21 +10,21 @@
 #
 # Render a list of links to all global features available in a certain context
 
-prototype(Foo.ContentManagement:RecordList.GlobalFeatureLinks) < prototype(TYPO3.TypoScript:TypoScriptArrayRenderer) {
-	10 = Foo.ContentManagement:RecordList.FeatureLinkButton
+prototype(TYPO3.Admin:RecordList.GlobalFeatureLinks) < prototype(TYPO3.TypoScript:TypoScriptArrayRenderer) {
+	10 = TYPO3.Admin:RecordList.FeatureLinkButton
 	10.label = 'New'
-	10.feature = 'Foo\\ContentManagement\\Controller\\NewController'
+	10.feature = 'TYPO3\\Admin\\Controller\\NewController'
 	10.arguments.type = ${type}
 }
 
-prototype(Foo.ContentManagement:RecordList.ElementFeatureLinks) < prototype(TYPO3.TypoScript:TypoScriptArrayRenderer) {
-	10 = Foo.ContentManagement:RecordList.LocalFeatureLinkButton
+prototype(TYPO3.Admin:RecordList.ElementFeatureLinks) < prototype(TYPO3.TypoScript:TypoScriptArrayRenderer) {
+	10 = TYPO3.Admin:RecordList.LocalFeatureLinkButton
 	10.label = 'Edit'
-	10.feature = 'Foo\\ContentManagement\\Controller\\EditController'
+	10.feature = 'TYPO3\\Admin\\Controller\\EditController'
 
-	20 = Foo.ContentManagement:RecordList.LocalFeatureLinkButton
+	20 = TYPO3.Admin:RecordList.LocalFeatureLinkButton
 	20.label = 'Delete'
-	20.feature = 'Foo\\ContentManagement\\Controller\\DeleteController'
+	20.feature = 'TYPO3\\Admin\\Controller\\DeleteController'
 }
 
 
@@ -41,13 +41,13 @@ prototype(Foo.ContentManagement:RecordList.ElementFeatureLinks) < prototype(TYPO
 # - iconClass: CSS-class name used for the icon, if any
 #
 # TODO: implement
-prototype(Foo.ContentManagement:RecordList.FeatureLinkButton) {
-	implementationClassName = 'Foo\\ContentManagement\\TypoScriptObjects\\FeatureLinkButton'
-	templatePath = 'resource://Foo.ContentManagement/Private/Elements/RecordList/FeatureLinkButton.html'
+prototype(TYPO3.Admin:RecordList.FeatureLinkButton) {
+	implementationClassName = 'TYPO3\\Admin\\TypoScriptObjects\\FeatureLinkButton'
+	templatePath = 'resource://TYPO3.Admin/Private/Elements/RecordList/FeatureLinkButton.html'
 }
 
 
-prototype(Foo.ContentManagement:RecordList.LocalFeatureLinkButton) < prototype(Foo.ContentManagement:RecordList.FeatureLinkButton) {
+prototype(TYPO3.Admin:RecordList.LocalFeatureLinkButton) < prototype(TYPO3.Admin:RecordList.FeatureLinkButton) {
 	arguments.object = ${item}
 	arguments.type = ${type}
 }

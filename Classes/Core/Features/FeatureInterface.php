@@ -1,9 +1,8 @@
 <?php
-
-namespace Foo\ContentManagement\Core\Features;
+namespace TYPO3\Admin\Core\Features;
 
 /* *
- * This script belongs to the Foo.ContentManagement package.              *
+ * This script belongs to the TYPO3.Admin package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License as published by the *
@@ -30,17 +29,7 @@ namespace Foo\ContentManagement\Core\Features;
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
 interface FeatureInterface {
-	/**
-	 * Determine if this feature is relevant in another context like "List" or "List.Element"
-	 * @param type $context
-	 * @param type $type
-	 * @return integer 0 or FALSE if feature is not related; numeric value determines the sorting.
-	 */
-//	public function isFeatureRelatedForContext($context, $type = NULL);
 
-//	public function indexAction($type = NULL, $identifier = NULL);
-
-
-//	public function getName();
 }
+
 ?>

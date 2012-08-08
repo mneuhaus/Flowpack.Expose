@@ -1,4 +1,4 @@
-prototype(Foo.ContentManagement:StringFormatter) < prototype(TYPO3.TypoScript:Case) {
+prototype(TYPO3.Admin:StringFormatter) < prototype(TYPO3.TypoScript:Case) {
 	matchers {
 		10.condition = ${q(value).type() == 'string'}
 	}

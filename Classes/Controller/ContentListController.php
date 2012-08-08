@@ -1,9 +1,8 @@
 <?php
-
-namespace Foo\ContentManagement\Controller;
+namespace TYPO3\Admin\Controller;
 
 /* *
- * This script belongs to the Foo.ContentManagement package.              *
+ * This script belongs to the TYPO3.Admin package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License as published by the *
@@ -31,68 +30,69 @@ use TYPO3\FLOW3\Mvc\ActionRequest;
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-class ContentListController extends \Foo\ContentManagement\Core\Features\AbstractFeature {
-	protected $defaultViewObjectName = 'TYPO3\TypoScript\View\TypoScriptView';
+class ContentListController extends \TYPO3\Admin\Core\Features\AbstractFeature {
 
-	/**
-	 * @FLOW3\Inject
-	 * @var \TYPO3\FLOW3\Property\PropertyMapper
-	 */
-	protected $propertyMapper;
+    /**
+    * TODO: Document this Property!
+    */
+    protected $defaultViewObjectName = 'TYPO3\\TypoScript\\View\\TypoScriptView';
 
-	/**
-	 * List objects, all being of the same $type.
-	 *
-	 * TODO: Filtering of this list, bulk
-	 *
-	 * @param string $format
-	 * @param TYPO3\TYPO3CR\Domain\Model\NodeInterface $selectedFolderNode
-	 */
-	public function indexAction($format = 'table', \TYPO3\TYPO3CR\Domain\Model\NodeInterface $selectedFolderNode = NULL) {
-		$siteNode = $this->getSiteNode();
+    /**
+     * @FLOW3\Inject
+     * @var \TYPO3\FLOW3\Property\PropertyMapper
+     */
+    protected $propertyMapper;
 
-		$this->view->assign('format', $format);
-		$this->view->assign('siteNode', $siteNode);
-		$this->view->assign('selectedFolderNode', $selectedFolderNode);
+    /**
+     *
+     * !!! RECURSIVE FUNCTION
+     *
+     * @param \TYPO3\TYPO3CR\Domain\Model\NodeInterface $node
+     * @param boolean $recursive
+     * @return array
+     */
+    protected function getContentElements(\TYPO3\TYPO3CR\Domain\Model\NodeInterface $node = NULL, $recursive) {
+        if ($node === NULL) {
+            return array();
+        }
+        $contentTypeFilter = NULL;
+        if ($recursive === FALSE) {
+            $contentTypeFilter = '!TYPO3.TYPO3:Page';
+        }
+        $childNodes = $node->getChildNodes($contentTypeFilter);
+        $result = $childNodes;
+        foreach ($childNodes as $childNode) {
+            $result = array_merge($result, $this->getContentElements($childNode, $recursive));
+        }
+        return $result;
+    }
 
-		if ($selectedFolderNode !== NULL) {
-			$contentNodes = $this->getContentElements($selectedFolderNode, TRUE);
-			$this->view->assign('objects', $contentNodes);
-		}
-	}
+    /**
+     * @return \TYPO3\TYPO3CR\Domain\Model\NodeInterface
+     */
+    protected function getSiteNode() {
+        return $this->propertyMapper->convert('/sites', 'TYPO3\\TYPO3CR\\Domain\\Model\\NodeInterface');
+    }
 
-	/**
-	 * @return \TYPO3\TYPO3CR\Domain\Model\NodeInterface
-	 */
-	protected function getSiteNode() {
-		return $this->propertyMapper->convert('/sites', 'TYPO3\TYPO3CR\Domain\Model\NodeInterface');
-	}
+    /**
+     * List objects, all being of the same $type.
+     *
+     * TODO: Filtering of this list, bulk
+     *
+     * @param string $format
+     * @param TYPO3\TYPO3CR\Domain\Model\NodeInterface $selectedFolderNode
+     */
+    public function indexAction($format = 'table', \TYPO3\TYPO3CR\Domain\Model\NodeInterface $selectedFolderNode = NULL) {
+        $siteNode = $this->getSiteNode();
+        $this->view->assign('format', $format);
+        $this->view->assign('siteNode', $siteNode);
+        $this->view->assign('selectedFolderNode', $selectedFolderNode);
+        if ($selectedFolderNode !== NULL) {
+            $contentNodes = $this->getContentElements($selectedFolderNode, TRUE);
+            $this->view->assign('objects', $contentNodes);
+        }
+    }
 
-	/**
-	 *
-	 * !!! RECURSIVE FUNCTION
-	 *
-	 * @param \TYPO3\TYPO3CR\Domain\Model\NodeInterface $node
-	 * @param boolean $recursive
-	 * @return array
-	 */
-	protected function getContentElements(\TYPO3\TYPO3CR\Domain\Model\NodeInterface $node = NULL, $recursive) {
-		if ($node === NULL) {
-			return array();
-		}
-
-		$contentTypeFilter = NULL;
-		if ($recursive === FALSE) {
-			$contentTypeFilter = '!TYPO3.TYPO3:Page';
-		}
-		$childNodes = $node->getChildNodes($contentTypeFilter);
-		$result = $childNodes;
-		foreach ($childNodes as $childNode) {
-			$result = array_merge($result, $this->getContentElements($childNode, $recursive));
-		}
-
-
-		return $result;
-	}
 }
+
 ?>

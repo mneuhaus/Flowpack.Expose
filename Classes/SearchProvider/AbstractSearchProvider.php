@@ -1,9 +1,8 @@
 <?php
-
-namespace Foo\ContentManagement\SearchProvider;
+namespace TYPO3\Admin\SearchProvider;
 
 /*                                                                        *
- * This script belongs to the Foo.ContentManagement package.              *
+ * This script belongs to the TYPO3.Admin package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License as published by the *
@@ -33,8 +32,8 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-
 abstract class AbstractSearchProvider {
+
 
 }
 

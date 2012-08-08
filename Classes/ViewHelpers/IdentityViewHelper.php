@@ -1,9 +1,8 @@
 <?php
-
-namespace Foo\ContentManagement\ViewHelpers;
+namespace TYPO3\Admin\ViewHelpers;
 
 /*                                                                        *
- * This script belongs to the Foo.ContentManagement package.              *
+ * This script belongs to the TYPO3.Admin package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License as published by the *
@@ -31,28 +30,27 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  */
 class IdentityViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 
-	/**
-	 * @var \Foo\ContentManagement\Core\MetaPersistenceManager
-	 * @FLOW3\Inject
-	 */
-	protected $persistenceService;
-	
-	/**
-	 *
-	 * @param object $object
-	 * @param string $as
-	 * @return string Rendered string
-		 * @api
-	 */
-	public function render($object = null, $as = "identity") {
-		$identity = $this->persistenceService->getIdentifierByObject($object);
-		
-		$this->templateVariableContainer->add($as, $identity);
-		$content = $this->renderChildren();
-		$this->templateVariableContainer->remove($as);
-		
-		return $content;
-	}
+    /**
+     * @var \TYPO3\Admin\Core\MetaPersistenceManager
+     * @FLOW3\Inject
+     */
+    protected $persistenceService;
+
+    /**
+     *
+     * @param object $object
+     * @param string $as
+     * @return string Rendered string
+     * @api
+     */
+    public function render($object = null, $as = 'identity') {
+        $identity = $this->persistenceService->getIdentifierByObject($object);
+        $this->templateVariableContainer->add($as, $identity);
+        $content = $this->renderChildren();
+        $this->templateVariableContainer->remove($as);
+        return $content;
+    }
+
 }
 
 ?>

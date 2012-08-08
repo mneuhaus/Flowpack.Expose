@@ -1,9 +1,8 @@
 <?php
-
-namespace Foo\ContentManagement\ViewHelpers\Query;
+namespace TYPO3\Admin\ViewHelpers\Query;
 
 /*                                                                        *
- * This script belongs to the Foo.ContentManagement package.              *
+ * This script belongs to the TYPO3.Admin package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License as published by the *
@@ -30,54 +29,48 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * @api
  */
 class SortViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
-	/**
-	 * @var \TYPO3\FLOW3\Configuration\ConfigurationManager
-	 * @FLOW3\Inject
-	 */
-	protected $configurationManager;
-	
-	/**
-	 *
-	 * @param mixed $objects
-	 * @param string $as
-	 * @param string $sortingAs
-	 * @return string Rendered string
-		 * @api
-	 */
-	public function render($objects = null, $as = "sortedObjects", $sortingAs = "sorting") {
-		$this->objects = $objects;
-		$this->query = $objects->getQuery();
-		
-		$this->request = $this->controllerContext->getRequest();
-		
-		$sorting = array();
-		if( $this->request->hasArgument("sort") ){
-			$property = $this->request->getArgument("sort");
-			
-			if( $this->request->hasArgument("direction") )
-				$direction = $this->request->getArgument("direction");
-			else
-				$direction = "DESC";
-			
-			$this->query->setOrderings(array(
-				$property => $direction
-			));
-			
-			$sorting = array(
-				"property" => $property,
-				"direction"=> $direction,
-				"oppositeDirection"=> $direction == "ASC" ? "DESC" : "ASC"
-			);
-		}
-		
-		$this->templateVariableContainer->add($sortingAs, $sorting);
-		$this->templateVariableContainer->add($as, $this->query->execute());
-		$content = $this->renderChildren();
-		$this->templateVariableContainer->remove($sortingAs);
-		$this->templateVariableContainer->remove($as);
-		
-		return $content;
-	}
+
+    /**
+     * @var \TYPO3\FLOW3\Configuration\ConfigurationManager
+     * @FLOW3\Inject
+     */
+    protected $configurationManager;
+
+    /**
+     *
+     * @param mixed $objects
+     * @param string $as
+     * @param string $sortingAs
+     * @return string Rendered string
+     * @api
+     */
+    public function render($objects = null, $as = 'sortedObjects', $sortingAs = 'sorting') {
+        $this->objects = $objects;
+        $this->query = $objects->getQuery();
+        $this->request = $this->controllerContext->getRequest();
+        $sorting = array();
+        if ($this->request->hasArgument('sort')) {
+            $property = $this->request->getArgument('sort');
+            if ($this->request->hasArgument('direction')) {
+                $direction = $this->request->getArgument('direction');
+            } else {
+                $direction = 'DESC';
+            }
+            $this->query->setOrderings(array($property => $direction
+            ));
+            $sorting = array('property' => $property,
+            	'direction' => $direction,
+            	'oppositeDirection' => $direction == 'ASC' ? 'DESC' : 'ASC'
+            );
+        }
+        $this->templateVariableContainer->add($sortingAs, $sorting);
+        $this->templateVariableContainer->add($as, $this->query->execute());
+        $content = $this->renderChildren();
+        $this->templateVariableContainer->remove($sortingAs);
+        $this->templateVariableContainer->remove($as);
+        return $content;
+    }
+
 }
 
 ?>

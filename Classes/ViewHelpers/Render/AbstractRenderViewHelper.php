@@ -1,9 +1,8 @@
 <?php
- 
-namespace Foo\ContentManagement\ViewHelpers\Render;
+namespace TYPO3\Admin\ViewHelpers\Render;
 
 /*                                                                        *
- * This script belongs to the Foo.ContentManagement package.              *
+ * This script belongs to the TYPO3.Admin package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License as published by the *
@@ -30,38 +29,41 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * @api
  */
 abstract class AbstractRenderViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
-	
-	public function initialize() {
-		$this->view = new \Foo\ContentManagement\View\FallbackTemplateView();
-		$this->view->setControllerContext($this->controllerContext);
-		$this->view->setRenderingContext($this->renderingContext);
-	}
 
-	/**
-	 * Renders the content.
-	 *
-	 * @param array $objects
-	 * @return string
-	 * @api
-	 */
-	public function render($objects = array()) {
-		return $this->view->renderContent("List", array(
-			"objects" => $objects
-		));
-	}
+    /**
+    * TODO: Document this Method! ( initialize )
+    */
+    public function initialize() {
+        $this->view = new \TYPO3\Admin\View\FallbackTemplateView();
+        $this->view->setControllerContext($this->controllerContext);
+        $this->view->setRenderingContext($this->renderingContext);
+    }
 
-	/**
-	 * If $arguments['settings'] is not set, it is loaded from the TemplateVariableContainer (if it is available there).
-	 *
-	 * @param array $arguments
-	 * @return array
-	 */
-	protected function loadSettingsIntoArguments($arguments) {
-		if (!isset($arguments['settings']) && $this->templateVariableContainer->exists('settings')) {
-			$arguments['settings'] = $this->templateVariableContainer->get('settings');
-		}
-		return $arguments;
-	}
+    /**
+     * If $arguments['settings'] is not set, it is loaded from the TemplateVariableContainer (if it is available there).
+     *
+     * @param array $arguments
+     * @return array
+     */
+    protected function loadSettingsIntoArguments($arguments) {
+        if (!isset($arguments['settings']) && $this->templateVariableContainer->exists('settings')) {
+            $arguments['settings'] = $this->templateVariableContainer->get('settings');
+        }
+        return $arguments;
+    }
+
+    /**
+     * Renders the content.
+     *
+     * @param array $objects
+     * @return string
+     * @api
+     */
+    public function render($objects = array()) {
+        return $this->view->renderContent('List', array('objects' => $objects
+        ));
+    }
+
 }
 
 ?>

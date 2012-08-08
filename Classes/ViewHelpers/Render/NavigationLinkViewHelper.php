@@ -1,9 +1,8 @@
 <?php
- 
-namespace Foo\ContentManagement\ViewHelpers\Render;
+namespace TYPO3\Admin\ViewHelpers\Render;
 
 /*                                                                        *
- * This script belongs to the Foo.ContentManagement package.              *
+ * This script belongs to the TYPO3.Admin package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License as published by the *
@@ -29,20 +28,21 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * @api
  */
 class NavigationLinkViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
-	/**
-	 * Renders the content.
-	 *
-	 * @param object $object
-	 * @return string
-	 * @api
-	 */
-	public function render($object) {
-		$linkRenderer = $this->templateVariableContainer->get("linkRenderer");
-		return $linkRenderer->renderLink(array(
-			"class" => get_class($object),
-			"object"=> $object
-		));
-	}
+
+    /**
+     * Renders the content.
+     *
+     * @param object $object
+     * @return string
+     * @api
+     */
+    public function render($object) {
+        $linkRenderer = $this->templateVariableContainer->get('linkRenderer');
+        return $linkRenderer->renderLink(array('class' => get_class($object),
+        	'object' => $object
+        ));
+    }
+
 }
 
 ?>

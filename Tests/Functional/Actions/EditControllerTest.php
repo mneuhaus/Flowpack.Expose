@@ -1,8 +1,8 @@
 <?php
-namespace Foo\ContentManagement\Tests\Functional\Actions;
+namespace TYPO3\Admin\Tests\Functional\Actions;
 
 /*                                                                        *
- * This script belongs to the Foo.ContentManagement package.              *
+ * This script belongs to the TYPO3.Admin package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -45,9 +45,9 @@ class EditControllerTest extends \TYPO3\FLOW3\Tests\FunctionalTestCase {
 		parent::setUp();
 
 		$route = new \TYPO3\FLOW3\Mvc\Routing\Route();
-		$route->setUriPattern('test/contentmanagement/actions(/{@action})');
+		$route->setUriPattern('test/admin/actions(/{@action})');
 		$route->setDefaults(array(
-			'@package' => 'Foo.ContentManagement',
+			'@package' => 'TYPO3.Admin',
 			'@subpackage' => 'Tests\Functional\Actions\Fixtures',
 			'@controller' => 'Actions',
 			'@action' => 'index',
@@ -58,8 +58,8 @@ class EditControllerTest extends \TYPO3\FLOW3\Tests\FunctionalTestCase {
 	}
 
 	public function callAction($uriArguments) {
-		$class = "Foo\ContentManagement\Tests\Functional\Actions\Fixtures\Domain\Model\Post";
-		return $this->browser->request('http://localhost/test/contentmanagement/actions?' . http_build_query($uriArguments));
+		$class = "TYPO3\Admin\Tests\Functional\Actions\Fixtures\Domain\Model\Post";
+		return $this->browser->request('http://localhost/test/admin/actions?' . http_build_query($uriArguments));
 	}
 
 	public function createDummyPost() {
@@ -84,11 +84,11 @@ class EditControllerTest extends \TYPO3\FLOW3\Tests\FunctionalTestCase {
 
 		$response = $this->callAction(array(
 			'--featureRuntime' => array(
-				'being' => 'Foo\ContentManagement\Tests\Functional\Actions\Fixtures\Domain\Model\Post',
+				'being' => 'TYPO3\Admin\Tests\Functional\Actions\Fixtures\Domain\Model\Post',
 				'id' => $identifier,
 				'@action' => 'index',
 				'@controller' => 'edit',
-				'@package' => 'foo.contentmanagement'
+				'@package' => 'typo3.admin'
 			)
 		));
 
@@ -108,11 +108,11 @@ class EditControllerTest extends \TYPO3\FLOW3\Tests\FunctionalTestCase {
 
 		$response = $this->callAction(array(
 			'--featureRuntime' => array(
-				'being' => 'Foo\ContentManagement\Tests\Functional\Actions\Fixtures\Domain\Model\Post',
+				'being' => 'TYPO3\Admin\Tests\Functional\Actions\Fixtures\Domain\Model\Post',
 				'id' => $identifier,
 				'@action' => 'index',
 				'@controller' => 'edit',
-				'@package' => 'foo.contentmanagement'
+				'@package' => 'typo3.admin'
 			)
 		));
 
@@ -125,10 +125,10 @@ class EditControllerTest extends \TYPO3\FLOW3\Tests\FunctionalTestCase {
 
 		// $response = $this->callAction(array(
 		// 	'--featureRuntime' => array(
-		// 		'being' => 'Foo\ContentManagement\Tests\Functional\Actions\Fixtures\Domain\Model\Post',
+		// 		'being' => 'TYPO3\Admin\Tests\Functional\Actions\Fixtures\Domain\Model\Post',
 		// 		'@action' => 'index',
 		// 		'@controller' => 'list',
-		// 		'@package' => 'foo.contentmanagement'
+		// 		'@package' => 'typo3.admin'
 		// 	)
 		// ));
 		

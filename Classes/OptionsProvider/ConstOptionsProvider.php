@@ -1,8 +1,8 @@
 <?php
-namespace Foo\ContentManagement\OptionsProvider;
+namespace TYPO3\Admin\OptionsProvider;
 
 /*                                                                        *
-* This script belongs to the Foo.ContentManagement package.              *
+* This script belongs to the TYPO3.Admin package.              *
 *                                                                        *
 * It is free software; you can redistribute it and/or modify it under    *
 * the terms of the GNU Lesser General Public License as published by the *
@@ -30,17 +30,17 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * by using a regular expression to match existing constants
  *
  * Example:
- * 		TYPO3\Party\Domain\Model\ElectronicAddress:
- *      	Properties:
- *          	type:
- *              	Element: TYPO3.Form:SingleSelectDropdown
+ *      TYPO3\Party\Domain\Model\ElectronicAddress:
+ *          Properties:
+ *              type:
+ *                  Element: TYPO3.Form:SingleSelectDropdown
  *                  OptionsProvider:
- *                  	Name: ConstOptionsProvider
+ *                      Name: ConstOptionsProvider
  *                      RegEx: TYPE_.+
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-class ConstOptionsProvider extends \Foo\ContentManagement\Core\OptionsProvider\AbstractOptionsProvider {
+class ConstOptionsProvider extends \TYPO3\Admin\Core\OptionsProvider\AbstractOptionsProvider {
 
     /**
      * Load the Options by searching the Entities constants based on the specified regular

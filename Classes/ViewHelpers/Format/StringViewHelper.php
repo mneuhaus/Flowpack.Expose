@@ -1,9 +1,8 @@
 <?php
-
-namespace Foo\ContentManagement\ViewHelpers\Format;
+namespace TYPO3\Admin\ViewHelpers\Format;
 
 /*                                                                        *
- * This script belongs to the Foo.ContentManagement package.              *
+ * This script belongs to the TYPO3.Admin package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License as published by the *
@@ -32,21 +31,22 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  */
 class StringViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 
-	/**
-	 * @var \Foo\ContentManagement\Core\Formatter
-	 * @FLOW3\Inject
-	 */
-	protected $formatter;
+    /**
+     * @var \TYPO3\Admin\Core\Formatter
+     * @FLOW3\Inject
+     */
+    protected $formatter;
 
-	/**
-	 *
-	 * @param mixed $value
-	 * @return string Rendered string
-	 */
-	public function render($value) {
-		$string = $this->formatter->convert($value, "string");
-		return $string;
-	}
+    /**
+     *
+     * @param mixed $value
+     * @return string Rendered string
+     */
+    public function render($value) {
+        $string = $this->formatter->convert($value, 'string');
+        return $string;
+    }
+
 }
 
 ?>

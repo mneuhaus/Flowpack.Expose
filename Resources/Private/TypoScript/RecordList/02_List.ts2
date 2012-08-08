@@ -1,11 +1,11 @@
 ########################################
-# Foo.ContentManagement:RecordList.List
+# TYPO3.Admin:RecordList.List
 # --------------------------------------
 # Display a list of records as List
 ########################################
 
-prototype(Foo.ContentManagement:RecordList.List) < prototype(Foo.ContentManagement:CollectionRenderer) {
+prototype(TYPO3.Admin:RecordList.List) < prototype(TYPO3.Admin:CollectionRenderer) {
 	collection = ${objects}
 	itemName = 'item'
-	itemRenderer = Foo.ContentManagement:RecordList.List.Element
+	itemRenderer = TYPO3.Admin:RecordList.List.Element
 }

@@ -1,8 +1,8 @@
 <?php
-namespace Foo\ContentManagement\Controller;
+namespace TYPO3\Admin\Controller;
 
 /* *
- * This script belongs to the Foo.ContentManagement package.              *
+ * This script belongs to the TYPO3.Admin package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License as published by the *
@@ -29,26 +29,35 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-class NewController extends \Foo\ContentManagement\Core\Features\AbstractFeature {
-	protected $defaultViewObjectName = 'TYPO3\TypoScript\View\TypoScriptView';
+class NewController extends \TYPO3\Admin\Core\Features\AbstractFeature {
 
-	/**
-	 * Create objects
-	 *
-	 * @param string $type
-	 */
-	public function indexAction($type) {
-		$object = new $type();
-		$this->view->assign("object", $object);
-	}
+    /**
+    * TODO: Document this Property!
+    */
+    protected $defaultViewObjectName = 'TYPO3\\TypoScript\\View\\TypoScriptView';
 
-	public function create($formRuntime) {
-		$formValues = $formRuntime->getFormState()->getFormValues();
-		$object = $formValues["item"];
-		$class = get_class($object);
-		$this->metaPersistenceManager->createObject($class, $object);
+    /**
+    * TODO: Document this Method! ( create )
+    */
+    public function create($formRuntime) {
+        $formValues = $formRuntime->getFormState()->getFormValues();
+        $object = $formValues['item'];
+        $class = get_class($object);
+        $this->metaPersistenceManager->createObject($class, $object);
+        $this->redirect('index', 'List', null, array('being' => $class
+        ));
+    }
 
-		$this->redirect("index", "List", null, array( "being" => $class ));
-	}
+    /**
+     * Create objects
+     *
+     * @param string $type
+     */
+    public function indexAction($type) {
+        $object = new $type();
+        $this->view->assign('object', $object);
+    }
+
 }
+
 ?>

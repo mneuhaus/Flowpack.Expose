@@ -1,9 +1,8 @@
 <?php
-
-namespace Foo\ContentManagement\Reflection\Provider;
+namespace TYPO3\Admin\Reflection\Provider;
 
 /* *
- * This script belongs to the Foo.ContentManagement package.              *
+ * This script belongs to the TYPO3.Admin package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License as published by the *
@@ -31,39 +30,46 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  */
 abstract class AbstractAnnotationProvider implements AnnotationProviderInterface {
 
-	/**
-	 * @var \TYPO3\FLOW3\Object\ObjectManagerInterface
-	 * @FLOW3\Inject
-	 */
-	protected $objectManager;
+    /**
+     * @var \TYPO3\FLOW3\Object\ObjectManagerInterface
+     * @FLOW3\Inject
+     */
+    protected $objectManager;
 
-	public function addAnnotation(&$annotations, $annotation) {
-		if(is_array($annotation)){
-			foreach ($annotation as $annotation1) {
-				$this->addAnnotation($annotations, $annotation1);
-			}
-			return;
-		}
-		
-		$annotationClass = get_class($annotation);
+    /**
+    * TODO: Document this Method! ( addAnnotation )
+    */
+    public function addAnnotation(&$annotations, $annotation) {
+        if (is_array($annotation)) {
+            foreach ($annotation as $annotation1) {
+                $this->addAnnotation($annotations, $annotation1);
+            }
+            return;
+        }
+        $annotationClass = get_class($annotation);
+        if ($annotation instanceof \TYPO3\Admin\Annotations\SingleAnnotationInterface) {
+            $annotations[$annotationClass] = $annotation;
+        } else {
+            if (!isset($annotations[$annotationClass])) {
+                $annotations[$annotationClass] = array();
+            }
+            $annotations[$annotationClass][] = $annotation;
+        }
+    }
 
-		if($annotation instanceof \Foo\ContentManagement\Annotations\SingleAnnotationInterface){
-			$annotations[$annotationClass] = $annotation;
-		}else{
-			if(!isset($annotations[$annotationClass]))
-				$annotations[$annotationClass] = array();
-			$annotations[$annotationClass][] = $annotation;
-		}
-	}
+    /**
+    * TODO: Document this Method! ( findAnnotationByName )
+    */
+    public function findAnnotationByName($annotationName) {
+        if (class_exists($annotationName)) {
+            return $annotationName;
+        }
+        if (class_exists('TYPO3\\Admin\\Annotations\\' . $annotationName)) {
+            return 'TYPO3\\Admin\\Annotations\\' . $annotationName;
+        }
+        throw new \TYPO3\FLOW3\Error\Exception(('No AnnotationClass for the Annotation "' . $annotationName) . '" could be found', 1342706668);
+    }
 
-	public function findAnnotationByName($annotationName) {
-		if(class_exists($annotationName))
-			return $annotationName;
-
-		if(class_exists("Foo\ContentManagement\Annotations\\" . $annotationName))
-			return "Foo\ContentManagement\Annotations\\" . $annotationName;
-
-		throw new \TYPO3\FLOW3\Error\Exception('No AnnotationClass for the Annotation "'.$annotationName.'" could be found', 1342706668);
-	}
 }
+
 ?>

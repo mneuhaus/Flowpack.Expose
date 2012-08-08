@@ -1,8 +1,8 @@
 <?php
-namespace Foo\ContentManagement\ViewHelpers;
+namespace TYPO3\Admin\ViewHelpers;
 
 /*                                                                        *
- * This script belongs to the FLOW3 package "TYPO3.TYPO3".                *
+ * This script belongs to the TYPO3.Admin package.              		  *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU General Public License, either version 3 of the   *
@@ -19,12 +19,14 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  */
 class NodeTypeFilterViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 
-	/**
-	 * @param \TYPO3\TYPO3CR\Domain\Model\NodeInterface $node
-	 * @param string $nodeType
-	 */
-	public function render(\TYPO3\TYPO3CR\Domain\Model\NodeInterface $node, $nodeType) {
-		return $node->getChildNodes($nodeType);
-	}
+    /**
+     * @param \TYPO3\TYPO3CR\Domain\Model\NodeInterface $node
+     * @param string $nodeType
+     */
+    public function render(\TYPO3\TYPO3CR\Domain\Model\NodeInterface $node, $nodeType) {
+        return $node->getChildNodes($nodeType);
+    }
+
 }
+
 ?>

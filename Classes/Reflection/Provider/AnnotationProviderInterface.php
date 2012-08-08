@@ -1,9 +1,8 @@
 <?php
-
-namespace Foo\ContentManagement\Reflection\Provider;
+namespace TYPO3\Admin\Reflection\Provider;
 
 /* *
- * This script belongs to the Foo.ContentManagement package.              *
+ * This script belongs to the TYPO3.Admin package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License as published by the *
@@ -28,6 +27,10 @@ namespace Foo\ContentManagement\Reflection\Provider;
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
 interface AnnotationProviderInterface {
-	public function getClassAnnotations($class);
+    /**
+    * TODO: Document this Method! ( getClassAnnotations )
+    */
+    public function getClassAnnotations($class);
 }
+
 ?>

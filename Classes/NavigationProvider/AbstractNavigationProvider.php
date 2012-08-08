@@ -1,9 +1,8 @@
 <?php
-
-namespace Foo\ContentManagement\NavigationProvider;
+namespace TYPO3\Admin\NavigationProvider;
 
 /*                                                                       *
-* This script belongs to the Foo.ContentManagement package.              *
+* This script belongs to the TYPO3.Admin package.              *
 *                                                                        *
 * It is free software; you can redistribute it and/or modify it under    *
 * the terms of the GNU Lesser General Public License as published by the *
@@ -30,40 +29,72 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
 abstract class AbstractNavigationProvider implements NavigationProviderInterface, \RecursiveIterator {
+
+    /**
+    * TODO: Document this Property!
+    */
     protected $items = array();
+
+    /**
+    * TODO: Document this Property!
+    */
     protected $position = 0;
 
+    /**
+    * TODO: Document this Method! ( __construct )
+    */
     public function __construct($options) {
         $this->options = $options;
     }
 
-    public function valid() {
-        return isset($this->items[$this->position]);
+    /**
+    * TODO: Document this Method! ( getChildren )
+    */
+    public function getChildren() {
+        $class = get_class($this);
+        return new $class($this->items[$this->position]);
     }
 
+    /**
+    * TODO: Document this Method! ( hasChildren )
+    */
     public function hasChildren() {
         return is_array($this->items[$this->position]);
     }
 
-    public function next() {
-        $this->position++;
-    }
-
+    /**
+    * TODO: Document this Method! ( current )
+    */
     public function current() {
         return $this->items[$this->position];
     }
 
-    public function getChildren() {
-    	$class = get_class($this);
-        return new $class($this->items[$this->position]);
+    /**
+    * TODO: Document this Method! ( key )
+    */
+    public function key() {
+        return $this->position;
     }
 
+    /**
+    * TODO: Document this Method! ( next )
+    */
+    public function next() {
+        $this->position++;
+    }
+
+    /**
+    * TODO: Document this Method! ( rewind )
+    */
     public function rewind() {
         $this->position = 0;
     }
 
-    public function key() {
-        return $this->position;
+    /**
+    * TODO: Document this Method! ( valid )
+    */
+    public function valid() {
+        return isset($this->items[$this->position]);
     }
 
 }

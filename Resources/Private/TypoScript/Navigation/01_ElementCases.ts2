@@ -1,36 +1,36 @@
-prototype(Foo.ContentManagement:Navigation.ListElement) < prototype(TYPO3.TypoScript:Case)
-#prototype(Foo.ContentManagement:Navigation.ListElement) {
+prototype(TYPO3.Admin:Navigation.ListElement) < prototype(TYPO3.TypoScript:Case)
+#prototype(TYPO3.Admin:Navigation.ListElement) {
 #	skipNonExistingTypes = ${true}
 #}
 
 # Catch-all condition for the default case
-prototype(Foo.ContentManagement:Navigation.ListElement).matchers.999999999999 {
+prototype(TYPO3.Admin:Navigation.ListElement).matchers.999999999999 {
 	condition = ${true}
-	type = 'Foo.ContentManagement:Navigation.EntityOverviewListElement'
+	type = 'TYPO3.Admin:Navigation.EntityOverviewListElement'
 }
 
-prototype(Foo.ContentManagement:Navigation.ListElement).matchers.10000 {
+prototype(TYPO3.Admin:Navigation.ListElement).matchers.10000 {
 	condition = ${q(navigationListElementType).notEmpty()}
 	type = ${navigationListElementType}
 }
 
 
 
-prototype(Foo.ContentManagement:Navigation.EntityOverviewListElement) < prototype(TYPO3.TypoScript:FluidRenderer)
-prototype(Foo.ContentManagement:Navigation.EntityOverviewListElement) {
-	templatePath = 'resource://Foo.ContentManagement/Private/Elements/Navigation/EntityOverviewListElement.html'
+prototype(TYPO3.Admin:Navigation.EntityOverviewListElement) < prototype(TYPO3.TypoScript:FluidRenderer)
+prototype(TYPO3.Admin:Navigation.EntityOverviewListElement) {
+	templatePath = 'resource://TYPO3.Admin/Private/Elements/Navigation/EntityOverviewListElement.html'
 	item = ${item}
 	options = ${options}
 	navigationLinkType = ${navigationLinkType}
-	link = Foo.ContentManagement:Navigation.Link
+	link = TYPO3.Admin:Navigation.Link
 }
 
-prototype(Foo.ContentManagement:Navigation.EntityFilterElement) < prototype(Foo.ContentManagement:Navigation.EntityOverviewListElement)
-prototype(Foo.ContentManagement:Navigation.EntityFilterElement) {
-	templatePath = 'resource://Foo.ContentManagement/Private/Elements/Navigation/EntityFilterElement.html'
+prototype(TYPO3.Admin:Navigation.EntityFilterElement) < prototype(TYPO3.Admin:Navigation.EntityOverviewListElement)
+prototype(TYPO3.Admin:Navigation.EntityFilterElement) {
+	templatePath = 'resource://TYPO3.Admin/Private/Elements/Navigation/EntityFilterElement.html'
 }
 
-prototype(Foo.ContentManagement:Navigation.EntityActionListElement) < prototype(Foo.ContentManagement:Navigation.EntityOverviewListElement)
-prototype(Foo.ContentManagement:Navigation.EntityActionListElement) {
-	templatePath = 'resource://Foo.ContentManagement/Private/Elements/Navigation/EntityActionListElement.html'
+prototype(TYPO3.Admin:Navigation.EntityActionListElement) < prototype(TYPO3.Admin:Navigation.EntityOverviewListElement)
+prototype(TYPO3.Admin:Navigation.EntityActionListElement) {
+	templatePath = 'resource://TYPO3.Admin/Private/Elements/Navigation/EntityActionListElement.html'
 }

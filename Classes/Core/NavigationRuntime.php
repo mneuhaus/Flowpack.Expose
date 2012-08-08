@@ -1,8 +1,8 @@
 <?php
-namespace Foo\ContentManagement\Core;
+namespace TYPO3\Admin\Core;
 
 /*                                                                        *
- * This script belongs to the Foo.ContentManagement package.              *
+ * This script belongs to the TYPO3.Admin package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -19,46 +19,49 @@ use TYPO3\FLOW3\Mvc\ActionRequest;
  */
 class NavigationRuntime extends AbstractRuntime {
 
-	/**
-	 * Default action to render if nothing else is specified 
-	 * or present in the arguments
-	 *
-	 * @var string
-	 * @internal
-	 */
-	protected $defaultController = "\Foo\ContentManagement\Controller\NavigationController";
+    /**
+     *
+     * @var array
+     */
+    protected $context = array('navigationProviderOptions' => array());
 
-	/**
-	 * Default action to render if nothing else is specified 
-	 * or present in the arguments
-	 *
-	 * @var string
-	 * @internal
-	 */
-	protected $defaultAction = "index";
+    /**
+     * Default action to render if nothing else is specified
+     * or present in the arguments
+     *
+     * @var string
+     * @internal
+     */
+    protected $defaultAction = 'index';
 
-	/**
-	 *
-	 * @var string
-	 */
-	protected $namespace = "navigationRuntime";
+    /**
+     * Default action to render if nothing else is specified
+     * or present in the arguments
+     *
+     * @var string
+     * @internal
+     */
+    protected $defaultController = '\\TYPO3\\Admin\\Controller\\NavigationController';
 
-	/**
-	 *
-	 * @var string
-	 */
-	protected $navigationProvider = "\Foo\ContentManagement\NavigationProvider\EntityNavigationProvider";
+    /**
+     *
+     * @var string
+     */
+    protected $namespace = 'navigationRuntime';
 
-	/**
-	 *
-	 * @var array
-	 */
-	protected $context = array(
-		'navigationProviderOptions' => array()
-	);
+    /**
+     *
+     * @var string
+     */
+    protected $navigationProvider = '\\TYPO3\\Admin\\NavigationProvider\\EntityNavigationProvider';
 
-	public function setNavigationListElement($navigationListElement) {
-		$this->request->setArgument("__navigationListElement", $navigationListElement);
-	}
+    /**
+    * TODO: Document this Method! ( setNavigationListElement )
+    */
+    public function setNavigationListElement($navigationListElement) {
+        $this->request->setArgument('__navigationListElement', $navigationListElement);
+    }
+
 }
+
 ?>

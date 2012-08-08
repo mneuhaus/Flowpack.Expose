@@ -1,8 +1,8 @@
 <?php
-namespace Foo\ContentManagement\ViewHelpers;
+namespace TYPO3\Admin\ViewHelpers;
 
 /*                                                                        *
- * This script belongs to the Foo.ContentManagement package.              *
+ * This script belongs to the TYPO3.Admin package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -30,30 +30,30 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  */
 class ObjectFormViewHelper extends \TYPO3\Form\ViewHelpers\RenderViewHelper {
 
-	/**
-	 * @FLOW3\Inject
-	 * @var \TYPO3\Form\Persistence\FormPersistenceManagerInterface
-	 */
-	protected $formPersistenceManager;
+    /**
+     * @FLOW3\Inject
+     * @var \TYPO3\Form\Persistence\FormPersistenceManagerInterface
+     */
+    protected $formPersistenceManager;
 
-	/**
-	 * @param string $persistenceIdentifier the persistence identifier for the form.
-	 * @param string $factoryClass The fully qualified class name of the factory (which has to implement \TYPO3\Form\Factory\FormFactoryInterface)
-	 * @param string $presetName name of the preset to use
-	 * @param array $overrideConfiguration factory specific configuration
-	 * @return string the rendered form
-	 */
-	public function render($persistenceIdentifier = NULL, $factoryClass = 'TYPO3\Form\Factory\ArrayFormFactory', $presetName = 'default', array $overrideConfiguration = array()) {
-		if (isset($persistenceIdentifier)) {
-			$overrideConfiguration = \TYPO3\FLOW3\Utility\Arrays::arrayMergeRecursiveOverrule($this->formPersistenceManager->load($persistenceIdentifier), $overrideConfiguration);
-		}
+    /**
+     * @param string $persistenceIdentifier the persistence identifier for the form.
+     * @param string $factoryClass The fully qualified class name of the factory (which has to implement \TYPO3\Form\Factory\FormFactoryInterface)
+     * @param string $presetName name of the preset to use
+     * @param array $overrideConfiguration factory specific configuration
+     * @return string the rendered form
+     */
+    public function render($persistenceIdentifier = NULL, $factoryClass = 'TYPO3\\Form\\Factory\\ArrayFormFactory', $presetName = 'default', array $overrideConfiguration = array()) {
+        if (isset($persistenceIdentifier)) {
+            $overrideConfiguration = \TYPO3\FLOW3\Utility\Arrays::arrayMergeRecursiveOverrule($this->formPersistenceManager->load($persistenceIdentifier), $overrideConfiguration);
+        }
+        $factory = $this->objectManager->get($factoryClass);
+        $formDefinition = $factory->build($overrideConfiguration, $presetName);
+        $response = new \TYPO3\FLOW3\Http\Response($this->controllerContext->getResponse());
+        $form = $formDefinition->bind($this->controllerContext->getRequest(), $response);
+        return $form->render();
+    }
 
-		$factory = $this->objectManager->get($factoryClass);
-		$formDefinition = $factory->build($overrideConfiguration, $presetName);
-		$response = new \TYPO3\FLOW3\Http\Response($this->controllerContext->getResponse());
-
-		$form = $formDefinition->bind($this->controllerContext->getRequest(), $response);
-		return $form->render();
-	}
 }
+
 ?>

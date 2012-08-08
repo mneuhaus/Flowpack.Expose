@@ -1,9 +1,8 @@
 <?php
-
-namespace Foo\ContentManagement\Controller;
+namespace TYPO3\Admin\Controller;
 
 /* *
- * This script belongs to the Foo.ContentManagement package.              *
+ * This script belongs to the TYPO3.Admin package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License as published by the *
@@ -30,29 +29,37 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-class ViewController extends \Foo\ContentManagement\Core\Features\AbstractFeature {
+class ViewController extends \TYPO3\Admin\Core\Features\AbstractFeature {
 
-	public function isFeatureRelatedForContext($context, $type = NULL) {
-		if (in_array($context, array('List.Element'))) {
-			return 700;
-		}
-		return FALSE;
-	}
+    /**
+    * TODO: Document this Method! ( isFeatureRelatedForContext )
+    */
+    public function isFeatureRelatedForContext($context, $type = NULL) {
+        if (in_array($context, array('List.Element'
+        ))) {
+            return 700;
+        }
+        return FALSE;
+    }
 
-	public function getName(){
-		return "View";
-	}
+    /**
+    * TODO: Document this Method! ( getName )
+    */
+    public function getName() {
+        return 'View';
+    }
 
-	/**
-	 * View objects
-	 *
-	 * @param string $type
-	 * @param string $identifier
-	 */
-	public function indexAction($type, $identifier) {
-		$object = $this->persistenceManager->getObjectByIdentifier($identifier, $type);
-		$this->view->assign("object", $object);
-	}
+    /**
+     * View objects
+     *
+     * @param string $type
+     * @param string $identifier
+     */
+    public function indexAction($type, $identifier) {
+        $object = $this->persistenceManager->getObjectByIdentifier($identifier, $type);
+        $this->view->assign('object', $object);
+    }
 
 }
+
 ?>

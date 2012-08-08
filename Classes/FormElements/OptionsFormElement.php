@@ -1,8 +1,8 @@
 <?php
-namespace Foo\ContentManagement\FormElements;
+namespace TYPO3\Admin\FormElements;
 
 /*                                                                        *
- * This script belongs to the Foo.ContentManagement package.              *
+ * This script belongs to the TYPO3.Admin package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -17,20 +17,32 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * A generic form element
  */
 class OptionsFormElement extends ComplexFormElement {
-	public function getProperties() {
-		$optionsProvider = $this->getOptionsProvider();
-		$this->properties["options"] = $this->getOptionsProvider()->getOptions();
-		return $this->properties;
-	}
 
-	public function getOptionsProvider() {
-		$optionsProviderClass = (string) $this->getAnnotations()->getOptionsProvider();
-		$optionsProvider = new $optionsProviderClass($this->getAnnotations());
-		return $optionsProvider;
-	}
+    /**
+    * TODO: Document this Method! ( getAnnotations )
+    */
+    public function getAnnotations() {
+        return $this->properties['annotations'];
+    }
 
-	public function getAnnotations() {
-		return $this->properties["annotations"];
-	}
+    /**
+    * TODO: Document this Method! ( getOptionsProvider )
+    */
+    public function getOptionsProvider() {
+        $optionsProviderClass = (string) $this->getAnnotations()->getOptionsProvider();
+        $optionsProvider = new $optionsProviderClass($this->getAnnotations());
+        return $optionsProvider;
+    }
+
+    /**
+    * TODO: Document this Method! ( getProperties )
+    */
+    public function getProperties() {
+        $optionsProvider = $this->getOptionsProvider();
+        $this->properties['options'] = $this->getOptionsProvider()->getOptions();
+        return $this->properties;
+    }
+
 }
+
 ?>

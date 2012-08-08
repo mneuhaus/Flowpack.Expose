@@ -1,8 +1,8 @@
 <?php
-namespace Foo\ContentManagement\FormElements;
+namespace TYPO3\Admin\FormElements;
 
 /*                                                                        *
- * This script belongs to the FLOW3 package "TYPO3.Form".                 *
+ * This script belongs to the TYPO3.Admin package.              		  *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -17,24 +17,28 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * A password with confirmation form element
  */
 class PasswordWithHashing extends \TYPO3\Form\FormElements\PasswordWithConfirmation {
-	/**
-	 * @var \TYPO3\FLOW3\Security\Cryptography\HashService
-	 * @FLOW3\Inject
-	 */
-	protected $hashService;
 
-	public function onSubmit(\TYPO3\Form\Core\Runtime\FormRuntime $formRuntime, &$elementValue) {
-		if ($elementValue['password'] !== $elementValue['confirmation']) {
-			$processingRule = $this->getRootForm()->getProcessingRule($this->getIdentifier());
-			$processingRule->getProcessingMessages()->addError(new \TYPO3\FLOW3\Error\Error('Password doesn\'t match confirmation', 1334768052));
-		}
+    /**
+     * @var \TYPO3\FLOW3\Security\Cryptography\HashService
+     * @FLOW3\Inject
+     */
+    protected $hashService;
 
-		if (empty($elementValue['password'])){
-			$elementValue = $this->getDefaultValue();
-		} else {
-			$elementValue = $this->hashService->hashPassword($elementValue['password'], "default");
-		}
-	}
+    /**
+    * TODO: Document this Method! ( onSubmit )
+    */
+    public function onSubmit(\TYPO3\Form\Core\Runtime\FormRuntime $formRuntime, &$elementValue) {
+        if ($elementValue['password'] !== $elementValue['confirmation']) {
+            $processingRule = $this->getRootForm()->getProcessingRule($this->getIdentifier());
+            $processingRule->getProcessingMessages()->addError(new \TYPO3\FLOW3\Error\Error('Password doesn\'t match confirmation', 1334768052));
+        }
+        if (empty($elementValue['password'])) {
+            $elementValue = $this->getDefaultValue();
+        } else {
+            $elementValue = $this->hashService->hashPassword($elementValue['password'], 'default');
+        }
+    }
 
 }
+
 ?>

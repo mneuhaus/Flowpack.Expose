@@ -1,11 +1,11 @@
-Foo.ContentManagement.NewController.index = Foo.ContentManagement:ObjectForm
-Foo.ContentManagement.EditController.index = Foo.ContentManagement:ObjectForm
-Foo.ContentManagement.EditController.index {
+TYPO3.Admin.NewController.index = TYPO3.Admin:ObjectForm
+TYPO3.Admin.EditController.index = TYPO3.Admin:ObjectForm
+TYPO3.Admin.EditController.index {
 	controllerCallback = 'update'
 }
 
-prototype(Foo.ContentManagement:ObjectForm) {
-	implementationClassName = 'Foo\\ContentManagement\\TypoScriptObjects\\FormRenderer'
+prototype(TYPO3.Admin:ObjectForm) {
+	implementationClassName = 'TYPO3\\Admin\\TypoScriptObjects\\FormRenderer'
 	object = ${object}
 	controllerCallback = 'create'
 }
