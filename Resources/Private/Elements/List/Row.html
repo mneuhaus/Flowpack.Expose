@@ -10,7 +10,7 @@
 		</td>
 		<f:for each="{properties}" as="property">
 			<td>
-				<cm:format.string value="{property.value}" />
+				{property.value -> cm:formatAsString()}
 			</td>
 		</f:for>
 		<td class="table-actions">

@@ -1,0 +1,28 @@
+# string formatter expects the "value" to contain the object to be converted
+prototype(TYPO3.Admin:StringFormatter) < prototype(TYPO3.TypoScript:Case) {
+	matchers {
+		10.condition = ${q(value).is('[instanceof string]')}
+		10.type = 'TYPO3.Admin:StringFormatter.String'
+
+		20.condition = ${q(value).is('[instanceof TYPO3\Party\Domain\Model\PersonName]')}
+		20.type = 'TYPO3.Admin:StringFormatter.PersonName'
+
+
+		99.condition = ${true}
+		99.type = 'TYPO3.Admin:StringFormatter.Default'
+	}
+}
+
+prototype(TYPO3.Admin:StringFormatter.String) < prototype(TYPO3.TypoScript:FluidRenderer) {
+	templatePath = 'resource://TYPO3.Admin/Private/Elements/StringFormatter/String.html'
+	value = ${value}
+}
+
+prototype(TYPO3.Admin:StringFormatter.PersonName) < prototype(TYPO3.Admin:StringFormatter.String) {
+	value = ${value.fullName}
+}
+
+prototype(TYPO3.Admin:StringFormatter.Default) < prototype(TYPO3.TypoScript:FluidRenderer) {
+	templatePath = 'resource://TYPO3.Admin/Private/Elements/StringFormatter/Default.html'
+	value = ${value}
+}

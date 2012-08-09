@@ -5,7 +5,7 @@
 	<cm:properties object="{item}" context="Content.List.Table">
 		<f:for each="{properties}" as="property">
 			<p>
-				<b>{property.label}</b>: <cm:format.string value="{property.value}" />
+				<b>{property.label}</b>: {property.value -> cm:formatAsString()}
 			</p>
 		</f:for>
 	</cm:properties>

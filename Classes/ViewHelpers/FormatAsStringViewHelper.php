@@ -1,7 +1,8 @@
 <?php
-namespace TYPO3\Admin\ViewHelpers\Format;
 
-/*                                                                        *
+namespace TYPO3\Admin\ViewHelpers;
+
+/* *
  * This script belongs to the TYPO3.Admin package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
@@ -21,32 +22,27 @@ namespace TYPO3\Admin\ViewHelpers\Format;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
-use Doctrine\ORM\Mapping as ORM;
-use TYPO3\FLOW3\Annotations as FLOW3;
-
 /**
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
- * @api
+ * // REVIEWED for release
  */
-class StringViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
+class FormatAsStringViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 
-    /**
-     * @var \TYPO3\Admin\Core\Formatter
-     * @FLOW3\Inject
-     */
-    protected $formatter;
+	/**
+	 *
+	 * @return string Rendered string
+	 */
+	public function render() {
+		$value = $this->renderChildren();
 
-    /**
-     *
-     * @param mixed $value
-     * @return string Rendered string
-     */
-    public function render($value) {
-        $string = $this->formatter->convert($value, 'string');
-        return $string;
-    }
+		$fluidTemplateTsObject = $this->templateVariableContainer->get('fluidTemplateTsObject'); // TODO: should be retrieved differently
+		$path = $fluidTemplateTsObject->getPath() . '/stringFormatter<TYPO3.Admin:StringFormatter>';
+		$fluidTemplateTsObject->getTsRuntime()->pushContext('value', $value);
+		$output = $fluidTemplateTsObject->getTsRuntime()->render($path);
+		$fluidTemplateTsObject->getTsRuntime()->popContext();
 
+		return $output;
+	}
 }
-
 ?>

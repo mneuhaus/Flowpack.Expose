@@ -32,12 +32,6 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 class RelationOptionsProvider extends \TYPO3\Admin\Core\OptionsProvider\AbstractOptionsProvider {
 
     /**
-     * @var \TYPO3\Admin\Core\Formatter
-     * @FLOW3\Inject
-     */
-    protected $formatter;
-
-    /**
      * @var \TYPO3\Admin\Core\MetaPersistenceManager
      * @FLOW3\Inject
      */
