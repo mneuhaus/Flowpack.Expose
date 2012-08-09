@@ -31,14 +31,15 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  */
 class EditController extends \TYPO3\Admin\Core\AbstractAdminController {
 
+	public function initializeIndexAction() {
+		$this->arguments['object']->setDataType($this->request->getArgument('type'));
+	}
     /**
      * Edit object
      *
-     * @param string $type
-     * @param array $object
+     * @param object $object
      */
-    public function indexAction($type, $object) {
-        $object = $this->propertyMapper->convert($object, $type);
+    public function indexAction($object) {
         $this->view->assign('object', $object);
     }
 

@@ -55,16 +55,13 @@ class ControllerLinkViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractTagB
      * @return string The rendered link
      * @api
      */
-    public function render($controller, $type = NULL, $object = NULL, $arguments = array()) {
+    public function render($controller, $type = NULL, $arguments = array()) {
         if (is_string($controller)) {
             $controller = $this->objectManager->get($controller);
         }
         $uriBuilder = $this->controllerContext->getUriBuilder();
         if ($type !== NULL) {
             $arguments['type'] = $type;
-        }
-        if ($object !== NULL) {
-            $arguments['identifier'] = $this->persistenceManager->getIdentifierByObject($object);
         }
 
         $request = new \TYPO3\FLOW3\Mvc\ActionRequest($this->controllerContext->getRequest());

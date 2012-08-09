@@ -10,7 +10,10 @@ TYPO3.Admin.ContentListController {
 		}
 	}
 
-	prototype(TYPO3.Admin:RecordList.LocalFeatureLinkButton).arguments.type = 'TYPO3\\TYPO3CR\\Domain\\Model\\NodeInterface'
+	prototype(TYPO3.Admin:LocalControllerLink) {
+		arguments.type = 'TYPO3\\TYPO3CR\\Domain\\Model\\NodeInterface'
+		arguments.object = ${item.contextPath}
+	}
 }
 
 prototype(TYPO3.Admin:RecordList.List.Element).matchers.1000 {

@@ -40,7 +40,7 @@ class ContentListController extends \TYPO3\Admin\Core\AbstractAdminController {
      * @param string $format
      * @param TYPO3\TYPO3CR\Domain\Model\NodeInterface $selectedFolderNode
      */
-    public function indexAction($format = 'table', \TYPO3\TYPO3CR\Domain\Model\NodeInterface $selectedFolderNode = NULL) {
+    public function indexAction($format = 'list', \TYPO3\TYPO3CR\Domain\Model\NodeInterface $selectedFolderNode = NULL) {
         $siteNode = $this->getSiteNode();
         $this->view->assign('format', $format);
         $this->view->assign('siteNode', $siteNode);
