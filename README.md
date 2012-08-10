@@ -40,8 +40,10 @@ See corresponding forge issue: http://forge.typo3.org/issues/37293
 	git fetch git://git.typo3.org/FLOW3/Packages/TYPO3.TypoScript refs/changes/49/12649/3 && git cherry-pick FETCH_HEAD
 
 	# http://review.typo3.org/13500
-	git fetch git://git.typo3.org/FLOW3/Packages/TYPO3.TypoScript refs/changes/00/13500/1 && git cherry-pick FETCH_HEAD
+	git fetch git://git.typo3.org/FLOW3/Packages/TYPO3.TypoScript refs/changes/00/13500/4 && git cherry-pick FETCH_HEAD
 
+	# https://review.typo3.org/#/c/13565/
+	git fetch git://git.typo3.org/FLOW3/Packages/TYPO3.TypoScript refs/changes/65/13565/1 && git cherry-pick FETCH_HEAD
 
 	TYPO3.Party:
 

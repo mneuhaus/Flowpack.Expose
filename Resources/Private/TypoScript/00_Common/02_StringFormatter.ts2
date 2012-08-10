@@ -4,6 +4,21 @@ prototype(TYPO3.Admin:StringFormatter) < prototype(TYPO3.TypoScript:Case) {
 		10.condition = ${q(value).is('[instanceof string]')}
 		10.type = 'TYPO3.Admin:StringFormatter.String'
 
+		11.condition = ${q(value).is('[instanceof integer]')}
+		11.type = 'TYPO3.Admin:StringFormatter.String'
+
+		12.condition = ${q(value).is('[instanceof float]')}
+		12.type = 'TYPO3.Admin:StringFormatter.Float'
+
+		13.condition = ${q(value).is('[instanceof boolean]')}
+		13.type = 'TYPO3.Admin:StringFormatter.Boolean'
+
+		14.condition = ${q(value).is('[instanceof DateTime]')}
+		14.type = 'TYPO3.Admin:StringFormatter.DateTime'
+
+		15.condition = ${q(value).is('[instanceof array]')}
+		15.type = 'TYPO3.Admin:StringFormatter.Array'
+
 		20.condition = ${q(value).is('[instanceof TYPO3\Party\Domain\Model\PersonName]')}
 		20.type = 'TYPO3.Admin:StringFormatter.PersonName'
 
@@ -18,11 +33,24 @@ prototype(TYPO3.Admin:StringFormatter.String) < prototype(TYPO3.TypoScript:Fluid
 	value = ${value}
 }
 
-prototype(TYPO3.Admin:StringFormatter.PersonName) < prototype(TYPO3.Admin:StringFormatter.String) {
-	value = ${value.fullName}
-}
 
+prototype(TYPO3.Admin:StringFormatter.Boolean) < prototype(TYPO3.Admin:StringFormatter.String) {
+	value = ${(value ? 'true' : 'false')}
+}
+prototype(TYPO3.Admin:StringFormatter.Float) < prototype(TYPO3.Admin:StringFormatter.String) {
+	templatePath = 'resource://TYPO3.Admin/Private/Elements/StringFormatter/Float.html'
+}
+prototype(TYPO3.Admin:StringFormatter.DateTime) < prototype(TYPO3.Admin:StringFormatter.String) {
+	templatePath = 'resource://TYPO3.Admin/Private/Elements/StringFormatter/DateTime.html'
+}
+prototype(TYPO3.Admin:StringFormatter.Array) < prototype(TYPO3.Admin:StringFormatter.String) {
+	templatePath = 'resource://TYPO3.Admin/Private/Elements/StringFormatter/Array.html'
+}
 prototype(TYPO3.Admin:StringFormatter.Default) < prototype(TYPO3.TypoScript:FluidRenderer) {
 	templatePath = 'resource://TYPO3.Admin/Private/Elements/StringFormatter/Default.html'
 	value = ${value}
+}
+
+prototype(TYPO3.Admin:StringFormatter.PersonName) < prototype(TYPO3.Admin:StringFormatter.String) {
+	value = ${value.fullName}
 }
