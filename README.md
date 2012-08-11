@@ -22,28 +22,6 @@ See corresponding forge issue: http://forge.typo3.org/issues/37293
 ### Apply the following changesets:
 
 ```
-	TYPO3.TYPO3:
-
-	# https://review.typo3.org/#/c/13491/
-	git fetch git://git.typo3.org/FLOW3/Packages/TYPO3.TYPO3 refs/changes/91/13491/4 && git cherry-pick FETCH_HEAD
-
-
-	TYPO3.TypoScript:
-
-	# https://review.typo3.org/#/c/12648/
-	git fetch git://git.typo3.org/FLOW3/Packages/TYPO3.TypoScript refs/changes/48/12648/1 && git cherry-pick FETCH_HEAD
-
-	# https://review.typo3.org/#/c/12655/
-	git fetch git://git.typo3.org/FLOW3/Packages/TYPO3.TypoScript refs/changes/55/12655/1 && git cherry-pick FETCH_HEAD
-
-	# https://review.typo3.org/#/c/12649/
-	git fetch git://git.typo3.org/FLOW3/Packages/TYPO3.TypoScript refs/changes/49/12649/3 && git cherry-pick FETCH_HEAD
-
-	# http://review.typo3.org/13500
-	git fetch git://git.typo3.org/FLOW3/Packages/TYPO3.TypoScript refs/changes/00/13500/4 && git cherry-pick FETCH_HEAD
-
-	# https://review.typo3.org/#/c/13565/
-	git fetch git://git.typo3.org/FLOW3/Packages/TYPO3.TypoScript refs/changes/65/13565/1 && git cherry-pick FETCH_HEAD
 
 	TYPO3.Party:
 
@@ -52,7 +30,6 @@ See corresponding forge issue: http://forge.typo3.org/issues/37293
 
 	TYPO3.FLOW3:
 
-	# apply the patch from Patches/PropertyMapper.diff
 	# apply the patch from Patches/PropertyMappingConfiguration.diff
 
 ```

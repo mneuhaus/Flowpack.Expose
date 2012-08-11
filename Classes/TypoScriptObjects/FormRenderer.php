@@ -65,10 +65,9 @@ class FormRenderer extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTsObject 
     /**
      * Evaluate the collection nodes
      *
-     * @param mixed $context
      * @return string
      */
-    public function evaluate($context) {
+    public function evaluate() {
         $configuration = array();
         $class = $this->tsValue('class');
         if ($class !== NULL) {

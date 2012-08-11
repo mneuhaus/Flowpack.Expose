@@ -28,16 +28,15 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 class ControllerLink extends \TYPO3\TypoScript\TypoScriptObjects\FluidRenderer {
 
     /**
-     * @param mixed $context
      * @return string
      */
-    public function evaluate($context) {
+    public function evaluate() {
         if (isset($this->variables['arguments'])) {
             foreach ($this->variables['arguments'] as $key => $value) {
                 $this->variables['arguments'][$key] = $this->tsRuntime->evaluateProcessor('arguments.' . $key, $this, $value);
             }
         }
-        return parent::evaluate($context);
+        return parent::evaluate();
     }
 
 }
