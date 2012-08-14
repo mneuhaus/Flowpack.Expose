@@ -64,16 +64,21 @@ class AbstractRuntime {
 	 * @param \TYPO3\FLOW3\Http\Response $response
 	 * @internal
 	 */
-	public function __construct(\TYPO3\FLOW3\Mvc\ActionRequest $parentRequest) {
+	public function __construct(\TYPO3\FLOW3\Mvc\ActionRequest $parentRequest, \TYPO3\FLOW3\Http\Response $response) {
 		$arguments = $parentRequest->getPluginArguments();
 		$this->request = new ActionRequest($parentRequest);
 		$this->request->setArgumentNamespace('--' . $this->namespace);
 		if (isset($arguments[$this->namespace])) {
 			$this->request->setArguments($arguments[$this->namespace]);
 		}
+
+		if ($parentRequest->hasArgument('hideModuleDecoration')) {
+			$response->setHeader('X-TYPO3-Hide-Module-Decoration', '1');
+		}
+
 		$this->request->setFormat('html');
 		// TODO: the response below should be an MVC response
-		$this->response = new \TYPO3\FLOW3\Http\Response();
+		$this->response = new \TYPO3\FLOW3\Http\Response($response);
 	}
 
 	/**
@@ -123,12 +128,12 @@ class AbstractRuntime {
 
 	/**
 	 *
-	 * @return string rendered form
 	 * @api
 	 */
 	public function execute() {
 		$this->prepareExecution();
 		$this->dispatcher->dispatch($this->request, $this->response);
+
 		return $this->response->getContent();
 	}
 

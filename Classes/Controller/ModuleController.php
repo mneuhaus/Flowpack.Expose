@@ -40,7 +40,7 @@ class ModuleController extends \TYPO3\TYPO3\Controller\Module\StandardController
      * @return void
      */
     public function indexAction() {
-        $adminRuntime = new \TYPO3\Admin\Core\AdminRuntime($this->request);
+        $adminRuntime = new \TYPO3\Admin\Core\AdminRuntime($this->request, $this->response);
         if (isset($this->moduleConfiguration['defaultAdminControllerClassName'])) {
             $adminRuntime->setDefaultAdminContollerClassName($this->moduleConfiguration['defaultAdminControllerClassName']);
         }

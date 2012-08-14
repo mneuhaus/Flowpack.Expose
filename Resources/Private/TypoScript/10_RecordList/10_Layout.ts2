@@ -9,6 +9,8 @@ prototype(TYPO3.Admin:RecordList) < prototype(TYPO3.TypoScript:FluidRenderer) {
 	recordList.list = TYPO3.Admin:RecordList.List
 	recordList.table = TYPO3.Admin:RecordList.Table
 	navigationArea = TYPO3.TypoScript:TypoScriptArrayRenderer
+
+	localControllerLinks = TYPO3.Admin:LocalControllerLinks
 }
 
 # EXAMPLE on adding a new button in a certain context

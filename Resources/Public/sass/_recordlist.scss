@@ -1,0 +1,34 @@
+@import "compass/css3/transition";
+
+body:not(.js) .js {
+	display: none;
+}
+body.js .nojs {
+	display: none;
+}
+.typo3-admin-recordlist {
+	[data-area=main], [data-area=actionBar] {
+		@include transition-duration(0.2s);
+	}
+	[data-area=main] {
+		@include transition-property(width);
+	}
+	[data-area=actionBar] {
+		@include transition-property(opacity);
+
+		&:not(.hiddenActionBar) {
+			@include transition-delay(0.2s);
+		}
+		&.hiddenActionBar {
+			opacity: 0;
+		}
+	}
+
+	[data-area=actionBar] a {
+		display: block;
+	}
+
+	[data-area=records] .typo3-admin-active {
+		background-color: red;
+	}
+}

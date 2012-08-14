@@ -28,7 +28,7 @@ prototype(TYPO3.Admin:LocalControllerLinks) < prototype(TYPO3.TypoScript:TypoScr
 	20.label = 'Delete'
 	20.controller = 'TYPO3\\Admin\\Controller\\DeleteController'
 }
-
+prototype(TYPO3.Admin:LocalControllerLinks) << 1.wrap(prefix: '<div data-area="localControllerLinks">', suffix: '</div>')
 
 
 #
@@ -52,4 +52,5 @@ prototype(TYPO3.Admin:ControllerLink) {
 prototype(TYPO3.Admin:LocalControllerLink) < prototype(TYPO3.Admin:ControllerLink) {
 	arguments.object = ${item}
 	arguments.type = ${type}
+	htmlSuffix = '<span class="js" data-type="handlebars">{{#if multipleSelectionActive}} {{numberOfSelectedElements}} elements{{/if}}</span>'
 }

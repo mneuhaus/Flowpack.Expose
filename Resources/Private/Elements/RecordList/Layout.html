@@ -2,23 +2,42 @@
 {namespace cm=TYPO3\Admin\ViewHelpers}
 {namespace ts=TYPO3\TypoScript\ViewHelpers}
 
-<div class="row">
-	<div class="span3">
-		<ts:renderTypoScript path="navigationArea" />
-	</div>
-	<div class="span9">
-		<form method="POST">
+<div class="row typo3-admin-recordlist">
+	<form method="POST">
+		<div class="span2">
+			<ts:renderTypoScript path="navigationArea" />
+		</div>
+		<div class="span8" data-area="main">
 			<div class="list-actions">
-				<input type="text" placeholder="filter" />
 				<div class="pull-left">
 					<ts:renderTypoScript path="formatSelector" />
 				</div>
 				<div class="pull-right">
 					<ts:renderTypoScript path="controllerLinks" />
 				</div>
+				<input type="text" placeholder="filter" />
 			</div>
 
-			<ts:renderTypoScript path="recordList/{currentFormat}" />
-		</form>
-	</div>
+			<div data-area="records">
+				<ts:renderTypoScript path="recordList/{currentFormat}" />
+			</div>
+		</div>
+
+		<div class="span2 js actionBar" data-area="actionBar">
+			<h3>Action Bar</h3>
+			<ts:renderTypoScript path="localControllerLinks" />
+		</div>
+	</form>
 </div>
+
+<script src="{f:uri.resource(path: 'js/jquery.1.7.1.min.js', package: 'TYPO3.Admin')}"></script>
+
+<!-- TODO: emberjs and jQuery UI are included FROM THE TYPO3 Package here! -->
+<script src="{f:uri.resource(path: 'Library/emberjs/ember-0.9.7.js', package: 'TYPO3.TYPO3')}"></script>
+<script src="{f:uri.resource(path: 'Library/jquery-ui/js/jquery-ui-1.8.16.custom.min.js', package: 'TYPO3.TYPO3')}"></script>
+<link rel="stylesheet" href="{f:uri.resource(path: 'Library/jquery-ui/css/custom-theme/jquery-ui-1.8.16.custom.css', package: 'TYPO3.TYPO3')}" />
+
+<script src="{f:uri.resource(path: 'JavaScript/recordlist.js', package: 'TYPO3.Admin')}"></script>
+<script src="{f:uri.resource(path: 'JavaScript/recordlist-module.js', package: 'TYPO3.Admin')}"></script>
+
+<link rel="stylesheet" href="{f:uri.resource(path: 'css/main.css', package: 'TYPO3.Admin')}" />
