@@ -6,12 +6,23 @@
 # top; like "new" or a wizard for creating elements).
 # Second, there are "Element" AdminController links, which contain features relevant for a
 # certain element (like Edit, Delete)
-#
-# GlobalControllerLinks
-# ---------------------
-#
-# Render a list of links to all global AdminControllers available in a certain context
 
+
+/**
+ * Render a list of links to all global AdminControllers available.
+ *
+ * See {@link ../classes/TYPO3.TypoScript:TypoScriptArrayRenderer.html TypoScriptArrayRenderer} for documentation.
+ *
+ * Examples
+ * --------
+ *     10 = TYPO3.Admin:ControllerLink {
+ *         label = 'New'
+ *         controller = 'TYPO3\\Admin\\Controller\\NewController'
+ *         arguments.type = ${type}
+ *     }
+ *
+ * @param string type: entity type on which an adminController should be executed upon
+ */
 prototype(TYPO3.Admin:GlobalControllerLinks) < prototype(TYPO3.TypoScript:TypoScriptArrayRenderer) {
 	10 = TYPO3.Admin:ControllerLink
 	10.label = 'New'
@@ -19,6 +30,24 @@ prototype(TYPO3.Admin:GlobalControllerLinks) < prototype(TYPO3.TypoScript:TypoSc
 	10.arguments.type = ${type}
 }
 
+/**
+ * Render a list of links to all local AdminControllers available.
+ *
+ * a local admin Controller gets two parameters: a *type* and an *item*, the
+ * object on which to act upon.
+ *
+ * See {@link ../classes/TYPO3.TypoScript:TypoScriptArrayRenderer.html TypoScriptArrayRenderer} for documentation.
+ *
+ * Examples
+ * --------
+ *     10 = TYPO3.Admin:LocalControllerLink {
+ *         label = 'Edit'
+ *         controller = 'TYPO3\\Admin\\Controller\\EditController'
+ *     }
+ *
+ * @param string type: entity type on which an adminController should be executed upon
+ * @param object item: the item on which the adminController should be executed upon
+ */
 prototype(TYPO3.Admin:LocalControllerLinks) < prototype(TYPO3.TypoScript:TypoScriptArrayRenderer) {
 	10 = TYPO3.Admin:LocalControllerLink
 	10.label = 'Edit'
@@ -31,24 +60,27 @@ prototype(TYPO3.Admin:LocalControllerLinks) < prototype(TYPO3.TypoScript:TypoScr
 prototype(TYPO3.Admin:LocalControllerLinks) << 1.wrap(prefix: '<div data-area="localControllerLinks">', suffix: '</div>')
 
 
-#
-# ControllerLink
-# --------------
-#
-# Render a single controller link inside the "global actions" bar
-#
-# Parameters:
-# - feature: fully qualified class name pointing towards the feature
-# - label: human-readable label of the button
-# - iconClass: CSS-class name used for the icon, if any
-#
-# TODO: implement
+/**
+ * Render a single controller link
+ *
+ * This renders a single link-button inside the {@link ../classes/TYPO3.Admin:GlobalControllerLinks.html GlobalControllerLinks} TypoScript
+ * object. See this TypoScript object for usage examples.
+ *
+ * @param string label: human-readable label of the button
+ * @param string feature: fully qualified class name pointing towards the feature
+ * @optionalParam string iconClass: CSS-class name used for the icon, if any
+ */
 prototype(TYPO3.Admin:ControllerLink) {
 	implementationClassName = 'TYPO3\\Admin\\TypoScriptObjects\\ControllerLink'
 	templatePath = 'resource://TYPO3.Admin/Private/Elements/ControllerLink.html'
 }
 
-
+/**
+ * Render a single controller in the "local" namespace
+ *
+ * This renders a single link-button inside the {@link ../classes/TYPO3.Admin:LocalControllerLinks.html LocalControllerLinks} TypoScript
+ * object. See this TypoScript object for usage examples.
+ */
 prototype(TYPO3.Admin:LocalControllerLink) < prototype(TYPO3.Admin:ControllerLink) {
 	arguments.object = ${item}
 	arguments.type = ${type}
