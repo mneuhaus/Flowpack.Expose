@@ -14,11 +14,29 @@ namespace TYPO3\Admin\TypoScriptObjects;
 use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
- * Render a Form using the Form framework
+ * Render a Form section using the Form framework
  *
  * // REVIEWED for release
  */
-class FormRenderer extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTsObject {
+class SectionBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTsObject {
+
+	/**
+	 * @var string
+	 */
+	protected $identifier;
+
+	/**
+	 * @var \TYPO3\Form\Core\Model\AbstractSection
+	 */
+	protected $parentFormElement;
+
+	public function setIdentifier($identifier) {
+		$this->identifier = $identifier;
+	}
+
+	public function setParentFormElement($parentFormElement) {
+		$this->parentFormElement = $parentFormElement;
+	}
 
     /**
      * Evaluate the collection nodes
@@ -26,14 +44,13 @@ class FormRenderer extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTsObject 
      * @return string
      */
     public function evaluate() {
-		$formDefinition = $this->tsRuntime->evaluate($this->path . '/form');
-		if (!($formDefinition instanceof \TYPO3\Form\Core\Model\FormDefinition)) {
-			throw new \Exception("TODO: FormRenderer expects a form definition inside form/");
+		$parentFormElement = $this->tsValue('parentFormElement');
+		if (!($parentFormElement instanceof \TYPO3\Form\Core\Model\AbstractSection)) {
+			throw new \Exception('TODO: parent form element must be a section-like element');
 		}
-		/* @var $formDefinition \TYPO3\Form\Core\Model\FormDefinition */
-		$response = new \TYPO3\FLOW3\Http\Response($this->tsRuntime->getControllerContext()->getResponse());
-		$form = $formDefinition->bind($this->tsRuntime->getControllerContext()->getRequest()->getMainRequest(), $response);
-		return $form->render();
+		/* @var $parentFormElement \TYPO3\Form\Core\Model\AbstractSection */
+		return $parentFormElement->createElement($this->tsValue('identifier'), 'TYPO3.Form:Section');
     }
+
 }
 ?>

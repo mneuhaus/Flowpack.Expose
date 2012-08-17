@@ -37,10 +37,11 @@ class EditController extends \TYPO3\Admin\Core\AbstractAdminController {
     /**
      * Edit object or array of objects
      *
+	 * @param string $type
      * @param array $object
      */
-    public function indexAction($object) {
-		return 'Worked' . count($object);
+    public function indexAction($type, $object) {
+		$this->view->assign('className', $type);
         $this->view->assign('object', $object);
     }
 

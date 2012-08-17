@@ -116,7 +116,12 @@ TYPO3:
               label: 'Manage Content'
               controller: '\TYPO3\Admin\Controller\ModuleController'
               defaultAdminControllerClassName: '\TYPO3\Admin\Controller\ContentListController'
-
+            blogposts:
+              label: 'Blog Posts'
+              controller: '\TYPO3\Admin\Controller\ModuleController'
+              defaultAdminControllerClassName: '\TYPO3\Admin\Controller\SameTypeListController'
+              defaultAdminControllerArguments:
+                type: 'TYPO3\Blog\Domain\Model\Post'
   TYPO3CR:
     contentTypes:
       'TYPO3.TYPO3:Section':
