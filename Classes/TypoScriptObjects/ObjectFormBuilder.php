@@ -118,7 +118,6 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTsOb
 			$this->tsRuntime->pushContext('propertyType', $propertySchema['type']);
 			$this->tsRuntime->pushContext('propertyElementType', $propertySchema['elementType']);
 
-			var_dump($this->reflectionService->getPropertyAnnotations($className, $propertyName));
 			$section = $this->tsRuntime->render($this->path . '/elementBuilder');
 
 			$this->tsRuntime->popContext();
