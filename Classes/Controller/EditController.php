@@ -32,29 +32,32 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 class EditController extends \TYPO3\Admin\Core\AbstractAdminController {
 
 	public function initializeIndexAction() {
-		$this->arguments['object']->setDataType('array<' . $this->request->getArgument('type') . '>');
+		$this->arguments['object']->setDataType($this->request->getArgument('type'));
 	}
     /**
-     * Edit object or array of objects
+     * Edit object
      *
 	 * @param string $type
-     * @param array $object
+     * @param object $object
      */
     public function indexAction($type, $object) {
 		$this->view->assign('className', $type);
-        $this->view->assign('object', $object);
+		$this->view->assign('object', $object);
     }
 
+	public function initializeUpdateAction() {
+		$this->arguments['object']->setDataType($this->request->getArgument('type'));
+		$this->arguments['object']->getPropertyMappingConfiguration()->allowAllProperties();
+		$this->arguments['object']->getPropertyMappingConfiguration()->setTypeConverterOption('TYPO3\FLOW3\Property\TypeConverter\PersistentObjectConverter', \TYPO3\FLOW3\Property\TypeConverter\PersistentObjectConverter::CONFIGURATION_MODIFICATION_ALLOWED, TRUE);
+	}
     /**
-    * TODO: Document this Method! ( update )
+     * @param string $type
+	 * @param object $object
     */
-    public function update($formRuntime) {
-        $formValues = $formRuntime->getFormState()->getFormValues();
-        $object = $formValues['item'];
-        $class = get_class($object);
-        $this->metaPersistenceManager->updateObject($class, $object);
-        $this->redirect('index', 'List', null, array('being' => $class
-        ));
+    public function updateAction($type, $object) {
+        $this->persistenceManager->update($object);
+		// TODO: the redirect below still breaks :-(
+		$this->redirect('index', 'sametypelist', 'TYPO3.Admin', array('type' => $type));
     }
 }
 ?>

@@ -19,22 +19,28 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 class ControllerCallbackFinisher extends \TYPO3\Form\Core\Model\AbstractFinisher {
 
     /**
-     * @var \TYPO3\FLOW3\Object\ObjectManagerInterface
-     * @FLOW3\Inject
-     */
-    protected $objectManager;
-
-    /**
     * TODO: Document this Method! ( executeInternal )
     */
     public function executeInternal() {
-        $formRuntime = $this->finisherContext->getFormRuntime();
-        $controllerCallback = $this->parseOption('controllerCallback');
-        $controllerRequest = $formRuntime->getRequest()->getParentRequest();
-        $controllerName = $controllerRequest->getControllerObjectName();
-        $controller = $this->objectManager->get($controllerName);
-        $controller->initializeController($controllerRequest, $formRuntime->getResponse()->getParentResponse());
-        call_user_method_array($controllerCallback, $controller, array($formRuntime));
+		$formRuntime = $this->finisherContext->getFormRuntime();
+		$nextRequest = clone $formRuntime->getRequest()->getMainRequest();
+		$moduleArguments = $nextRequest->getArgument('moduleArguments');
+		$moduleArguments = $moduleArguments['--adminRuntime'];
+
+		$moduleArguments['@action'] = 'update'; // TODO make configurable
+		// TODO: will break with multiple objects
+		$moduleArguments['object'] = $formRuntime->getFormState()->getFormValue('form');
+
+		if (isset($this->options['objectIdentifier'])) {
+			$moduleArguments['object']['__identity'] = $this->options['objectIdentifier'];
+		}
+
+		$nextRequest->setArguments($moduleArguments);
+
+		$forwardException = new \TYPO3\FLOW3\Mvc\Exception\ForwardException();
+		$nextRequest->setDispatched(FALSE);
+		$forwardException->setNextRequest($nextRequest);
+		throw $forwardException;
     }
 
 }

@@ -32,10 +32,11 @@ prototype(TYPO3.Admin:FormBuilder) < prototype(TYPO3.TypoScript:Case) {
  * @param string formPresetName
  */
 prototype(TYPO3.Admin:ObjectFormBuilder) {
+	@override.formIdentifier = 'form'
 	implementationClassName = 'TYPO3\\Admin\\TypoScriptObjects\\ObjectFormBuilder'
 	className = ${className}
 	object = ${object}
-	formIdentifier = 'form'
+	formIdentifier = ${formIdentifier}
 	formPresetName = 'default'
 
 	sectionBuilder = TYPO3.Admin:Form.SectionBuilder
@@ -92,6 +93,6 @@ prototype(TYPO3.Admin:Form.DefaultElementBuilder) {
 	implementationClassName = 'TYPO3\\Admin\\TypoScriptObjects\\DefaultFormElementBuilder'
 	formFieldType = ${formFieldType}
 	parentFormElement = ${parentFormElement}
-	identifier = ${propertyName}
+	identifier = ${formIdentifier + '.' + propertyName}
 	label = ${propertyName}
 }

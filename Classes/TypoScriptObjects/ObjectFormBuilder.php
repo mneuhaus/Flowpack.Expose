@@ -28,9 +28,21 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTsOb
 
 	/**
 	 * @FLOW3\Inject
+	 * @var \TYPO3\FLOW3\Validation\ValidatorResolver
+	 */
+	protected $validatorResolver;
+
+	/**
+	 * @FLOW3\Inject
 	 * @var \TYPO3\FLOW3\Reflection\ReflectionService
 	 */
 	protected $reflectionService;
+
+	/**
+	 * @FLOW3\Inject
+	 * @var \TYPO3\FLOW3\Persistence\PersistenceManagerInterface
+	 */
+	protected $persistenceManager;
 
 	/**
 	 * the class name to build the form for
@@ -94,8 +106,51 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTsOb
 			$this->createElementsForSection($sectionName, $section);
 		}
 
+		$this->addValidatorsToForm($formDefinition);
+
+		$forwardFinisher = new \TYPO3\Admin\Finishers\ControllerCallbackFinisher();
+		$formDefinition->addFinisher($forwardFinisher);
+
+		$object = $this->tsValue('object');
+		if ($object !== NULL) {
+			$this->loadDefaultValuesIntoForm($formDefinition, $object);
+			$objectIdentifier = $this->persistenceManager->getIdentifierByObject($object);
+			$forwardFinisher->setOption('objectIdentifier', $objectIdentifier);
+		}
+
+
 		return $formDefinition;
     }
+
+	protected function addValidatorsToForm(\TYPO3\Form\Core\Model\FormDefinition $formDefinition) {
+		$className = $this->tsValue('className');
+		$baseValidator = $this->validatorResolver->getBaseValidatorConjunction($className, array('Default', 'Form'));
+		/* @var $baseValidator \TYPO3\FLOW3\Validation\Validator\ConjunctionValidator */
+		foreach ($baseValidator->getValidators() as $validator) {
+			if ($validator instanceof \TYPO3\FLOW3\Validation\Validator\GenericObjectValidator) {
+				/* @var $validator \TYPO3\FLOW3\Validation\Validator\GenericObjectValidator */
+				foreach ($validator->getPropertyValidators() as $propertyName => $propertyValidatorList) {
+					$formElement = $formDefinition->getElementByIdentifier($this->tsValue('formIdentifier') . '.' . $propertyName);
+					if ($formElement !== NULL) {
+						foreach ($propertyValidatorList as $propertyValidator) {
+							$formElement->addValidator($propertyValidator);
+						}
+					}
+				}
+			}
+		}
+	}
+
+	protected function loadDefaultValuesIntoForm(\TYPO3\Form\Core\Model\FormDefinition $formDefinition, $object) {
+		$properties = \TYPO3\FLOW3\Reflection\ObjectAccess::getGettableProperties($object);
+		foreach ($properties as $propertyName => $propertyValue) {
+			$formElement = $formDefinition->getElementByIdentifier($this->tsValue('formIdentifier') . '.' . $propertyName);
+			if ($formElement !== NULL) {
+				$formElement->setDefaultValue($propertyValue);
+			}
+		}
+
+	}
 
 	protected function findSections() {
 		// TODO implement
