@@ -32,7 +32,7 @@ class FormRenderer extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTsObject 
 		}
 		/* @var $formDefinition \TYPO3\Form\Core\Model\FormDefinition */
 		$response = new \TYPO3\FLOW3\Http\Response($this->tsRuntime->getControllerContext()->getResponse());
-		$form = $formDefinition->bind($this->tsRuntime->getControllerContext()->getRequest()->getMainRequest(), $response);
+		$form = $formDefinition->bind($this->tsRuntime->getControllerContext()->getRequest(), $response);
 		return $form->render();
     }
 }
