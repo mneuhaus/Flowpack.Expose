@@ -59,6 +59,13 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTsOb
 	protected $object = NULL;
 
 	/**
+	 * The identifier for the current object being edited
+	 *
+	 * @var string
+	 */
+	protected $currentObjectIdentifier = NULL;
+
+	/**
 	 * @var string
 	 */
 	protected $formIdentifier;
@@ -83,6 +90,11 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTsOb
 	public function setFormPresetName($formPresetName) {
 		$this->formPresetName = $formPresetName;
 	}
+
+	public function setCurrentObjectIdentifier($currentObjectIdentifier) {
+		$this->currentObjectIdentifier = $currentObjectIdentifier;
+	}
+
 
     /**
      * Evaluate the collection nodes
@@ -130,7 +142,7 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTsOb
 			if ($validator instanceof \TYPO3\FLOW3\Validation\Validator\GenericObjectValidator) {
 				/* @var $validator \TYPO3\FLOW3\Validation\Validator\GenericObjectValidator */
 				foreach ($validator->getPropertyValidators() as $propertyName => $propertyValidatorList) {
-					$formElement = $formDefinition->getElementByIdentifier($this->tsValue('formIdentifier') . '.' . $propertyName);
+					$formElement = $formDefinition->getElementByIdentifier($this->tsValue('currentObjectIdentifier') . '.' . $propertyName);
 					if ($formElement !== NULL) {
 						foreach ($propertyValidatorList as $propertyValidator) {
 							$formElement->addValidator($propertyValidator);
@@ -144,7 +156,7 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTsOb
 	protected function loadDefaultValuesIntoForm(\TYPO3\Form\Core\Model\FormDefinition $formDefinition, $object) {
 		$properties = \TYPO3\FLOW3\Reflection\ObjectAccess::getGettableProperties($object);
 		foreach ($properties as $propertyName => $propertyValue) {
-			$formElement = $formDefinition->getElementByIdentifier($this->tsValue('formIdentifier') . '.' . $propertyName);
+			$formElement = $formDefinition->getElementByIdentifier($this->tsValue('currentObjectIdentifier') . '.' . $propertyName);
 			if ($formElement !== NULL) {
 				$formElement->setDefaultValue($propertyValue);
 			}

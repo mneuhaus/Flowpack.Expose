@@ -23,19 +23,16 @@ class ControllerCallbackFinisher extends \TYPO3\Form\Core\Model\AbstractFinisher
     */
     public function executeInternal() {
 		$formRuntime = $this->finisherContext->getFormRuntime();
-		$nextRequest = clone $formRuntime->getRequest()->getMainRequest();
-		$moduleArguments = $nextRequest->getArgument('moduleArguments');
-		$moduleArguments = $moduleArguments['--adminRuntime'];
+		$nextRequest = clone $formRuntime->getRequest()->getParentRequest();
 
-		$moduleArguments['@action'] = 'update'; // TODO make configurable
-		// TODO: will break with multiple objects
-		$moduleArguments['object'] = $formRuntime->getFormState()->getFormValue('form');
+			// TODO: make configurable
+		$nextRequest->setArgument('@action', 'update');
 
+		$objectArgument = $formRuntime->getFormState()->getFormValue('object');
 		if (isset($this->options['objectIdentifier'])) {
-			$moduleArguments['object']['__identity'] = $this->options['objectIdentifier'];
+			$objectArgument['__identity'] = $this->options['objectIdentifier'];
 		}
-
-		$nextRequest->setArguments($moduleArguments);
+		$nextRequest->setArgument('object', $objectArgument);
 
 		$forwardException = new \TYPO3\FLOW3\Mvc\Exception\ForwardException();
 		$nextRequest->setDispatched(FALSE);
