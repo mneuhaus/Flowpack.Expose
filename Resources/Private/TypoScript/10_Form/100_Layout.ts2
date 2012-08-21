@@ -27,7 +27,7 @@ prototype(TYPO3.Admin:FormBuilder) < prototype(TYPO3.TypoScript:Case) {
 
 /**
  * @param string className=${className}
- * @param object object=${object} (optional)
+ * @param object objects=${objects} (optional) list of objects to be (optionally) bound to the form
  * @param string formIdentifier
  * @param string formPresetName
  */
@@ -35,7 +35,7 @@ prototype(TYPO3.Admin:ObjectFormBuilder) {
 	@override.currentObjectIdentifier = 'object'
 	implementationClassName = 'TYPO3\\Admin\\TypoScriptObjects\\ObjectFormBuilder'
 	className = ${className}
-	object = ${object}
+	objects = ${objects}
 	formIdentifier = 'form'
 	currentObjectIdentifier = ${currentObjectIdentifier}
 	formPresetName = 'default'
@@ -87,13 +87,13 @@ prototype(TYPO3.Admin:Form.ElementBuilder) < prototype(TYPO3.TypoScript:Case) {
 /**
  * @param formFieldType=${formFieldType}
  * @param parentFormElement=${parentFormElement}
- * @param identifier=${identifier}
+ * @param identifier=${formElementIdentifier}
  * @param label=${propertyName}
  */
 prototype(TYPO3.Admin:Form.DefaultElementBuilder) {
 	implementationClassName = 'TYPO3\\Admin\\TypoScriptObjects\\DefaultFormElementBuilder'
 	formFieldType = ${formFieldType}
 	parentFormElement = ${parentFormElement}
-	identifier = ${currentObjectIdentifier + '.' + propertyName}
+	identifier = ${formElementIdentifier}
 	label = ${propertyName}
 }

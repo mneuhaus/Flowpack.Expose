@@ -52,11 +52,11 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTsOb
 	protected $className;
 
 	/**
-	 * if set, the object being used
+	 * if set, the objects being used
 	 *
 	 * @var object
 	 */
-	protected $object = NULL;
+	protected $objects = NULL;
 
 	/**
 	 * The identifier for the current object being edited
@@ -79,8 +79,8 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTsOb
 		$this->className = $className;
 	}
 
-	public function setObject($object) {
-		$this->object = $object;
+	public function setObjects($objects) {
+		$this->objects = $objects;
 	}
 
 	public function setFormIdentifier($formIdentifier) {
@@ -105,36 +105,47 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTsOb
 		$formDefinition = $this->baseFormFactory->build(array('identifier' => $this->tsValue('formIdentifier')), $this->tsValue('formPresetName'));
 		$page = $formDefinition->createPage('page1');
 
+		$forwardFinisher = new \TYPO3\Admin\Finishers\ControllerCallbackFinisher();
+		$formDefinition->addFinisher($forwardFinisher);
+
+		$objectNamespaces = array();
+		if ($this->objects !== NULL && count($this->objects) > 0) {
+			$i = 0;
+			$objectIdentifiers = array();
+			foreach ($this->tsValue('objects') as $object) {
+				$this->createFormForSingleObject($page, 'objects.' . $i);
+				$objectNamespaces[] = 'objects.' . $i;
+				$this->loadDefaultValuesIntoForm($formDefinition, $object, 'objects.' . $i);
+				$objectIdentifiers[] = $this->persistenceManager->getIdentifierByObject($object);
+				$i++;
+			}
+
+			$forwardFinisher->setOption('objectIdentifiers', $objectIdentifiers);
+		} else {
+			$this->createFormForSingleObject($page, 'objects.0.');
+			$objectNamespaces[] = 'objects.0';
+		}
+
+		$this->addValidatorsToForm($formDefinition, $objectNamespaces);
+		return $formDefinition;
+	}
+
+	protected function createFormForSingleObject(\TYPO3\Form\Core\Model\AbstractSection $parentFormElement, $namespace = '') {
 		$sectionNames = $this->findSections();
 		foreach ($sectionNames as $sectionName) {
 			// TODO: Handle recursive sections
 			// TODO: clean up code
-			$this->tsRuntime->pushContext('parentFormElement', $page);
-			$this->tsRuntime->pushContext('identifier', $sectionName);
+			$this->tsRuntime->pushContext('parentFormElement', $parentFormElement);
+			$this->tsRuntime->pushContext('identifier', $sectionName . '.' . $namespace);
 			$section = $this->tsRuntime->render($this->path . '/sectionBuilder');
 			$this->tsRuntime->popContext();
 			$this->tsRuntime->popContext();
 
-			$this->createElementsForSection($sectionName, $section);
+			$this->createElementsForSection($sectionName, $section, $namespace);
 		}
-
-		$this->addValidatorsToForm($formDefinition);
-
-		$forwardFinisher = new \TYPO3\Admin\Finishers\ControllerCallbackFinisher();
-		$formDefinition->addFinisher($forwardFinisher);
-
-		$object = $this->tsValue('object');
-		if ($object !== NULL) {
-			$this->loadDefaultValuesIntoForm($formDefinition, $object);
-			$objectIdentifier = $this->persistenceManager->getIdentifierByObject($object);
-			$forwardFinisher->setOption('objectIdentifier', $objectIdentifier);
-		}
-
-
-		return $formDefinition;
     }
 
-	protected function addValidatorsToForm(\TYPO3\Form\Core\Model\FormDefinition $formDefinition) {
+	protected function addValidatorsToForm(\TYPO3\Form\Core\Model\FormDefinition $formDefinition, $objectNamespaces) {
 		$className = $this->tsValue('className');
 		$baseValidator = $this->validatorResolver->getBaseValidatorConjunction($className, array('Default', 'Form'));
 		/* @var $baseValidator \TYPO3\FLOW3\Validation\Validator\ConjunctionValidator */
@@ -142,21 +153,25 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTsOb
 			if ($validator instanceof \TYPO3\FLOW3\Validation\Validator\GenericObjectValidator) {
 				/* @var $validator \TYPO3\FLOW3\Validation\Validator\GenericObjectValidator */
 				foreach ($validator->getPropertyValidators() as $propertyName => $propertyValidatorList) {
-					$formElement = $formDefinition->getElementByIdentifier($this->tsValue('currentObjectIdentifier') . '.' . $propertyName);
-					if ($formElement !== NULL) {
-						foreach ($propertyValidatorList as $propertyValidator) {
-							$formElement->addValidator($propertyValidator);
+					foreach ($objectNamespaces as $objectNamespace) {
+						$formElement = $formDefinition->getElementByIdentifier($objectNamespace . '.' . $propertyName);
+						if ($formElement !== NULL) {
+							foreach ($propertyValidatorList as $propertyValidator) {
+								$formElement->addValidator($propertyValidator);
+							}
 						}
 					}
 				}
+			} else {
+				// TODO: implement ELSE-case for other validators
 			}
 		}
 	}
 
-	protected function loadDefaultValuesIntoForm(\TYPO3\Form\Core\Model\FormDefinition $formDefinition, $object) {
+	protected function loadDefaultValuesIntoForm(\TYPO3\Form\Core\Model\FormDefinition $formDefinition, $object, $namespace) {
 		$properties = \TYPO3\FLOW3\Reflection\ObjectAccess::getGettableProperties($object);
 		foreach ($properties as $propertyName => $propertyValue) {
-			$formElement = $formDefinition->getElementByIdentifier($this->tsValue('currentObjectIdentifier') . '.' . $propertyName);
+			$formElement = $formDefinition->getElementByIdentifier($namespace . '.' . $propertyName);
 			if ($formElement !== NULL) {
 				$formElement->setDefaultValue($propertyValue);
 			}
@@ -169,7 +184,7 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTsOb
 		return array('Default');
 	}
 
-	protected function createElementsForSection($sectionName, \TYPO3\Form\FormElements\Section $section) {
+	protected function createElementsForSection($sectionName, \TYPO3\Form\FormElements\Section $section, $namespace) {
 		// TODO evaluate $sectionName
 		$className = $this->tsValue('className');
 		$propertyNames = $this->reflectionService->getClassPropertyNames($className);
@@ -181,12 +196,14 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTsOb
 
 			$this->tsRuntime->pushContext('className', $className);
 			$this->tsRuntime->pushContext('propertyName', $propertyName);
+			$this->tsRuntime->pushContext('formElementIdentifier', $namespace . '.' . $propertyName);
 			$this->tsRuntime->pushContext('propertyAnnotations', $this->reflectionService->getPropertyAnnotations($className, $propertyName));
 			$this->tsRuntime->pushContext('propertyType', $propertySchema['type']);
 			$this->tsRuntime->pushContext('propertyElementType', $propertySchema['elementType']);
 
 			$section = $this->tsRuntime->render($this->path . '/elementBuilder');
 
+			$this->tsRuntime->popContext();
 			$this->tsRuntime->popContext();
 			$this->tsRuntime->popContext();
 			$this->tsRuntime->popContext();

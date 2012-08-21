@@ -28,11 +28,13 @@ class ControllerCallbackFinisher extends \TYPO3\Form\Core\Model\AbstractFinisher
 			// TODO: make configurable
 		$nextRequest->setArgument('@action', 'update');
 
-		$objectArgument = $formRuntime->getFormState()->getFormValue('object');
-		if (isset($this->options['objectIdentifier'])) {
-			$objectArgument['__identity'] = $this->options['objectIdentifier'];
+		$objectArguments = $formRuntime->getFormState()->getFormValue('objects');
+		if (isset($this->options['objectIdentifiers'])) {
+			foreach ($this->options['objectIdentifiers'] as $i => $identifier) {
+				$objectArguments[$i]['__identity'] = $identifier;
+			}
 		}
-		$nextRequest->setArgument('object', $objectArgument);
+		$nextRequest->setArgument('objects', $objectArguments);
 
 		$forwardException = new \TYPO3\FLOW3\Mvc\Exception\ForwardException();
 		$nextRequest->setDispatched(FALSE);

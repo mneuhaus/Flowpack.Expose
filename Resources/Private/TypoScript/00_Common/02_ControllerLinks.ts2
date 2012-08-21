@@ -82,7 +82,7 @@ prototype(TYPO3.Admin:ControllerLink) {
  * object. See this TypoScript object for usage examples.
  */
 prototype(TYPO3.Admin:LocalControllerLink) < prototype(TYPO3.Admin:ControllerLink) {
-	arguments.object = ${item}
+	arguments.objects.0 = ${item}
 	arguments.type = ${type}
 	htmlSuffix = '<span class="js" data-type="handlebars">{{#if multipleSelectionActive}} {{numberOfSelectedElements}} elements{{/if}}</span>'
 }

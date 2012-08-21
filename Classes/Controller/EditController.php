@@ -32,30 +32,39 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 class EditController extends \TYPO3\Admin\Core\AbstractAdminController {
 
 	public function initializeIndexAction() {
-		$this->arguments['object']->setDataType($this->request->getArgument('type'));
+		$this->arguments['objects']->setDataType('Doctrine\Common\Collections\Collection<' . $this->request->getArgument('type') . '>');
+		$this->arguments['objects']->getPropertyMappingConfiguration()->allowAllProperties();
 	}
     /**
      * Edit object
      *
 	 * @param string $type
-     * @param object $object
+     * @param Doctrine\Common\Collections\Collection $objects
      */
-    public function indexAction($type, $object) {
+    public function indexAction($type, $objects) {
 		$this->view->assign('className', $type);
-		$this->view->assign('object', $object);
+		$this->view->assign('objects', $objects);
     }
 
 	public function initializeUpdateAction() {
-		$this->arguments['object']->setDataType($this->request->getArgument('type'));
-		$this->arguments['object']->getPropertyMappingConfiguration()->allowAllProperties();
-		$this->arguments['object']->getPropertyMappingConfiguration()->setTypeConverterOption('TYPO3\FLOW3\Property\TypeConverter\PersistentObjectConverter', \TYPO3\FLOW3\Property\TypeConverter\PersistentObjectConverter::CONFIGURATION_MODIFICATION_ALLOWED, TRUE);
+		$this->arguments['objects']->setDataType('Doctrine\Common\Collections\Collection<' . $this->request->getArgument('type') . '>');
+		$propertyMappingConfiguration = $this->arguments['objects']->getPropertyMappingConfiguration();
+		$propertyMappingConfiguration->allowAllProperties();
+		foreach ($this->request->getArgument('objects') as $index => $tmp) {
+			$propertyMappingConfiguration->forProperty($index)
+					->allowAllProperties()
+					->setTypeConverterOption('TYPO3\FLOW3\Property\TypeConverter\PersistentObjectConverter', \TYPO3\FLOW3\Property\TypeConverter\PersistentObjectConverter::CONFIGURATION_MODIFICATION_ALLOWED, TRUE);
+		}
+
 	}
     /**
      * @param string $type
-	 * @param object $object
-    */
-    public function updateAction($type, $object) {
-        $this->persistenceManager->update($object);
+	 * @param Doctrine\Common\Collections\Collection $objects
+     */
+    public function updateAction($type, $objects) {
+		foreach ($objects as $object) {
+			$this->persistenceManager->update($object);
+		}
 		// TODO: the redirect below still breaks :-(
 		$this->redirect('index', 'sametypelist', 'TYPO3.Admin', array('type' => $type));
     }

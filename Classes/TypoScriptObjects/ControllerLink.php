@@ -32,13 +32,20 @@ class ControllerLink extends \TYPO3\TypoScript\TypoScriptObjects\FluidRenderer {
      */
     public function evaluate() {
         if (isset($this->variables['arguments'])) {
-            foreach ($this->variables['arguments'] as $key => $value) {
-                $this->variables['arguments'][$key] = $this->tsRuntime->evaluateProcessor('arguments.' . $key, $this, $value);
-            }
+			$this->recursivelyEvaluateProcessor($this->variables['arguments'], 'arguments');
         }
         return parent::evaluate();
     }
 
+	protected function recursivelyEvaluateProcessor(&$array, $namespace) {
+		foreach ($array as $key => $value) {
+			$array[$key] = $this->tsRuntime->evaluateProcessor($namespace . '.' . $key, $this, $value);
+			if (is_array($array[$key])) {
+				$this->recursivelyEvaluateProcessor($array[$key], $namespace . '.' . $key);
+			}
+		}
+
+	}
 }
 
 ?>
