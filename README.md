@@ -1,10 +1,19 @@
 # Admin Module for TYPO3.TYPO3 using TYPO3.Form
 
+## Current Status
+
+* Basic listing + editing of nodes and content works
+* To test editing of content: Install "Blog" package, set up demo blogs using CLI
+
 ## TODO list
 
-* Refactor Reflection API
-* Naming: change package namespace to "TYPO3.Admin"
-* Naming: change "Feature" to "Admin Controller"
+* CREATION of objects
+* Refactor Reflection API to make annotations overridable
+* Sorting, Filtering, Paging of List view
+* AJAX functionality
+* Mass edit?
+* Edit relations (Selection, ...)
+* Further clean up of un-used code, resources, Configuration
 
 ## Installation
 
@@ -23,13 +32,8 @@ See corresponding forge issue: http://forge.typo3.org/issues/37293
 
 ```
 
-	TYPO3.Party:
-
-	# apply the patch from Patches/AbstractParty.diff
-
-
-	TYPO3.FLOW3:
-
-	# apply the patch from Patches/PropertyMappingConfiguration.diff
+	TYPO3.Fluid:
+	# https://review.typo3.org/#/c/13972
+	git fetch git://git.typo3.org/FLOW3/Packages/TYPO3.Fluid refs/changes/72/13972/1 && git cherry-pick FETCH_HEAD
 
 ```
