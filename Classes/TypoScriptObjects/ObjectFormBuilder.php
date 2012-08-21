@@ -59,13 +59,6 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTsOb
 	protected $objects = NULL;
 
 	/**
-	 * The identifier for the current object being edited
-	 *
-	 * @var string
-	 */
-	protected $currentObjectIdentifier = NULL;
-
-	/**
 	 * @var string
 	 */
 	protected $formIdentifier;
@@ -90,11 +83,6 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTsOb
 	public function setFormPresetName($formPresetName) {
 		$this->formPresetName = $formPresetName;
 	}
-
-	public function setCurrentObjectIdentifier($currentObjectIdentifier) {
-		$this->currentObjectIdentifier = $currentObjectIdentifier;
-	}
-
 
     /**
      * Evaluate the collection nodes

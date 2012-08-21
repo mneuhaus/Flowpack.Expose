@@ -32,12 +32,10 @@ prototype(TYPO3.Admin:FormBuilder) < prototype(TYPO3.TypoScript:Case) {
  * @param string formPresetName
  */
 prototype(TYPO3.Admin:ObjectFormBuilder) {
-	@override.currentObjectIdentifier = 'object'
 	implementationClassName = 'TYPO3\\Admin\\TypoScriptObjects\\ObjectFormBuilder'
 	className = ${className}
 	objects = ${objects}
 	formIdentifier = 'form'
-	currentObjectIdentifier = ${currentObjectIdentifier}
 	formPresetName = 'default'
 
 	sectionBuilder = TYPO3.Admin:Form.SectionBuilder
