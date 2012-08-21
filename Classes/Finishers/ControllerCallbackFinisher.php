@@ -29,10 +29,9 @@ class ControllerCallbackFinisher extends \TYPO3\Form\Core\Model\AbstractFinisher
 		$nextRequest->setArgument('@action', 'update');
 
 		$objectArguments = $formRuntime->getFormState()->getFormValue('objects');
+
 		if (isset($this->options['objectIdentifiers'])) {
-			foreach ($this->options['objectIdentifiers'] as $i => $identifier) {
-				$objectArguments[$i]['__identity'] = $identifier;
-			}
+			$objectArguments = \TYPO3\FLOW3\Utility\Arrays::arrayMergeRecursiveOverrule($objectArguments, $this->options['objectIdentifiers']);
 		}
 		$nextRequest->setArgument('objects', $objectArguments);
 

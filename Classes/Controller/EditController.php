@@ -63,9 +63,13 @@ class EditController extends \TYPO3\Admin\Core\AbstractAdminController {
      */
     public function updateAction($type, $objects) {
 		foreach ($objects as $object) {
-			$this->persistenceManager->update($object);
+				// TODO: the if-condition below is a little hack such that we do NOT persist for TYPO3CR Node objects,
+				// which are already persisted as they are stateful.
+			if (!$this->persistenceManager->isNewObject($object)) {
+				$this->persistenceManager->update($object);
+			}
 		}
-		// TODO: the redirect below still breaks :-(
+		// TODO: the redirect below must somehow be configurable; we need some kind of "Referrer"
 		$this->redirect('index', 'sametypelist', 'TYPO3.Admin', array('type' => $type));
     }
 }

@@ -52,6 +52,11 @@ class NodeFormBuilder extends ObjectFormBuilder {
 		$this->tsRuntime->popContext();
 	}
 
+	protected function getObjectIdentifierArrayForObject($object) {
+		/* @var $object \TYPO3\TYPO3CR\Domain\Model\NodeInterface */
+		return array('__contextNodePath' => $object->getContextPath());
+	}
+
 	protected function getLabelForObject($object) {
 		/* @var $object \TYPO3\TYPO3CR\Domain\Model\NodeInterface */
 		return $object->getLabel();

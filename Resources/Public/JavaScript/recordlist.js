@@ -90,7 +90,9 @@
 			this.get('currentSelection').forEach(function(identifier) {
 				uri += encodeURI('&moduleArguments[--adminRuntime][objects][]=') + encodeURIComponent(identifier);
 			});
-			uri += encodeURI('&moduleArguments[hideModuleDecoration]=1');
+
+			window.location.href = uri;
+			/*uri += encodeURI('&moduleArguments[hideModuleDecoration]=1');
 
 			var $dialog = $('<div></div>')
 				.html('<iframe style="border: 0px; " src="' + uri + '" width="100%" height="100%"></iframe>')
@@ -102,6 +104,7 @@
 					title: title,
 					zIndex: 10050
 				});
+			*/
 		}
 	});
 

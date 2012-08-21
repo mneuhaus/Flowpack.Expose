@@ -104,7 +104,7 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTsOb
 				$this->createFormForSingleObject($page, $object, 'objects.' . $i);
 				$objectNamespaces[] = 'objects.' . $i;
 				$this->loadDefaultValuesIntoForm($formDefinition, $object, 'objects.' . $i);
-				$objectIdentifiers[] = $this->persistenceManager->getIdentifierByObject($object);
+				$objectIdentifiers[] = $this->getObjectIdentifierArrayForObject($object);
 				$i++;
 			}
 
@@ -116,6 +116,9 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTsOb
 
 		$this->addValidatorsToForm($formDefinition, $objectNamespaces);
 		return $formDefinition;
+	}
+	protected function getObjectIdentifierArrayForObject($object) {
+		return array('__identity' => $this->persistenceManager->getIdentifierByObject($object));
 	}
 
 	protected function createFormForSingleObject(\TYPO3\Form\Core\Model\AbstractSection $parentFormElement, $object, $namespace = '') {
