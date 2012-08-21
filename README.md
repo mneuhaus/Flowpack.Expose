@@ -2,8 +2,8 @@
 
 ## Current Status
 
-* Basic listing + editing of nodes and content works
-* To test editing of content: Install "Blog" package, set up demo blogs using CLI
+* Basic listing + editing of nodes and domain objects works
+* To test editing of domain objects: Install "Blog" package, set up demo blogs using CLI
 
 ## TODO list
 
