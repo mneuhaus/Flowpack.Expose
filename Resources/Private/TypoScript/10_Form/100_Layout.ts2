@@ -42,8 +42,19 @@ prototype(TYPO3.Admin:ObjectFormBuilder) {
 	elementBuilder = TYPO3.Admin:Form.ElementBuilder
 }
 
+/**
+ * @param object objects=${objects} (optional) list of objects to be (optionally) bound to the form
+ * @param string formIdentifier
+ * @param string formPresetName
+ */
 prototype(TYPO3.Admin:NodeFormBuilder) {
-	# TODO
+	implementationClassName = 'TYPO3\\Admin\\TypoScriptObjects\\NodeFormBuilder'
+	objects = ${objects}
+	formIdentifier = 'form'
+	formPresetName = 'default'
+
+	sectionBuilder = TYPO3.Admin:Form.SectionBuilder
+	elementBuilder = TYPO3.Admin:Form.ElementBuilder
 }
 
 /**

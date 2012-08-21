@@ -101,7 +101,7 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTsOb
 			$i = 0;
 			$objectIdentifiers = array();
 			foreach ($this->tsValue('objects') as $object) {
-				$this->createFormForSingleObject($page, 'objects.' . $i);
+				$this->createFormForSingleObject($page, $object, 'objects.' . $i);
 				$objectNamespaces[] = 'objects.' . $i;
 				$this->loadDefaultValuesIntoForm($formDefinition, $object, 'objects.' . $i);
 				$objectIdentifiers[] = $this->persistenceManager->getIdentifierByObject($object);
@@ -110,7 +110,7 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTsOb
 
 			$forwardFinisher->setOption('objectIdentifiers', $objectIdentifiers);
 		} else {
-			$this->createFormForSingleObject($page, 'objects.0.');
+			$this->createFormForSingleObject($page, NULL, 'objects.0.');
 			$objectNamespaces[] = 'objects.0';
 		}
 
@@ -118,7 +118,7 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTsOb
 		return $formDefinition;
 	}
 
-	protected function createFormForSingleObject(\TYPO3\Form\Core\Model\AbstractSection $parentFormElement, $namespace = '') {
+	protected function createFormForSingleObject(\TYPO3\Form\Core\Model\AbstractSection $parentFormElement, $object, $namespace = '') {
 		$sectionNames = $this->findSections();
 		foreach ($sectionNames as $sectionName) {
 			// TODO: Handle recursive sections
@@ -129,9 +129,14 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTsOb
 			$this->tsRuntime->popContext();
 			$this->tsRuntime->popContext();
 
-			$this->createElementsForSection($sectionName, $section, $namespace);
+			$section->setLabel($this->getLabelForObject($object));
+			$this->createElementsForSection($sectionName, $section, $namespace, $object);
 		}
     }
+
+	protected function getLabelForObject($object) {
+
+	}
 
 	protected function addValidatorsToForm(\TYPO3\Form\Core\Model\FormDefinition $formDefinition, $objectNamespaces) {
 		$className = $this->tsValue('className');
@@ -164,7 +169,6 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTsOb
 				$formElement->setDefaultValue($propertyValue);
 			}
 		}
-
 	}
 
 	protected function findSections() {
@@ -172,7 +176,7 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTsOb
 		return array('Default');
 	}
 
-	protected function createElementsForSection($sectionName, \TYPO3\Form\FormElements\Section $section, $namespace) {
+	protected function createElementsForSection($sectionName, \TYPO3\Form\FormElements\Section $section, $namespace, $object) {
 		// TODO evaluate $sectionName
 		$className = $this->tsValue('className');
 		$propertyNames = $this->reflectionService->getClassPropertyNames($className);
