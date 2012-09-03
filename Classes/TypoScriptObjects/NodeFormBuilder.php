@@ -19,11 +19,6 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * // REVIEWED for release
  */
 class NodeFormBuilder extends ObjectFormBuilder {
-	/**
-	 * @FLOW3\Inject
-	 * @var \TYPO3\TYPO3CR\Domain\Service\ContentTypeManager
-	 */
-	protected $contentTypeManager;
 
 	protected function addValidatorsToForm(\TYPO3\Form\Core\Model\FormDefinition $formDefinition, $objectNamespaces) {
 	}
@@ -31,7 +26,7 @@ class NodeFormBuilder extends ObjectFormBuilder {
 	protected function createElementsForSection($sectionName, \TYPO3\Form\FormElements\Section $section, $namespace, $object) {
 		// TODO evaluate $sectionName
 		/* @var $object \TYPO3\TYPO3CR\Domain\Model\NodeInterface */
-		$contentType = $this->contentTypeManager->getContentType($object->getContentType());
+		$contentType = $object->getContentType();
 
 		$this->tsRuntime->pushContext('parentFormElement', $section);
 		foreach ($contentType->getProperties() as $propertyName => $propertySchema) {

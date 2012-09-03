@@ -37,12 +37,6 @@ class EelNodeLabelGenerator implements \TYPO3\TYPO3CR\Domain\Model\NodeLabelGene
 
     /**
      * @FLOW3\Inject
-     * @var \TYPO3\TYPO3CR\Domain\Service\ContentTypeManager
-     */
-    protected $contentTypeManager;
-
-    /**
-     * @FLOW3\Inject
      * @var \TYPO3\Eel\EelEvaluatorInterface
      */
     protected $eelEvaluator;
@@ -54,7 +48,7 @@ class EelNodeLabelGenerator implements \TYPO3\TYPO3CR\Domain\Model\NodeLabelGene
      * @return string
      */
     public function getLabel(\TYPO3\TYPO3CR\Domain\Model\NodeInterface $node) {
-        $contentType = $this->contentTypeManager->getContentType($node->getContentType());
+        $contentType = $node->getContentType();
         $options = $contentType->getNodeLabelGeneratorOptions();
         $variables = array('context' => new \TYPO3\Eel\FlowQuery\FlowQuery(array($node
         	)),
