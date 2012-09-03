@@ -1,30 +1,42 @@
 # string formatter expects the "value" to contain the object to be converted
 prototype(TYPO3.Admin:StringFormatter) < prototype(TYPO3.TypoScript:Case) {
-	matchers {
-		10.condition = ${q(value).is('[instanceof string]')}
-		10.type = 'TYPO3.Admin:StringFormatter.String'
 
-		11.condition = ${q(value).is('[instanceof integer]')}
-		11.type = 'TYPO3.Admin:StringFormatter.String'
+	string.condition = ${q(value).is('[instanceof string]')}
+	string.type = 'TYPO3.Admin:StringFormatter.String'
+	string.@position = 10
 
-		12.condition = ${q(value).is('[instanceof float]')}
-		12.type = 'TYPO3.Admin:StringFormatter.Float'
+	int.condition = ${q(value).is('[instanceof integer]')}
+	int.type = 'TYPO3.Admin:StringFormatter.String'
+	int.@position = 10
 
-		13.condition = ${q(value).is('[instanceof boolean]')}
-		13.type = 'TYPO3.Admin:StringFormatter.Boolean'
+	float.condition = ${q(value).is('[instanceof float]')}
+	float.type = 'TYPO3.Admin:StringFormatter.Float'
+	float.@position = 10
 
-		14.condition = ${q(value).is('[instanceof DateTime]')}
-		14.type = 'TYPO3.Admin:StringFormatter.DateTime'
+	bool.condition = ${q(value).is('[instanceof boolean]')}
+	bool.type = 'TYPO3.Admin:StringFormatter.Boolean'
+	bool.@position = 10
 
-		15.condition = ${q(value).is('[instanceof array]')}
-		15.type = 'TYPO3.Admin:StringFormatter.Array'
+	array.condition = ${q(value).is('[instanceof array]')}
+	array.type = 'TYPO3.Admin:StringFormatter.Array'
+	array.@position = 10
 
-		20.condition = ${q(value).is('[instanceof TYPO3\Party\Domain\Model\PersonName]')}
-		20.type = 'TYPO3.Admin:StringFormatter.PersonName'
+	dateTime.condition = ${q(value).is('[instanceof DateTime]')}
+	dateTime.type = 'TYPO3.Admin:StringFormatter.DateTime'
+	dateTime.@position = 10
 
+	personName.condition = ${q(value).is('[instanceof TYPO3\Party\Domain\Model\PersonName]')}
+	personName.type = 'TYPO3.Admin:StringFormatter.PersonName'
+	personName.@position = 10
 
-		99.condition = ${true}
-		99.type = 'TYPO3.Admin:StringFormatter.Default'
+	fallback.condition = ${true}
+	fallback.type = 'TYPO3.Admin:StringFormatter.Default'
+	fallback.@position = 'end'
+
+	contentNodes {
+		condition = ${q(value).is('[instanceof TYPO3\TYPO3CR\Domain\Model\NodeInterface]')}
+		type = 'TYPO3.Admin:StringFormatter.ContentNodes'
+		@position =	2
 	}
 }
 
@@ -33,6 +45,10 @@ prototype(TYPO3.Admin:StringFormatter.String) < prototype(TYPO3.TypoScript:Fluid
 	value = ${value}
 }
 
+prototype(TYPO3.Admin:StringFormatter.ContentNodes) < prototype(TYPO3.Admin:StringFormatter.String) {
+	templatePath = 'resource://TYPO3.Admin/Private/Elements/StringFormatter/String.html'
+	value = ${value.label}
+}
 
 prototype(TYPO3.Admin:StringFormatter.Boolean) < prototype(TYPO3.Admin:StringFormatter.String) {
 	value = ${(value ? 'true' : 'false')}

@@ -3,6 +3,7 @@ TYPO3.Admin.DeleteController.index = TYPO3.Admin:RemovalScreen
 
 prototype(TYPO3.Admin:RemovalScreen) < prototype(TYPO3.TypoScript:FluidRenderer) {
 	templatePath = 'resource://TYPO3.Admin/Private/Elements/Delete/Index.html'
-	object = ${object}
+	objects = ${objects}
+	type = ${className}
 	controllerCallback = 'delete'
 }

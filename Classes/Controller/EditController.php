@@ -35,16 +35,17 @@ class EditController extends \TYPO3\Admin\Core\AbstractAdminController {
 		$this->arguments['objects']->setDataType('Doctrine\Common\Collections\Collection<' . $this->request->getArgument('type') . '>');
 		$this->arguments['objects']->getPropertyMappingConfiguration()->allowAllProperties();
 	}
-    /**
-     * Edit object
-     *
+
+	/**
+	 * Edit object
+	 *
 	 * @param string $type
-     * @param Doctrine\Common\Collections\Collection $objects
-     */
-    public function indexAction($type, $objects) {
+	 * @param Doctrine\Common\Collections\Collection $objects
+	 */
+	public function indexAction($type, $objects) {
 		$this->view->assign('className', $type);
 		$this->view->assign('objects', $objects);
-    }
+	}
 
 	public function initializeUpdateAction() {
 		$this->arguments['objects']->setDataType('Doctrine\Common\Collections\Collection<' . $this->request->getArgument('type') . '>');
@@ -57,11 +58,11 @@ class EditController extends \TYPO3\Admin\Core\AbstractAdminController {
 		}
 
 	}
-    /**
-     * @param string $type
+	/**
+	 * @param string $type
 	 * @param Doctrine\Common\Collections\Collection $objects
-     */
-    public function updateAction($type, $objects) {
+	 */
+	public function updateAction($type, $objects) {
 		foreach ($objects as $object) {
 				// TODO: the if-condition below is a little hack such that we do NOT persist for TYPO3CR Node objects,
 				// which are already persisted as they are stateful.
@@ -70,6 +71,6 @@ class EditController extends \TYPO3\Admin\Core\AbstractAdminController {
 			}
 		}
 		$this->redirect('index', 'sametypelist', 'TYPO3.Admin', array('type' => $type));
-    }
+	}
 }
 ?>

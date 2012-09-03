@@ -34,21 +34,21 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  */
 class ModuleController extends \TYPO3\TYPO3\Controller\Module\StandardController {
 
-    /**
-     * Index action
-     *
-     * @return void
-     */
-    public function indexAction() {
-        $adminRuntime = new \TYPO3\Admin\Core\AdminRuntime($this->request, $this->response);
-        if (isset($this->moduleConfiguration['defaultAdminControllerClassName'])) {
-            $adminRuntime->setDefaultAdminContollerClassName($this->moduleConfiguration['defaultAdminControllerClassName']);
-        }
-        if (isset($this->moduleConfiguration['defaultAdminControllerArguments'])) {
-            $adminRuntime->setDefaultAdminControllerArguments($this->moduleConfiguration['defaultAdminControllerArguments']);
-        }
-        return $adminRuntime->execute();
-    }
+	/**
+	 * Index action
+	 *
+	 * @return void
+	 */
+	public function indexAction() {
+		$adminRuntime = new \TYPO3\Admin\Core\AdminRuntime($this->request, $this->response);
+		if (isset($this->moduleConfiguration['defaultAdminControllerClassName'])) {
+			$adminRuntime->setDefaultAdminContollerClassName($this->moduleConfiguration['defaultAdminControllerClassName']);
+		}
+		if (isset($this->moduleConfiguration['defaultAdminControllerArguments'])) {
+			$adminRuntime->setDefaultAdminControllerArguments($this->moduleConfiguration['defaultAdminControllerArguments']);
+		}
+		return $adminRuntime->execute();
+	}
 
 }
 

@@ -31,27 +31,27 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  */
 class NewController extends \TYPO3\Admin\Core\AbstractAdminController {
 
-    /**
-    * TODO: Document this Method! ( create )
-    */
-    public function create($formRuntime) {
-        $formValues = $formRuntime->getFormState()->getFormValues();
-        $object = $formValues['item'];
-        $class = get_class($object);
-        $this->metaPersistenceManager->createObject($class, $object);
-        $this->redirect('index', 'List', null, array('being' => $class
-        ));
-    }
+	/**
+	 * TODO: Document this Method! ( create )
+	 */
+	public function create($formRuntime) {
+		$formValues = $formRuntime->getFormState()->getFormValues();
+		$object = $formValues['item'];
+		$class = get_class($object);
+		$this->metaPersistenceManager->createObject($class, $object);
+		$this->redirect('index', 'List', null, array('being' => $class
+		));
+	}
 
-    /**
-     * Create objects
-     *
-     * @param string $type
-     */
-    public function indexAction($type) {
-        $object = new $type();
-        $this->view->assign('object', $object);
-    }
+	/**
+	 * Create objects
+	 *
+	 * @param string $type
+	 */
+	public function indexAction($type) {
+		$object = new $type();
+		$this->view->assign('object', $object);
+	}
 
 }
 

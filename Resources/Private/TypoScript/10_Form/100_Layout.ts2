@@ -36,7 +36,7 @@ prototype(TYPO3.Admin:ObjectFormBuilder) {
 	className = ${className}
 	objects = ${objects}
 	formIdentifier = 'form'
-	formPresetName = 'default'
+	formPresetName = 'admin'
 
 	sectionBuilder = TYPO3.Admin:Form.SectionBuilder
 	elementBuilder = TYPO3.Admin:Form.ElementBuilder
@@ -51,7 +51,7 @@ prototype(TYPO3.Admin:NodeFormBuilder) {
 	implementationClassName = 'TYPO3\\Admin\\TypoScriptObjects\\NodeFormBuilder'
 	objects = ${objects}
 	formIdentifier = 'form'
-	formPresetName = 'default'
+	formPresetName = 'admin'
 
 	sectionBuilder = TYPO3.Admin:Form.SectionBuilder
 	elementBuilder = TYPO3.Admin:Form.ElementBuilder

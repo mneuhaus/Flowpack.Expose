@@ -32,38 +32,38 @@ use TYPO3\FLOW3\Mvc\ActionRequest;
  */
 class SameTypeListController extends \TYPO3\Admin\Core\AbstractAdminController {
 
-    /**
-     * List objects, all being of the same $type.
-     *
-     * TODO: Filtering of this list, bulk
-     *
-     * @param string $type
-     * @param string $format
-     */
-    public function indexAction($type, $format = 'table') {
+	/**
+	 * List objects, all being of the same $type.
+	 *
+	 * TODO: Filtering of this list, bulk
+	 *
+	 * @param string $type
+	 * @param string $format
+	 */
+	public function indexAction($type, $format = 'table') {
 		if ($type === 'TYPO3\TYPO3CR\Domain\Model\NodeInterface') {
 				// If we deal with nodes, we want the content list controller to take over
 			$this->forward('index', 'contentlist', 'TYPO3.Admin', $this->request->getArguments());
 		}
 
-        $query = $this->persistenceManager->createQueryForType($type);
-        $objects = $query->execute();
-        $this->redirectToNewFormIfNoObjectsFound($objects);
-        $this->view->assign('type', $type);
-        $this->view->assign('format', $format);
-        $this->view->assign('objects', $objects);
-    }
+		$query = $this->persistenceManager->createQueryForType($type);
+		$objects = $query->execute();
+		$this->redirectToNewFormIfNoObjectsFound($objects);
+		$this->view->assign('type', $type);
+		$this->view->assign('format', $format);
+		$this->view->assign('objects', $objects);
+	}
 
-    /**
-    * TODO: Document this Method! ( redirectToNewFormIfNoObjectsFound )
-    */
-    protected function redirectToNewFormIfNoObjectsFound(\TYPO3\FLOW3\Persistence\QueryResultInterface $result) {
-        if (count($result) === 0) {
-            $arguments = array('type' => $this->arguments['type']->getValue()
-            );
-            $this->redirect('index', 'new', NULL, $arguments);
-        }
-    }
+	/**
+	 * TODO: Document this Method! ( redirectToNewFormIfNoObjectsFound )
+	 */
+	protected function redirectToNewFormIfNoObjectsFound(\TYPO3\FLOW3\Persistence\QueryResultInterface $result) {
+		if (count($result) === 0) {
+			$arguments = array('type' => $this->arguments['type']->getValue()
+			);
+			$this->redirect('index', 'new', NULL, $arguments);
+		}
+	}
 
 }
 

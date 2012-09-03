@@ -73,7 +73,6 @@ class ControllerLinkViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractTagB
         $this->tag->forceClosingTag(TRUE);
         return $this->tag->render();
     }
-
 }
 
 ?>

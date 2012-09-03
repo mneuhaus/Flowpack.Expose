@@ -31,41 +31,41 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  */
 class DeleteController extends \TYPO3\Admin\Core\AbstractAdminController {
 
-    /**
-     * Delete objects
-     *
-     */
-    public function deleteAction() {
-        $being = $this->request->getArgument('being');
-        $ids = array();
-        if ($this->request->hasArgument('id')) {
-            $ids = array($this->request->getArgument('id')
-            );
-        } else {
-            if ($this->request->hasArgument('ids')) {
-                $ids = $this->request->getArgument('ids');
-            }
-        }
-        if (is_array($ids)) {
-            foreach ($ids as $id) {
-                $this->metaPersistenceManager->deleteObject($being, $id);
-            }
-            $arguments = array('being' => $this->metaPersistenceManager->getClassShortName($being)
-            );
-            $this->redirect('index', 'list', null, $arguments);
-        }
-    }
+	public function initializeAction() {
+		$this->arguments['objects']->setDataType('Doctrine\Common\Collections\Collection<' . $this->request->getArgument('type') . '>');
+		$this->arguments['objects']->getPropertyMappingConfiguration()->allowAllProperties();
+	}
 
-    /**
-     * @param string $type
-     * @param array $object
-     */
-    public function indexAction($type, $object) {
-        $object = $this->propertyMapper->convert($object, $type);
-        $this->view->assign('object', $object);
-        $this->view->assign('type', $type);
-    }
+	/**
+	 * delete objects
+	 *
+	 * @param string $type
+	 * @param Doctrine\Common\Collections\Collection $objects
+	 */
+	public function indexAction($type, $objects) {
+		$this->view->assign('className', $type);
+		$this->view->assign('objects', $objects);
+	}
 
+	/**
+	 * delete objects
+	 *
+	 * @param string $type
+	 * @param Doctrine\Common\Collections\Collection $objects
+	 */
+	public function deleteAction($type, $objects) {
+		if ($type === 'TYPO3\TYPO3CR\Domain\Model\NodeInterface') {
+			foreach ($objects as $object) {
+				$object->remove();
+			}
+		} else {
+			foreach ($objects as $object) {
+				$this->persistenceManager->remove($object);
+			}
+		}
+
+		$this->redirect('index', 'sametypelist', 'TYPO3.Admin', array('type' => $type));
+	}
 }
 
 ?>
