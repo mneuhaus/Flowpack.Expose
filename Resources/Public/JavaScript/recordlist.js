@@ -52,7 +52,7 @@
 		bootstrap: function() {
 			var that = this;
 
-			this.$container.on('click', '[data-area=records] *', function() {
+			this.$container.on('click', '[data-area=records] > *', function() {
 				var $element = $(this);
 				$element = $element.closest('[data-identifier]');
 				if ($element.hasClass('typo3-admin-active')) {
