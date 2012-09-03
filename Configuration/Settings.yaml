@@ -102,14 +102,6 @@ TYPO3:
 
   TYPO3:
       modules:
-        administration:
-          submodules:
-            usernew:
-              label: 'New User Administration'
-              controller: '\TYPO3\Admin\Controller\ModuleController'
-              defaultAdminControllerClassName: '\TYPO3\Admin\Controller\SameTypeListController'
-              defaultAdminControllerArguments:
-                type: 'TYPO3\TYPO3\Domain\Model\User'
         management:
           submodules:
             content:
@@ -122,6 +114,15 @@ TYPO3:
               defaultAdminControllerClassName: '\TYPO3\Admin\Controller\SameTypeListController'
               defaultAdminControllerArguments:
                 type: 'TYPO3\Blog\Domain\Model\Post'
+        administration:
+          submodules:
+            usernew:
+              label: 'New User Administration'
+              controller: '\TYPO3\Admin\Controller\ModuleController'
+              defaultAdminControllerClassName: '\TYPO3\Admin\Controller\SameTypeListController'
+              defaultAdminControllerArguments:
+                type: 'TYPO3\TYPO3\Domain\Model\User'
+
   TYPO3CR:
     contentTypes:
       'TYPO3.TYPO3:Section':
