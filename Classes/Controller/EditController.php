@@ -69,7 +69,6 @@ class EditController extends \TYPO3\Admin\Core\AbstractAdminController {
 				$this->persistenceManager->update($object);
 			}
 		}
-		// TODO: the redirect below must somehow be configurable; we need some kind of "Referrer"
 		$this->redirect('index', 'sametypelist', 'TYPO3.Admin', array('type' => $type));
     }
 }

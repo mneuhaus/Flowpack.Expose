@@ -41,6 +41,11 @@ class SameTypeListController extends \TYPO3\Admin\Core\AbstractAdminController {
      * @param string $format
      */
     public function indexAction($type, $format = 'table') {
+		if ($type === 'TYPO3\TYPO3CR\Domain\Model\NodeInterface') {
+				// If we deal with nodes, we want the content list controller to take over
+			$this->forward('index', 'contentlist', 'TYPO3.Admin', $this->request->getArguments());
+		}
+
         $query = $this->persistenceManager->createQueryForType($type);
         $objects = $query->execute();
         $this->redirectToNewFormIfNoObjectsFound($objects);
