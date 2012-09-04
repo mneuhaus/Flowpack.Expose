@@ -9,7 +9,7 @@ prototype(TYPO3.Admin:FormRenderer) {
 }
 
 /**
- * @context string className the class name of the form to buil
+ * @context string className the class name of the form to build
  */
 prototype(TYPO3.Admin:FormBuilder) < prototype(TYPO3.TypoScript:Case) {
 	nodeMatcher {
