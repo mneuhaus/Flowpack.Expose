@@ -30,13 +30,22 @@
 
 		toggleActionBar: function() {
 			if (this.get('actionBarVisible')) {
-				this._$actionBar.removeClass('hiddenActionBar');
-				this.$container.find('[data-area=main]').addClass('span8').removeClass('span10');
+				if (this._$actionBar.hasClass('hiddenActionBar')){
+					this._$actionBar.removeClass('hiddenActionBar');
+					
+					this.$container.find('[data-area=main]').width("auto");
+					var width = this.$container.find('[data-area=main]').width() - this._$actionBar.outerWidth();
+					//var actionBarWidth = this._$actionBar.width();
+					//this._$actionBar.width(0).animate({width: actionBarWidth + "px"}, 5000);
+					this.$container.find('[data-area=main]').width(width);
+					
+					this._$actionBar.height(this.$container.find('[data-area=main]').height());
+				}
 			} else {
 				this._$actionBar.addClass('hiddenActionBar');
 				var that = this;
 				window.setTimeout(function() {
-					that.$container.find('[data-area=main]').removeClass('span8').addClass('span10');
+					that.$container.find('[data-area=main]').width("auto");
 				}, 230);
 
 			}

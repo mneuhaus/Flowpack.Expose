@@ -1,5 +1,9 @@
 @import "compass/css3/transition";
 
+.t3-ui .container {
+	width: auto;
+}
+
 body:not(.js) .js {
 	display: none;
 }
@@ -24,11 +28,31 @@ body.js .nojs {
 		}
 	}
 
-	[data-area=actionBar] a {
-		display: block;
-	}
+	[data-area=actionBar] a {}
 
 	[data-area=records] .typo3-admin-active {
-		background-color: red;
+	}
+}
+
+
+.t3-ui {
+	.t3-records > .well {
+		margin-right: 10px;
+		border-color: #B3B3B3;
+	}
+
+	.t3-records > .typo3-admin-active {
+		background: #eee;
+		margin-right: 0px;
+		border-right: 0px;
+		border-top-right-radius: 0px;
+		border-bottom-right-radius: 0px;
+		z-index: 10;
+		position: relative;
+		margin-right: -1px;
+	}
+
+	.nav-list {
+		padding: 0;
 	}
 }
