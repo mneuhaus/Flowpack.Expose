@@ -23,11 +23,11 @@ class PaginationProcessor implements \TYPO3\TypoScript\RuntimeAwareProcessorInte
 	public function beforeInvocation(\TYPO3\TypoScript\Core\Runtime $runtime, \TYPO3\TypoScript\TypoScriptObjects\AbstractTsObject $typoScriptObject, $typoScriptPath) {
 		$context = $runtime->getCurrentContext();
 		if (isset($context['objects']) && count($context['objects']) > 3) {
-			$runtime->pushContext('objects', array(
+			/*$runtime->pushContext('objects', array(
 				$context['objects'][0],
 				$context['objects'][1],
 				$context['objects'][2]
-			));
+			));*/
 		}
 	}
 	public function process($subject) {

@@ -9,16 +9,7 @@
 		</div>
 
 		<div class="span9">
-
-			<div class="list-actions bar">
-				<div class="pull-left">
-					<ts:renderTypoScript path="formatSelector" />
-				</div>
-				<div class="pull-right">
-					<ts:renderTypoScript path="controllerLinks" />
-				</div>
-				<input type="text" placeholder="filter" />
-			</div>
+			<ts:renderTypoScript path="topRegion" />
 
 			<div class="js actionBar" data-area="actionBar">
 				<ts:renderTypoScript path="localControllerLinks" />
@@ -30,6 +21,7 @@
 				</div>
 			</div>
 
+			<ts:renderTypoScript path="bottomRegion" />
 		</div>
 	</form>
 </div>

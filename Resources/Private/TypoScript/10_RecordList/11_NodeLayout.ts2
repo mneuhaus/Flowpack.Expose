@@ -11,6 +11,9 @@ TYPO3.Admin.ContentListController {
 			selectedFolderNode = ${selectedFolderNode}
 		}
 
+		topRegion.paginator = TYPO3.TypoScript:FluidRenderer {
+			templatePath = 'resource://TYPO3.Admin/Private/Elements/RecordList/Pagination.html'
+		}
 #		topRegion.filter = FluidRenderer {
 #
 #		}

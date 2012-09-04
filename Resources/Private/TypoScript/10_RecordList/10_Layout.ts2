@@ -5,12 +5,32 @@ prototype(TYPO3.Admin:RecordList) < prototype(TYPO3.TypoScript:FluidRenderer) {
 	currentFormat = ${format}
 
 	formatSelector = TYPO3.Admin:RecordList.FormatSelector
-	controllerLinks = TYPO3.Admin:GlobalControllerLinks
 	recordList.list = TYPO3.Admin:RecordList.List
 	recordList.table = TYPO3.Admin:RecordList.Table
 	navigationArea = TYPO3.TypoScript:TypoScriptArrayRenderer
 
 	localControllerLinks = TYPO3.Admin:LocalControllerLinks
+
+	topRegion = TYPO3.TypoScript:TypoScriptArrayRenderer
+	topRegion.actionBar = TYPO3.TypoScript:TypoScriptArrayRenderer {
+		@position = 'start'
+		formatSelector = TYPO3.Admin:RecordList.FormatSelector {
+			@position = 10
+		}
+		formatSelector << 1.wrap(prefix: '<div class="pull-left">', suffix: '</div>')
+
+		controllerLinks = TYPO3.Admin:GlobalControllerLinks {
+			@position = 20
+		}
+		controllerLinks << 1.wrap(prefix: '<div class="pull-right">', suffix: '</div>')
+
+		filter = TYPO3.TypoScript:FluidRenderer {
+			templatePath = 'resource://TYPO3.Admin/Private/Elements/RecordList/Filter.html'
+		}
+	}
+	topRegion.actionBar << 1.wrap(prefix: '<div class="list-actions bar">', suffix: '</div>')
+
+	bottomRegion = TYPO3.TypoScript:TypoScriptArrayRenderer
 }
 
 # EXAMPLE on adding a new button in a certain context
