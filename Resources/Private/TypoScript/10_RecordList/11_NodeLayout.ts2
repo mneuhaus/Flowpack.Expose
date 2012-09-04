@@ -1,6 +1,8 @@
 # adjustments for TYPO3CR Nodes
 TYPO3.Admin.ContentListController.index = TYPO3.Admin:RecordList
 
+namespace:admin=TYPO3\Admin\TypoScript
+
 TYPO3.Admin.ContentListController {
 	prototype(TYPO3.Admin:RecordList) {
 		navigationArea = TYPO3.TypoScript:FluidRenderer {
@@ -8,7 +10,13 @@ TYPO3.Admin.ContentListController {
 			siteNode = ${siteNode}
 			selectedFolderNode = ${selectedFolderNode}
 		}
+
+#		topRegion.filter = FluidRenderer {
+#
+#		}
 	}
+
+	prototype(TYPO3.Admin:RecordList) << 1.admin:pagination()
 
 	prototype(TYPO3.Admin:LocalControllerLink) {
 		arguments.type = 'TYPO3\\TYPO3CR\\Domain\\Model\\NodeInterface'
