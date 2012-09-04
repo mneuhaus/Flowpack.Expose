@@ -39,7 +39,9 @@ prototype(TYPO3.Admin:RecordList.List.NodeElement) < prototype(TYPO3.Admin:Recor
 }
 
 prototype(TYPO3.Admin:RecordList.NodeTeaser) < prototype(TYPO3.TypoScript:Case) {
-	matchers {
-
+	default = TYPO3.Admin:IgnoreMissingTypeMatcher {
+		condition = ${true}
+		type = ${q(node).property('_contentType.name') + 'Preview'}
+		@override.node = ${item}
 	}
 }
