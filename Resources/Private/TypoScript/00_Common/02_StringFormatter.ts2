@@ -29,6 +29,10 @@ prototype(TYPO3.Admin:StringFormatter) < prototype(TYPO3.TypoScript:Case) {
 	personName.type = 'TYPO3.Admin:StringFormatter.PersonName'
 	personName.@position = 10
 
+	toString.condition = ${q(value).hasMethod('__toString')}
+	toString.type = 'TYPO3.Admin:StringFormatter.String'
+	toString.@position = 10
+
 	fallback.condition = ${true}
 	fallback.type = 'TYPO3.Admin:StringFormatter.Default'
 	fallback.@position = 'end'
