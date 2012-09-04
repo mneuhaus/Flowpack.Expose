@@ -3,29 +3,25 @@
 {namespace ts=TYPO3\TypoScript\ViewHelpers}
 
 <div class="row-fluid typo3-admin-recordlist">
-	<form method="POST">
-		<div class="span3 t3-pane-right">
-			<ts:renderTypoScript path="navigationArea" />
+	<div class="span3 t3-pane-right">
+		<ts:renderTypoScript path="navigationArea" />
+	</div>
+
+	<div class="span9">
+		<div class="bar"><ts:renderTypoScript path="topRegion" /></div>
+
+		<div class="js actionBar" data-area="actionBar">
+			<ts:renderTypoScript path="localControllerLinks" />
 		</div>
 
-		<div class="span9">
-			<ts:renderTypoScript path="topRegion" />
-
-			<div class="js actionBar" data-area="actionBar">
-				<ts:renderTypoScript path="localControllerLinks" />
-			</div>
-
-			<div data-area="main">
-				<div class="t3-records" data-area="records">
-					<ts:renderTypoScript path="recordList/{currentFormat}" />
-				</div>
-			</div>
-
-			<div class="bar">
-				<ts:renderTypoScript path="bottomRegion" />
+		<div data-area="main">
+			<div class="t3-records" data-area="records">
+				<ts:renderTypoScript path="recordList/{currentFormat}" />
 			</div>
 		</div>
-	</form>
+
+		<div class="bar"><ts:renderTypoScript path="bottomRegion" /></div>
+	</div>
 </div>
 
 <script src="{f:uri.resource(path: 'js/jquery.1.7.1.min.js', package: 'TYPO3.Admin')}"></script>

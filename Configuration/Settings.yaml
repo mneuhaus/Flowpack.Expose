@@ -12,7 +12,7 @@ TYPO3:
         - 1000
         - 10000
       Default: 20
-      MaxPages: 6
+      MaxPages: 8
     Defaults:
       Variant: Default
       SearchProvider: \TYPO3\Admin\SearchProvider\SimpleSearchProvider

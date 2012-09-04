@@ -66,8 +66,13 @@ class Pagination extends \TYPO3\TypoScript\TypoScriptObjects\FluidRenderer {
 
     public function totalObjects() {
     	$objects = $this->tsRuntime->evaluateProcessor('objects', $this, $this->variables["objects"]);
-    	$objects = $objects->getQuery()->setLimit(NULL)->setOffset(NULL)->execute();
-    	return $objects->count();
+        
+        if (is_object($objects)) {
+           $objects = $objects->getQuery()->setLimit(NULL)->setOffset(NULL)->execute();
+           return $objects->count();
+        }
+
+        return 0;
     }
 
     public function getCurrentPage() {

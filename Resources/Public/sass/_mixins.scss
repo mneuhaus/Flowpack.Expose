@@ -3,9 +3,15 @@
 
 .t3-ui {
 	.bar {
-		padding: 5px;
+		padding: 5px 0;
 		margin-bottom: 5px;
 		height: 30px;
+		.pull-left {
+			margin-right: 10px;
+		}
+		.pull-right {
+			margin-left: 10px;
+		}
 	}
 }
 

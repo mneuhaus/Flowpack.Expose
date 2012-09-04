@@ -1,7 +1,11 @@
 .t3-ui .bar {
-  padding: 5px;
+  padding: 5px 0;
   margin-bottom: 5px;
   height: 30px; }
+  .t3-ui .bar .pull-left {
+    margin-right: 10px; }
+  .t3-ui .bar .pull-right {
+    margin-left: 10px; }
 
 .t3-ui .nav-list ul {
   padding: 0; }

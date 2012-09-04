@@ -145,29 +145,37 @@ class Query extends \TYPO3\FLOW3\Persistence\Doctrine\Query {
 				switch (get_class($this->constraint)) {
 					case 'TYPO3\FLOW3\Persistence\Generic\Qom\Comparison':
 						$property = $this->constraint->getOperand1()->getPropertyName();
-						$comparison = $this->constraint->getOperand2();
+						$comparison = strtolower($this->constraint->getOperand2());
 
-						if (!$node->hasProperty($property)) {
-							continue;
+						if ($property == "*"){
+							$properties = $node->getPropertyNames();
+						} else {
+							$properties = array($property);
 						}
 
-						$value = $node->getProperty($property);
+						foreach($properties as $property){
+							if (!$node->hasProperty($property)) {
+								continue;
+							}
 
-						switch($this->constraint->getOperator()) {
-							case \TYPO3\FLOW3\Persistence\QueryInterface::OPERATOR_EQUAL_TO:
-									if ($value == $comparison) {
+							$value = strtolower($node->getProperty($property));
+
+							switch($this->constraint->getOperator()) {
+								case \TYPO3\FLOW3\Persistence\QueryInterface::OPERATOR_EQUAL_TO:
+										if ($value == $comparison) {
+											$matchingNodes[] = $node;
+										}
+									break;
+
+								case \TYPO3\FLOW3\Persistence\QueryInterface::OPERATOR_LIKE:
+									$comparison = preg_quote($comparison);
+									$comparison = str_replace("%", ".+", $comparison);
+									$comparison = str_replace("?", ".", $comparison);
+									if (preg_match("/" . $comparison . "/", $value)) {
 										$matchingNodes[] = $node;
 									}
-								break;
-
-							case \TYPO3\FLOW3\Persistence\QueryInterface::OPERATOR_LIKE:
-								$comparison = preg_quote($comparison);
-								$comparison = str_replace("%", ".+", $comparison);
-								$comparison = str_replace("?", ".", $comparison);
-								if (preg_match("/" . $comparison . "/", $value)) {
-									$matchingNodes[] = $node;
-								}
-								break;
+									break;
+							}
 						}
 						break;
 					
@@ -176,7 +184,7 @@ class Query extends \TYPO3\FLOW3\Persistence\Doctrine\Query {
 						break;
 				}
 			}
-			return $matchingNodes;
+			return array_unique($matchingNodes);
 		}
 		return $nodes;
 	}

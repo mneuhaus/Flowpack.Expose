@@ -11,27 +11,45 @@ prototype(TYPO3.Admin:RecordList) < prototype(TYPO3.TypoScript:FluidRenderer) {
 
 	localControllerLinks = TYPO3.Admin:LocalControllerLinks
 
-	topRegion = TYPO3.TypoScript:TypoScriptArrayRenderer
-	topRegion.actionBar = TYPO3.TypoScript:TypoScriptArrayRenderer {
+	topRegion = TYPO3.TypoScript:TypoScriptArrayRenderer {
 		@position = 'start'
-		formatSelector = TYPO3.Admin:RecordList.FormatSelector {
-			@position = 10
-		}
-		formatSelector << 1.wrap(prefix: '<div class="pull-left">', suffix: '</div>')
 
 		controllerLinks = TYPO3.Admin:GlobalControllerLinks {
 			@position = 20
 		}
 		controllerLinks << 1.wrap(prefix: '<div class="pull-right">', suffix: '</div>')
 
-		filter = TYPO3.TypoScript:FluidRenderer {
-			templatePath = 'resource://TYPO3.Admin/Private/Elements/RecordList/Filter.html'
+		search = TYPO3.Admin:Search {
+			templatePath = 'resource://TYPO3.Admin/Private/Elements/RecordList/Search.html'
+			objects = ${objects}
 		}
 	}
-	topRegion.actionBar << 1.wrap(prefix: '<div class="list-actions bar">', suffix: '</div>')
 
 	bottomRegion = TYPO3.TypoScript:TypoScriptArrayRenderer
+	bottomRegion {
+		limits = TYPO3.Admin:Limits {
+			templatePath = 'resource://TYPO3.Admin/Private/Elements/RecordList/Limits.html'
+			objects = ${objects}
+		}
+
+		formatSelector = TYPO3.Admin:RecordList.FormatSelector {
+			@position = 10
+		}
+		formatSelector << 1.wrap(prefix: '<div class="pull-left btn-group">', suffix: '</div>')
+
+		paginator = TYPO3.Admin:Pagination {
+			templatePath = 'resource://TYPO3.Admin/Private/Elements/RecordList/Pagination.html'
+			objects = ${objects}
+		}
+	}
 }
+
+
+namespace:admin=TYPO3\Admin\TypoScript
+
+prototype(TYPO3.Admin:RecordList) << 1.admin:pagination()
+prototype(TYPO3.Admin:RecordList) << 2.admin:limit()
+prototype(TYPO3.Admin:RecordList) << 3.admin:search()
 
 # EXAMPLE on adding a new button in a certain context
 #TYPO3.Admin.SameTypeListController.prototype(TYPO3.Admin:RecordList.FormatSelector) {
