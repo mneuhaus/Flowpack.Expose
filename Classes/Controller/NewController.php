@@ -32,25 +32,37 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 class NewController extends \TYPO3\Admin\Core\AbstractAdminController {
 
 	/**
-	 * TODO: Document this Method! ( create )
-	 */
-	public function create($formRuntime) {
-		$formValues = $formRuntime->getFormState()->getFormValues();
-		$object = $formValues['item'];
-		$class = get_class($object);
-		$this->metaPersistenceManager->createObject($class, $object);
-		$this->redirect('index', 'List', null, array('being' => $class
-		));
-	}
-
-	/**
-	 * Create objects
+	 * Create a new object
 	 *
 	 * @param string $type
 	 */
 	public function indexAction($type) {
-		$object = new $type();
-		$this->view->assign('object', $object);
+		$objects = array(new $type());
+		$this->view->assign('className', $type);
+		$this->view->assign('objects', $objects);
+		$this->view->assign('callback', 'create');
+	}
+
+	public function initializeCreateAction() {
+		$this->arguments['objects']->setDataType('Doctrine\Common\Collections\Collection<' . $this->request->getArgument('type') . '>');
+		$propertyMappingConfiguration = $this->arguments['objects']->getPropertyMappingConfiguration();
+		$propertyMappingConfiguration->allowAllProperties();
+		foreach ($this->request->getArgument('objects') as $index => $tmp) {
+			$propertyMappingConfiguration->forProperty($index)
+					->allowAllProperties()
+					->setTypeConverterOption('TYPO3\FLOW3\Property\TypeConverter\PersistentObjectConverter', \TYPO3\FLOW3\Property\TypeConverter\PersistentObjectConverter::CONFIGURATION_MODIFICATION_ALLOWED, TRUE);
+		}
+
+	}
+	/**
+	 * @param string $type
+	 * @param Doctrine\Common\Collections\Collection $objects
+	 */
+	public function createAction($type, $objects) {
+		foreach ($objects as $object) {
+			$this->persistenceManager->add($object);
+		}
+		$this->redirect('index', 'sametypelist', 'TYPO3.Admin', array('type' => $type));
 	}
 
 }

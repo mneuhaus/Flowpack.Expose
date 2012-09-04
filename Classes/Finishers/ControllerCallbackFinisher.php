@@ -25,8 +25,7 @@ class ControllerCallbackFinisher extends \TYPO3\Form\Core\Model\AbstractFinisher
 		$formRuntime = $this->finisherContext->getFormRuntime();
 		$nextRequest = clone $formRuntime->getRequest()->getParentRequest();
 
-			// TODO: make configurable
-		$nextRequest->setArgument('@action', 'update');
+		$nextRequest->setArgument('@action', $this->parseOption("callbackAction"));
 
 		$objectArguments = $formRuntime->getFormState()->getFormValue('objects');
 

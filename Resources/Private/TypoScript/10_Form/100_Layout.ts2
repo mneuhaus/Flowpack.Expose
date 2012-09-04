@@ -37,6 +37,7 @@ prototype(TYPO3.Admin:ObjectFormBuilder) {
 	objects = ${objects}
 	formIdentifier = 'form'
 	formPresetName = 'admin'
+	callbackAction = ${callback}
 
 	sectionBuilder = TYPO3.Admin:Form.SectionBuilder
 	elementBuilder = TYPO3.Admin:Form.ElementBuilder
@@ -52,6 +53,7 @@ prototype(TYPO3.Admin:NodeFormBuilder) {
 	objects = ${objects}
 	formIdentifier = 'form'
 	formPresetName = 'admin'
+	callbackAction = ${callback}
 
 	sectionBuilder = TYPO3.Admin:Form.SectionBuilder
 	elementBuilder = TYPO3.Admin:Form.ElementBuilder
