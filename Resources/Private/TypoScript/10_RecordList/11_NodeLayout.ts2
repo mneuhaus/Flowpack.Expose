@@ -11,13 +11,14 @@ TYPO3.Admin.ContentListController {
 			selectedFolderNode = ${selectedFolderNode}
 		}
 
-		topRegion.paginator = TYPO3.Admin:Pagination {
+		bottomRegion.paginator = TYPO3.Admin:Pagination {
 			templatePath = 'resource://TYPO3.Admin/Private/Elements/RecordList/Pagination.html'
 			objects = ${objects}
 		}
-#		topRegion.filter = FluidRenderer {
-#
-#		}
+		bottomRegion.limits = TYPO3.Admin:Limits {
+			templatePath = 'resource://TYPO3.Admin/Private/Elements/RecordList/Limits.html'
+			objects = ${objects}
+		}
 	}
 
 	prototype(TYPO3.Admin:RecordList) << 1.admin:pagination()

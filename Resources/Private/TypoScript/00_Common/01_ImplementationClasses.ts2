@@ -5,6 +5,7 @@ prototype(TYPO3.TypoScript:CollectionRenderer).implementationClassName = 'TYPO3\
 prototype(TYPO3.TypoScript:Case).implementationClassName = 'TYPO3\\TypoScript\\TypoScriptObjects\\CaseTsObject'
 prototype(TYPO3.TypoScript:Matcher).implementationClassName = 'TYPO3\\TypoScript\\TypoScriptObjects\\Matcher'
 prototype(TYPO3.Admin:Pagination).implementationClassName = 'TYPO3\\Admin\\TypoScriptObjects\\Pagination'
+prototype(TYPO3.Admin:Limits).implementationClassName = 'TYPO3\\Admin\\TypoScriptObjects\\Limits'
 
 prototype(TYPO3.TypoScript:FluidRenderer) {
 	partialRootPath = 'resource://TYPO3.Admin/Private/Partials'

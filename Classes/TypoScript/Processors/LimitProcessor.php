@@ -18,7 +18,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * taking the "page" context variable into account (on which page we are currently).
  *
  */
-class PaginationProcessor implements \TYPO3\TypoScript\RuntimeAwareProcessorInterface {
+class LimitProcessor implements \TYPO3\TypoScript\RuntimeAwareProcessorInterface {
 	/**
 	 * @var \TYPO3\FLOW3\Configuration\ConfigurationManager
 	 * @FLOW3\Inject
@@ -28,30 +28,11 @@ class PaginationProcessor implements \TYPO3\TypoScript\RuntimeAwareProcessorInte
 	public function beforeInvocation(\TYPO3\TypoScript\Core\Runtime $runtime, \TYPO3\TypoScript\TypoScriptObjects\AbstractTsObject $typoScriptObject, $typoScriptPath) {
 		$this->settings = $this->configurationManager->getConfiguration(\TYPO3\FLOW3\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, 'TYPO3.Admin.Pagination');
 		$this->tsRuntime = $runtime;
-		$this->context = $runtime->getCurrentContext();
-		if (isset($this->context['objects'])) {
-			$offset = $this->getOffset();
-			$runtime->pushContext('objects', $this->context['objects']->getQuery()->setOffset($offset)->execute());
+		$context = $runtime->getCurrentContext();
+		if (isset($context['objects'])) {
+			$limit = $this->getLimit();
+			$runtime->pushContext('objects', $context['objects']->getQuery()->setLimit($limit)->execute());
 		}
-	}
-
-	public function getOffset() {
-		$request = $this->tsRuntime->getControllerContext()->getRequest();
-
-		$page = 1;
-		if ($request->hasArgument('page')) {
-			$page = $request->getArgument('page');
-		}
-
-		$offset = $this->getLimit() * ($page -1);
-
-		$total = $this->context["objects"]->count();
-		if($offset > $total){
-			$pages = ceil($total / $this->getLimit());
-			$offset = $this->getLimit() * ( $pages - 1 );
-		}
-
-		return $offset;
 	}
 
 	public function getLimit() {

@@ -1,8 +1,7 @@
 .t3-ui .bar {
   padding: 5px;
   margin-bottom: 5px;
-  height: 30px;
-  border: 1px solid #eee; }
+  height: 30px; }
 
 .t3-ui .nav-list ul {
   padding: 0; }
@@ -73,3 +72,5 @@ body.js .nojs {
   margin-right: -1px; }
 .t3-ui .nav-list {
   padding: 0; }
+.t3-ui .pagination {
+  margin: 0; }

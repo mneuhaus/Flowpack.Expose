@@ -1,0 +1,12 @@
+<div class="btn-group pull-left">
+	<f:for each="{limits}" as="active" key="limit">
+		<f:if condition="{active}">
+			<f:then>
+				<f:link.action arguments="{limit: limit}" addQueryString="1" class="btn active">{limit}</f:link.action>
+			</f:then>
+			<f:else>
+				<f:link.action arguments="{limit: limit}" addQueryString="1" class="btn">{limit}</f:link.action>
+			</f:else>
+		</f:if>
+	</f:for>
+</div>
