@@ -20,22 +20,53 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * TODO actually implement this feature
  */
 class PaginationProcessor implements \TYPO3\TypoScript\RuntimeAwareProcessorInterface {
+	/**
+	 * @var \TYPO3\FLOW3\Configuration\ConfigurationManager
+	 * @FLOW3\Inject
+	 */
+	protected $configurationManager;
+
 	public function beforeInvocation(\TYPO3\TypoScript\Core\Runtime $runtime, \TYPO3\TypoScript\TypoScriptObjects\AbstractTsObject $typoScriptObject, $typoScriptPath) {
+		$this->settings = $this->configurationManager->getConfiguration(\TYPO3\FLOW3\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, 'TYPO3.Admin.Pagination');
+		$this->tsRuntime = $runtime;
 		$context = $runtime->getCurrentContext();
-		if (isset($context['objects']) && count($context['objects']) > 3) {
-			/*$runtime->pushContext('objects', array(
-				$context['objects'][0],
-				$context['objects'][1],
-				$context['objects'][2]
-			));*/
+		if (isset($context['objects'])) {
+			$offset = $this->getOffset();
+			$limit = $this->getLimit();
+			$runtime->pushContext('objects', $context['objects']->getQuery()->setLimit($limit)->setOffset($offset)->execute());
 		}
 	}
+
+	public function getOffset() {
+		$request = $this->tsRuntime->getControllerContext()->getRequest();
+
+		$page = 1;
+		if ($request->hasArgument('page')) {
+			$page = $request->getArgument('page');
+		}
+
+		return $this->getLimit() * ($page -1);
+	}
+
+	public function getLimit() {
+		$request = $this->tsRuntime->getControllerContext()->getRequest();
+		
+		$limit = $this->settings["Default"];
+		if ($request->hasArgument('limit')) {
+			$limit = $request->getArgument('limit');
+		}
+
+		return $limit;
+	}
+
 	public function process($subject) {
 		return $subject;
 	}
 
 	public function afterInvocation(\TYPO3\TypoScript\Core\Runtime $runtime, \TYPO3\TypoScript\TypoScriptObjects\AbstractTsObject $typoScriptObject, $typoScriptPath) {
-		$runtime->popContext();
+		if (isset($context['objects'])) {
+			$runtime->popContext();
+		}
 	}
 }
 ?>

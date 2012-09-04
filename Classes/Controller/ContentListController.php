@@ -51,34 +51,12 @@ class ContentListController extends \TYPO3\Admin\Core\AbstractAdminController {
 		$this->view->assign('format', $format);
 		$this->view->assign('siteNode', $siteNode);
 		$this->view->assign('selectedFolderNode', $selectedFolderNode);
-		if ($selectedFolderNode !== NULL) {
-			$contentNodes = $this->getContentElements($selectedFolderNode, TRUE);
-			$this->view->assign('objects', $contentNodes);
-		}
-	}
 
-	/**
-	 *
-	 * !!! RECURSIVE FUNCTION
-	 *
-	 * @param \TYPO3\TYPO3CR\Domain\Model\NodeInterface $node
-	 * @param boolean $recursive
-	 * @return array
-	 */
-	protected function getContentElements(\TYPO3\TYPO3CR\Domain\Model\NodeInterface $node = NULL, $recursive) {
-		if ($node === NULL) {
-			return array();
+		if ($selectedFolderNode !== NULL) {
+			$query = new \TYPO3\Admin\TYPO3CR\Persistence\Node\Query($selectedFolderNode);
+			$query->setRecursiveLevels(INF);
+			$this->view->assign('objects', $query->execute());
 		}
-		$contentTypeFilter = NULL;
-		if ($recursive === FALSE) {
-			$contentTypeFilter = '!TYPO3.TYPO3:Page';
-		}
-		$childNodes = $node->getChildNodes($contentTypeFilter);
-		$result = $childNodes;
-		foreach ($childNodes as $childNode) {
-			$result = array_merge($result, $this->getContentElements($childNode, $recursive));
-		}
-		return $result;
 	}
 
 	/**

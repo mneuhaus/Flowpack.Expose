@@ -41,7 +41,7 @@ class Query extends \TYPO3\FLOW3\Persistence\Doctrine\Query {
      *
      * @param \TYPO3\TYPO3CR\Domain\Model\Node $rootNode
      */
-    public function __construct(\TYPO3\TYPO3CR\Domain\Model\Node $rootNode) {
+    public function __construct(\TYPO3\TYPO3CR\Domain\Model\NodeInterface $rootNode) {
         $this->rootNode = $rootNode;
         $this->entityClassName = '\\TYPO3\\TYPO3CR\\Domain\\Model\\Node';
     }
