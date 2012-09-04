@@ -68,6 +68,11 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTsOb
 	 */
 	protected $formPresetName;
 
+	/**
+	 * @var string
+	 */
+	protected $callbackAction;	
+
 	public function setClassName($className) {
 		$this->className = $className;
 	}
@@ -84,6 +89,10 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTsOb
 		$this->formPresetName = $formPresetName;
 	}
 
+	public function setCallbackAction($callbackAction) {
+		$this->callbackAction = $callbackAction;
+	}
+
     /**
      * Evaluate the collection nodes
      *
@@ -94,6 +103,7 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTsOb
 		$page = $formDefinition->createPage('page1');
 
 		$forwardFinisher = new \TYPO3\Admin\Finishers\ControllerCallbackFinisher();
+		$forwardFinisher->setOption('callbackAction', $this->tsValue('callbackAction'));
 		$formDefinition->addFinisher($forwardFinisher);
 
 		$objectNamespaces = array();

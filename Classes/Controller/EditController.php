@@ -45,6 +45,7 @@ class EditController extends \TYPO3\Admin\Core\AbstractAdminController {
 	public function indexAction($type, $objects) {
 		$this->view->assign('className', $type);
 		$this->view->assign('objects', $objects);
+		$this->view->assign('callback', 'update');
 	}
 
 	public function initializeUpdateAction() {
