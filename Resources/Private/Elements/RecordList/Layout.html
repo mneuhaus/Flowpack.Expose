@@ -2,13 +2,15 @@
 {namespace cm=TYPO3\Admin\ViewHelpers}
 {namespace ts=TYPO3\TypoScript\ViewHelpers}
 
-<div class="row typo3-admin-recordlist">
+<div class="row-fluid typo3-admin-recordlist">
 	<form method="POST">
-		<div class="span2">
+		<div class="span3 t3-pane-right">
 			<ts:renderTypoScript path="navigationArea" />
 		</div>
-		<div class="span8" data-area="main">
-			<div class="list-actions">
+
+		<div class="span9">
+
+			<div class="list-actions bar">
 				<div class="pull-left">
 					<ts:renderTypoScript path="formatSelector" />
 				</div>
@@ -18,14 +20,16 @@
 				<input type="text" placeholder="filter" />
 			</div>
 
-			<div data-area="records">
-				<ts:renderTypoScript path="recordList/{currentFormat}" />
+			<div class="js actionBar" data-area="actionBar">
+				<ts:renderTypoScript path="localControllerLinks" />
 			</div>
-		</div>
 
-		<div class="span2 js actionBar" data-area="actionBar">
-			<h3>Action Bar</h3>
-			<ts:renderTypoScript path="localControllerLinks" />
+			<div data-area="main">
+				<div class="t3-records" data-area="records">
+					<ts:renderTypoScript path="recordList/{currentFormat}" />
+				</div>
+			</div>
+
 		</div>
 	</form>
 </div>

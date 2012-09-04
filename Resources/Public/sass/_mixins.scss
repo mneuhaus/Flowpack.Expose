@@ -1,0 +1,38 @@
+.t3-inspector {
+}
+
+.t3-ui {
+	.bar {
+		padding: 5px;
+		margin-bottom: 5px;
+		height: 30px;
+		border: 1px solid #eee;
+	}
+}
+
+.t3-ui {
+	.nav-list {
+		ul {
+			padding: 0;
+		}
+		li a { margin: 0px; }
+		li a { padding-left: 10px; }
+		li li a { padding-left: 20px; }
+		li li li a { padding-left: 30px; }
+	}
+}
+
+.t3-ui .actionBar {
+	float: right;
+	width: 20%;
+	// border: 1px solid red;
+	border-left: none;
+	padding: 10px;
+	background: #eee;
+	border: 1px solid #B3B3B3;
+	overflow: hidden;
+}
+
+.t3-pane-right {
+	border-right: 1px solid #eee;
+}

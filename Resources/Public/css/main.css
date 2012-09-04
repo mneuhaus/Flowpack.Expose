@@ -1,3 +1,35 @@
+.t3-ui .bar {
+  padding: 5px;
+  margin-bottom: 5px;
+  height: 30px;
+  border: 1px solid #eee; }
+
+.t3-ui .nav-list ul {
+  padding: 0; }
+.t3-ui .nav-list li a {
+  margin: 0px; }
+.t3-ui .nav-list li a {
+  padding-left: 10px; }
+.t3-ui .nav-list li li a {
+  padding-left: 20px; }
+.t3-ui .nav-list li li li a {
+  padding-left: 30px; }
+
+.t3-ui .actionBar {
+  float: right;
+  width: 20%;
+  border-left: none;
+  padding: 10px;
+  background: #eee;
+  border: 1px solid #B3B3B3;
+  overflow: hidden; }
+
+.t3-pane-right {
+  border-right: 1px solid #eee; }
+
+.t3-ui .container {
+  width: auto; }
+
 body:not(.js) .js {
   display: none; }
 
@@ -5,28 +37,39 @@ body.js .nojs {
   display: none; }
 
 .typo3-admin-recordlist [data-area=main], .typo3-admin-recordlist [data-area=actionBar] {
-  -webkit-transition-duration: 0.2s;
-  -moz-transition-duration: 0.2s;
-  -o-transition-duration: 0.2s;
-  transition-duration: 0.2s; }
+  -webkit-transition-duration: compact(0.2s, false, false, false, false, false, false, false, false, false);
+  -moz-transition-duration: compact(0.2s, false, false, false, false, false, false, false, false, false);
+  -o-transition-duration: compact(0.2s, false, false, false, false, false, false, false, false, false);
+  transition-duration: compact(0.2s, false, false, false, false, false, false, false, false, false); }
 .typo3-admin-recordlist [data-area=main] {
-  -webkit-transition-property: width;
-  -moz-transition-property: width;
-  -o-transition-property: width;
-  transition-property: width; }
+  -webkit-transition-property: compact(width, false, false, false, false, false, false, false, false, false);
+  -moz-transition-property: compact(width, false, false, false, false, false, false, false, false, false);
+  -o-transition-property: compact(width, false, false, false, false, false, false, false, false, false);
+  transition-property: compact(width, false, false, false, false, false, false, false, false, false); }
 .typo3-admin-recordlist [data-area=actionBar] {
-  -webkit-transition-property: opacity;
-  -moz-transition-property: opacity;
-  -o-transition-property: opacity;
-  transition-property: opacity; }
+  -webkit-transition-property: compact(opacity, false, false, false, false, false, false, false, false, false);
+  -moz-transition-property: compact(opacity, false, false, false, false, false, false, false, false, false);
+  -o-transition-property: compact(opacity, false, false, false, false, false, false, false, false, false);
+  transition-property: compact(opacity, false, false, false, false, false, false, false, false, false); }
   .typo3-admin-recordlist [data-area=actionBar]:not(.hiddenActionBar) {
-    -webkit-transition-delay: 0.2s;
-    -moz-transition-delay: 0.2s;
-    -o-transition-delay: 0.2s;
-    transition-delay: 0.2s; }
+    -webkit-transition-delay: compact(0.2s, false, false, false, false, false, false, false, false, false);
+    -moz-transition-delay: compact(0.2s, false, false, false, false, false, false, false, false, false);
+    -o-transition-delay: compact(0.2s, false, false, false, false, false, false, false, false, false);
+    transition-delay: compact(0.2s, false, false, false, false, false, false, false, false, false); }
   .typo3-admin-recordlist [data-area=actionBar].hiddenActionBar {
     opacity: 0; }
-.typo3-admin-recordlist [data-area=actionBar] a {
-  display: block; }
-.typo3-admin-recordlist [data-area=records] .typo3-admin-active {
-  background-color: red; }
+
+.t3-ui .t3-records > .well {
+  margin-right: 10px;
+  border-color: #B3B3B3; }
+.t3-ui .t3-records > .typo3-admin-active {
+  background: #eee;
+  margin-right: 0px;
+  border-right: 0px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  z-index: 10;
+  position: relative;
+  margin-right: -1px; }
+.t3-ui .nav-list {
+  padding: 0; }
