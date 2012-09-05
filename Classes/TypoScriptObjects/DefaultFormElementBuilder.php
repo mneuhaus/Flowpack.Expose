@@ -19,6 +19,11 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * // REVIEWED for release
  */
 class DefaultFormElementBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTsObject {
+    /**
+     * @var \TYPO3\Admin\Reflection\AnnotationService
+     * @FLOW3\Inject
+     */
+    protected $annotationService;
 
 	/**
 	 * @var string
@@ -40,6 +45,26 @@ class DefaultFormElementBuilder extends \TYPO3\TypoScript\TypoScriptObjects\Abst
 	 */
 	protected $label;
 
+	/**
+	 * @var array
+	 */
+	protected $propertyAnnotations;
+
+	/**
+	 * @var string
+	 */
+	protected $propertyName;
+
+	/**
+	 * @var string
+	 */
+	protected $className;
+
+	/**
+	 * @var string
+	 */
+	protected $propertyType;
+
 	public function setIdentifier($identifier) {
 		$this->identifier = $identifier;
 	}
@@ -56,6 +81,22 @@ class DefaultFormElementBuilder extends \TYPO3\TypoScript\TypoScriptObjects\Abst
 		$this->label = $label;
 	}
 
+	public function setPropertyAnnotations($propertyAnnotations) {
+		$this->propertyAnnotations = $propertyAnnotations;
+	}
+
+	public function setPropertyName($propertyName) {
+		$this->propertyName = $propertyName;
+	}
+
+	public function setClassName($className) {
+		$this->className = $className;
+	}
+
+	public function setPropertyType($propertyType) {
+		$this->propertyType = $propertyType;
+	}
+
     /**
      * Evaluate the collection nodes
      *
@@ -66,8 +107,21 @@ class DefaultFormElementBuilder extends \TYPO3\TypoScript\TypoScriptObjects\Abst
 		if (!($parentFormElement instanceof \TYPO3\Form\Core\Model\AbstractSection)) {
 			throw new \Exception('TODO: parent form element must be a section-like element');
 		}
+
+		$annotations = $this->tsValue("propertyAnnotations");
+		if (isset($annotations['TYPO3\Admin\Annotations\Ignore'])){
+			return NULL;
+		}
+
 		/* @var $parentFormElement \TYPO3\Form\Core\Model\AbstractSection */
 		$element = $parentFormElement->createElement($this->tsValue('identifier'), $this->tsValue('formFieldType'));
+
+		if (method_exists($element, 'setAnnotations')){
+			$classAnnotations = $this->annotationService->getClassAnnotations($this->tsValue("className"));
+			$element->setAnnotations($classAnnotations->getPropertyAnnotations($this->tsValue("propertyName")));
+		}
+
+		$element->setDataType($this->tsValue("propertyType"));
 
 		/* @var $element \TYPO3\Form\Core\Model\AbstractFormElement */
 		$element->setLabel($this->tsValue('label'));

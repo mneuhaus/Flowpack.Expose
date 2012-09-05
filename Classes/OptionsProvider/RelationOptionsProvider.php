@@ -44,9 +44,15 @@ class RelationOptionsProvider extends \TYPO3\Admin\Core\OptionsProvider\Abstract
         $options = array();
         $objects = $this->persistenceService->createQueryForType($this->annotations->getType())->execute();
         foreach ($objects as $object) {
-            $options[$this->persistenceService->getIdentifierByObject($object)] = $this->formatter->convert($object, 'string');
+            $options[$this->persistenceService->getIdentifierByObject($object)] = $this->convert($object);
         }
         return $objects;
+    }
+
+    public function convert($value) {
+        if (method_exists($value, "__toString"))
+            return $value->__toString();
+        return get_class($value);
     }
 
 }

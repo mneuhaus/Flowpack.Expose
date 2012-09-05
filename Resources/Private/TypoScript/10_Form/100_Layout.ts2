@@ -81,6 +81,48 @@ prototype(TYPO3.Admin:Form.SectionBuilder) {
 prototype(TYPO3.Admin:Form.ElementBuilder) < prototype(TYPO3.TypoScript:Case) {
 	prototype(TYPO3.TypoScript:Matcher).type = 'TYPO3.Admin:Form.DefaultElementBuilder'
 
+	#debug {
+	#	// TODO: bug in EEL: ['0'] should not need to be quoted.
+	#	condition = ${q(propertyType).debug(propertyAnnotations)}
+	#	@position = '10'
+	#	@override.formFieldType = 'TYPO3.Form:MultiLineText'
+	#}
+
+	ignore {
+		condition = ${propertyAnnotations['TYPO3\Admin\Annotations\Ignore']}
+		@position = '90'
+	}
+
+	#manyToOneInline {
+	#	condition = ${propertyAnnotations['Doctrine\ORM\Mapping\ManyToOne']}
+	#	@position = '50'
+	#	@override.formFieldType = 'TYPO3.Admin:InlineStacked'
+	#}
+
+	manyToMany {
+		condition = ${propertyAnnotations['Doctrine\ORM\Mapping\ManyToMany']}
+		@position = '90'
+		@override.formFieldType = 'TYPO3.Form:MultipleSelectDropdown'
+	}
+
+	manyToOne {
+		condition = ${propertyAnnotations['Doctrine\ORM\Mapping\ManyToOne']}
+		@position = '90'
+		@override.formFieldType = 'TYPO3.Form:SingleSelectDropdown'
+	}
+
+	oneToMany {
+		condition = ${propertyAnnotations['Doctrine\ORM\Mapping\OneToMany']}
+		@position = '90'
+		@override.formFieldType = 'TYPO3.Form:MultipleSelectDropdown'
+	}
+
+	oneToOne {
+		condition = ${propertyAnnotations['Doctrine\ORM\Mapping\OneToOne']}
+		@position = '90'
+		@override.formFieldType = 'TYPO3.Form:SingleSelectDropdown'
+	}
+
 	textfieldType {
 		// TODO: bug in EEL: ['0'] should not need to be quoted.
 		condition = ${propertyType == 'string' && propertyAnnotations['Doctrine\ORM\Mapping\Column']['0'].type == 'text'}
@@ -107,4 +149,8 @@ prototype(TYPO3.Admin:Form.DefaultElementBuilder) {
 	parentFormElement = ${parentFormElement}
 	identifier = ${formElementIdentifier}
 	label = ${propertyName}
+	propertyAnnotations = ${propertyAnnotations}
+	propertyName = ${propertyName}
+	propertyType = ${propertyType}
+	className = ${className}
 }

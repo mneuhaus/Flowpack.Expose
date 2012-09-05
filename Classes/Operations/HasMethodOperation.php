@@ -44,7 +44,7 @@ class HasMethodOperation extends \TYPO3\Eel\FlowQuery\Operations\AbstractOperati
             $value = $flowQuery->getContext();
             return method_exists($value[0], $arguments[0]);
         } else {
-            $flowQuery->pushOperation('default', array());
+            $flowQuery->pushOperation('hasMethod', array());
             $flowQuery->pushOperation('filter', $arguments);
         }
     }
