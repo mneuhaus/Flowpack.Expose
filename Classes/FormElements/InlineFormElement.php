@@ -25,12 +25,6 @@ class InlineFormElement extends \TYPO3\Form\FormElements\Section {
     protected $annotations;
 
     /**
-     * @var \TYPO3\Admin\Factory\ModelFormFactory
-     * @FLOW3\Inject
-     */
-    protected $modelFormFactory;
-
-    /**
      *
      * @var boolean
      **/
