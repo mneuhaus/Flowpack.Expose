@@ -18,12 +18,19 @@
 	</f:if>
 </f:section>
 
-<f:for each="{siteNode.childNodes}" as="concreteSiteNode">
-	<div class="">
-		<ul class="nav nav-list">
-			<li class="nav-header">{concreteSiteNode.label}</li>
-			<li class="divider"></li>
-			<f:render section="itemRenderer" arguments="{node: concreteSiteNode, selectedFolderNode: selectedFolderNode}" />
-		</ul>
+<div class="row-fluid">
+	<div class="span3">
+		<f:for each="{siteNode.childNodes}" as="concreteSiteNode">
+			<div class="">
+				<ul class="nav nav-list">
+					<li class="nav-header">{concreteSiteNode.label}</li>
+					<li class="divider"></li>
+					<f:render section="itemRenderer" arguments="{node: concreteSiteNode, selectedFolderNode: selectedFolderNode}" />
+				</ul>
+			</div>
+		</f:for>
 	</div>
-</f:for>
+	<div class="span9">
+		<placeholder:content/>
+	</div>
+</div>

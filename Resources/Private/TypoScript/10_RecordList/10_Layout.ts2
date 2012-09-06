@@ -47,9 +47,9 @@ prototype(TYPO3.Admin:RecordList) < prototype(TYPO3.TypoScript:FluidRenderer) {
 
 namespace:admin=TYPO3\Admin\TypoScript
 
-prototype(TYPO3.Admin:RecordList) << 1.admin:pagination()
-prototype(TYPO3.Admin:RecordList) << 2.admin:limit()
-prototype(TYPO3.Admin:RecordList) << 3.admin:search()
+prototype(TYPO3.Admin:RecordList) << 100.admin:pagination()
+prototype(TYPO3.Admin:RecordList) << 200.admin:limit()
+prototype(TYPO3.Admin:RecordList) << 300.admin:search()
 
 # EXAMPLE on adding a new button in a certain context
 #TYPO3.Admin.SameTypeListController.prototype(TYPO3.Admin:RecordList.FormatSelector) {

@@ -1,15 +1,10 @@
+prototype(TYPO3.Admin:ContentRecordList) < prototype(TYPO3.Admin:RecordList)
+prototype(TYPO3.Admin:ContentRecordList) << 50.admin:nodeTree()
+
 # adjustments for TYPO3CR Nodes
-TYPO3.Admin.ContentListController.index = TYPO3.Admin:RecordList
+TYPO3.Admin.ContentListController.index = TYPO3.Admin:ContentRecordList
 
 TYPO3.Admin.ContentListController {
-	prototype(TYPO3.Admin:RecordList) {
-		navigationArea = TYPO3.TypoScript:FluidRenderer {
-			templatePath = 'resource://TYPO3.Admin/Private/Elements/RecordList/NodeTree.html'
-			siteNode = ${siteNode}
-			selectedFolderNode = ${selectedFolderNode}
-		}
-	}
-
 	prototype(TYPO3.Admin:LocalControllerLink) {
 		arguments.type = 'TYPO3\\TYPO3CR\\Domain\\Model\\NodeInterface'
 		arguments.object = ${item.contextPath}

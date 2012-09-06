@@ -1,0 +1,5 @@
+prototype(TYPO3.Admin:NodeTree) < prototype(TYPO3.TypoScript:FluidRenderer) {
+	templatePath = 'resource://TYPO3.Admin/Private/Elements/RecordList/NodeTree.html'
+	siteNode = ${siteNode}
+	selectedFolderNode = ${selectedFolderNode}
+}
