@@ -2,7 +2,7 @@
 namespace TYPO3\Expose\TYPO3CR\Persistence\Node;
 
 /*                                                                        *
- * This script belongs to the FLOW3 framework.                            *
+ * This script belongs to the FLOW3 package "TYPO3.Expose".               *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -13,20 +13,19 @@ namespace TYPO3\Expose\TYPO3CR\Persistence\Node;
 
 /**
  * A Query class for Nodes
- *
- * @api
  */
 class Query extends \TYPO3\FLOW3\Persistence\Doctrine\Query {
+
 	/**
 	 * current parentPath
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $parentPath = NULL;
 
 	/**
 	 * Amount of Levels to go down recursively to fetch childNodes
-	 * 
+	 *
 	 * @var integer
 	 */
 	protected $recursiveLevels = 0;
@@ -36,15 +35,15 @@ class Query extends \TYPO3\FLOW3\Persistence\Doctrine\Query {
 	 */
 	protected $qomFactory;
 
-    /**
-     * Constructs a query object working on the given type
-     *
-     * @param \TYPO3\TYPO3CR\Domain\Model\Node $rootNode
-     */
-    public function __construct(\TYPO3\TYPO3CR\Domain\Model\NodeInterface $rootNode) {
-        $this->rootNode = $rootNode;
-        $this->entityClassName = '\\TYPO3\\TYPO3CR\\Domain\\Model\\Node';
-    }
+	/**
+	 * Constructs a query object working on the given type
+	 *
+	 * @param \TYPO3\TYPO3CR\Domain\Model\NodeInterface $rootNode
+	 */
+	public function __construct(\TYPO3\TYPO3CR\Domain\Model\NodeInterface $rootNode) {
+		$this->rootNode = $rootNode;
+		$this->entityClassName = '\TYPO3\TYPO3CR\Domain\Model\Node';
+	}
 
 	/**
 	 * Injects the FLOW3 QOM factory
@@ -56,32 +55,29 @@ class Query extends \TYPO3\FLOW3\Persistence\Doctrine\Query {
 		$this->qomFactory = $qomFactory;
 	}
 
-    /**
-     * Contrain this query to a parentPath
-     *
-     * @param string $parentPath
-     * @return object
-     */
-    public function setParentPath($parentPath) {
-        $this->parentPath = $parentPath;
-    }
+	/**
+	 * Constrain this query to $parentPath
+	 *
+	 * @param string $parentPath
+	 * @return void
+	 */
+	public function setParentPath($parentPath) {
+		$this->parentPath = $parentPath;
+	}
 
-    /**
-     * Executes the query and returns the result.
-     *
-     * @return \TYPO3\FLOW3\Persistence\QueryResultInterface The query result
-     * @api
-     */
-    public function execute() {
-        return new QueryResult($this);
-    }
-	
+	/**
+	 * Executes the query and returns the result.
+	 *
+	 * @return \TYPO3\FLOW3\Persistence\QueryResultInterface The query result
+	 */
+	public function execute() {
+		return new QueryResult($this);
+	}
+
 	/**
 	 * Returns the query result count
 	 *
 	 * @return integer The query result count
-	 * @throws \TYPO3\FLOW3\Persistence\Doctrine\DatabaseConnectionException
-	 * @api
 	 */
 	public function count() {
 		return count($this->getResult());
@@ -89,12 +85,10 @@ class Query extends \TYPO3\FLOW3\Persistence\Doctrine\Query {
 
 	/**
 	 * Gets the results of this query as array.
-	 *
 	 * Really executes the query on the database.
 	 * This should only ever be executed from the QueryResult class.
 	 *
 	 * @return array result set
-	 * @throws \TYPO3\FLOW3\Persistence\Doctrine\DatabaseConnectionException
 	 */
 	public function getResult() {
 		$node = $this->rootNode;
@@ -104,95 +98,96 @@ class Query extends \TYPO3\FLOW3\Persistence\Doctrine\Query {
 		}
 
 		$nodes = $this->getChildNodes($node);
-
 		$nodes = $this->filterNodes($nodes);
-
 		$nodes = array_slice($nodes, $this->getOffset(), $this->getLimit());
 
 		return $nodes;
 	}
 
 	/**
-	 * fetch childNodes of a node respecting the recursiveLevels
-	 * 
-	 * @param  object  $rootNode
-	 * @param  integer $level
-	 * @return array   $nodes
+	 * Fetch childNodes of a node respecting the recursiveLevels
+	 *
+	 * @param \TYPO3\TYPO3CR\Domain\Model\NodeInterface $rootNode
+	 * @param integer $level
+	 * @return array $nodes
 	 */
-	public function getChildNodes($rootNode, $level = 0) {
+	public function getChildNodes(\TYPO3\TYPO3CR\Domain\Model\NodeInterface $rootNode, $level = 0) {
 		if (is_infinite($this->recursiveLevels) || $level < $this->recursiveLevels) {
 			$nodes = array();
-			foreach($rootNode->getChildNodes() as $node){
+			foreach ($rootNode->getChildNodes() as $node) {
 				$nodes[] = $node;
-				$nodes = array_merge($nodes, $this->getChildNodes($node, $level++));	
+				$nodes = array_merge($nodes, $this->getChildNodes($node, $level++));
 			}
-		}else {
+		} else {
 			$nodes = $rootNode->getChildNodes();
 		}
+
 		return $nodes;
 	}
 
 	/**
 	 * Filter nodes based on current constraints
-	 * 
-	 * @param  array $nodes
+	 *
+	 * @param array $nodes
 	 * @return array $nodes
 	 */
-	public function filterNodes($nodes) {
-		$matchingNodes = array();
-		if (is_object($this->constraint)) {
-			foreach($nodes as $node) {
-				switch (get_class($this->constraint)) {
-					case 'TYPO3\FLOW3\Persistence\Generic\Qom\Comparison':
-						$property = $this->constraint->getOperand1()->getPropertyName();
-						$comparison = strtolower($this->constraint->getOperand2());
-
-						if ($property == "*"){
-							$properties = $node->getPropertyNames();
-						} else {
-							$properties = array($property);
-						}
-
-						foreach($properties as $property){
-							if (!$node->hasProperty($property)) {
-								continue;
-							}
-
-							$value = strtolower($node->getProperty($property));
-
-							switch($this->constraint->getOperator()) {
-								case \TYPO3\FLOW3\Persistence\QueryInterface::OPERATOR_EQUAL_TO:
-										if ($value == $comparison) {
-											$matchingNodes[] = $node;
-										}
-									break;
-
-								case \TYPO3\FLOW3\Persistence\QueryInterface::OPERATOR_LIKE:
-									$comparison = preg_quote($comparison);
-									$comparison = str_replace("%", ".+", $comparison);
-									$comparison = str_replace("?", ".", $comparison);
-									if (preg_match("/" . $comparison . "/", $value)) {
-										$matchingNodes[] = $node;
-									}
-									break;
-							}
-						}
-						break;
-					
-					default:
-						throw new \TYPO3\TYPO3\Exception('Currently on Comparisons are supported for Node Queries', 1346761586);
-						break;
-				}
-			}
-			return array_unique($matchingNodes);
+	public function filterNodes(array $nodes) {
+		if (!is_object($this->constraint)) {
+			return $nodes;
 		}
-		return $nodes;
+		$matchingNodes = array();
+		foreach ($nodes as $node) {
+			switch (get_class($this->constraint)) {
+				case 'TYPO3\FLOW3\Persistence\Generic\Qom\Comparison':
+					$property = $this->constraint->getOperand1()->getPropertyName();
+					$comparison = strtolower($this->constraint->getOperand2());
+
+					if ($property == "*") {
+						$properties = $node->getPropertyNames();
+					} else {
+						$properties = array($property);
+					}
+
+					foreach ($properties as $property) {
+						if (!$node->hasProperty($property)) {
+							continue;
+						}
+
+						$value = strtolower($node->getProperty($property));
+
+						switch ($this->constraint->getOperator()) {
+							case \TYPO3\FLOW3\Persistence\QueryInterface::OPERATOR_EQUAL_TO:
+								if ($value == $comparison) {
+									$matchingNodes[] = $node;
+								}
+								break;
+
+							case \TYPO3\FLOW3\Persistence\QueryInterface::OPERATOR_LIKE:
+								$comparison = preg_quote($comparison);
+								$comparison = str_replace("%", ".+", $comparison);
+								$comparison = str_replace("?", ".", $comparison);
+								if (preg_match("/" . $comparison . "/", $value)) {
+									$matchingNodes[] = $node;
+								}
+								break;
+						}
+					}
+					break;
+
+				default:
+					throw new \TYPO3\TYPO3\Exception('Currently on Comparisons are supported for Node Queries', 1346761586);
+					break;
+			}
+		}
+
+		return array_unique($matchingNodes);
 	}
 
 	/**
-	 * Set the amount of Levels to fetch childs from a node
-	 * 
-	 * @param int|INF $levels
+	 * Set the amount of levels to fetch children from a node
+	 *
+	 * @param integer $levels
+	 * @return void
 	 */
 	public function setRecursiveLevels($levels) {
 		$this->recursiveLevels = $levels;
@@ -204,16 +199,15 @@ class Query extends \TYPO3\FLOW3\Persistence\Doctrine\Query {
 	 *
 	 * @param \TYPO3\FLOW3\Persistence\Generic\Qom\Constraint $constraint
 	 * @return \TYPO3\FLOW3\Persistence\QueryInterface
-	 * @api
 	 */
 	public function matching($constraint) {
 		$this->constraint = $constraint;
+
 		return $this;
 	}
 
 	/**
 	 * Returns an equals criterion used for matching objects against a query.
-	 *
 	 * It matches if the $operand equals the value of the property named
 	 * $propertyName. If $operand is NULL a strict check for NULL is done. For
 	 * strings the comparison can be done with or without case-sensitivity.
@@ -223,7 +217,6 @@ class Query extends \TYPO3\FLOW3\Persistence\Doctrine\Query {
 	 * @param boolean $caseSensitive Whether the equality test should be done case-sensitive for strings
 	 * @return object
 	 * @todo Decide what to do about equality on multi-valued properties
-	 * @api
 	 */
 	public function equals($propertyName, $operand, $caseSensitive = TRUE) {
 		if ($operand === NULL) {
@@ -260,7 +253,6 @@ class Query extends \TYPO3\FLOW3\Persistence\Doctrine\Query {
 	 * @param boolean $caseSensitive Whether the matching should be done case-sensitive
 	 * @return object
 	 * @throws \TYPO3\FLOW3\Persistence\Exception\InvalidQueryException if used on a non-string property
-	 * @api
 	 */
 	public function like($propertyName, $operand, $caseSensitive = TRUE) {
 		if (!is_string($operand)) {

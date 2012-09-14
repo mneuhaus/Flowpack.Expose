@@ -2,11 +2,11 @@
 namespace TYPO3\Expose\TypoScript\Processors;
 
 /*                                                                        *
- * This script belongs to the TYPO3.Expose package.              		  *
+ * This script belongs to the FLOW3 package "TYPO3.Expose".               *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
- * the terms of the GNU General Public License, either version 3 of the   *
- * License, or (at your option) any later version.                        *
+ * the terms of the GNU Lesser General Public License, either version 3   *
+ * of the License, or (at your option) any later version.                 *
  *                                                                        *
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
@@ -19,12 +19,19 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  *
  */
 class PaginationProcessor implements \TYPO3\TypoScript\RuntimeAwareProcessorInterface {
+
 	/**
 	 * @var \TYPO3\FLOW3\Configuration\ConfigurationManager
 	 * @FLOW3\Inject
 	 */
 	protected $configurationManager;
 
+	/**
+	 * @param \TYPO3\TypoScript\Core\Runtime $runtime
+	 * @param \TYPO3\TypoScript\TypoScriptObjects\AbstractTsObject $typoScriptObject
+	 * @param string $typoScriptPath
+	 * @return void
+	 */
 	public function beforeInvocation(\TYPO3\TypoScript\Core\Runtime $runtime, \TYPO3\TypoScript\TypoScriptObjects\AbstractTsObject $typoScriptObject, $typoScriptPath) {
 		$this->settings = $this->configurationManager->getConfiguration(\TYPO3\FLOW3\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, 'TYPO3.Expose.Pagination');
 		$this->tsRuntime = $runtime;
@@ -35,6 +42,9 @@ class PaginationProcessor implements \TYPO3\TypoScript\RuntimeAwareProcessorInte
 		}
 	}
 
+	/**
+	 * @return integer
+	 */
 	public function getOffset() {
 		$request = $this->tsRuntime->getControllerContext()->getRequest();
 
@@ -54,10 +64,13 @@ class PaginationProcessor implements \TYPO3\TypoScript\RuntimeAwareProcessorInte
 		return $offset;
 	}
 
+	/**
+	 * @return integer
+	 */
 	public function getLimit() {
 		$request = $this->tsRuntime->getControllerContext()->getRequest();
-		
-		$limit = $this->settings["Default"];
+
+		$limit = $this->settings['Default'];
 		if ($request->hasArgument('limit')) {
 			$limit = $request->getArgument('limit');
 		}
@@ -65,10 +78,20 @@ class PaginationProcessor implements \TYPO3\TypoScript\RuntimeAwareProcessorInte
 		return $limit;
 	}
 
+	/**
+	 * @param mixed $subject
+	 * @return mixed
+	 */
 	public function process($subject) {
 		return $subject;
 	}
 
+	/**
+	 * @param \TYPO3\TypoScript\Core\Runtime $runtime
+	 * @param \TYPO3\TypoScript\TypoScriptObjects\AbstractTsObject $typoScriptObject
+	 * @param string $typoScriptPath
+	 * @return void
+	 */
 	public function afterInvocation(\TYPO3\TypoScript\Core\Runtime $runtime, \TYPO3\TypoScript\TypoScriptObjects\AbstractTsObject $typoScriptObject, $typoScriptPath) {
 		if (isset($context['objects'])) {
 			$runtime->popContext();

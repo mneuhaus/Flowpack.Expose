@@ -2,11 +2,11 @@
 namespace TYPO3\Expose\TypoScriptObjects;
 
 /*                                                                        *
- * This script belongs to the TYPO3.Expose package.              		  *
+ * This script belongs to the FLOW3 package "TYPO3.Expose".               *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
- * the terms of the GNU General Public License, either version 3 of the   *
- * License, or (at your option) any later version.                        *
+ * the terms of the GNU Lesser General Public License, either version 3   *
+ * of the License, or (at your option) any later version.                 *
  *                                                                        *
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
@@ -15,8 +15,6 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
  * Render a Form using the Form framework
- *
- * // REVIEWED for release
  */
 class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTsObject {
 
@@ -71,34 +69,54 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTsOb
 	/**
 	 * @var string
 	 */
-	protected $callbackAction;	
+	protected $callbackAction;
 
+	/**
+	 * @param string $className
+	 * @return void
+	 */
 	public function setClassName($className) {
 		$this->className = $className;
 	}
 
+	/**
+	 * @param string $objects
+	 * @return void
+	 */
 	public function setObjects($objects) {
 		$this->objects = $objects;
 	}
 
+	/**
+	 * @param string $formIdentifier
+	 * @return void
+	 */
 	public function setFormIdentifier($formIdentifier) {
 		$this->formIdentifier = $formIdentifier;
 	}
 
+	/**
+	 * @param string $formPresetName
+	 * @return void
+	 */
 	public function setFormPresetName($formPresetName) {
 		$this->formPresetName = $formPresetName;
 	}
 
+	/**
+	 * @param string $callbackAction
+	 * @return void
+	 */
 	public function setCallbackAction($callbackAction) {
 		$this->callbackAction = $callbackAction;
 	}
 
-    /**
-     * Evaluate the collection nodes
-     *
-     * @return string
-     */
-    public function evaluate() {
+	/**
+	 * Evaluate the collection nodes
+	 *
+	 * @return string
+	 */
+	public function evaluate() {
 		$formDefinition = $this->baseFormFactory->build(array('identifier' => $this->tsValue('formIdentifier')), $this->tsValue('formPresetName'));
 		$page = $formDefinition->createPage('page1');
 
@@ -125,12 +143,24 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTsOb
 		}
 
 		$this->addValidatorsToForm($formDefinition, $objectNamespaces);
+
 		return $formDefinition;
 	}
+
+	/**
+	 * @param object $object
+	 * @return array
+	 */
 	protected function getObjectIdentifierArrayForObject($object) {
 		return array('__identity' => $this->persistenceManager->getIdentifierByObject($object));
 	}
 
+	/**
+	 * @param \TYPO3\Form\Core\Model\AbstractSection $parentFormElement
+	 * @param object $object
+	 * @param string $namespace
+	 * @return void
+	 */
 	protected function createFormForSingleObject(\TYPO3\Form\Core\Model\AbstractSection $parentFormElement, $object, $namespace = '') {
 		$sectionNames = $this->findSections();
 		foreach ($sectionNames as $sectionName) {
@@ -145,13 +175,21 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTsOb
 			$section->setLabel($this->getLabelForObject($object));
 			$this->createElementsForSection($sectionName, $section, $namespace, $object);
 		}
-    }
-
-	protected function getLabelForObject($object) {
-
 	}
 
-	protected function addValidatorsToForm(\TYPO3\Form\Core\Model\FormDefinition $formDefinition, $objectNamespaces) {
+	/**
+	 * @param object $object
+	 * @return string
+	 */
+	protected function getLabelForObject($object) {
+	}
+
+	/**
+	 * @param \TYPO3\Form\Core\Model\FormDefinition $formDefinition
+	 * @param array $objectNamespaces
+	 * @return void
+	 */
+	protected function addValidatorsToForm(\TYPO3\Form\Core\Model\FormDefinition $formDefinition, array $objectNamespaces) {
 		$className = $this->tsValue('className');
 		$baseValidator = $this->validatorResolver->getBaseValidatorConjunction($className, array('Default', 'Form'));
 		/* @var $baseValidator \TYPO3\FLOW3\Validation\Validator\ConjunctionValidator */
@@ -174,6 +212,12 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTsOb
 		}
 	}
 
+	/**
+	 * @param \TYPO3\Form\Core\Model\FormDefinition $formDefinition
+	 * @param object $object
+	 * @param string $namespace
+	 * @return void
+	 */
 	protected function loadDefaultValuesIntoForm(\TYPO3\Form\Core\Model\FormDefinition $formDefinition, $object, $namespace) {
 		$properties = \TYPO3\FLOW3\Reflection\ObjectAccess::getGettableProperties($object);
 		foreach ($properties as $propertyName => $propertyValue) {
@@ -184,13 +228,22 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTsOb
 		}
 	}
 
+	/**
+	 * @return array
+	 */
 	protected function findSections() {
 		// TODO implement
 		return array('Default');
 	}
 
+	/**
+	 * @param string $sectionName
+	 * @param \TYPO3\Form\FormElements\Section $section
+	 * @param string $namespace
+	 * @param object $object
+	 */
 	protected function createElementsForSection($sectionName, \TYPO3\Form\FormElements\Section $section, $namespace, $object) {
-		// TODO evaluate $sectionName
+			// TODO evaluate $sectionName
 		$className = $this->tsValue('className');
 		$propertyNames = $this->reflectionService->getClassPropertyNames($className);
 		$classSchema = $this->reflectionService->getClassSchema($className);
@@ -206,7 +259,7 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTsOb
 			$this->tsRuntime->pushContext('propertyType', $propertySchema['type']);
 			$this->tsRuntime->pushContext('propertyElementType', $propertySchema['elementType']);
 
-			$section = $this->tsRuntime->render($this->path . '/elementBuilder');
+			$this->tsRuntime->render($this->path . '/elementBuilder');
 
 			$this->tsRuntime->popContext();
 			$this->tsRuntime->popContext();
@@ -218,4 +271,5 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTsOb
 		$this->tsRuntime->popContext();
 	}
 }
+
 ?>

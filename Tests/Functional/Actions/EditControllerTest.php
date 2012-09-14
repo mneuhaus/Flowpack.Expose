@@ -2,11 +2,11 @@
 namespace TYPO3\Expose\Tests\Functional\Actions;
 
 /*                                                                        *
- * This script belongs to the TYPO3.Expose package.              *
+ * This script belongs to the FLOW3 package "TYPO3.Expose".               *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
- *  of the License, or (at your option) any later version.                *
+ * of the License, or (at your option) any later version.                 *
  *                                                                        *
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
@@ -14,7 +14,6 @@ namespace TYPO3\Expose\Tests\Functional\Actions;
 use TYPO3\FLOW3\Http\Request;
 use TYPO3\FLOW3\Http\Uri;
 use TYPO3\FLOW3\Mvc\ActionRequest;
-use Symfony\Component\DomCrawler\Crawler;
 
 /**
  * Testcase for Standalone View
@@ -57,11 +56,17 @@ class EditControllerTest extends \TYPO3\FLOW3\Tests\FunctionalTestCase {
 		$this->router->addRoute($route);
 	}
 
-	public function callAction($uriArguments) {
-		$class = "TYPO3\Expose\Tests\Functional\Actions\Fixtures\Domain\Model\Post";
+	/**
+	 * @param array $uriArguments
+	 * @return \TYPO3\FLOW3\Http\Response
+	 */
+	public function callAction(array $uriArguments) {
 		return $this->browser->request('http://localhost/test/expose/actions?' . http_build_query($uriArguments));
 	}
 
+	/**
+	 * @return string
+	 */
 	public function createDummyPost() {
 		$post = new Fixtures\Domain\Model\Post();
 		$post->setEmail('foo@bar.org');
@@ -79,10 +84,11 @@ class EditControllerTest extends \TYPO3\FLOW3\Tests\FunctionalTestCase {
 	 * @test
 	 */
 	public function editPostFormIsRendered() {
-		return;
+		$this->markTestIncomplete('This should test something, I guess');
+
 		$identifier = $this->createDummyPost();
 
-		$response = $this->callAction(array(
+		$this->callAction(array(
 			'--featureRuntime' => array(
 				'being' => 'TYPO3\Expose\Tests\Functional\Actions\Fixtures\Domain\Model\Post',
 				'id' => $identifier,
@@ -116,24 +122,14 @@ class EditControllerTest extends \TYPO3\FLOW3\Tests\FunctionalTestCase {
 			)
 		));
 
-		$content = $response->getContent();
+		$response->getContent();
 
 		$form = $this->browser->getForm();
 		$form["--contentForm[item][name]"] = "Tony Tester";
 		$form["--contentForm[item][email]"] = "tony@tester.com";
 		$response = $this->browser->submit($form);
 
-		// $response = $this->callAction(array(
-		// 	'--featureRuntime' => array(
-		// 		'being' => 'TYPO3\Expose\Tests\Functional\Actions\Fixtures\Domain\Model\Post',
-		// 		'@action' => 'index',
-		// 		'@controller' => 'list',
-		// 		'@package' => 'typo3.expose'
-		// 	)
-		// ));
-		
 		$content = $response->getContent();
-		#$this->assertTrue((boolean) stristr($content, "foo@bar.org"));
 	}
 }
 ?>

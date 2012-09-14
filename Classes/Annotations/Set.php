@@ -2,7 +2,7 @@
 namespace TYPO3\Expose\Annotations;
 
 /*                                                                        *
- * This script belongs to the TYPO3.Expose package.              *
+ * This script belongs to the FLOW3 package "TYPO3.Expose".               *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -16,33 +16,32 @@ namespace TYPO3\Expose\Annotations;
  */
 final class Set {
 
-    /**
-     * @var boolean
-     */
-    protected $multiple = true;
+	/**
+	 * @var boolean
+	 */
+	protected $multiple = TRUE;
 
-    /**
-     * @var string
-     */
-    public $properties = '';
+	/**
+	 * @var string
+	 */
+	public $properties = '';
 
-    /**
-     * @var string
-     */
-    public $title = '';
+	/**
+	 * @var string
+	 */
+	public $title = '';
 
-    /**
-     * @param string $value
-     */
-    public function __construct(array $values) {
-        if (isset($values['title'])) {
-            $this->title = $values['title'];
-        }
-        if (isset($values['properties'])) {
-            $this->properties = $values['properties'];
-        }
-    }
-
+	/**
+	 * @param array $values
+	 */
+	public function __construct(array $values) {
+		if (isset($values['title'])) {
+			$this->title = $values['title'];
+		}
+		if (isset($values['properties'])) {
+			$this->properties = $values['properties'];
+		}
+	}
 }
 
 ?>

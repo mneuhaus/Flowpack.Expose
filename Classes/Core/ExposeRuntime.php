@@ -2,7 +2,7 @@
 namespace TYPO3\Expose\Core;
 
 /*                                                                        *
- * This script belongs to the TYPO3.Expose package.              *
+ * This script belongs to the FLOW3 package "TYPO3.Expose".               *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -16,24 +16,22 @@ use TYPO3\FLOW3\Mvc\ActionRequest;
 
 /**
  * Runtime for expose controllers
- *
- * // REVIEWED for release.
  */
 class ExposeRuntime extends AbstractRuntime {
 
-    /**
-     * Default action to render if nothing else is specified
-     * or present in the arguments
-     *
-     * @var string
-     * @internal
-     */
-    protected $defaultControllerClassName = 'TYPO3\\Expose\\Controller\\IndexController';
+	/**
+	 * Default action to render if nothing else is specified
+	 * or present in the arguments
+	 *
+	 * @var string
+	 */
+	protected $defaultControllerClassName = 'TYPO3\\Expose\\Controller\\IndexController';
 
-    /**
-     *
-     * @var string
-     */
-    protected $namespace = 'exposeRuntime';
+	/**
+	 * @var string
+	 */
+	protected $namespace = 'exposeRuntime';
+
 }
+
 ?>

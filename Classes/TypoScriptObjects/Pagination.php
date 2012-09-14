@@ -2,11 +2,11 @@
 namespace TYPO3\Expose\TypoScriptObjects;
 
 /*                                                                        *
- * This script belongs to the TYPO3.Expose package.              		  *
+ * This script belongs to the FLOW3 package "TYPO3.Expose".               *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
- * the terms of the GNU General Public License, either version 3 of the   *
- * License, or (at your option) any later version.                        *
+ * the terms of the GNU Lesser General Public License, either version 3   *
+ * of the License, or (at your option) any later version.                 *
  *                                                                        *
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
@@ -14,86 +14,105 @@ namespace TYPO3\Expose\TypoScriptObjects;
 use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
- *
  */
 class Pagination extends \TYPO3\TypoScript\TypoScriptObjects\FluidRenderer {
+
 	/**
 	 * @var \TYPO3\FLOW3\Configuration\ConfigurationManager
 	 * @FLOW3\Inject
 	 */
 	protected $configurationManager;
 
-    /**
-     * @return string
-     */
-    public function evaluate() {
-    	$this->settings = $this->configurationManager->getConfiguration(\TYPO3\FLOW3\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, 'TYPO3.Expose.Pagination');
-        $this->addPaginationVariables();
-        return parent::evaluate();
-    }
+	/**
+	 * @var array
+	 */
+	protected $settings;
 
-    public function addPaginationVariables() {
-    	$currentPage = $this->getCurrentPage();
+	/**
+	 * @return string
+	 */
+	public function evaluate() {
+		$this->settings = $this->configurationManager->getConfiguration(\TYPO3\FLOW3\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, 'TYPO3.Expose.Pagination');
+		$this->addPaginationVariables();
 
-        $pages = array();
-        for ($i = 0; $i < $this->totalObjects() / $this->getLimit(); $i++) {
-            $pages[] = $i + 1;
-        }
+		return parent::evaluate();
+	}
 
-        if ($currentPage > count($pages)) {
-            $currentPage = count($pages);
-        }
+	/**
+	 * @return void
+	 */
+	public function addPaginationVariables() {
+		$currentPage = $this->getCurrentPage();
 
-        if (count($pages) > 1) {
-            $this->variables['currentPage'] = $currentPage;
-            if ($currentPage < count($pages)) {
-                $this->variables['nextPage'] = $currentPage + 1;
-            }
-            if ($currentPage > 1) {
-                $this->variables['previousPage'] = $currentPage - 1;
-            }
-            if (count($pages) > $this->settings['MaxPages']) {
-                $max = $this->settings['MaxPages'];
-                $start = $currentPage - ($max + $max % 2) / 2;
-                $start = $start > 0 ? $start : 0;
-                $start = $start > 0 ? $start : 0;
-                $start = $start + $max > count($pages) ? count($pages) - $max : $start;
-                $pages = array_slice($pages, $start, $max);
-            }
-            $this->variables['pages'] = $pages;
-        }
-    }
+		$pages = array();
+		for ($i = 0; $i < $this->totalObjects() / $this->getLimit(); $i++) {
+			$pages[] = $i + 1;
+		}
 
-    public function totalObjects() {
-    	$objects = $this->tsRuntime->evaluateProcessor('objects', $this, $this->variables["objects"]);
-        
-        if (is_object($objects)) {
-           $objects = $objects->getQuery()->setLimit(NULL)->setOffset(NULL)->execute();
-           return $objects->count();
-        }
+		if ($currentPage > count($pages)) {
+			$currentPage = count($pages);
+		}
 
-        return 0;
-    }
+		if (count($pages) > 1) {
+			$this->variables['currentPage'] = $currentPage;
+			if ($currentPage < count($pages)) {
+				$this->variables['nextPage'] = $currentPage + 1;
+			}
+			if ($currentPage > 1) {
+				$this->variables['previousPage'] = $currentPage - 1;
+			}
+			if (count($pages) > $this->settings['MaxPages']) {
+				$max = $this->settings['MaxPages'];
+				$start = $currentPage - ($max + $max % 2) / 2;
+				$start = $start > 0 ? $start : 0;
+				$start = $start > 0 ? $start : 0;
+				$start = $start + $max > count($pages) ? count($pages) - $max : $start;
+				$pages = array_slice($pages, $start, $max);
+			}
+			$this->variables['pages'] = $pages;
+		}
+	}
 
-    public function getCurrentPage() {
-    	$request = $this->tsRuntime->getControllerContext()->getRequest();
+	/**
+	 * @return integer
+	 */
+	public function totalObjects() {
+		$objects = $this->tsRuntime->evaluateProcessor('objects', $this, $this->variables["objects"]);
 
-    	if($request->hasArgument('page')){
-    		return $request->getArgument('page');
-    	}
+		if (is_object($objects)) {
+			$objects = $objects->getQuery()->setLimit(NULL)->setOffset(NULL)->execute();
 
-    	return 1;
-    }
+			return $objects->count();
+		}
 
-    public function getLimit() {
-    	$request = $this->tsRuntime->getControllerContext()->getRequest();
+		return 0;
+	}
 
-    	if($request->hasArgument('limit')){
-    		return $request->getArgument('limit');
-    	}
+	/**
+	 * @return integer
+	 */
+	public function getCurrentPage() {
+		$request = $this->tsRuntime->getControllerContext()->getRequest();
 
-    	return $this->settings['Default'];
-    }
+		if ($request->hasArgument('page')) {
+			return $request->getArgument('page');
+		}
+
+		return 1;
+	}
+
+	/**
+	 * @return integer
+	 */
+	public function getLimit() {
+		$request = $this->tsRuntime->getControllerContext()->getRequest();
+
+		if ($request->hasArgument('limit')) {
+			return $request->getArgument('limit');
+		}
+
+		return (integer)$this->settings['Default'];
+	}
 }
 
 ?>

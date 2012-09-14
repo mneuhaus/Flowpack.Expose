@@ -2,7 +2,7 @@
 namespace TYPO3\Expose\TypoScriptObjects\Helpers;
 
 /*                                                                        *
- * This script belongs to the TYPO3.Expose package.              		  *
+ * This script belongs to the FLOW3 package "TYPO3.Expose".               *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU General Public License, either version 3 of the   *
@@ -14,14 +14,20 @@ namespace TYPO3\Expose\TypoScriptObjects\Helpers;
 use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
- *
  */
 class BaseFormFactory extends \TYPO3\Form\Factory\AbstractFormFactory {
 
-    public function build(array $configuration, $presetName) {
+	/**
+	 * @param array $configuration
+	 * @param string $presetName
+	 * @return \TYPO3\Form\Core\Model\FormDefinition
+	 */
+	public function build(array $configuration, $presetName) {
 		$formDefaults = $this->getPresetConfiguration($presetName);
 
 		return new \TYPO3\Form\Core\Model\FormDefinition($configuration['identifier'], $formDefaults);
 	}
+
 }
+
 ?>

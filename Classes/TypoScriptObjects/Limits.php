@@ -2,11 +2,11 @@
 namespace TYPO3\Expose\TypoScriptObjects;
 
 /*                                                                        *
- * This script belongs to the TYPO3.Expose package.              		  *
+ * This script belongs to the FLOW3 package "TYPO3.Expose".               *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
- * the terms of the GNU General Public License, either version 3 of the   *
- * License, or (at your option) any later version.                        *
+ * the terms of the GNU Lesser General Public License, either version 3   *
+ * of the License, or (at your option) any later version.                 *
  *                                                                        *
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
@@ -14,81 +14,89 @@ namespace TYPO3\Expose\TypoScriptObjects;
 use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
- *
  */
 class Limits extends \TYPO3\TypoScript\TypoScriptObjects\FluidRenderer {
+
 	/**
 	 * @var \TYPO3\FLOW3\Configuration\ConfigurationManager
 	 * @FLOW3\Inject
 	 */
 	protected $configurationManager;
 
-    /**
-     * @return string
-     */
-    public function evaluate() {
-    	$this->settings = $this->configurationManager->getConfiguration(\TYPO3\FLOW3\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, 'TYPO3.Expose.Pagination');
-        
-        $limits = array();
+	/**
+	 * @return string
+	 */
+	public function evaluate() {
+		$this->settings = $this->configurationManager->getConfiguration(\TYPO3\FLOW3\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, 'TYPO3.Expose.Pagination');
 
-        foreach ($this->settings['Limits'] as $limit) {
-            $limits[$limit] = false;
-        }
+		$limits = array();
+		foreach ($this->settings['Limits'] as $limit) {
+			$limits[$limit] = FALSE;
+		}
+		$limit = $this->getLimit();
+		$total = $this->totalObjects();
 
-        $limit = $this->getLimit();
-        $total = $this->totalObjects();
-        
-        $unset = false;
-        foreach ($limits as $key => $value) {
-            $limits[$key] = $limit == $key;
-            if (!$unset && intval($key) >= intval($total)) {
-                $unset = true;
-                continue;
-            }
-            if ($unset) {
-                unset($limits[$key]);
-            }
-        }
+		$unset = FALSE;
+		foreach ($limits as $key => $value) {
+			$limits[$key] = $limit == $key;
+			if (!$unset && intval($key) >= $total) {
+				$unset = TRUE;
+				continue;
+			}
+			if ($unset) {
+				unset($limits[$key]);
+			}
+		}
 
-        if (count($limits) == 1) {
-            $limits = array();
-        }
+		if (count($limits) === 1) {
+			$limits = array();
+		}
 
-        $this->variables["limits"] = $limits;
-        
-        return parent::evaluate();
-    }
+		$this->variables["limits"] = $limits;
 
-    public function totalObjects() {
-    	$objects = $this->tsRuntime->evaluateProcessor('objects', $this, $this->variables["objects"]);
-        
-        if (is_object($objects)) {
-    	   $objects = $objects->getQuery()->setLimit(NULL)->setOffset(NULL)->execute();
-    	   return $objects->count();
-        }
+		return parent::evaluate();
+	}
 
-        return 0;
-    }
+	/**
+	 * @return integer
+	 */
+	public function totalObjects() {
+		$objects = $this->tsRuntime->evaluateProcessor('objects', $this, $this->variables["objects"]);
 
-    public function getCurrentPage() {
-    	$request = $this->tsRuntime->getControllerContext()->getRequest();
+		if (is_object($objects)) {
+			$objects = $objects->getQuery()->setLimit(NULL)->setOffset(NULL)->execute();
 
-    	if($request->hasArgument('page')){
-    		return $request->getArgument('page');
-    	}
+			return $objects->count();
+		}
 
-    	return 1;
-    }
+		return 0;
+	}
 
-    public function getLimit() {
-    	$request = $this->tsRuntime->getControllerContext()->getRequest();
+	/**
+	 * @return integer
+	 */
+	public function getCurrentPage() {
+		$request = $this->tsRuntime->getControllerContext()->getRequest();
 
-    	if($request->hasArgument('limit')){
-    		return $request->getArgument('limit');
-    	}
+		if ($request->hasArgument('page')) {
+			return $request->getArgument('page');
+		}
 
-    	return $this->settings['Default'];
-    }
+		return 1;
+	}
+
+	/**
+	 * @return integer
+	 */
+	public function getLimit() {
+		$request = $this->tsRuntime->getControllerContext()->getRequest();
+
+		if ($request->hasArgument('limit')) {
+			return $request->getArgument('limit');
+		}
+
+		return (integer)$this->settings['Default'];
+	}
 }
 
 ?>

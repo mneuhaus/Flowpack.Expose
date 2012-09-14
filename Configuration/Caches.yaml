@@ -5,7 +5,7 @@
 # while initializing the cache framework. If caches want to benefit from #
 # the automatic flushing mechanisms (such as garbage collection and      #
 # automatic flushing by tag) they must be registered in a Caches.yaml    #
-# file.
+# file.                                                                  #
 #                                                                        #
 
 Expose_ConfigurationCache: []

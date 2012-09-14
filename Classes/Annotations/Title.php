@@ -2,7 +2,7 @@
 namespace TYPO3\Expose\Annotations;
 
 /*                                                                        *
- * This script belongs to the TYPO3.Expose package.              *
+ * This script belongs to the FLOW3 package "TYPO3.Expose".               *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -16,12 +16,12 @@ namespace TYPO3\Expose\Annotations;
  */
 final class Title implements SingleAnnotationInterface {
 
-    /**
-    * TODO: Document this Method! ( __toString )
-    */
-    public function __toString() {
-        return 'Title';
-    }
+	/**
+	 * @return string
+	 */
+	public function __toString() {
+		return 'Title';
+	}
 
 }
 

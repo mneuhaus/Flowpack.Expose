@@ -2,7 +2,7 @@
 namespace TYPO3\Expose\Annotations;
 
 /*                                                                        *
- * This script belongs to the TYPO3.Expose package.              *
+ * This script belongs to the FLOW3 package "TYPO3.Expose".               *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -16,26 +16,25 @@ namespace TYPO3\Expose\Annotations;
  */
 final class Repository {
 
-    /**
-     * @var integer
-     */
-    public $class = '';
+	/**
+	 * @var integer
+	 */
+	public $class = '';
 
-    /**
-     * @param string $value
-     */
-    public function __construct(array $values = array()) {
-        $this->class = isset($values['value']) ? $values['value'] : $this->class;
-        $this->class = isset($values['class']) ? $values['class'] : $this->class;
-    }
+	/**
+	 * @param array $values
+	 */
+	public function __construct(array $values = array()) {
+		$this->class = isset($values['value']) ? $values['value'] : $this->class;
+		$this->class = isset($values['class']) ? $values['class'] : $this->class;
+	}
 
-    /**
-    * TODO: Document this Method! ( __toString )
-    */
-    public function __toString() {
-        return $this->class;
-    }
-
+	/**
+	 * @return string
+	 */
+	public function __toString() {
+		return $this->class;
+	}
 }
 
 ?>

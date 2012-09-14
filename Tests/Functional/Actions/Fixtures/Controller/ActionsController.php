@@ -2,11 +2,11 @@
 namespace TYPO3\Expose\Tests\Functional\Actions\Fixtures\Controller;
 
 /*                                                                        *
- * This script belongs to the TYPO3.Expose package.              *
+ * This script belongs to the FLOW3 package "TYPO3.Expose".               *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
- *  of the License, or (at your option) any later version.                *
+ * of the License, or (at your option) any later version.                 *
  *                                                                        *
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
@@ -17,6 +17,9 @@ namespace TYPO3\Expose\Tests\Functional\Actions\Fixtures\Controller;
  */
 class ActionsController extends \TYPO3\FLOW3\Mvc\Controller\ActionController {
 
+	/**
+	 * @param string $action
+	 */
 	public function setTemplate($action) {
 		$this->view->setTemplatePathAndFilename("Packages/Application/TYPO3.Expose/Tests/Functional/Actions/Fixtures/Templates/" . $action . ".html");
 	}
@@ -32,9 +35,9 @@ class ActionsController extends \TYPO3\FLOW3\Mvc\Controller\ActionController {
 	protected function resolveView() {
 		$view = new \TYPO3\Fluid\View\StandaloneView();
 		$view->setControllerContext($this->controllerContext);
+
 		return $view;
 	}
-
 
 	/**
 	 * Display a start page
@@ -45,17 +48,12 @@ class ActionsController extends \TYPO3\FLOW3\Mvc\Controller\ActionController {
 		$this->setTemplate("Index");
 	}
 
-	// /**
-	//  * @param \TYPO3\Fluid\Tests\Functional\Form\Fixtures\Domain\Model\Post $post
-	//  * @return void
-	//  */
-	// public function createAction(\TYPO3\Fluid\Tests\Functional\Form\Fixtures\Domain\Model\Post $post) {
-	// 	return $post->getName() . '|' . $post->getEmail();
-	// }
-	// 
-	// 
+	/**
+	 * @return string
+	 */
 	public function resolveViewObjectName() {
 		return $this->defaultViewObjectName;
 	}
 }
+
 ?>

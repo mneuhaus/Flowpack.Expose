@@ -1,5 +1,5 @@
 #                                                                        #
-# Settings Configuration for the Expose package                           #
+# Settings Configuration for the Expose package                          #
 #                                                                        #
 
 TYPO3:
@@ -50,28 +50,28 @@ TYPO3:
             Inline: TYPO3.Expose:InlineTabular
             Ignore: List
           preferences:
-            Ignore: true
+            Ignore: TRUE
           accounts:
             Inline: TYPO3.Expose:InlineSeamless
 
       TYPO3\Party\Domain\Model\PersonName:
         Properties:
           title:
-            Ignore: true
+            Ignore: TRUE
           otherName:
-            Ignore: true
+            Ignore: TRUE
           middleName:
-            Ignore: true
+            Ignore: TRUE
           fullName:
-            Ignore: true
+            Ignore: TRUE
           alias:
-            Ignore: true
+            Ignore: TRUE
 
       TYPO3\FLOW3\Security\Account:
         Properties:
           accountIdentifier:
             Label: Username
-            Title: true
+            Title: TRUE
           credentialsSource:
             Label: Passwort
             Element: TYPO3.Expose:PasswordWithHashing
@@ -79,13 +79,13 @@ TYPO3:
             OptionsProvider:
               Name: RoleOptionsProvider
           creationDate:
-            Ignore: true
+            Ignore: TRUE
           party:
-            Ignore: true
+            Ignore: TRUE
           expirationDate:
-            Ignore: true
+            Ignore: TRUE
           authenticationProviderName:
-            Ignore: true
+            Ignore: TRUE
 
       TYPO3\Party\Domain\Model\ElectronicAddress:
         Properties:
@@ -120,10 +120,10 @@ TYPO3:
               defaultExposeControllerClassName: '\TYPO3\Expose\Controller\SameTypeListController'
               defaultExposeControllerArguments:
                 type: 'TYPO3\Blog\Domain\Model\Post'
-        exposeistration:
+        administration:
           submodules:
             usernew:
-              label: 'New User Exposeistration'
+              label: 'New User Administration'
               controller: '\TYPO3\Expose\Controller\ModuleController'
               defaultExposeControllerClassName: '\TYPO3\Expose\Controller\SameTypeListController'
               defaultExposeControllerArguments:

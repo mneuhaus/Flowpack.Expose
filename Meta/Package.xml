@@ -4,12 +4,11 @@
 	<title/>
 	<description/>
 	<version/>
-
-    <constraints>
-        <depends>
-            <package>TYPO3.TypoScript</package>
-        </depends>
-        <conflicts/>
-        <suggests/>
-    </constraints>
+	<constraints>
+		<depends>
+			<package>TYPO3.TypoScript</package>
+		</depends>
+		<conflicts/>
+		<suggests/>
+	</constraints>
 </package>

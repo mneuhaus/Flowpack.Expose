@@ -4,10 +4,10 @@ Additional Features
 MagicModel
 **********
 You can extend your Models from this Model to get Magic Getters, Setters and some other features.
-Be aware of the fact that you should implement your Getters and Setters sooner or later to gain some Performance. 
+Be aware of the fact that you should implement your Getters and Setters sooner or later to gain some Performance.
 But for development stage it just keeps the FLOW when you don't need to bother about all those repetative getters and setters all
 the time.
-> Note: This Exposeistration interface works completely without this MagicModel. You just need to make sure, that you have all
+> Note: This Administration interface works completely without this MagicModel. You just need to make sure, that you have all
 the getter and setter functions properly defined in your models. Additionally it is strongly suggested to implement
 the __toString funtion for your Models to return a sensible String representation of the Model.
 

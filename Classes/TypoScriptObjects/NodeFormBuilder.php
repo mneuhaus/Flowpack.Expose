@@ -2,11 +2,11 @@
 namespace TYPO3\Expose\TypoScriptObjects;
 
 /*                                                                        *
- * This script belongs to the TYPO3.Expose package.              		  *
+ * This script belongs to the FLOW3 package "TYPO3.Expose".               *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
- * the terms of the GNU General Public License, either version 3 of the   *
- * License, or (at your option) any later version.                        *
+ * the terms of the GNU Lesser General Public License, either version 3   *
+ * of the License, or (at your option) any later version.                 *
  *                                                                        *
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
@@ -15,17 +15,25 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
  * Render a Node-based form
- *
- * // REVIEWED for release
  */
 class NodeFormBuilder extends ObjectFormBuilder {
 
-	protected function addValidatorsToForm(\TYPO3\Form\Core\Model\FormDefinition $formDefinition, $objectNamespaces) {
+	/**
+	 * @param \TYPO3\Form\Core\Model\FormDefinition $formDefinition
+	 * @param array $objectNamespaces
+	 */
+	protected function addValidatorsToForm(\TYPO3\Form\Core\Model\FormDefinition $formDefinition, array $objectNamespaces) {
 	}
 
+	/**
+	 * @param string $sectionName
+	 * @param \TYPO3\Form\FormElements\Section $section
+	 * @param string $namespace
+	 * @param object $object
+	 * @return void
+	 */
 	protected function createElementsForSection($sectionName, \TYPO3\Form\FormElements\Section $section, $namespace, $object) {
 		// TODO evaluate $sectionName
-		/* @var $object \TYPO3\TYPO3CR\Domain\Model\NodeInterface */
 		$contentType = $object->getContentType();
 
 		$this->tsRuntime->pushContext('parentFormElement', $section);
@@ -37,7 +45,7 @@ class NodeFormBuilder extends ObjectFormBuilder {
 			$this->tsRuntime->pushContext('propertySchema', $propertySchema);
 			$this->tsRuntime->pushContext('propertyType', (isset($propertySchema['type']) ? $propertySchema['type'] : 'string'));
 
-			$section = $this->tsRuntime->render($this->path . '/elementBuilder');
+			$this->tsRuntime->render($this->path . '/elementBuilder');
 
 			$this->tsRuntime->popContext();
 			$this->tsRuntime->popContext();
@@ -47,18 +55,30 @@ class NodeFormBuilder extends ObjectFormBuilder {
 		$this->tsRuntime->popContext();
 	}
 
+	/**
+	 * @param object $object
+	 * @return array
+	 */
 	protected function getObjectIdentifierArrayForObject($object) {
 		/* @var $object \TYPO3\TYPO3CR\Domain\Model\NodeInterface */
 		return array('__contextNodePath' => $object->getContextPath());
 	}
 
+	/**
+	 * @param \TYPO3\TYPO3CR\Domain\Model\NodeInterface $object
+	 * @return string
+	 */
 	protected function getLabelForObject($object) {
-		/* @var $object \TYPO3\TYPO3CR\Domain\Model\NodeInterface */
 		return $object->getLabel();
 	}
 
+	/**
+	 * @param \TYPO3\Form\Core\Model\FormDefinition $formDefinition
+	 * @param \TYPO3\TYPO3CR\Domain\Model\NodeInterface $object
+	 * @param string $namespace
+	 * @return void
+	 */
 	protected function loadDefaultValuesIntoForm(\TYPO3\Form\Core\Model\FormDefinition $formDefinition, $object, $namespace) {
-		/* @var $object \TYPO3\TYPO3CR\Domain\Model\NodeInterface */
 		foreach ($object->getProperties() as $propertyName => $propertyValue) {
 			$formElement = $formDefinition->getElementByIdentifier($namespace . '.' . $propertyName);
 			if ($formElement !== NULL) {

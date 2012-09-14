@@ -2,7 +2,7 @@
 namespace TYPO3\Expose\Core;
 
 /*                                                                        *
- * This script belongs to the TYPO3.Expose package.              		  *
+ * This script belongs to the FLOW3 package "TYPO3.Expose".               *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -21,126 +21,116 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  */
 class MetaPersistenceManager {
 
-    /**
-     * @var \TYPO3\FLOW3\Object\ObjectManagerInterface
-     * @FLOW3\Inject
-     */
-    protected $objectManager;
+	/**
+	 * @var \TYPO3\FLOW3\Object\ObjectManagerInterface
+	 * @FLOW3\Inject
+	 */
+	protected $objectManager;
 
-    /**
-     * @var array
-     */
-    protected $persistenceManager = array();
+	/**
+	 * @var array
+	 */
+	protected $persistenceManager = array();
 
-    /**
-     * Returns the (internal) identifier for the object, if it is known to the
-     * backend. Otherwise NULL is returned.
-     *
-     * Note: this returns an identifier even if the object has not been
-     * persisted in case of AOP-managed entities. Use isNewObject() if you need
-     * to distinguish those cases.
-     *
-     * @param object $object
-     * @return mixed The identifier for the object if it is known, or NULL
-     * @api
-     * @todo improve try/catch block
-     */
-    public function getIdentifierByObject($object) {
-        return $this->getPersitenceManagerByObject($object)->getIdentifierByObject($object);
-    }
+	/**
+	 * Returns the (internal) identifier for the object, if it is known to the
+	 * backend. Otherwise NULL is returned.
+	 *
+	 * Note: this returns an identifier even if the object has not been
+	 * persisted in case of AOP-managed entities. Use isNewObject() if you need
+	 * to distinguish those cases.
+	 *
+	 * @param object $object
+	 * @return mixed The identifier for the object if it is known, or NULL
+	 */
+	public function getIdentifierByObject($object) {
+		return $this->getPersistenceManagerByObject($object)->getIdentifierByObject($object);
+	}
 
-    /**
-     * Checks if the given object has ever been persisted.
-     *
-     * @param object $object The object to check
-     * @return boolean TRUE if the object is new, FALSE if the object exists in the repository
-     * @api
-     */
-    public function isNewObject($object) {
-        return $this->getPersitenceManagerByObject($object)->isNewObject($object);
-    }
+	/**
+	 * Checks if the given object has ever been persisted.
+	 *
+	 * @param object $object The object to check
+	 * @return boolean TRUE if the object is new, FALSE if the object exists in the repository
+	 */
+	public function isNewObject($object) {
+		return $this->getPersistenceManagerByObject($object)->isNewObject($object);
+	}
 
-    /**
-     * Returns the object with the (internal) identifier, if it is known to the
-     * backend. Otherwise NULL is returned.
-     *
-     * @param mixed $identifier
-     * @param string $objectType
-     * @param boolean $useLazyLoading Set to TRUE if you want to use lazy loading for this object
-     * @return object The object for the identifier if it is known, or NULL
-     * @throws \RuntimeException
-     * @api
-     */
-    public function getObjectByIdentifier($identifier, $objectType = NULL, $useLazyLoading = FALSE) {
-        return $this->getPersitenceManagerByClass($objectType)->getObjectByIdentifier($identifier, $objectType, $useLazyLoading);
-    }
+	/**
+	 * Returns the object with the (internal) identifier, if it is known to the
+	 * backend. Otherwise NULL is returned.
+	 *
+	 * @param mixed $identifier
+	 * @param string $objectType
+	 * @param boolean $useLazyLoading Set to TRUE if you want to use lazy loading for this object
+	 * @return object The object for the identifier if it is known, or NULL
+	 */
+	public function getObjectByIdentifier($identifier, $objectType = NULL, $useLazyLoading = FALSE) {
+		return $this->getPersistenceManagerByClass($objectType)->getObjectByIdentifier($identifier, $objectType, $useLazyLoading);
+	}
 
-    /**
-    * TODO: Document this Method! ( getPersitenceManagerByClass )
-    */
-    public function getPersitenceManagerByClass($class) {
-        // TODO: Actually turn this into some logic to find the suitable manager
-        $persistenceManager = '\\TYPO3\\FLOW3\\Persistence\\Doctrine\\PersistenceManager';
-        if (!isset($this->persistenceManager[$persistenceManager])) {
-            $this->persistenceManager[$persistenceManager] = $this->objectManager->get($persistenceManager);
-        }
-        return $this->persistenceManager[$persistenceManager];
-    }
+	/**
+	 * @param string $className
+	 * @return \TYPO3\FLOW3\Persistence\PersistenceManagerInterface
+	 */
+	public function getPersistenceManagerByClass($className) {
+			// TODO: Actually turn this into some logic to find the suitable manager
+		$persistenceManager = '\TYPO3\FLOW3\Persistence\Doctrine\PersistenceManager';
+		if (!isset($this->persistenceManager[$persistenceManager])) {
+			$this->persistenceManager[$persistenceManager] = $this->objectManager->get($persistenceManager);
+		}
 
-    /**
-    * TODO: Document this Method! ( getPersitenceManagerByObject )
-    */
-    public function getPersitenceManagerByObject($object) {
-        return $this->getPersitenceManagerByClass(get_class($object));
-    }
+		return $this->persistenceManager[$persistenceManager];
+	}
 
-    /**
-     * Adds an object to the persistence.
-     *
-     * @param object $object The object to add
-     * @return void
-     * @throws \TYPO3\FLOW3\Persistence\Exception\KnownObjectException if the given $object is not new
-     * @throws \TYPO3\FLOW3\Persistence\Exception if another error occurs
-     * @api
-     */
-    public function add($object) {
-        return $this->getPersitenceManagerByObject($object)->add($object);
-    }
+	/**
+	 * @param object $object
+	 * @return \TYPO3\FLOW3\Persistence\PersistenceManagerInterface
+	 */
+	public function getPersistenceManagerByObject($object) {
+		return $this->getPersistenceManagerByClass(get_class($object));
+	}
 
-    /**
-     * Return a query object for the given type.
-     *
-     * @param string $type
-     * @return \TYPO3\FLOW3\Persistence\Doctrine\Query
-     */
-    public function createQueryForType($type) {
-        return $this->getPersitenceManagerByClass($type)->createQueryForType($type);
-    }
+	/**
+	 * Adds an object to the persistence.
+	 *
+	 * @param object $object The object to add
+	 * @return void
+	 */
+	public function add($object) {
+		$this->getPersistenceManagerByObject($object)->add($object);
+	}
 
-    /**
-     * Removes an object to the persistence.
-     *
-     * @param object $object The object to remove
-     * @return void
-     * @api
-     */
-    public function remove($object) {
-        return $this->getPersitenceManagerByObject($object)->remove($object);
-    }
+	/**
+	 * Return a query object for the given type.
+	 *
+	 * @param string $type
+	 * @return \TYPO3\FLOW3\Persistence\Doctrine\Query
+	 */
+	public function createQueryForType($type) {
+		return $this->getPersistenceManagerByClass($type)->createQueryForType($type);
+	}
 
-    /**
-     * Update an object in the persistence.
-     *
-     * @param object $object The modified object
-     * @return void
-     * @throws \TYPO3\FLOW3\Persistence\Exception\UnknownObjectException if the given $object is new
-     * @throws \TYPO3\FLOW3\Persistence\Exception if another error occurs
-     * @api
-     */
-    public function update($object) {
-        return $this->getPersitenceManagerByObject($object)->update($object);
-    }
+	/**
+	 * Removes an object to the persistence.
+	 *
+	 * @param object $object The object to remove
+	 * @return void
+	 */
+	public function remove($object) {
+		$this->getPersistenceManagerByObject($object)->remove($object);
+	}
 
+	/**
+	 * Update an object in the persistence.
+	 *
+	 * @param object $object The modified object
+	 * @return void
+	 */
+	public function update($object) {
+		$this->getPersistenceManagerByObject($object)->update($object);
+	}
 }
 
 ?>

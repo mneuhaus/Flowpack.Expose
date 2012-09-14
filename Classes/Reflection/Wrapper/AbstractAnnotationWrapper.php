@@ -2,7 +2,7 @@
 namespace TYPO3\Expose\Reflection\Wrapper;
 
 /*                                                                        *
- * This script belongs to the TYPO3.Expose package.              *
+ * This script belongs to the FLOW3 package "TYPO3.Expose".               *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -15,79 +15,83 @@ namespace TYPO3\Expose\Reflection\Wrapper;
  */
 abstract class AbstractAnnotationWrapper {
 
-    /**
-    * TODO: Document this Property!
-    */
-    public $annotations = array();
+	/**
+	 * @var array
+	 */
+	public $annotations = array();
 
-    /**
-    * TODO: Document this Property!
-    */
-    protected $index = array();
+	/**
+	 * @var array
+	 */
+	protected $index = array();
 
-    /**
-    * TODO: Document this Method! ( __call )
-    */
-    public function __call($methodName, array $arguments) {
-        if (substr($methodName, 0, 3) === 'get') {
-            $annotation = substr($methodName, 3);
-            return $this->get($annotation);
-        }
-        if (substr($methodName, 0, 3) === 'has') {
-            $annotation = substr($methodName, 3);
-            return $this->has($annotation);
-        }
-        if (substr($methodName, 0, 3) === 'set') {
-            $annotation = substr($methodName, 3);
-            return $this->set($annotation, $arguments[0]);
-        }
-    }
+	/**
+	 * @param array $annotations
+	 */
+	public function __construct($annotations) {
+		$this->annotations = $annotations;
+		foreach ($this->annotations as $key => $value) {
+			$parts = explode('\\', $key);
+			$shortName = array_pop($parts);
+			$this->index[strtolower($shortName)] = $key;
+		}
+	}
 
-    /**
-    * TODO: Document this Method! ( __construct )
-    */
-    public function __construct($annotations) {
-        $this->annotations = $annotations;
-        foreach ($this->annotations as $key => $value) {
-            $parts = explode('\\', $key);
-            $shortName = array_pop($parts);
-            $this->index[strtolower($shortName)] = $key;
-        }
-    }
+	/**
+	* @param string $methodName
+	* @param array $arguments
+	* @return mixed
+	*/
+	public function __call($methodName, array $arguments) {
+		$annotation = substr($methodName, 3);
+		$method = substr($methodName, 0, 3);
+		switch ($method) {
+			case 'get':
+				return $this->get($annotation);
+			case 'has':
+				return $this->has($annotation);
+			case 'set':
+				$this->set($annotation, $arguments[0]);
+				return;
+		}
+		trigger_error('Call to undefined method ' . get_class($this) . '::' . $methodName, E_USER_ERROR);
+	}
 
-    /**
-    * TODO: Document this Method! ( getIndex )
-    */
-    public function getIndex() {
-        return $this->index;
-    }
+	/**
+	 * @return array
+	 */
+	public function getIndex() {
+		return $this->index;
+	}
 
-    /**
-    * TODO: Document this Method! ( get )
-    */
-    public function get($annotation) {
-        if (isset($this->annotations[$annotation])) {
-            return $this->annotations[$annotation];
-        }
-        if (isset($this->index[strtolower($annotation)])) {
-            return $this->annotations[$this->index[strtolower($annotation)]];
-        }
-    }
+	/**
+	 * @param string $annotation
+	 * @return mixed
+	 */
+	public function get($annotation) {
+		if (isset($this->annotations[$annotation])) {
+			return $this->annotations[$annotation];
+		}
+		if (isset($this->index[strtolower($annotation)])) {
+			return $this->annotations[$this->index[strtolower($annotation)]];
+		}
+	}
 
-    /**
-    * TODO: Document this Method! ( has )
-    */
-    public function has($annotation) {
-        return isset($this->annotations[$annotation]) || isset($this->index[strtolower($annotation)]);
-    }
+	/**
+	 * @param string $annotation
+	 * @return boolean
+	 */
+	public function has($annotation) {
+		return isset($this->annotations[$annotation]) || isset($this->index[strtolower($annotation)]);
+	}
 
-    /**
-    * TODO: Document this Method! ( set )
-    */
-    public function set($annotation, $value) {
-        $this->annotations[$annotation] = $value;
-    }
-
+	/**
+	 * @param string $annotation
+	 * @param mixed $value
+	 */
+	public function set($annotation, $value) {
+		$this->annotations[$annotation] = $value;
+	}
 }
 
 ?>
