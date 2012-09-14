@@ -1,8 +1,8 @@
 <?php
-namespace TYPO3\Admin\ViewHelpers\Render;
+namespace TYPO3\Expose\ViewHelpers\Render;
 
 /*                                                                        *
- * This script belongs to the TYPO3.Admin package.              *
+ * This script belongs to the TYPO3.Expose package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -20,7 +20,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * =====
  *
  * <pre>
- * {namespace cm=TYPO3\Admin\ViewHelpers}
+ * {namespace cm=TYPO3\Expose\ViewHelpers}
  * <cm:render.form factoryClass="NameOfYourCustomFactoryClass" />
  * </pre>
  *
@@ -46,7 +46,7 @@ class FormViewHelper extends \TYPO3\Form\ViewHelpers\RenderViewHelper {
      * @param string $controllerCallback action to redirect the successful form to
      * @return string the rendered form
      */
-    public function render($persistenceIdentifier = NULL, $factoryClass = 'TYPO3\\Admin\\Factory\\ModelFormFactory', $presetName = 'admin', array $overrideConfiguration = array(), $class = NULL, $object = NULL, $controllerCallback = NULL) {
+    public function render($persistenceIdentifier = NULL, $factoryClass = 'TYPO3\\Expose\\Factory\\ModelFormFactory', $presetName = 'expose', array $overrideConfiguration = array(), $class = NULL, $object = NULL, $controllerCallback = NULL) {
         if (isset($persistenceIdentifier)) {
             $overrideConfiguration = \TYPO3\FLOW3\Utility\Arrays::arrayMergeRecursiveOverrule($this->formPersistenceManager->load($persistenceIdentifier), $overrideConfiguration);
         }

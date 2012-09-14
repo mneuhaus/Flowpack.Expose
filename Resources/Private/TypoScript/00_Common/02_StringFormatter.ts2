@@ -1,76 +1,76 @@
 # string formatter expects the "value" to contain the object to be converted
-prototype(TYPO3.Admin:StringFormatter) < prototype(TYPO3.TypoScript:Case) {
+prototype(TYPO3.Expose:StringFormatter) < prototype(TYPO3.TypoScript:Case) {
 
 	string.condition = ${q(value).is('[instanceof string]')}
-	string.type = 'TYPO3.Admin:StringFormatter.String'
+	string.type = 'TYPO3.Expose:StringFormatter.String'
 	string.@position = 10
 
 	int.condition = ${q(value).is('[instanceof integer]')}
-	int.type = 'TYPO3.Admin:StringFormatter.String'
+	int.type = 'TYPO3.Expose:StringFormatter.String'
 	int.@position = 10
 
 	float.condition = ${q(value).is('[instanceof float]')}
-	float.type = 'TYPO3.Admin:StringFormatter.Float'
+	float.type = 'TYPO3.Expose:StringFormatter.Float'
 	float.@position = 10
 
 	bool.condition = ${q(value).is('[instanceof boolean]')}
-	bool.type = 'TYPO3.Admin:StringFormatter.Boolean'
+	bool.type = 'TYPO3.Expose:StringFormatter.Boolean'
 	bool.@position = 10
 
 	array.condition = ${q(value).is('[instanceof array]')}
-	array.type = 'TYPO3.Admin:StringFormatter.Array'
+	array.type = 'TYPO3.Expose:StringFormatter.Array'
 	array.@position = 10
 
 	dateTime.condition = ${q(value).is('[instanceof DateTime]')}
-	dateTime.type = 'TYPO3.Admin:StringFormatter.DateTime'
+	dateTime.type = 'TYPO3.Expose:StringFormatter.DateTime'
 	dateTime.@position = 10
 
 	personName.condition = ${q(value).is('[instanceof TYPO3\Party\Domain\Model\PersonName]')}
-	personName.type = 'TYPO3.Admin:StringFormatter.PersonName'
+	personName.type = 'TYPO3.Expose:StringFormatter.PersonName'
 	personName.@position = 10
 
 	toString.condition = ${q(value).hasMethod('__toString')}
-	toString.type = 'TYPO3.Admin:StringFormatter.String'
+	toString.type = 'TYPO3.Expose:StringFormatter.String'
 	toString.@position = 10
 
 	fallback.condition = ${true}
-	fallback.type = 'TYPO3.Admin:StringFormatter.Default'
+	fallback.type = 'TYPO3.Expose:StringFormatter.Default'
 	fallback.@position = 'end'
 
 	contentNodes {
 		condition = ${q(value).is('[instanceof TYPO3\TYPO3CR\Domain\Model\NodeInterface]')}
-		type = 'TYPO3.Admin:StringFormatter.ContentNodes'
+		type = 'TYPO3.Expose:StringFormatter.ContentNodes'
 		@position =	2
 	}
 }
 
-prototype(TYPO3.Admin:StringFormatter.String) < prototype(TYPO3.TypoScript:FluidRenderer) {
-	templatePath = 'resource://TYPO3.Admin/Private/Elements/StringFormatter/String.html'
+prototype(TYPO3.Expose:StringFormatter.String) < prototype(TYPO3.TypoScript:FluidRenderer) {
+	templatePath = 'resource://TYPO3.Expose/Private/Elements/StringFormatter/String.html'
 	value = ${value}
 }
 
-prototype(TYPO3.Admin:StringFormatter.ContentNodes) < prototype(TYPO3.Admin:StringFormatter.String) {
-	templatePath = 'resource://TYPO3.Admin/Private/Elements/StringFormatter/String.html'
+prototype(TYPO3.Expose:StringFormatter.ContentNodes) < prototype(TYPO3.Expose:StringFormatter.String) {
+	templatePath = 'resource://TYPO3.Expose/Private/Elements/StringFormatter/String.html'
 	value = ${value.label}
 }
 
-prototype(TYPO3.Admin:StringFormatter.Boolean) < prototype(TYPO3.Admin:StringFormatter.String) {
+prototype(TYPO3.Expose:StringFormatter.Boolean) < prototype(TYPO3.Expose:StringFormatter.String) {
 	value = ${(value ? 'true' : 'false')}
 }
-prototype(TYPO3.Admin:StringFormatter.Float) < prototype(TYPO3.Admin:StringFormatter.String) {
-	templatePath = 'resource://TYPO3.Admin/Private/Elements/StringFormatter/Float.html'
+prototype(TYPO3.Expose:StringFormatter.Float) < prototype(TYPO3.Expose:StringFormatter.String) {
+	templatePath = 'resource://TYPO3.Expose/Private/Elements/StringFormatter/Float.html'
 }
-prototype(TYPO3.Admin:StringFormatter.DateTime) < prototype(TYPO3.Admin:StringFormatter.String) {
-	templatePath = 'resource://TYPO3.Admin/Private/Elements/StringFormatter/DateTime.html'
+prototype(TYPO3.Expose:StringFormatter.DateTime) < prototype(TYPO3.Expose:StringFormatter.String) {
+	templatePath = 'resource://TYPO3.Expose/Private/Elements/StringFormatter/DateTime.html'
 }
-prototype(TYPO3.Admin:StringFormatter.Array) < prototype(TYPO3.Admin:StringFormatter.String) {
-	templatePath = 'resource://TYPO3.Admin/Private/Elements/StringFormatter/Array.html'
+prototype(TYPO3.Expose:StringFormatter.Array) < prototype(TYPO3.Expose:StringFormatter.String) {
+	templatePath = 'resource://TYPO3.Expose/Private/Elements/StringFormatter/Array.html'
 }
-prototype(TYPO3.Admin:StringFormatter.Default) < prototype(TYPO3.TypoScript:FluidRenderer) {
-	templatePath = 'resource://TYPO3.Admin/Private/Elements/StringFormatter/Default.html'
+prototype(TYPO3.Expose:StringFormatter.Default) < prototype(TYPO3.TypoScript:FluidRenderer) {
+	templatePath = 'resource://TYPO3.Expose/Private/Elements/StringFormatter/Default.html'
 	value = ${value}
 }
 
-prototype(TYPO3.Admin:StringFormatter.PersonName) < prototype(TYPO3.Admin:StringFormatter.String) {
+prototype(TYPO3.Expose:StringFormatter.PersonName) < prototype(TYPO3.Expose:StringFormatter.String) {
 	value = ${value.fullName}
 }

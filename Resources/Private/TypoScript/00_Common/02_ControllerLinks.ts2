@@ -1,87 +1,87 @@
 // REVIEWED for release
 
-# This TypoScript file contains link-buttons to other relevant admin controllers depending
+# This TypoScript file contains link-buttons to other relevant expose controllers depending
 # on the context. It contains two different kinds of feature links: First, "Global"
-# AdminController links, which are always displayed for a certain RecordList (usually at the
+# ExposeController links, which are always displayed for a certain RecordList (usually at the
 # top; like "new" or a wizard for creating elements).
-# Second, there are "Element" AdminController links, which contain features relevant for a
+# Second, there are "Element" ExposeController links, which contain features relevant for a
 # certain element (like Edit, Delete)
 
 
 /**
- * Render a list of links to all global AdminControllers available.
+ * Render a list of links to all global ExposeControllers available.
  *
  * See {@link ../classes/TYPO3.TypoScript:TypoScriptArrayRenderer.html TypoScriptArrayRenderer} for documentation.
  *
  * Examples
  * --------
- *     10 = TYPO3.Admin:ControllerLink {
+ *     10 = TYPO3.Expose:ControllerLink {
  *         label = 'New'
- *         controller = 'TYPO3\\Admin\\Controller\\NewController'
+ *         controller = 'TYPO3\\Expose\\Controller\\NewController'
  *         arguments.type = ${type}
  *     }
  *
- * @param string type: entity type on which an adminController should be executed upon
+ * @param string type: entity type on which an exposeController should be executed upon
  */
-prototype(TYPO3.Admin:GlobalControllerLinks) < prototype(TYPO3.TypoScript:TypoScriptArrayRenderer) {
-	10 = TYPO3.Admin:ControllerLink
+prototype(TYPO3.Expose:GlobalControllerLinks) < prototype(TYPO3.TypoScript:TypoScriptArrayRenderer) {
+	10 = TYPO3.Expose:ControllerLink
 	10.label = 'New'
-	10.controller = 'TYPO3\\Admin\\Controller\\NewController'
+	10.controller = 'TYPO3\\Expose\\Controller\\NewController'
 	10.arguments.type = ${type}
 }
 
 /**
- * Render a list of links to all local AdminControllers available.
+ * Render a list of links to all local ExposeControllers available.
  *
- * a local admin Controller gets two parameters: a *type* and an *item*, the
+ * a local expose Controller gets two parameters: a *type* and an *item*, the
  * object on which to act upon.
  *
  * See {@link ../classes/TYPO3.TypoScript:TypoScriptArrayRenderer.html TypoScriptArrayRenderer} for documentation.
  *
  * Examples
  * --------
- *     10 = TYPO3.Admin:LocalControllerLink {
+ *     10 = TYPO3.Expose:LocalControllerLink {
  *         label = 'Edit'
- *         controller = 'TYPO3\\Admin\\Controller\\EditController'
+ *         controller = 'TYPO3\\Expose\\Controller\\EditController'
  *     }
  *
- * @param string type: entity type on which an adminController should be executed upon
- * @param object item: the item on which the adminController should be executed upon
+ * @param string type: entity type on which an exposeController should be executed upon
+ * @param object item: the item on which the exposeController should be executed upon
  */
-prototype(TYPO3.Admin:LocalControllerLinks) < prototype(TYPO3.TypoScript:TypoScriptArrayRenderer) {
-	10 = TYPO3.Admin:LocalControllerLink
+prototype(TYPO3.Expose:LocalControllerLinks) < prototype(TYPO3.TypoScript:TypoScriptArrayRenderer) {
+	10 = TYPO3.Expose:LocalControllerLink
 	10.label = 'Edit'
-	10.controller = 'TYPO3\\Admin\\Controller\\EditController'
+	10.controller = 'TYPO3\\Expose\\Controller\\EditController'
 
-	20 = TYPO3.Admin:LocalControllerLink
+	20 = TYPO3.Expose:LocalControllerLink
 	20.label = 'Delete'
-	20.controller = 'TYPO3\\Admin\\Controller\\DeleteController'
+	20.controller = 'TYPO3\\Expose\\Controller\\DeleteController'
 }
-prototype(TYPO3.Admin:LocalControllerLinks) << 1.wrap(prefix: '<div data-area="localControllerLinks">', suffix: '</div>')
+prototype(TYPO3.Expose:LocalControllerLinks) << 1.wrap(prefix: '<div data-area="localControllerLinks">', suffix: '</div>')
 
 
 /**
  * Render a single controller link
  *
- * This renders a single link-button inside the {@link ../classes/TYPO3.Admin:GlobalControllerLinks.html GlobalControllerLinks} TypoScript
+ * This renders a single link-button inside the {@link ../classes/TYPO3.Expose:GlobalControllerLinks.html GlobalControllerLinks} TypoScript
  * object. See this TypoScript object for usage examples.
  *
  * @param string label: human-readable label of the button
  * @param string feature: fully qualified class name pointing towards the feature
  * @optionalParam string iconClass: CSS-class name used for the icon, if any
  */
-prototype(TYPO3.Admin:ControllerLink) {
-	implementationClassName = 'TYPO3\\Admin\\TypoScriptObjects\\ControllerLink'
-	templatePath = 'resource://TYPO3.Admin/Private/Elements/ControllerLink.html'
+prototype(TYPO3.Expose:ControllerLink) {
+	implementationClassName = 'TYPO3\\Expose\\TypoScriptObjects\\ControllerLink'
+	templatePath = 'resource://TYPO3.Expose/Private/Elements/ControllerLink.html'
 }
 
 /**
  * Render a single controller in the "local" namespace
  *
- * This renders a single link-button inside the {@link ../classes/TYPO3.Admin:LocalControllerLinks.html LocalControllerLinks} TypoScript
+ * This renders a single link-button inside the {@link ../classes/TYPO3.Expose:LocalControllerLinks.html LocalControllerLinks} TypoScript
  * object. See this TypoScript object for usage examples.
  */
-prototype(TYPO3.Admin:LocalControllerLink) < prototype(TYPO3.Admin:ControllerLink) {
+prototype(TYPO3.Expose:LocalControllerLink) < prototype(TYPO3.Expose:ControllerLink) {
 	arguments.objects.0 = ${item}
 	arguments.type = ${type}
 	htmlSuffix = '<span class="js" data-type="handlebars">{{#if multipleSelectionActive}} {{numberOfSelectedElements}} elements{{/if}}</span>'

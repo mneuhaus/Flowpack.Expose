@@ -7,7 +7,7 @@ You can extend your Models from this Model to get Magic Getters, Setters and som
 Be aware of the fact that you should implement your Getters and Setters sooner or later to gain some Performance. 
 But for development stage it just keeps the FLOW when you don't need to bother about all those repetative getters and setters all
 the time.
-> Note: This Administration interface works completely without this MagicModel. You just need to make sure, that you have all
+> Note: This Exposeistration interface works completely without this MagicModel. You just need to make sure, that you have all
 the getter and setter functions properly defined in your models. Additionally it is strongly suggested to implement
 the __toString funtion for your Models to return a sensible String representation of the Model.
 
@@ -41,7 +41,7 @@ Navigation
 Adding by Annotation
 ====================
 
-Through the NavigationAnnotation you have the ability to add any number of ControllerActions to the global Admin Navigations
+Through the NavigationAnnotation you have the ability to add any number of ControllerActions to the global Expose Navigations
 
 title
     specifies the Title for the NavigationItem
@@ -54,11 +54,11 @@ priority
 
 **Example**::
 
-    use Admin\Annotations as Admin;
+    use Expose\Annotations as Expose;
     class StandardController extends \TYPO3\FLOW3\Mvc\Controller\ActionController {
         /**
          * @return void
-         * @Admin\Navigation(title="Overview", position="top", priority="10000")
+         * @Expose\Navigation(title="Overview", position="top", priority="10000")
          */
         public function indexAction() {
         }
@@ -67,7 +67,7 @@ priority
 
 Adding by API
 =============
-Additionally to the Annotation method you can add items to the Navigation through the \Admin\Core\API::addNavigationItem($name, $position, $arguments, $priority).
+Additionally to the Annotation method you can add items to the Navigation through the \Expose\Core\API::addNavigationItem($name, $position, $arguments, $priority).
 
 name
     specifies the Title for the NavigationItem
@@ -88,19 +88,19 @@ priority
     $arguments = array(
         "action" => "index",
         "controller" => "standard",
-        "package" => "AdminDemo"
+        "package" => "ExposeDemo"
     );
-    \Admin\Core\API::addNavigationItem("MySidebarNavigationItem", "left", $arguments, 10);
+    \Expose\Core\API::addNavigationItem("MySidebarNavigationItem", "left", $arguments, 10);
 
 Access Control
 **************
 
-Through the Access annotation you have the ability to protect your ControllerActions with the Admin UserAuthorization.
+Through the Access annotation you have the ability to protect your ControllerActions with the Expose UserAuthorization.
 
 All you need to do is to add this Annotation to the Actions you wish to protect::
 
     /**
-     * @Admin\Annotations\Access()
+     * @Expose\Annotations\Access()
      */
     public function indexAction(){}
 
@@ -109,8 +109,8 @@ When you don't specifiy any parameters it will just check for a valid user and r
 Parameters
 ==========
 
-admin
-    set this to true in order to require an admin for this action
+expose
+    set this to true in order to require an expose for this action
 
 role
-    set this to a specific role to require the user to be in this role. (Admin overrules this!)
+    set this to a specific role to require the user to be in this role. (Expose overrules this!)

@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\Admin\Annotations;
+namespace TYPO3\Expose\Annotations;
 
 /*
  * This file is part of the Imagine package.

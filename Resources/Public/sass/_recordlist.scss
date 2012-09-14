@@ -10,7 +10,7 @@ body:not(.js) .js {
 body.js .nojs {
 	display: none;
 }
-.typo3-admin-recordlist {
+.typo3-expose-recordlist {
 	[data-area=main], [data-area=actionBar] {
 		@include transition-duration(0.2s);
 	}
@@ -30,7 +30,7 @@ body.js .nojs {
 
 	[data-area=actionBar] a {}
 
-	[data-area=records] .typo3-admin-active {
+	[data-area=records] .typo3-expose-active {
 	}
 }
 
@@ -41,7 +41,7 @@ body.js .nojs {
 		border-color: #B3B3B3;
 	}
 
-	.t3-records > .typo3-admin-active {
+	.t3-records > .typo3-expose-active {
 		background: #eee;
 		margin-right: 0px;
 		border-right: 0px;

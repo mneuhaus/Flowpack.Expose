@@ -1,8 +1,8 @@
 <?php
-namespace TYPO3\Admin\TypoScriptObjects;
+namespace TYPO3\Expose\TypoScriptObjects;
 
 /*                                                                        *
- * This script belongs to the TYPO3.Admin package.              		  *
+ * This script belongs to the TYPO3.Expose package.              		  *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU General Public License, either version 3 of the   *
@@ -20,7 +20,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  */
 class DefaultFormElementBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTsObject {
     /**
-     * @var \TYPO3\Admin\Reflection\AnnotationService
+     * @var \TYPO3\Expose\Reflection\AnnotationService
      * @FLOW3\Inject
      */
     protected $annotationService;
@@ -109,7 +109,7 @@ class DefaultFormElementBuilder extends \TYPO3\TypoScript\TypoScriptObjects\Abst
 		}
 
 		$annotations = $this->tsValue("propertyAnnotations");
-		if (isset($annotations['TYPO3\Admin\Annotations\Ignore'])){
+		if (isset($annotations['TYPO3\Expose\Annotations\Ignore'])){
 			return NULL;
 		}
 

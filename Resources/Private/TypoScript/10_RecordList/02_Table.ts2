@@ -1,17 +1,17 @@
 // REVIEWED for release
 
 ########################################
-# TYPO3.Admin:RecordList.Table
+# TYPO3.Expose:RecordList.Table
 # --------------------------------------
 # Display a list of common records as table
 ########################################
 
-prototype(TYPO3.Admin:RecordList.Table) < prototype(TYPO3.TypoScript:FluidRenderer) {
-	templatePath = 'resource://TYPO3.Admin/Private/Elements/List/Table.html'
+prototype(TYPO3.Expose:RecordList.Table) < prototype(TYPO3.TypoScript:FluidRenderer) {
+	templatePath = 'resource://TYPO3.Expose/Private/Elements/List/Table.html'
 	tableBody = TYPO3.TypoScript:CollectionRenderer {
 		collection = ${objects}
 		itemName = 'item'
-		itemRenderer = TYPO3.Admin:RecordList.Table.Row
+		itemRenderer = TYPO3.Expose:RecordList.Table.Row
 	}
 	objects = ${objects}
 }

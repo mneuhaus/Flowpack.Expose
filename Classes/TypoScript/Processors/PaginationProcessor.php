@@ -1,8 +1,8 @@
 <?php
-namespace TYPO3\Admin\TypoScript\Processors;
+namespace TYPO3\Expose\TypoScript\Processors;
 
 /*                                                                        *
- * This script belongs to the TYPO3.Admin package.              		  *
+ * This script belongs to the TYPO3.Expose package.              		  *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU General Public License, either version 3 of the   *
@@ -26,7 +26,7 @@ class PaginationProcessor implements \TYPO3\TypoScript\RuntimeAwareProcessorInte
 	protected $configurationManager;
 
 	public function beforeInvocation(\TYPO3\TypoScript\Core\Runtime $runtime, \TYPO3\TypoScript\TypoScriptObjects\AbstractTsObject $typoScriptObject, $typoScriptPath) {
-		$this->settings = $this->configurationManager->getConfiguration(\TYPO3\FLOW3\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, 'TYPO3.Admin.Pagination');
+		$this->settings = $this->configurationManager->getConfiguration(\TYPO3\FLOW3\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, 'TYPO3.Expose.Pagination');
 		$this->tsRuntime = $runtime;
 		$this->context = $runtime->getCurrentContext();
 		if (isset($this->context['objects'])) {

@@ -1,62 +1,62 @@
 TYPO3\TYPO3\Domain\Model\User:
   annotations:
-    TYPO3\Admin\Annotations\Active: true
+    TYPO3\Expose\Annotations\Active: true
     properties:
       name:
-        TYPO3\Admin\Annotations\Inline: 'TYPO3.Admin:InlineSeamless'
+        TYPO3\Expose\Annotations\Inline: 'TYPO3.Expose:InlineSeamless'
       electronicAddresses:
-        TYPO3\Admin\Annotations\Inline: 'TYPO3.Admin:InlineTabular'
-        TYPO3\Admin\Annotations\Ignore: List
+        TYPO3\Expose\Annotations\Inline: 'TYPO3.Expose:InlineTabular'
+        TYPO3\Expose\Annotations\Ignore: List
       preferences:
-        TYPO3\Admin\Annotations\Ignore: true
+        TYPO3\Expose\Annotations\Ignore: true
       accounts:
-        TYPO3\Admin\Annotations\Inline: 'TYPO3.Admin:InlineSeamless'
+        TYPO3\Expose\Annotations\Inline: 'TYPO3.Expose:InlineSeamless'
 
 TYPO3\Party\Domain\Model\PersonName:
   annotations:
     properties:
       title:
-        TYPO3\Admin\Annotations\Ignore: true
+        TYPO3\Expose\Annotations\Ignore: true
       otherName:
-        TYPO3\Admin\Annotations\Ignore: true
+        TYPO3\Expose\Annotations\Ignore: true
       middleName:
-        TYPO3\Admin\Annotations\Ignore: true
+        TYPO3\Expose\Annotations\Ignore: true
       fullName:
-        TYPO3\Admin\Annotations\Ignore: true
+        TYPO3\Expose\Annotations\Ignore: true
       alias:
-        TYPO3\Admin\Annotations\Ignore: true
+        TYPO3\Expose\Annotations\Ignore: true
 
 TYPO3\FLOW3\Security\Account:
   annotations:
     properties:
       accountIdentifier:
-        TYPO3\Admin\Annotations\Label: Username
-        TYPO3\Admin\Annotations\Title: true
+        TYPO3\Expose\Annotations\Label: Username
+        TYPO3\Expose\Annotations\Title: true
       credentialsSource:
-        TYPO3\Admin\Annotations\Label: Passwort
-        TYPO3\Admin\Annotations\Element: 'TYPO3.Admin:PasswordWithHashing'
+        TYPO3\Expose\Annotations\Label: Passwort
+        TYPO3\Expose\Annotations\Element: 'TYPO3.Expose:PasswordWithHashing'
       roles:
-        TYPO3\Admin\Annotations\OptionsProvider:
+        TYPO3\Expose\Annotations\OptionsProvider:
           Name: RoleOptionsProvider
       creationDate:
-        TYPO3\Admin\Annotations\Ignore: true
+        TYPO3\Expose\Annotations\Ignore: true
       party:
-        TYPO3\Admin\Annotations\Ignore: true
+        TYPO3\Expose\Annotations\Ignore: true
       expirationDate:
-        TYPO3\Admin\Annotations\Ignore: true
+        TYPO3\Expose\Annotations\Ignore: true
       authenticationProviderName:
-        TYPO3\Admin\Annotations\Ignore: true
+        TYPO3\Expose\Annotations\Ignore: true
 
 TYPO3\Party\Domain\Model\ElectronicAddress:
   annotations:
     properties:
       type:
-        TYPO3\Admin\Annotations\Element: 'TYPO3.Form:SingleSelectDropdown'
-        TYPO3\Admin\Annotations\OptionsProvider:
+        TYPO3\Expose\Annotations\Element: 'TYPO3.Form:SingleSelectDropdown'
+        TYPO3\Expose\Annotations\OptionsProvider:
           Name: ConstOptionsProvider
           RegEx: TYPE_.+
       usage:
-        TYPO3\Admin\Annotations\Element: 'TYPO3.Form:SingleSelectDropdown'
-        TYPO3\Admin\Annotations\OptionsProvider:
+        TYPO3\Expose\Annotations\Element: 'TYPO3.Form:SingleSelectDropdown'
+        TYPO3\Expose\Annotations\OptionsProvider:
           Name: ConstOptionsProvider
           RegEx: USAGE_.+

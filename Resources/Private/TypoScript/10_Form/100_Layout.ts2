@@ -1,26 +1,26 @@
 // REVIEWED for release
 
-TYPO3.Admin.NewController.index = TYPO3.Admin:FormRenderer
-TYPO3.Admin.EditController.index = TYPO3.Admin:FormRenderer
+TYPO3.Expose.NewController.index = TYPO3.Expose:FormRenderer
+TYPO3.Expose.EditController.index = TYPO3.Expose:FormRenderer
 
-prototype(TYPO3.Admin:FormRenderer) {
-	implementationClassName = 'TYPO3\\Admin\\TypoScriptObjects\\FormRenderer'
-	form = TYPO3.Admin:FormBuilder
+prototype(TYPO3.Expose:FormRenderer) {
+	implementationClassName = 'TYPO3\\Expose\\TypoScriptObjects\\FormRenderer'
+	form = TYPO3.Expose:FormBuilder
 }
 
 /**
  * @context string className the class name of the form to build
  */
-prototype(TYPO3.Admin:FormBuilder) < prototype(TYPO3.TypoScript:Case) {
+prototype(TYPO3.Expose:FormBuilder) < prototype(TYPO3.TypoScript:Case) {
 	nodeMatcher {
 		condition = ${className == 'TYPO3\TYPO3CR\Domain\Model\NodeInterface'}
-		type = 'TYPO3.Admin:NodeFormBuilder'
+		type = 'TYPO3.Expose:NodeFormBuilder'
 		@position = 10
 	}
 
 	objectMatcher {
 		condition = ${true}
-		type = 'TYPO3.Admin:ObjectFormBuilder'
+		type = 'TYPO3.Expose:ObjectFormBuilder'
 		@position = 'end'
 	}
 }
@@ -31,16 +31,16 @@ prototype(TYPO3.Admin:FormBuilder) < prototype(TYPO3.TypoScript:Case) {
  * @param string formIdentifier
  * @param string formPresetName
  */
-prototype(TYPO3.Admin:ObjectFormBuilder) {
-	implementationClassName = 'TYPO3\\Admin\\TypoScriptObjects\\ObjectFormBuilder'
+prototype(TYPO3.Expose:ObjectFormBuilder) {
+	implementationClassName = 'TYPO3\\Expose\\TypoScriptObjects\\ObjectFormBuilder'
 	className = ${className}
 	objects = ${objects}
 	formIdentifier = 'form'
-	formPresetName = 'admin'
+	formPresetName = 'expose'
 	callbackAction = ${callback}
 
-	sectionBuilder = TYPO3.Admin:Form.SectionBuilder
-	elementBuilder = TYPO3.Admin:Form.ElementBuilder
+	sectionBuilder = TYPO3.Expose:Form.SectionBuilder
+	elementBuilder = TYPO3.Expose:Form.ElementBuilder
 }
 
 /**
@@ -48,15 +48,15 @@ prototype(TYPO3.Admin:ObjectFormBuilder) {
  * @param string formIdentifier
  * @param string formPresetName
  */
-prototype(TYPO3.Admin:NodeFormBuilder) {
-	implementationClassName = 'TYPO3\\Admin\\TypoScriptObjects\\NodeFormBuilder'
+prototype(TYPO3.Expose:NodeFormBuilder) {
+	implementationClassName = 'TYPO3\\Expose\\TypoScriptObjects\\NodeFormBuilder'
 	objects = ${objects}
 	formIdentifier = 'form'
-	formPresetName = 'admin'
+	formPresetName = 'expose'
 	callbackAction = ${callback}
 
-	sectionBuilder = TYPO3.Admin:Form.SectionBuilder
-	elementBuilder = TYPO3.Admin:Form.ElementBuilder
+	sectionBuilder = TYPO3.Expose:Form.SectionBuilder
+	elementBuilder = TYPO3.Expose:Form.ElementBuilder
 }
 
 /**
@@ -64,8 +64,8 @@ prototype(TYPO3.Admin:NodeFormBuilder) {
  * @param parentFormElement=${parentFormElement}
  * @param identifier=${identifier}
  */
-prototype(TYPO3.Admin:Form.SectionBuilder) {
-	implementationClassName = 'TYPO3\\Admin\\TypoScriptObjects\\SectionBuilder'
+prototype(TYPO3.Expose:Form.SectionBuilder) {
+	implementationClassName = 'TYPO3\\Expose\\TypoScriptObjects\\SectionBuilder'
 	parentFormElement = ${parentFormElement}
 	identifier = ${identifier}
 
@@ -78,8 +78,8 @@ prototype(TYPO3.Admin:Form.SectionBuilder) {
  * @context propertyType
  * @context propertyElementType
  */
-prototype(TYPO3.Admin:Form.ElementBuilder) < prototype(TYPO3.TypoScript:Case) {
-	prototype(TYPO3.TypoScript:Matcher).type = 'TYPO3.Admin:Form.DefaultElementBuilder'
+prototype(TYPO3.Expose:Form.ElementBuilder) < prototype(TYPO3.TypoScript:Case) {
+	prototype(TYPO3.TypoScript:Matcher).type = 'TYPO3.Expose:Form.DefaultElementBuilder'
 
 	#debug {
 	#	// TODO: bug in EEL: ['0'] should not need to be quoted.
@@ -89,14 +89,14 @@ prototype(TYPO3.Admin:Form.ElementBuilder) < prototype(TYPO3.TypoScript:Case) {
 	#}
 
 	ignore {
-		condition = ${propertyAnnotations['TYPO3\Admin\Annotations\Ignore']}
+		condition = ${propertyAnnotations['TYPO3\Expose\Annotations\Ignore']}
 		@position = '90'
 	}
 
 	#manyToOneInline {
 	#	condition = ${propertyAnnotations['Doctrine\ORM\Mapping\ManyToOne']}
 	#	@position = '50'
-	#	@override.formFieldType = 'TYPO3.Admin:InlineStacked'
+	#	@override.formFieldType = 'TYPO3.Expose:InlineStacked'
 	#}
 
 	manyToMany {
@@ -143,8 +143,8 @@ prototype(TYPO3.Admin:Form.ElementBuilder) < prototype(TYPO3.TypoScript:Case) {
  * @param identifier=${formElementIdentifier}
  * @param label=${propertyName}
  */
-prototype(TYPO3.Admin:Form.DefaultElementBuilder) {
-	implementationClassName = 'TYPO3\\Admin\\TypoScriptObjects\\DefaultFormElementBuilder'
+prototype(TYPO3.Expose:Form.DefaultElementBuilder) {
+	implementationClassName = 'TYPO3\\Expose\\TypoScriptObjects\\DefaultFormElementBuilder'
 	formFieldType = ${formFieldType}
 	parentFormElement = ${parentFormElement}
 	identifier = ${formElementIdentifier}

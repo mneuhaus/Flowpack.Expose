@@ -1,8 +1,8 @@
 <?php
-namespace TYPO3\Admin\Reflection;
+namespace TYPO3\Expose\Reflection;
 
 /*
- * This script belongs to the TYPO3.Admin package.              *
+ * This script belongs to the TYPO3.Expose package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License as published by the *
@@ -22,7 +22,7 @@ namespace TYPO3\Admin\Reflection;
  *                                                                        */
 
 use TYPO3\FLOW3\Annotations as FLOW3;
-use TYPO3\Admin\Annotations as CM;
+use TYPO3\Expose\Annotations as CM;
 
 /**
  * TODO: (SK) while this makes sense in general, we should see how to integrate that into the reflection or annotation packages in FLOW3.
@@ -66,7 +66,7 @@ class AnnotationService {
             $class = get_parent_class('\\' . ltrim($class, '\\'));
         }
         $annotations = array();
-        $annotationProviders = $this->configurationManager->getConfiguration(\TYPO3\FLOW3\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, 'TYPO3.Admin.AnnotationProvider');
+        $annotationProviders = $this->configurationManager->getConfiguration(\TYPO3\FLOW3\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, 'TYPO3.Expose.AnnotationProvider');
         foreach ($annotationProviders as $annotationProviderClass) {
             $annotationProvider = new $annotationProviderClass();
             $annotations = $this->merge($annotations, $annotationProvider->getClassAnnotations($class));

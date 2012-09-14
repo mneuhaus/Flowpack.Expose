@@ -1,8 +1,8 @@
 <?php
-namespace TYPO3\Admin\Reflection\Provider;
+namespace TYPO3\Expose\Reflection\Provider;
 
 /* *
- * This script belongs to the TYPO3.Admin package.              *
+ * This script belongs to the TYPO3.Expose package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License as published by the *
@@ -47,7 +47,7 @@ abstract class AbstractAnnotationProvider implements AnnotationProviderInterface
             return;
         }
         $annotationClass = get_class($annotation);
-        if ($annotation instanceof \TYPO3\Admin\Annotations\SingleAnnotationInterface) {
+        if ($annotation instanceof \TYPO3\Expose\Annotations\SingleAnnotationInterface) {
             $annotations[$annotationClass] = $annotation;
         } else {
             if (!isset($annotations[$annotationClass])) {
@@ -64,8 +64,8 @@ abstract class AbstractAnnotationProvider implements AnnotationProviderInterface
         if (class_exists($annotationName)) {
             return $annotationName;
         }
-        if (class_exists('TYPO3\\Admin\\Annotations\\' . $annotationName)) {
-            return 'TYPO3\\Admin\\Annotations\\' . $annotationName;
+        if (class_exists('TYPO3\\Expose\\Annotations\\' . $annotationName)) {
+            return 'TYPO3\\Expose\\Annotations\\' . $annotationName;
         }
         throw new \TYPO3\FLOW3\Error\Exception(('No AnnotationClass for the Annotation "' . $annotationName) . '" could be found', 1342706668);
     }

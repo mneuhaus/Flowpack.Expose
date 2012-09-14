@@ -1,8 +1,8 @@
 $(document).ready(function() {
 	$('body').addClass('js');
 
-	var $recordListSelector = $('.typo3-admin-recordlist');
+	var $recordListSelector = $('.typo3-expose-recordlist');
 	if ($recordListSelector.length > 0) {
-		T3.Admin.RecordList.init($recordListSelector);
+		T3.Expose.RecordList.init($recordListSelector);
 	}
 });

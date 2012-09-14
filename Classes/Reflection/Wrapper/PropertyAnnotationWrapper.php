@@ -1,8 +1,8 @@
 <?php
-namespace TYPO3\Admin\Reflection\Wrapper;
+namespace TYPO3\Expose\Reflection\Wrapper;
 
 /*                                                                        *
- * This script belongs to the TYPO3.Admin package.              *
+ * This script belongs to the TYPO3.Expose package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -30,7 +30,7 @@ class PropertyAnnotationWrapper extends AbstractAnnotationWrapper {
         $raw = strval($this->getType());
         $element = null;
         $default = 'TYPO3.Form:SingleLineText';
-        $mappings = $this->configurationManager->getConfiguration(\TYPO3\FLOW3\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, 'TYPO3.Admin.Mapping.Elements');
+        $mappings = $this->configurationManager->getConfiguration(\TYPO3\FLOW3\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, 'TYPO3.Expose.Mapping.Elements');
         if (!empty($mappings)) {
             if ($this->has('Element')) {
                 $element = strval($this->get('Element'));

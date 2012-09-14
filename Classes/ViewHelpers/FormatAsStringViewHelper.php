@@ -1,9 +1,9 @@
 <?php
 
-namespace TYPO3\Admin\ViewHelpers;
+namespace TYPO3\Expose\ViewHelpers;
 
 /* *
- * This script belongs to the TYPO3.Admin package.              *
+ * This script belongs to the TYPO3.Expose package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License as published by the *
@@ -37,7 +37,7 @@ class FormatAsStringViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractView
 		$value = $this->renderChildren();
 
 		$fluidTemplateTsObject = $this->templateVariableContainer->get('fluidTemplateTsObject'); // TODO: should be retrieved differently
-		$path = $fluidTemplateTsObject->getPath() . '/stringFormatter<TYPO3.Admin:StringFormatter>';
+		$path = $fluidTemplateTsObject->getPath() . '/stringFormatter<TYPO3.Expose:StringFormatter>';
 		$fluidTemplateTsObject->getTsRuntime()->pushContext('value', $value);
 		$output = $fluidTemplateTsObject->getTsRuntime()->render($path);
 		$fluidTemplateTsObject->getTsRuntime()->popContext();

@@ -1,11 +1,11 @@
 (function() {
 	var T3 = window.T3 || {};
 	window.T3 = T3;
-	T3.Admin = T3.Admin || {};
-	T3.Admin.RecordList = T3.Admin.RecordList || {};
+	T3.Expose = T3.Expose || {};
+	T3.Expose.RecordList = T3.Expose.RecordList || {};
 	var $ = window.jQuery;
 
-	T3.Admin.RecordList.init = function($recordList) {
+	T3.Expose.RecordList.init = function($recordList) {
 		var resultListing = ResultListing.create({
 			$container: $recordList
 		});
@@ -64,11 +64,11 @@
 			this.$container.on('click', '[data-area=records] > *', function() {
 				var $element = $(this);
 				$element = $element.closest('[data-identifier]');
-				if ($element.hasClass('typo3-admin-active')) {
-					$element.removeClass('typo3-admin-active');
+				if ($element.hasClass('typo3-expose-active')) {
+					$element.removeClass('typo3-expose-active');
 					that.currentSelection.remove($element.attr('data-identifier'));
 				} else {
-					$element.addClass('typo3-admin-active');
+					$element.addClass('typo3-expose-active');
 					that.currentSelection.add($element.attr('data-identifier'));
 				}
 			});
@@ -85,7 +85,7 @@
 				_templateContext: this,
 				didInsertElement: function() {
 					this.$().find('a').click(function(e) {
-						that.showAdminController($(this).attr('href'), $(this).text());
+						that.showExposeController($(this).attr('href'), $(this).text());
 						e.preventDefault();
 					});
 				}
@@ -93,11 +93,11 @@
 			actionBarView.replaceIn(this._$actionBar);
 		},
 
-		showAdminController: function(uri, title) {
-			// Open an admin controller based on URI and currentSelection
+		showExposeController: function(uri, title) {
+			// Open an expose controller based on URI and currentSelection
 
 			this.get('currentSelection').forEach(function(identifier) {
-				uri += encodeURI('&moduleArguments[--adminRuntime][objects][]=') + encodeURIComponent(identifier);
+				uri += encodeURI('&moduleArguments[--exposeRuntime][objects][]=') + encodeURIComponent(identifier);
 			});
 
 			window.location.href = uri;

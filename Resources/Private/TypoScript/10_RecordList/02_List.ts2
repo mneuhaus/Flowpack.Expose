@@ -1,13 +1,13 @@
 // REVIEWED for release
 
 ########################################
-# TYPO3.Admin:RecordList.List
+# TYPO3.Expose:RecordList.List
 # --------------------------------------
 # Display a list of records as List
 ########################################
 
-prototype(TYPO3.Admin:RecordList.List) < prototype(TYPO3.TypoScript:CollectionRenderer) {
+prototype(TYPO3.Expose:RecordList.List) < prototype(TYPO3.TypoScript:CollectionRenderer) {
 	collection = ${objects}
 	itemName = 'item'
-	itemRenderer = TYPO3.Admin:RecordList.List.Element
+	itemRenderer = TYPO3.Expose:RecordList.List.Element
 }

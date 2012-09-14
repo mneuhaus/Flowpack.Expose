@@ -3,14 +3,14 @@ Model Configuration
 
 Active
 *********
-Enable the Admin Interface for a Model
+Enable the Expose Interface for a Model
 
 **Class Reflection**::
 
-    use Admin\Annotations as Admin;
+    use Expose\Annotations as Expose;
     /** A Blog post
       * ...
-      * @Admin\Active 
+      * @Expose\Active 
       */
     class Post {...
         
@@ -25,11 +25,11 @@ Specifiy a Group in which the Model will be Listed in the Menu. By Default the M
 
 **Class Reflection**::
 
-    use Admin\Annotations as Admin;
+    use Expose\Annotations as Expose;
     /** A Blog post
       * ...
-      * @Admin\Active
-      * @Admin\Group("MyBlog")
+      * @Expose\Active
+      * @Expose\Group("MyBlog")
       */
     class Post {...
         
@@ -45,11 +45,11 @@ Specifiy a Label for the Model to be used in the Menu.
 
 **Class Reflection**::
 
-    use Admin\Annotations as Admin;
+    use Expose\Annotations as Expose;
     /** A Blog post
       * ...
-      * @Admin\Active
-      * @Admin\Label("Blog Posts")
+      * @Expose\Active
+      * @Expose\Label("Blog Posts")
       */
     class Post {...
 
@@ -65,12 +65,12 @@ By Default all [Properties](property) will be in a General Fieldset called Gener
 
 **Class Reflection**::
 
-    use Admin\Annotations as Admin;
+    use Expose\Annotations as Expose;
     /** A Blog post
       * ...
-      * @Admin\Active
-      * @Admin\Annotations\Set(title="Main", properties="title,content")
-      * @Admin\Annotations\Set(title="Extended Informations", properties="linkTitle,date,author,image")
+      * @Expose\Active
+      * @Expose\Annotations\Set(title="Main", properties="title,content")
+      * @Expose\Annotations\Set(title="Extended Informations", properties="linkTitle,date,author,image")
       */
     class Post {...
         
@@ -101,17 +101,17 @@ Calendar
 
 **Class Reflection**::
 
-    use Admin\Annotations as Admin;
+    use Expose\Annotations as Expose;
     /** A Blog post
       * ...
-      * @Admin\Active
-      * @Admin\Variant(variant="Calendar", options="Calendar, List")
+      * @Expose\Active
+      * @Expose\Variant(variant="Calendar", options="Calendar, List")
       */
     class Event {...
 
 **YAML**::
 
-    Admin\Domain\Model\Event:
+    Expose\Domain\Model\Event:
         Active: true
         Variant: 
             variant: Calendar
@@ -138,18 +138,18 @@ Calendar
 
 **Class Reflection**::
 
-    use Admin\Annotations as Admin;
+    use Expose\Annotations as Expose;
     /** A Blog post
       * ...
-      * @Admin\Active
-      * @Admin\Variant(variant="Calendar", options="Calendar, List")
-      * @Admin\VariantMapping(title="title", start="startdate", end="enddate")
+      * @Expose\Active
+      * @Expose\Variant(variant="Calendar", options="Calendar, List")
+      * @Expose\VariantMapping(title="title", start="startdate", end="enddate")
       */
     class Event {...
 
 **YAML**::
 
-    Admin\Domain\Model\Event:
+    Expose\Domain\Model\Event:
         Active: true
         Variant: 
             variant: Calendar

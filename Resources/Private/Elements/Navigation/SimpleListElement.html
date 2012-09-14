@@ -1,9 +1,9 @@
-{namespace cm=TYPO3\Admin\ViewHelpers}
+{namespace cm=TYPO3\Expose\ViewHelpers}
 <li>
 <cm:annotations object="{item}">
 <cm:identity object="{item}">
 <f:link.action additionalParams="{--featureRuntime:{
-	controller: '\TYPO3\Admin\Controller\EditController', 
+	controller: '\TYPO3\Expose\Controller\EditController', 
 	being: annotations.class, 
 	id: identity
 }}">{item}</f:link.action>

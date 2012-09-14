@@ -1,7 +1,7 @@
 // REVIEWED for release
 
 ########################################
-# TYPO3.Admin:RecordList.Table.Row
+# TYPO3.Expose:RecordList.Table.Row
 # --------------------------------------
 # Render a single row of this table.
 #
@@ -10,17 +10,17 @@
 # - listElementFeatures: The list of features which can be executed for this item.
 ########################################
 
-prototype(TYPO3.Admin:RecordList.Table.Row) < prototype(TYPO3.TypoScript:Case)
+prototype(TYPO3.Expose:RecordList.Table.Row) < prototype(TYPO3.TypoScript:Case)
 
 # Catch-all condition for the default case
-prototype(TYPO3.Admin:RecordList.Table.Row).matchers.999999999999 {
+prototype(TYPO3.Expose:RecordList.Table.Row).matchers.999999999999 {
 	condition = ${true}
-	type = 'TYPO3.Admin:RecordList.Table.DefaultRow'
+	type = 'TYPO3.Expose:RecordList.Table.DefaultRow'
 }
 
-prototype(TYPO3.Admin:RecordList.Table.DefaultRow) < prototype(TYPO3.TypoScript:FluidRenderer) {
-	templatePath = 'resource://TYPO3.Admin/Private/Elements/List/Row.html'
+prototype(TYPO3.Expose:RecordList.Table.DefaultRow) < prototype(TYPO3.TypoScript:FluidRenderer) {
+	templatePath = 'resource://TYPO3.Expose/Private/Elements/List/Row.html'
 	item = ${item}
 	type = ${type}
-	controllerLinks = TYPO3.Admin:LocalControllerLinks
+	controllerLinks = TYPO3.Expose:LocalControllerLinks
 }

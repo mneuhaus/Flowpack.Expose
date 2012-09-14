@@ -1,9 +1,9 @@
 #                                                                        #
-# Settings Configuration for the Admin package                           #
+# Settings Configuration for the Expose package                           #
 #                                                                        #
 
 TYPO3:
-  Admin:
+  Expose:
     Pagination:
       Limits:
         - 10
@@ -15,17 +15,17 @@ TYPO3:
       MaxPages: 8
     Defaults:
       Variant: Default
-      SearchProvider: \TYPO3\Admin\SearchProvider\SimpleSearchProvider
+      SearchProvider: \TYPO3\Expose\SearchProvider\SimpleSearchProvider
       Properties:
-        OptionsProvider: \TYPO3\Admin\OptionsProvider\RelationOptionsProvider
+        OptionsProvider: \TYPO3\Expose\OptionsProvider\RelationOptionsProvider
         Representation:
           DatetimeFormat: Y-m-d\TH:i:s
     Adapters:
-      TYPO3\Admin\PersistentStorageAdapter\DoctrinePersistentStorageAdapter: active
+      TYPO3\Expose\PersistentStorageAdapter\DoctrinePersistentStorageAdapter: active
     AnnotationProvider:
-      - TYPO3\Admin\Reflection\Provider\DefaultsAnnotationProvider
-      - TYPO3\Admin\Reflection\Provider\ReflectionAnnotationProvider
-      - TYPO3\Admin\Reflection\Provider\SettingsAnnotationProvider
+      - TYPO3\Expose\Reflection\Provider\DefaultsAnnotationProvider
+      - TYPO3\Expose\Reflection\Provider\ReflectionAnnotationProvider
+      - TYPO3\Expose\Reflection\Provider\SettingsAnnotationProvider
 
     Mapping:
       Elements:
@@ -45,14 +45,14 @@ TYPO3:
       TYPO3\TYPO3\Domain\Model\User:
         Properties:
           name:
-            Inline: TYPO3.Admin:InlineSeamless
+            Inline: TYPO3.Expose:InlineSeamless
           electronicAddresses:
-            Inline: TYPO3.Admin:InlineTabular
+            Inline: TYPO3.Expose:InlineTabular
             Ignore: List
           preferences:
             Ignore: true
           accounts:
-            Inline: TYPO3.Admin:InlineSeamless
+            Inline: TYPO3.Expose:InlineSeamless
 
       TYPO3\Party\Domain\Model\PersonName:
         Properties:
@@ -74,7 +74,7 @@ TYPO3:
             Title: true
           credentialsSource:
             Label: Passwort
-            Element: TYPO3.Admin:PasswordWithHashing
+            Element: TYPO3.Expose:PasswordWithHashing
           roles:
             OptionsProvider:
               Name: RoleOptionsProvider
@@ -106,94 +106,94 @@ TYPO3:
           submodules:
             content:
               label: 'Manage Content'
-              controller: '\TYPO3\Admin\Controller\ModuleController'
-              defaultAdminControllerClassName: '\TYPO3\Admin\Controller\ContentListController'
+              controller: '\TYPO3\Expose\Controller\ModuleController'
+              defaultExposeControllerClassName: '\TYPO3\Expose\Controller\ContentListController'
             blog:
               label: 'Blog'
-              controller: '\TYPO3\Admin\Controller\ModuleController'
-              defaultAdminControllerClassName: '\TYPO3\Admin\Controller\SameTypeListController'
-              defaultAdminControllerArguments:
+              controller: '\TYPO3\Expose\Controller\ModuleController'
+              defaultExposeControllerClassName: '\TYPO3\Expose\Controller\SameTypeListController'
+              defaultExposeControllerArguments:
                 type: 'TYPO3\Blog\Domain\Model\Blog'
             blogposts:
               label: 'Blog Posts'
-              controller: '\TYPO3\Admin\Controller\ModuleController'
-              defaultAdminControllerClassName: '\TYPO3\Admin\Controller\SameTypeListController'
-              defaultAdminControllerArguments:
+              controller: '\TYPO3\Expose\Controller\ModuleController'
+              defaultExposeControllerClassName: '\TYPO3\Expose\Controller\SameTypeListController'
+              defaultExposeControllerArguments:
                 type: 'TYPO3\Blog\Domain\Model\Post'
-        administration:
+        exposeistration:
           submodules:
             usernew:
-              label: 'New User Administration'
-              controller: '\TYPO3\Admin\Controller\ModuleController'
-              defaultAdminControllerClassName: '\TYPO3\Admin\Controller\SameTypeListController'
-              defaultAdminControllerArguments:
+              label: 'New User Exposeistration'
+              controller: '\TYPO3\Expose\Controller\ModuleController'
+              defaultExposeControllerClassName: '\TYPO3\Expose\Controller\SameTypeListController'
+              defaultExposeControllerArguments:
                 type: 'TYPO3\TYPO3\Domain\Model\User'
 
   TYPO3CR:
     contentTypes:
       'TYPO3.TYPO3:Section':
-        nodeLabelGenerator: 'TYPO3\Admin\Phoenix\EelNodeLabelGenerator'
+        nodeLabelGenerator: 'TYPO3\Expose\Phoenix\EelNodeLabelGenerator'
         nodeLabelGeneratorOptions:
           expression: '"Section " + context.property("_name")'
       'TYPO3.TYPO3:Text':
-        nodeLabelGenerator: 'TYPO3\Admin\Phoenix\EelNodeLabelGenerator'
+        nodeLabelGenerator: 'TYPO3\Expose\Phoenix\EelNodeLabelGenerator'
         nodeLabelGeneratorOptions:
           expression: 'strings.crop(strings.cleanup(context.property("headline") + " " + context.property("text")), 50)'
       'TYPO3.TYPO3:Html':
-        nodeLabelGenerator: 'TYPO3\Admin\Phoenix\EelNodeLabelGenerator'
+        nodeLabelGenerator: 'TYPO3\Expose\Phoenix\EelNodeLabelGenerator'
         nodeLabelGeneratorOptions:
           expression: 'strings.crop(strings.cleanup(context.property("source")), 50)'
   Form:
     presets:
-      admin:
-        title: "Default Preset for TYPO3.Admin"
+      expose:
+        title: "Default Preset for TYPO3.Expose"
         parentPreset: 'default'
         formElementTypes:
           ### override default layout path ###
           'TYPO3.Form:Base':
             renderingOptions:
-              layoutPathPattern: 'resource://TYPO3.Admin/Private/Form/Layouts/{@type}.html'
+              layoutPathPattern: 'resource://TYPO3.Expose/Private/Form/Layouts/{@type}.html'
 
           ### override template path of TYPO3.Form:Form ###
           'TYPO3.Form:Form':
             renderingOptions:
-              templatePathPattern: 'resource://TYPO3.Admin/Private/Form/Form.html'
+              templatePathPattern: 'resource://TYPO3.Expose/Private/Form/Form.html'
 
           'TYPO3.Form:SelectionMixin':
-            implementationClassName: 'TYPO3\Admin\FormElements\OptionsFormElement'
+            implementationClassName: 'TYPO3\Expose\FormElements\OptionsFormElement'
 
-          'TYPO3.Admin:PasswordWithHashing':
+          'TYPO3.Expose:PasswordWithHashing':
             superTypes: ['TYPO3.Form:PasswordWithConfirmation']
-            implementationClassName: 'TYPO3\Admin\FormElements\PasswordWithHashing'
+            implementationClassName: 'TYPO3\Expose\FormElements\PasswordWithHashing'
 
 
           ### FORM ELEMENTS: CONTAINER ###
-          'TYPO3.Admin:Page':
+          'TYPO3.Expose:Page':
             superTypes: ['TYPO3.Form:Page']
 
-          'TYPO3.Admin:Hidden':
+          'TYPO3.Expose:Hidden':
             superTypes: ['TYPO3.Form:FormElement', 'TYPO3.Form:TextMixin']
-            implementationClassName: 'TYPO3\Admin\FormElements\ComplexFormElement'
+            implementationClassName: 'TYPO3\Expose\FormElements\ComplexFormElement'
 
-          'TYPO3.Admin:InlineStacked':
+          'TYPO3.Expose:InlineStacked':
             superTypes: ['TYPO3.Form:Section']
-            implementationClassName: 'TYPO3\Admin\FormElements\InlineFormElement'
+            implementationClassName: 'TYPO3\Expose\FormElements\InlineFormElement'
             renderingOptions:
               renderableNameInTemplate: 'inline'
 
-          'TYPO3.Admin:InlineStackedItem':
-            superTypes: ['TYPO3.Admin:InlineStacked']
+          'TYPO3.Expose:InlineStackedItem':
+            superTypes: ['TYPO3.Expose:InlineStacked']
 
 
-          'TYPO3.Admin:InlineTabular':
-            superTypes: ['TYPO3.Admin:InlineStacked']
+          'TYPO3.Expose:InlineTabular':
+            superTypes: ['TYPO3.Expose:InlineStacked']
 
-          'TYPO3.Admin:InlineTabularItem':
-            superTypes: ['TYPO3.Admin:InlineStacked']
+          'TYPO3.Expose:InlineTabularItem':
+            superTypes: ['TYPO3.Expose:InlineStacked']
 
 
-          'TYPO3.Admin:InlineSeamless':
-            superTypes: ['TYPO3.Admin:InlineStacked']
+          'TYPO3.Expose:InlineSeamless':
+            superTypes: ['TYPO3.Expose:InlineStacked']
 
-          'TYPO3.Admin:InlineSeamlessItem':
-            superTypes: ['TYPO3.Admin:InlineStacked']
+          'TYPO3.Expose:InlineSeamlessItem':
+            superTypes: ['TYPO3.Expose:InlineStacked']

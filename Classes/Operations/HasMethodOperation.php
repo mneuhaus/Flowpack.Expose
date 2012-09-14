@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\Admin\Operations;
+namespace TYPO3\Expose\Operations;
 
 /*                                                                        *
  * This script belongs to the FLOW3 package "TYPO3.Eel".                  *

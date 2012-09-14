@@ -1,8 +1,8 @@
 <?php
-namespace TYPO3\Admin\TypoScriptObjects;
+namespace TYPO3\Expose\TypoScriptObjects;
 
 /*                                                                        *
- * This script belongs to the TYPO3.Admin package.              		  *
+ * This script belongs to the TYPO3.Expose package.              		  *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU General Public License, either version 3 of the   *
@@ -22,7 +22,7 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTsOb
 
 	/**
 	 * @FLOW3\Inject
-	 * @var \TYPO3\Admin\TypoScriptObjects\Helpers\BaseFormFactory
+	 * @var \TYPO3\Expose\TypoScriptObjects\Helpers\BaseFormFactory
 	 */
 	protected $baseFormFactory;
 
@@ -102,7 +102,7 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTsOb
 		$formDefinition = $this->baseFormFactory->build(array('identifier' => $this->tsValue('formIdentifier')), $this->tsValue('formPresetName'));
 		$page = $formDefinition->createPage('page1');
 
-		$forwardFinisher = new \TYPO3\Admin\Finishers\ControllerCallbackFinisher();
+		$forwardFinisher = new \TYPO3\Expose\Finishers\ControllerCallbackFinisher();
 		$forwardFinisher->setOption('callbackAction', $this->tsValue('callbackAction'));
 		$formDefinition->addFinisher($forwardFinisher);
 

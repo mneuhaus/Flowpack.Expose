@@ -19,8 +19,8 @@ This Optionsprovider gives available options based on the entity's relation
 
     /**
      * @var string
-     * @Admin\Widget("Dropdown")
-     * @Admin\OptionsProvider(name="Array", property="options")
+     * @Expose\Widget("Dropdown")
+     * @Expose\OptionsProvider(name="Array", property="options")
      */
     protected $optionsProvider;
     public $options = array(

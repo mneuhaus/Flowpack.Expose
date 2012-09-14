@@ -39,33 +39,33 @@ body:not(.js) .js {
 body.js .nojs {
   display: none; }
 
-.typo3-admin-recordlist [data-area=main], .typo3-admin-recordlist [data-area=actionBar] {
+.typo3-expose-recordlist [data-area=main], .typo3-expose-recordlist [data-area=actionBar] {
   -webkit-transition-duration: compact(0.2s, false, false, false, false, false, false, false, false, false);
   -moz-transition-duration: compact(0.2s, false, false, false, false, false, false, false, false, false);
   -o-transition-duration: compact(0.2s, false, false, false, false, false, false, false, false, false);
   transition-duration: compact(0.2s, false, false, false, false, false, false, false, false, false); }
-.typo3-admin-recordlist [data-area=main] {
+.typo3-expose-recordlist [data-area=main] {
   -webkit-transition-property: compact(width, false, false, false, false, false, false, false, false, false);
   -moz-transition-property: compact(width, false, false, false, false, false, false, false, false, false);
   -o-transition-property: compact(width, false, false, false, false, false, false, false, false, false);
   transition-property: compact(width, false, false, false, false, false, false, false, false, false); }
-.typo3-admin-recordlist [data-area=actionBar] {
+.typo3-expose-recordlist [data-area=actionBar] {
   -webkit-transition-property: compact(opacity, false, false, false, false, false, false, false, false, false);
   -moz-transition-property: compact(opacity, false, false, false, false, false, false, false, false, false);
   -o-transition-property: compact(opacity, false, false, false, false, false, false, false, false, false);
   transition-property: compact(opacity, false, false, false, false, false, false, false, false, false); }
-  .typo3-admin-recordlist [data-area=actionBar]:not(.hiddenActionBar) {
+  .typo3-expose-recordlist [data-area=actionBar]:not(.hiddenActionBar) {
     -webkit-transition-delay: compact(0.2s, false, false, false, false, false, false, false, false, false);
     -moz-transition-delay: compact(0.2s, false, false, false, false, false, false, false, false, false);
     -o-transition-delay: compact(0.2s, false, false, false, false, false, false, false, false, false);
     transition-delay: compact(0.2s, false, false, false, false, false, false, false, false, false); }
-  .typo3-admin-recordlist [data-area=actionBar].hiddenActionBar {
+  .typo3-expose-recordlist [data-area=actionBar].hiddenActionBar {
     opacity: 0; }
 
 .t3-ui .t3-records > .well {
   margin-right: 10px;
   border-color: #B3B3B3; }
-.t3-ui .t3-records > .typo3-admin-active {
+.t3-ui .t3-records > .typo3-expose-active {
   background: #eee;
   margin-right: 0px;
   border-right: 0px;

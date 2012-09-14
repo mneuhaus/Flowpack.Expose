@@ -1,8 +1,8 @@
 <?php
-namespace TYPO3\Admin\ViewHelpers;
+namespace TYPO3\Expose\ViewHelpers;
 
 /*                                                                        *
- * This script belongs to the TYPO3.Admin package.              *
+ * This script belongs to the TYPO3.Expose package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License as published by the *
@@ -31,7 +31,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 class PropertiesViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 
     /**
-     * @var \TYPO3\Admin\Reflection\AnnotationService
+     * @var \TYPO3\Expose\Reflection\AnnotationService
      * @FLOW3\Inject
      */
     protected $annotationService;

@@ -4,7 +4,7 @@ ViewHelpers
 ApiViewHelper
 *************
 
-This ViewHelper provides access to the \Admin\Core\API:: functions.
+This ViewHelper provides access to the \Expose\Core\API:: functions.
 
 get
 	specifies the variable or function to trigger on the API
@@ -39,7 +39,7 @@ property
 Example::
 
     <f:form method="post" action="form" fieldNamePrefix="form">
-        <a:being className="AdminDemo\Domain\Model\Address" as="being">
+        <a:being className="ExposeDemo\Domain\Model\Address" as="being">
             <a:form.field being="{ being.street}" />
             <a:form.field being="{ being.housenumber}" />
             <a:form.field being="{ being.city}" />
@@ -57,7 +57,7 @@ being
 Example::
 
     <f:form method="post" action="form" fieldNamePrefix="form">
-        <a:being className="AdminDemo\Domain\Model\Address" as="being">
+        <a:being className="ExposeDemo\Domain\Model\Address" as="being">
             <a:form.fields being="{ being}" />
         </a:being>
     </f:form>
@@ -75,7 +75,7 @@ package
 	
 Example::
     
-    <a:layout name="Bootstrap" package="Admin"/>
+    <a:layout name="Bootstrap" package="Expose"/>
 
 
 NavigationViewHelper

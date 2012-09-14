@@ -1,8 +1,8 @@
 <?php
-namespace TYPO3\Admin\Controller;
+namespace TYPO3\Expose\Controller;
 
 /* *
- * This script belongs to the TYPO3.Admin package.              *
+ * This script belongs to the TYPO3.Expose package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License as published by the *
@@ -30,7 +30,7 @@ use TYPO3\FLOW3\Mvc\ActionRequest;
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-class SameTypeListController extends \TYPO3\Admin\Core\AbstractAdminController {
+class SameTypeListController extends \TYPO3\Expose\Core\AbstractExposeController {
 
 	/**
 	 * List objects, all being of the same $type.
@@ -43,7 +43,7 @@ class SameTypeListController extends \TYPO3\Admin\Core\AbstractAdminController {
 	public function indexAction($type, $format = 'table') {
 		if ($type === 'TYPO3\TYPO3CR\Domain\Model\NodeInterface') {
 				// If we deal with nodes, we want the content list controller to take over
-			$this->forward('index', 'contentlist', 'TYPO3.Admin', $this->request->getArguments());
+			$this->forward('index', 'contentlist', 'TYPO3.Expose', $this->request->getArguments());
 		}
 
 		$query = $this->persistenceManager->createQueryForType($type);

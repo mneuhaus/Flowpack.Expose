@@ -1,8 +1,8 @@
 <?php
-namespace TYPO3\Admin\Core;
+namespace TYPO3\Expose\Core;
 
 /*                                                                        *
- * This script belongs to the TYPO3.Admin package.              *
+ * This script belongs to the TYPO3.Expose package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License as published by the *
@@ -41,12 +41,12 @@ class CacheManager {
     /**
      * @var array
      */
-    protected $caches = array('Admin_Cache',
-    	'Admin_TemplateCache',
-    	'Admin_ActionCache',
-    	'Admin_ImplementationCache',
-    	'TYPO3_Admin_ShortNames',
-    	'TYPO3_Admin_Annotations'
+    protected $caches = array('Expose_Cache',
+    	'Expose_TemplateCache',
+    	'Expose_ActionCache',
+    	'Expose_ImplementationCache',
+    	'TYPO3_Expose_ShortNames',
+    	'TYPO3_Expose_Annotations'
     );
 
     /**
@@ -71,9 +71,9 @@ class CacheManager {
     }
 
     /**
-    * TODO: Document this Method! ( flushAdminCaches )
+    * TODO: Document this Method! ( flushExposeCaches )
     */
-    public function flushAdminCaches() {
+    public function flushExposeCaches() {
         foreach ($this->caches as $cache) {
             $this->getCache($cache)->flush();
         }
@@ -83,7 +83,7 @@ class CacheManager {
     * TODO: Document this Method! ( flushCachesByChangedFiles )
     */
     public function flushCachesByChangedFiles($fileMonitorIdentifier, array $changedFiles) {
-        $this->flushAdminCaches();
+        $this->flushExposeCaches();
     }
 
 }

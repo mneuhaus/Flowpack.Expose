@@ -1,8 +1,8 @@
 <?php
-namespace TYPO3\Admin\ViewHelpers\Render;
+namespace TYPO3\Expose\ViewHelpers\Render;
 
 /*                                                                        *
- * This script belongs to the TYPO3.Admin package.              *
+ * This script belongs to the TYPO3.Expose package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License as published by the *
@@ -34,7 +34,7 @@ abstract class AbstractRenderViewHelper extends \TYPO3\Fluid\Core\ViewHelper\Abs
     * TODO: Document this Method! ( initialize )
     */
     public function initialize() {
-        $this->view = new \TYPO3\Admin\View\FallbackTemplateView();
+        $this->view = new \TYPO3\Expose\View\FallbackTemplateView();
         $this->view->setControllerContext($this->controllerContext);
         $this->view->setRenderingContext($this->renderingContext);
     }

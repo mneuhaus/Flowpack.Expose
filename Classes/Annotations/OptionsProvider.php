@@ -1,8 +1,8 @@
 <?php
-namespace TYPO3\Admin\Annotations;
+namespace TYPO3\Expose\Annotations;
 
 /*                                                                        *
- * This script belongs to the TYPO3.Admin package.              *
+ * This script belongs to the TYPO3.Expose package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -38,11 +38,11 @@ final class OptionsProvider implements SingleAnnotationInterface {
         $this->name = isset($values['value']) ? $values['value'] : $this->name;
         $this->name = isset($values['name']) ? $values['name'] : $this->name;
         $this->options = isset($values['options']) ? $values['options'] : $this->options;
-        if (class_exists(sprintf('\\TYPO3\\Admin\\OptionsProvider\\%sOptionsProvider', $this->name))) {
-            $this->name = sprintf('\\TYPO3\\Admin\\OptionsProvider\\%sOptionsProvider', $this->name);
+        if (class_exists(sprintf('\\TYPO3\\Expose\\OptionsProvider\\%sOptionsProvider', $this->name))) {
+            $this->name = sprintf('\\TYPO3\\Expose\\OptionsProvider\\%sOptionsProvider', $this->name);
         }
-        if (class_exists(sprintf('\\TYPO3\\Admin\\OptionsProvider\\%s', $this->name))) {
-            $this->name = sprintf('\\TYPO3\\Admin\\OptionsProvider\\%s', $this->name);
+        if (class_exists(sprintf('\\TYPO3\\Expose\\OptionsProvider\\%s', $this->name))) {
+            $this->name = sprintf('\\TYPO3\\Expose\\OptionsProvider\\%s', $this->name);
         }
     }
 

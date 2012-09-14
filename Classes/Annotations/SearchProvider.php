@@ -1,8 +1,8 @@
 <?php
-namespace TYPO3\Admin\Annotations;
+namespace TYPO3\Expose\Annotations;
 
 /*                                                                        *
- * This script belongs to the TYPO3.Admin package.              *
+ * This script belongs to the TYPO3.Expose package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -36,8 +36,8 @@ final class SearchProvider implements SingleAnnotationInterface {
         $this->name = isset($values['value']) ? $values['value'] : $this->name;
         $this->name = isset($values['name']) ? $values['name'] : $this->name;
         $this->options = isset($values['options']) ? $values['options'] : $this->options;
-        if (class_exists(sprintf('\\TYPO3\\Admin\\SearchProvider\\%sSearchProvider', $this->name))) {
-            $this->name = sprintf('\\TYPO3\\Admin\\SearchProvider\\%sSearchProvider', $this->name);
+        if (class_exists(sprintf('\\TYPO3\\Expose\\SearchProvider\\%sSearchProvider', $this->name))) {
+            $this->name = sprintf('\\TYPO3\\Expose\\SearchProvider\\%sSearchProvider', $this->name);
         }
     }
 

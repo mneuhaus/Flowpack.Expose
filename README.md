@@ -1,4 +1,4 @@
-# Admin Module for TYPO3.TYPO3 using TYPO3.Form
+# Expose Module for TYPO3.TYPO3 using TYPO3.Form
 
 ## Current Status
 
@@ -22,7 +22,7 @@
   cd PhoenixContentManagement
 
   git clone git@github.com:mneuhaus/Demo.ContentManagement.git Packages/Application/Demo.ContentManagement
-  git clone git@github.com:mneuhaus/TYPO3.Admin.git Packages/Application/TYPO3.Admin
+  git clone git@github.com:mneuhaus/TYPO3.Expose.git Packages/Application/TYPO3.Expose
 ```
 
 See corresponding forge issue: http://forge.typo3.org/issues/37293

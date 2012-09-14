@@ -1,8 +1,8 @@
 <?php
-namespace TYPO3\Admin\Reflection\Provider;
+namespace TYPO3\Expose\Reflection\Provider;
 
 /* *
- * This script belongs to the TYPO3.Admin package.              *
+ * This script belongs to the TYPO3.Expose package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License as published by the *
@@ -46,7 +46,7 @@ class DefaultsAnnotationProvider extends AbstractAnnotationProvider {
     * TODO: Document this Method! ( getClassAnnotations )
     */
     public function getClassAnnotations($class) {
-        $defaults = $this->configurationManager->getConfiguration(\TYPO3\FLOW3\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, 'TYPO3.Admin.Defaults');
+        $defaults = $this->configurationManager->getConfiguration(\TYPO3\FLOW3\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, 'TYPO3.Expose.Defaults');
         $annotations = array();
         foreach ($defaults as $annotationName => $values) {
             if ($annotationName == 'Properties') {

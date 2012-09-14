@@ -1,14 +1,14 @@
 prototype(TYPO3.TYPO3:HtmlPreview) < prototype(TYPO3.TypoScript:FluidRenderer) {
-	templatePath = 'resource://TYPO3.Admin/Private/Templates/NodePreview/HtmlTemplate.html'
+	templatePath = 'resource://TYPO3.Expose/Private/Templates/NodePreview/HtmlTemplate.html'
 	source = ${q(node).property('source')}
 }
 
 prototype(TYPO3.TYPO3:TextPreview) < prototype(TYPO3.TypoScript:FluidRenderer) {
-	templatePath = 'resource://TYPO3.Admin/Private/Templates/NodePreview/TextTemplate.html'
+	templatePath = 'resource://TYPO3.Expose/Private/Templates/NodePreview/TextTemplate.html'
 	text = ${q(node).property('text')}
 }
 
 prototype(TYPO3.TYPO3:SectionPreview) < prototype(TYPO3.TypoScript:FluidRenderer) {
-	templatePath = 'resource://TYPO3.Admin/Private/Templates/NodePreview/SectionTemplate.html'
+	templatePath = 'resource://TYPO3.Expose/Private/Templates/NodePreview/SectionTemplate.html'
 	childNodes = ${node.getChildNodes()}
 }

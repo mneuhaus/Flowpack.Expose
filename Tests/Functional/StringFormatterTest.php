@@ -1,8 +1,8 @@
 <?php
-namespace TYPO3\Admin\Tests\Functional;
+namespace TYPO3\Expose\Tests\Functional;
 
 /*                                                                        *
- * This script belongs to the TYPO3.Admin package.              *
+ * This script belongs to the TYPO3.Expose package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -57,13 +57,13 @@ class StringFormatterTest extends \TYPO3\FLOW3\Tests\FunctionalTestCase {
 		$view = $this->getView();
 
 		$view->assign('value', $source);
-		$view->setTypoScriptPath('/test<TYPO3.Admin:StringFormatter>');
+		$view->setTypoScriptPath('/test<TYPO3.Expose:StringFormatter>');
 		$this->assertEquals($expected, $view->render());
 	}
 
 	protected function getView() {
 		$view = new \TYPO3\TypoScript\View\TypoScriptView();
-		$view->setPackageKey('TYPO3.Admin');
+		$view->setPackageKey('TYPO3.Expose');
 		$view->disableFallbackView();
 
 		$mockControllerContext = $this->getMockBuilder('TYPO3\FLOW3\Mvc\Controller\ControllerContext')->disableOriginalConstructor()->getMock();

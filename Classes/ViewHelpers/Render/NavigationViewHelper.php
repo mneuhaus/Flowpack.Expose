@@ -1,8 +1,8 @@
 <?php
-namespace TYPO3\Admin\ViewHelpers\Render;
+namespace TYPO3\Expose\ViewHelpers\Render;
 
 /*                                                                        *
- * This script belongs to the TYPO3.Admin package.              *
+ * This script belongs to the TYPO3.Expose package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -34,7 +34,7 @@ class NavigationViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelp
     public function render($action = null, $controller = null, $navigationProvider = null, $options = array(), $navigationListElement = null, $context = array()) {
         $response = new \TYPO3\FLOW3\Http\Response($this->controllerContext->getResponse());
         $request = $this->controllerContext->getRequest();
-        $navigationRuntime = new \TYPO3\Admin\Core\NavigationRuntime($request, $response);
+        $navigationRuntime = new \TYPO3\Expose\Core\NavigationRuntime($request, $response);
         if (!is_null($action)) {
             $navigationRuntime->setDefaultAction($action);
         }

@@ -1,1 +1,1 @@
-{namespace ts=TYPO3\TypoScript\ViewHelpers}<f:for each="{value}" as="element" iteration="iterator"><ts:renderTypoScript path="array<TYPO3.Admin:StringFormatter>" context="{value: element}" /><f:if condition="{iterator.isLast} == 0">, </f:if></f:for>
+{namespace ts=TYPO3\TypoScript\ViewHelpers}<f:for each="{value}" as="element" iteration="iterator"><ts:renderTypoScript path="array<TYPO3.Expose:StringFormatter>" context="{value: element}" /><f:if condition="{iterator.isLast} == 0">, </f:if></f:for>

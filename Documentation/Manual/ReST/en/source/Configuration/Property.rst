@@ -4,13 +4,13 @@ Property Configurations
 
 Filter
 ******
-By Tagging a Property with this Tag the Admin Interface will try to provide a Selectbox to Filter the List View by the Possible Values of this Property
+By Tagging a Property with this Tag the Expose Interface will try to provide a Selectbox to Filter the List View by the Possible Values of this Property
 
 **Class Reflection**::
 
     /**
      * @var string 
-     * @Admin\Annotations\Filter
+     * @Expose\Annotations\Filter
      */
     protected $author;
 
@@ -29,7 +29,7 @@ With this Tag you can set the Label for a Property which is by Default a CamelCa
 
     /**
      * @var string
-     * @Admin\Annotations\Label("Post Title")
+     * @Expose\Annotations\Label("Post Title")
      */
      protected $title;
 
@@ -42,7 +42,7 @@ With this Tag you can set the Label for a Property which is by Default a CamelCa
 
 Ignore
 ******
-There are a number of Properties which have no use to be Administrated through a GUI. With the ignore Tag you can control the Visibility of the Property to the Admin Interface.
+There are a number of Properties which have no use to be Exposeistrated through a GUI. With the ignore Tag you can control the Visibility of the Property to the Expose Interface.
 
 Ignore the Property Completly
 =============================
@@ -50,7 +50,7 @@ Ignore the Property Completly
 
     /**
      * @var string
-     * @Admin\Annotations\Ignore 
+     * @Expose\Annotations\Ignore 
      */
     protected $id;
     
@@ -67,7 +67,7 @@ Ignore the Property in specific Views
 
     /**
      * @var string
-     * @Admin\Annotations\Ignore list,view */
+     * @Expose\Annotations\Ignore list,view */
     protected $content;
 
 
@@ -86,7 +86,7 @@ For more Information about a Property aside from the Title you can provide an In
 
     /**
      * @var string
-     * @Admin\Annotations\InfoText("Please tell us who you are")
+     * @Expose\Annotations\InfoText("Please tell us who you are")
      */
     protexted $author;
 
@@ -106,9 +106,9 @@ Make sure to add "cascade={"all"}" to your ORM relation, because otherwise you'l
 **Class Reflection**::
 
     /**
-     * @var \AdminDemo\Domain\Model\Address
+     * @var \ExposeDemo\Domain\Model\Address
      * @ORM\ManyToOne(cascade={"all"})
-     * @Admin\Inline()
+     * @Expose\Inline()
      */
     protected $address;
 
@@ -126,8 +126,8 @@ OptionsProvider
 **Class Reflection**::
 
     /**
-     * @var \Doctrine\Common\Collections\ArrayCollection<\Admin\Security\Policy>
-     * @Admin\Annotations\OptionsProvider("\Admin\OptionsProvider\PolicyOptionsProvider")
+     * @var \Doctrine\Common\Collections\ArrayCollection<\Expose\Security\Policy>
+     * @Expose\Annotations\OptionsProvider("\Expose\OptionsProvider\PolicyOptionsProvider")
      */
     protected $grant;
 
@@ -136,7 +136,7 @@ OptionsProvider
     TYPO3\Blog\Domain\Model\Blog: 
         Properties:
             Grant: 
-                OptionsProvider: \Admin\OptionsProvider\PolicyOptionsProvider 
+                OptionsProvider: \Expose\OptionsProvider\PolicyOptionsProvider 
 
 
 Representation
@@ -148,13 +148,13 @@ Currently it is only used for the datetimeFormat
 
     /**
      * @var \Datetime
-      * @Admin\Representation(datetimeFormat="Y-m-d")
+      * @Expose\Representation(datetimeFormat="Y-m-d")
      */
     protected $date;
 
 **YAML**::
 
-    Admin\Domain\Model\Widgets: 
+    Expose\Domain\Model\Widgets: 
         Properties:
             date: 
                 Repesentation: 
@@ -177,7 +177,7 @@ The MagicModel will try the following things to determine a title:
 
     /**
      * @var string 
-     * @Admin\Annotations\Title
+     * @Expose\Annotations\Title
      */
     protected $title;
 
@@ -210,10 +210,10 @@ Tabular
 **Class Reflection**::
 
     /**
-     * @var \AdminDemo\Domain\Model\Address
+     * @var \ExposeDemo\Domain\Model\Address
      * @ORM\ManyToOne(cascade={"all"})
-     * @Admin\Inline()
-     * @Admin\Variant("Tabular")
+     * @Expose\Inline()
+     * @Expose\Variant("Tabular")
      */
     protected $address;
 
@@ -234,7 +234,7 @@ Instead of the automatically Assigned Widget you can use this Tag to specify a s
 
     /**
      * @var string
-     * @Admin\Annotations\Widget("TextArea")
+     * @Expose\Annotations\Widget("TextArea")
      */
      protected $content;
 

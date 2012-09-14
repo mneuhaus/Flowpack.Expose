@@ -1,29 +1,29 @@
-prototype(TYPO3.Admin:ContentRecordList) < prototype(TYPO3.Admin:RecordList)
-prototype(TYPO3.Admin:ContentRecordList) << 50.admin:nodeTree()
+prototype(TYPO3.Expose:ContentRecordList) < prototype(TYPO3.Expose:RecordList)
+prototype(TYPO3.Expose:ContentRecordList) << 50.expose:nodeTree()
 
 # adjustments for TYPO3CR Nodes
-TYPO3.Admin.ContentListController.index = TYPO3.Admin:ContentRecordList
+TYPO3.Expose.ContentListController.index = TYPO3.Expose:ContentRecordList
 
-TYPO3.Admin.ContentListController {
-	prototype(TYPO3.Admin:LocalControllerLink) {
+TYPO3.Expose.ContentListController {
+	prototype(TYPO3.Expose:LocalControllerLink) {
 		arguments.type = 'TYPO3\\TYPO3CR\\Domain\\Model\\NodeInterface'
 		arguments.object = ${item.contextPath}
 	}
 }
 
-prototype(TYPO3.Admin:RecordList.List.Element).matchers.1000 {
+prototype(TYPO3.Expose:RecordList.List.Element).matchers.1000 {
 	condition = ${q(item).is('[ instanceof TYPO3.TYPO3:AbstractNode]')}
-	type = 'TYPO3.Admin:RecordList.List.NodeElement'
+	type = 'TYPO3.Expose:RecordList.List.NodeElement'
 }
 
-prototype(TYPO3.Admin:RecordList.List.NodeElement) < prototype(TYPO3.Admin:RecordList.List.DefaultElement) {
-	templatePath = 'resource://TYPO3.Admin/Private/Elements/List/NodeElement.html'
+prototype(TYPO3.Expose:RecordList.List.NodeElement) < prototype(TYPO3.Expose:RecordList.List.DefaultElement) {
+	templatePath = 'resource://TYPO3.Expose/Private/Elements/List/NodeElement.html'
 
-	teaser = TYPO3.Admin:RecordList.NodeTeaser
+	teaser = TYPO3.Expose:RecordList.NodeTeaser
 }
 
-prototype(TYPO3.Admin:RecordList.NodeTeaser) < prototype(TYPO3.TypoScript:Case) {
-	default = TYPO3.Admin:IgnoreMissingTypeMatcher {
+prototype(TYPO3.Expose:RecordList.NodeTeaser) < prototype(TYPO3.TypoScript:Case) {
+	default = TYPO3.Expose:IgnoreMissingTypeMatcher {
 		condition = ${true}
 		type = ${q(node).property('_contentType.name') + 'Preview'}
 		@override.node = ${item}

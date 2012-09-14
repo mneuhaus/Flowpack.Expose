@@ -1,8 +1,8 @@
 <?php
-namespace TYPO3\Admin\TypoScriptObjects;
+namespace TYPO3\Expose\TypoScriptObjects;
 
 /*                                                                        *
- * This script belongs to the TYPO3.Admin package.              		  *
+ * This script belongs to the TYPO3.Expose package.              		  *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU General Public License, either version 3 of the   *
@@ -17,9 +17,9 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * This is a WORKAROUND which evaluates all values of the "arguments" property through
  * TypoScript Processors and Eel Expressions; so one can write:
  *
- * 10 = TYPO3.Admin:RecordList.ControllerLink
+ * 10 = TYPO3.Expose:RecordList.ControllerLink
  * 10.label = 'New'
- * 10.feature = 'TYPO3\\Admin\\Controller\\NewController'
+ * 10.feature = 'TYPO3\\Expose\\Controller\\NewController'
  * # THIS IS THE IMPORTANT LINE:
  * 10.arguments.type = ${type}
  *

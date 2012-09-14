@@ -1,59 +1,59 @@
-TYPO3.Admin.SameTypeListController.index = TYPO3.Admin:RecordList
+TYPO3.Expose.SameTypeListController.index = TYPO3.Expose:RecordList
 
-prototype(TYPO3.Admin:RecordList) < prototype(TYPO3.TypoScript:FluidRenderer) {
-	templatePath = 'resource://TYPO3.Admin/Private/Elements/RecordList/Layout.html'
+prototype(TYPO3.Expose:RecordList) < prototype(TYPO3.TypoScript:FluidRenderer) {
+	templatePath = 'resource://TYPO3.Expose/Private/Elements/RecordList/Layout.html'
 	currentFormat = ${format}
 
-	formatSelector = TYPO3.Admin:RecordList.FormatSelector
-	recordList.list = TYPO3.Admin:RecordList.List
-	recordList.table = TYPO3.Admin:RecordList.Table
+	formatSelector = TYPO3.Expose:RecordList.FormatSelector
+	recordList.list = TYPO3.Expose:RecordList.List
+	recordList.table = TYPO3.Expose:RecordList.Table
 	navigationArea = TYPO3.TypoScript:TypoScriptArrayRenderer
 
-	localControllerLinks = TYPO3.Admin:LocalControllerLinks
+	localControllerLinks = TYPO3.Expose:LocalControllerLinks
 
 	topRegion = TYPO3.TypoScript:TypoScriptArrayRenderer {
 		@position = 'start'
 
-		controllerLinks = TYPO3.Admin:GlobalControllerLinks {
+		controllerLinks = TYPO3.Expose:GlobalControllerLinks {
 			@position = 20
 		}
 		controllerLinks << 1.wrap(prefix: '<div class="pull-right">', suffix: '</div>')
 
-		search = TYPO3.Admin:Search {
-			templatePath = 'resource://TYPO3.Admin/Private/Elements/RecordList/Search.html'
+		search = TYPO3.Expose:Search {
+			templatePath = 'resource://TYPO3.Expose/Private/Elements/RecordList/Search.html'
 			objects = ${objects}
 		}
 	}
 
 	bottomRegion = TYPO3.TypoScript:TypoScriptArrayRenderer
 	bottomRegion {
-		limits = TYPO3.Admin:Limits {
-			templatePath = 'resource://TYPO3.Admin/Private/Elements/RecordList/Limits.html'
+		limits = TYPO3.Expose:Limits {
+			templatePath = 'resource://TYPO3.Expose/Private/Elements/RecordList/Limits.html'
 			objects = ${objects}
 		}
 
-		formatSelector = TYPO3.Admin:RecordList.FormatSelector {
+		formatSelector = TYPO3.Expose:RecordList.FormatSelector {
 			@position = 10
 		}
 		formatSelector << 1.wrap(prefix: '<div class="pull-left btn-group">', suffix: '</div>')
 
-		paginator = TYPO3.Admin:Pagination {
-			templatePath = 'resource://TYPO3.Admin/Private/Elements/RecordList/Pagination.html'
+		paginator = TYPO3.Expose:Pagination {
+			templatePath = 'resource://TYPO3.Expose/Private/Elements/RecordList/Pagination.html'
 			objects = ${objects}
 		}
 	}
 }
 
 
-namespace:admin=TYPO3\Admin\TypoScript
+namespace:expose=TYPO3\Expose\TypoScript
 
-prototype(TYPO3.Admin:RecordList) << 100.admin:pagination()
-prototype(TYPO3.Admin:RecordList) << 200.admin:limit()
-prototype(TYPO3.Admin:RecordList) << 300.admin:search()
+prototype(TYPO3.Expose:RecordList) << 100.expose:pagination()
+prototype(TYPO3.Expose:RecordList) << 200.expose:limit()
+prototype(TYPO3.Expose:RecordList) << 300.expose:search()
 
 # EXAMPLE on adding a new button in a certain context
-#TYPO3.Admin.SameTypeListController.prototype(TYPO3.Admin:RecordList.FormatSelector) {
-#	30 = TYPO3.Admin:RecordList.FormatSelector.Button
+#TYPO3.Expose.SameTypeListController.prototype(TYPO3.Expose:RecordList.FormatSelector) {
+#	30 = TYPO3.Expose:RecordList.FormatSelector.Button
 #	30.format = 'foo'
 #	30.label = 'Foo'
 #}

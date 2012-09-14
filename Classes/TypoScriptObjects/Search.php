@@ -1,8 +1,8 @@
 <?php
-namespace TYPO3\Admin\TypoScriptObjects;
+namespace TYPO3\Expose\TypoScriptObjects;
 
 /*                                                                        *
- * This script belongs to the TYPO3.Admin package.              		  *
+ * This script belongs to the TYPO3.Expose package.              		  *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU General Public License, either version 3 of the   *
@@ -27,7 +27,7 @@ class Search extends \TYPO3\TypoScript\TypoScriptObjects\FluidRenderer {
      * @return string
      */
     public function evaluate() {
-    	$this->settings = $this->configurationManager->getConfiguration(\TYPO3\FLOW3\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, 'TYPO3.Admin.Pagination');
+    	$this->settings = $this->configurationManager->getConfiguration(\TYPO3\FLOW3\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, 'TYPO3.Expose.Pagination');
 
         $request = $this->tsRuntime->getControllerContext()->getRequest();
         if ($request->hasArgument("search")) {

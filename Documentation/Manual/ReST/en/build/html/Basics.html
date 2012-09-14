@@ -9,7 +9,7 @@
 					
   <div class="section" id="basic-usage">
 <h1>Basic Usage<a class="headerlink" href="#basic-usage" title="Permalink to this headline">¶</a></h1>
-<p>There are 2 Ways to Configure the Admin Interface:</p>
+<p>There are 2 Ways to Configure the Expose Interface:</p>
 <ol class="arabic">
 <li><p class="first">Settings.yaml</p>
 </li>
@@ -27,7 +27,7 @@
 <dt>Beings:</dt>
 <dd><dl class="first last docutils">
 <dt>TYPO3BlogDomainModelPost:</dt>
-<dd><p class="first">autoadmin: true
+<dd><p class="first">autoexpose: true
 properties:</p>
 <blockquote class="last">
 <div><dl class="docutils">
@@ -43,7 +43,7 @@ properties:</p>
 </dl>
 </dd>
 </dl>
-<p>This Example Activates the Post model of the Blog Example (autoadmin:true) and Changes the Widget for the Content Property from a simple Textfield to a Textarea</p>
+<p>This Example Activates the Post model of the Blog Example (autoexpose:true) and Changes the Widget for the Content Property from a simple Textfield to a Textarea</p>
 <dl class="docutils">
 <dt>### Class Reflections</dt>
 <dd><dl class="first docutils">
@@ -51,7 +51,7 @@ properties:</p>
 <dd><ul class="first simple">
 <li>A blog post</li>
 <li>...</li>
-<li>&#64;AdminAnnotationsActive</li>
+<li>&#64;ExposeAnnotationsActive</li>
 </ul>
 <p class="last"><a href="#id1"><span class="problematic" id="id2">*</span></a>/</p>
 </dd>
@@ -60,7 +60,7 @@ properties:</p>
 <dt>/**</dt>
 <dd><ul class="first simple">
 <li>&#64;var string</li>
-<li>&#64;AdminAnnotationsWidget TextArea</li>
+<li>&#64;ExposeAnnotationsWidget TextArea</li>
 </ul>
 <p class="last"><a href="#id3"><span class="problematic" id="id4">*</span></a>/</p>
 </dd>
@@ -71,7 +71,7 @@ properties:</p>
 <p class="last">}</p>
 </dd>
 </dl>
-<p>This Example Does the exact same thing as the Settings.yaml Example but this time inside the Post.php file with the Tag &#64;AdminAnnotationsActive and &#64;AdminAnnotationsWidget TextArea</p>
+<p>This Example Does the exact same thing as the Settings.yaml Example but this time inside the Post.php file with the Tag &#64;ExposeAnnotationsActive and &#64;ExposeAnnotationsWidget TextArea</p>
 </div>
 
 
@@ -82,7 +82,7 @@ properties:</p>
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
   <p class="topless"><a href="index.html"
-                        title="previous chapter">Welcome to the Admin Documentation!</a></p>
+                        title="previous chapter">Welcome to the Expose Documentation!</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="Configuration.html"
                         title="next chapter">Configuration</a></p>

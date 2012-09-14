@@ -1,8 +1,8 @@
 <?php
-namespace TYPO3\Admin\Tests\Functional\Actions;
+namespace TYPO3\Expose\Tests\Functional\Actions;
 
 /*                                                                        *
- * This script belongs to the TYPO3.Admin package.              *
+ * This script belongs to the TYPO3.Expose package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -45,9 +45,9 @@ class NewControllerTest extends \TYPO3\FLOW3\Tests\FunctionalTestCase {
 		parent::setUp();
 
 		$route = new \TYPO3\FLOW3\Mvc\Routing\Route();
-		$route->setUriPattern('test/admin/actions(/{@action})');
+		$route->setUriPattern('test/expose/actions(/{@action})');
 		$route->setDefaults(array(
-			'@package' => 'TYPO3.Admin',
+			'@package' => 'TYPO3.Expose',
 			'@subpackage' => 'Tests\Functional\Actions\Fixtures',
 			'@controller' => 'Actions',
 			'@action' => 'index',
@@ -70,8 +70,8 @@ class NewControllerTest extends \TYPO3\FLOW3\Tests\FunctionalTestCase {
 	}
 
 	public function callAction($uriArguments) {
-		$class = "TYPO3\Admin\Tests\Functional\Actions\Fixtures\Domain\Model\Post";
-		return $this->browser->request('http://localhost/test/admin/actions?' . http_build_query($uriArguments));
+		$class = "TYPO3\Expose\Tests\Functional\Actions\Fixtures\Domain\Model\Post";
+		return $this->browser->request('http://localhost/test/expose/actions?' . http_build_query($uriArguments));
 	}
 
 	/**
@@ -83,10 +83,10 @@ class NewControllerTest extends \TYPO3\FLOW3\Tests\FunctionalTestCase {
 
 		$this->callAction(array(
 			'--featureRuntime' => array(
-				'being' => 'TYPO3\Admin\Tests\Functional\Actions\Fixtures\Domain\Model\Post',
+				'being' => 'TYPO3\Expose\Tests\Functional\Actions\Fixtures\Domain\Model\Post',
 				'@action' => 'index',
 				'@controller' => 'new',
-				'@package' => 'typo3.admin'
+				'@package' => 'typo3.expose'
 			)
 		));
 
@@ -102,10 +102,10 @@ class NewControllerTest extends \TYPO3\FLOW3\Tests\FunctionalTestCase {
 		return;
 		$this->callAction(array(
 			'--featureRuntime' => array(
-				'being' => 'TYPO3\Admin\Tests\Functional\Actions\Fixtures\Domain\Model\Post',
+				'being' => 'TYPO3\Expose\Tests\Functional\Actions\Fixtures\Domain\Model\Post',
 				'@action' => 'index',
 				'@controller' => 'new',
-				'@package' => 'typo3.admin'
+				'@package' => 'typo3.expose'
 			)
 		));
 
@@ -116,10 +116,10 @@ class NewControllerTest extends \TYPO3\FLOW3\Tests\FunctionalTestCase {
 
 		$response = $this->callAction(array(
 			'--featureRuntime' => array(
-				'being' => 'TYPO3\Admin\Tests\Functional\Actions\Fixtures\Domain\Model\Post',
+				'being' => 'TYPO3\Expose\Tests\Functional\Actions\Fixtures\Domain\Model\Post',
 				'@action' => 'index',
 				'@controller' => 'list',
-				'@package' => 'typo3.admin'
+				'@package' => 'typo3.expose'
 			)
 		));
 		

@@ -1,21 +1,21 @@
 // REVIEWED for release
 ########################################
-# TYPO3.Admin:RecordList.List.Element
+# TYPO3.Expose:RecordList.List.Element
 # --------------------------------------
 # Display a single list element
 ########################################
 
-prototype(TYPO3.Admin:RecordList.List.Element) < prototype(TYPO3.TypoScript:Case)
+prototype(TYPO3.Expose:RecordList.List.Element) < prototype(TYPO3.TypoScript:Case)
 
 # Catch-all condition for the default case
-prototype(TYPO3.Admin:RecordList.List.Element).matchers.999999999999 {
+prototype(TYPO3.Expose:RecordList.List.Element).matchers.999999999999 {
 	condition = ${true}
-	type = 'TYPO3.Admin:RecordList.List.DefaultElement'
+	type = 'TYPO3.Expose:RecordList.List.DefaultElement'
 }
 
-prototype(TYPO3.Admin:RecordList.List.DefaultElement) < prototype(TYPO3.TypoScript:FluidRenderer) {
-	templatePath = 'resource://TYPO3.Admin/Private/Elements/List/Element.html'
+prototype(TYPO3.Expose:RecordList.List.DefaultElement) < prototype(TYPO3.TypoScript:FluidRenderer) {
+	templatePath = 'resource://TYPO3.Expose/Private/Elements/List/Element.html'
 	item = ${item}
 
-	controllerLinks = TYPO3.Admin:LocalControllerLinks
+	controllerLinks = TYPO3.Expose:LocalControllerLinks
 }

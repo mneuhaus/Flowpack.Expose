@@ -1,8 +1,8 @@
 <?php
-namespace TYPO3\Admin\Controller;
+namespace TYPO3\Expose\Controller;
 
 /* *
- * This script belongs to the TYPO3.Admin package.              *
+ * This script belongs to the TYPO3.Expose package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License as published by the *
@@ -30,7 +30,7 @@ use TYPO3\FLOW3\Mvc\ActionRequest;
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-class ContentListController extends \TYPO3\Admin\Core\AbstractAdminController {
+class ContentListController extends \TYPO3\Expose\Core\AbstractExposeController {
 
 	/**
 	 * @FLOW3\Inject
@@ -53,7 +53,7 @@ class ContentListController extends \TYPO3\Admin\Core\AbstractAdminController {
 		$this->view->assign('selectedFolderNode', $selectedFolderNode);
 
 		if ($selectedFolderNode !== NULL) {
-			$query = new \TYPO3\Admin\TYPO3CR\Persistence\Node\Query($selectedFolderNode);
+			$query = new \TYPO3\Expose\TYPO3CR\Persistence\Node\Query($selectedFolderNode);
 			$query->setRecursiveLevels(INF);
 			$this->view->assign('objects', $query->execute());
 		}

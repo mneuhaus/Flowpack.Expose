@@ -1,8 +1,8 @@
 <?php
-namespace TYPO3\Admin\ViewHelpers\Render;
+namespace TYPO3\Expose\ViewHelpers\Render;
 
 /*                                                                        *
- * This script belongs to the TYPO3.Admin package.              *
+ * This script belongs to the TYPO3.Expose package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -31,10 +31,10 @@ class ActionViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
      * @param array $context
      * @return string the rendered form
      */
-    public function render($action = 'index', $controller = 'TYPO3\\Admin\\Controller\\IndexController', $class = NULL, $object = NULL, array $overrideConfiguration = array(), $context = null) {
+    public function render($action = 'index', $controller = 'TYPO3\\Expose\\Controller\\IndexController', $class = NULL, $object = NULL, array $overrideConfiguration = array(), $context = null) {
         $response = new \TYPO3\FLOW3\Http\Response($this->controllerContext->getResponse());
         $request = $this->controllerContext->getRequest();
-        $featureRuntime = new \TYPO3\Admin\Core\FeatureRuntime($request, $response);
+        $featureRuntime = new \TYPO3\Expose\Core\FeatureRuntime($request, $response);
         if (!is_null($class)) {
             $featureRuntime->setDefaultBeing($class);
         }

@@ -1,8 +1,8 @@
 <?php
-namespace TYPO3\Admin\ViewHelpers;
+namespace TYPO3\Expose\ViewHelpers;
 
 /*                                                                        *
- * This script belongs to the TYPO3.Admin package.              *
+ * This script belongs to the TYPO3.Expose package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License as published by the *
@@ -70,7 +70,7 @@ class RenderViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
     public function getPathByPatternFallbacks($patterns, $replacements) {
         if (is_string($patterns)) {
             $paths = explode('.', $patterns);
-            $patterns = $this->configurationManager->getConfiguration(\TYPO3\FLOW3\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, 'TYPO3.Admin');
+            $patterns = $this->configurationManager->getConfiguration(\TYPO3\FLOW3\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, 'TYPO3.Expose');
             $patterns = $patterns['Fallbacks'];
             foreach ($paths as $path) {
                 $patterns = $patterns[$path];
@@ -137,11 +137,11 @@ class RenderViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
         if ($partial !== '' && !is_null($partial)) {
             if ($fallbacks !== '') {
                 $replacements = array('@partial' => $partial,
-                	'@package' => 'TYPO3.Admin',
+                	'@package' => 'TYPO3.Expose',
                 	'@action' => $partial,
                 	'@variant' => $variant
                 );
-                $cache = $this->cacheManager->getCache('Admin_TemplateCache');
+                $cache = $this->cacheManager->getCache('Expose_TemplateCache');
                 $identifier = str_replace('\\', '_', implode('-', $replacements));
                 $identifier = str_replace('.', '_', $identifier);
                 $identifier = str_replace('/', '_', $identifier);

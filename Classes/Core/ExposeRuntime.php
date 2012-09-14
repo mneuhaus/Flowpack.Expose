@@ -1,8 +1,8 @@
 <?php
-namespace TYPO3\Admin\Core;
+namespace TYPO3\Expose\Core;
 
 /*                                                                        *
- * This script belongs to the TYPO3.Admin package.              *
+ * This script belongs to the TYPO3.Expose package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -15,11 +15,11 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 use TYPO3\FLOW3\Mvc\ActionRequest;
 
 /**
- * Runtime for admin controllers
+ * Runtime for expose controllers
  *
  * // REVIEWED for release.
  */
-class AdminRuntime extends AbstractRuntime {
+class ExposeRuntime extends AbstractRuntime {
 
     /**
      * Default action to render if nothing else is specified
@@ -28,12 +28,12 @@ class AdminRuntime extends AbstractRuntime {
      * @var string
      * @internal
      */
-    protected $defaultControllerClassName = 'TYPO3\\Admin\\Controller\\IndexController';
+    protected $defaultControllerClassName = 'TYPO3\\Expose\\Controller\\IndexController';
 
     /**
      *
      * @var string
      */
-    protected $namespace = 'adminRuntime';
+    protected $namespace = 'exposeRuntime';
 }
 ?>

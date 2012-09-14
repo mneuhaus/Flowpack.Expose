@@ -1,7 +1,7 @@
 Dashboard Widgets
 #################
 
-DashboardWidgets are shown on the Admin main page and need to implement the function "initializeWidget".
+DashboardWidgets are shown on the Expose main page and need to implement the function "initializeWidget".
 
 Example
 *******
@@ -12,9 +12,9 @@ Example
      *
      * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
      */
-    class LogWidget extends \Admin\Core\DashboardWidgets\AbstractDashboardWidget {
+    class LogWidget extends \Expose\Core\DashboardWidgets\AbstractDashboardWidget {
         public function initializeWidget() {
-            $query = $this->objectManager->get("\Admin\Domain\Repository\LogRepository")->createQuery();
+            $query = $this->objectManager->get("\Expose\Domain\Repository\LogRepository")->createQuery();
             $query->setOrderings(array(
                 "datetime" => 'ASC'
             ));

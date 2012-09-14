@@ -1,8 +1,8 @@
 <?php
-namespace TYPO3\Admin\Tests\Functional\Actions\Fixtures\Controller;
+namespace TYPO3\Expose\Tests\Functional\Actions\Fixtures\Controller;
 
 /*                                                                        *
- * This script belongs to the TYPO3.Admin package.              *
+ * This script belongs to the TYPO3.Expose package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -18,7 +18,7 @@ namespace TYPO3\Admin\Tests\Functional\Actions\Fixtures\Controller;
 class ActionsController extends \TYPO3\FLOW3\Mvc\Controller\ActionController {
 
 	public function setTemplate($action) {
-		$this->view->setTemplatePathAndFilename("Packages/Application/TYPO3.Admin/Tests/Functional/Actions/Fixtures/Templates/" . $action . ".html");
+		$this->view->setTemplatePathAndFilename("Packages/Application/TYPO3.Expose/Tests/Functional/Actions/Fixtures/Templates/" . $action . ".html");
 	}
 
 	/**

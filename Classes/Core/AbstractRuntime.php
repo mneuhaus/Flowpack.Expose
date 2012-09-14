@@ -1,9 +1,9 @@
 <?php
 
-namespace TYPO3\Admin\Core;
+namespace TYPO3\Expose\Core;
 
 /* *
- * This script belongs to the TYPO3.Admin package.              *
+ * This script belongs to the TYPO3.Expose package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -25,7 +25,7 @@ class AbstractRuntime {
 	/**
 	 * @var array
 	 */
-	protected $defaultAdminControllerArguments = array();
+	protected $defaultExposeControllerArguments = array();
 
 	/**
 	 * Default controller to render if nothing else is specified
@@ -34,7 +34,7 @@ class AbstractRuntime {
 	 * @var string
 	 * @internal
 	 */
-	protected $defaultAdminControllerClassName = 'FILL_IN_DEFAULT_CONTROLLER_CLASS';
+	protected $defaultExposeControllerClassName = 'FILL_IN_DEFAULT_CONTROLLER_CLASS';
 
 	/**
 	 * @var \TYPO3\FLOW3\Mvc\Dispatcher
@@ -107,23 +107,23 @@ class AbstractRuntime {
 	}
 
 	/**
-	 * Set the arguments for the initial admin controller
+	 * Set the arguments for the initial expose controller
 	 *
-	 * @param array $defaultAdminControllerArguments
+	 * @param array $defaultExposeControllerArguments
 	 */
-	public function setDefaultAdminControllerArguments(array $defaultAdminControllerArguments) {
-		$this->defaultAdminControllerArguments = $defaultAdminControllerArguments;
+	public function setDefaultExposeControllerArguments(array $defaultExposeControllerArguments) {
+		$this->defaultExposeControllerArguments = $defaultExposeControllerArguments;
 	}
 
 	/**
-	 * Set the class name for the admin controller to be used when no other
-	 * admin controller has been specified
+	 * Set the class name for the expose controller to be used when no other
+	 * expose controller has been specified
 	 *
-	 * @param string $defaultAdminControllerClassName
+	 * @param string $defaultExposeControllerClassName
 	 * @return void
 	 */
-	public function setDefaultAdminContollerClassName($defaultAdminControllerClassName) {
-		$this->defaultAdminControllerClassName = $defaultAdminControllerClassName;
+	public function setDefaultExposeContollerClassName($defaultExposeControllerClassName) {
+		$this->defaultExposeControllerClassName = $defaultExposeControllerClassName;
 	}
 
 	/**
@@ -143,9 +143,9 @@ class AbstractRuntime {
 	protected function prepareExecution() {
 		$controllerObjectName = $this->request->getControllerObjectName();
 		if (empty($controllerObjectName)) {
-			$this->request->setControllerObjectName($this->defaultAdminControllerClassName);
-			$this->request->setArguments($this->defaultAdminControllerArguments);
-			$this->setArgumentInParentRequests($this->request, $this->defaultAdminControllerArguments);
+			$this->request->setControllerObjectName($this->defaultExposeControllerClassName);
+			$this->request->setArguments($this->defaultExposeControllerArguments);
+			$this->setArgumentInParentRequests($this->request, $this->defaultExposeControllerArguments);
 		}
 		if ($this->request->getControllerActionName() === NULL) {
 			$this->request->setControllerActionName('index');

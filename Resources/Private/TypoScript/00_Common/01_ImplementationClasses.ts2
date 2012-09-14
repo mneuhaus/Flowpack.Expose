@@ -4,12 +4,12 @@ prototype(TYPO3.TypoScript:FluidRenderer).implementationClassName = 'TYPO3\\Typo
 prototype(TYPO3.TypoScript:CollectionRenderer).implementationClassName = 'TYPO3\\TypoScript\\TypoScriptObjects\\CollectionRenderer'
 prototype(TYPO3.TypoScript:Case).implementationClassName = 'TYPO3\\TypoScript\\TypoScriptObjects\\CaseTsObject'
 prototype(TYPO3.TypoScript:Matcher).implementationClassName = 'TYPO3\\TypoScript\\TypoScriptObjects\\Matcher'
-prototype(TYPO3.Admin:IgnoreMissingTypeMatcher).implementationClassName = 'TYPO3\\Admin\\TypoScriptObjects\\IgnoreMissingTypeMatcher'
-prototype(TYPO3.Admin:Pagination).implementationClassName = 'TYPO3\\Admin\\TypoScriptObjects\\Pagination'
-prototype(TYPO3.Admin:Limits).implementationClassName = 'TYPO3\\Admin\\TypoScriptObjects\\Limits'
-prototype(TYPO3.Admin:Search).implementationClassName = 'TYPO3\\Admin\\TypoScriptObjects\\Search'
+prototype(TYPO3.Expose:IgnoreMissingTypeMatcher).implementationClassName = 'TYPO3\\Expose\\TypoScriptObjects\\IgnoreMissingTypeMatcher'
+prototype(TYPO3.Expose:Pagination).implementationClassName = 'TYPO3\\Expose\\TypoScriptObjects\\Pagination'
+prototype(TYPO3.Expose:Limits).implementationClassName = 'TYPO3\\Expose\\TypoScriptObjects\\Limits'
+prototype(TYPO3.Expose:Search).implementationClassName = 'TYPO3\\Expose\\TypoScriptObjects\\Search'
 
 prototype(TYPO3.TypoScript:FluidRenderer) {
-	partialRootPath = 'resource://TYPO3.Admin/Private/Partials'
+	partialRootPath = 'resource://TYPO3.Expose/Private/Partials'
 }
 

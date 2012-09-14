@@ -1,8 +1,8 @@
 <?php
-namespace TYPO3\Admin\Reflection\Wrapper;
+namespace TYPO3\Expose\Reflection\Wrapper;
 
 /*                                                                        *
- * This script belongs to the TYPO3.Admin package.              *
+ * This script belongs to the TYPO3.Expose package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -34,7 +34,7 @@ class ClassAnnotationWrapper extends AbstractAnnotationWrapper {
     */
     public function getPropertyAnnotations($propertyName) {
         $properties = $this->get('Properties');
-        $property = new \TYPO3\Admin\Reflection\Wrapper\PropertyAnnotationWrapper($properties[$propertyName]);
+        $property = new \TYPO3\Expose\Reflection\Wrapper\PropertyAnnotationWrapper($properties[$propertyName]);
         $property->setProperty($propertyName);
         $property->setClass($this->getClass());
         if ($this->has('Object')) {

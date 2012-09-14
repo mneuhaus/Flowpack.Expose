@@ -9,16 +9,16 @@
 
 namespace: default = TYPO3\TYPO3\TypoScript
 
-prototype(TYPO3.Admin:RecordList.FormatSelector) < prototype(TYPO3.TypoScript:TypoScriptArrayRenderer) {
-	10 = TYPO3.Admin:RecordList.FormatSelector.Button
+prototype(TYPO3.Expose:RecordList.FormatSelector) < prototype(TYPO3.TypoScript:TypoScriptArrayRenderer) {
+	10 = TYPO3.Expose:RecordList.FormatSelector.Button
 	10.format = 'table'
 	10.label = 'Table'
 
-	20 = TYPO3.Admin:RecordList.FormatSelector.Button
+	20 = TYPO3.Expose:RecordList.FormatSelector.Button
 	20.format = 'list'
 	20.label = 'List'
 }
-prototype(TYPO3.Admin:RecordList.FormatSelector) << 1.wrap(prefix: '<div class="btn-group">', suffix: '</div>')
+prototype(TYPO3.Expose:RecordList.FormatSelector) << 1.wrap(prefix: '<div class="btn-group">', suffix: '</div>')
 
 #
 # RecordList.FormatSelector.Button
@@ -29,8 +29,8 @@ prototype(TYPO3.Admin:RecordList.FormatSelector) << 1.wrap(prefix: '<div class="
 # - format: machine-readable format name, needs to be understood by the rest of the framework
 # - label: human-readable label of the button
 # - iconClass: CSS-class name used for the icon, if any
-prototype(TYPO3.Admin:RecordList.FormatSelector.Button) < prototype(TYPO3.TypoScript:FluidRenderer) {
-	templatePath = 'resource://TYPO3.Admin/Private/Elements/RecordList/FormatSelector.Button.html'
+prototype(TYPO3.Expose:RecordList.FormatSelector.Button) < prototype(TYPO3.TypoScript:FluidRenderer) {
+	templatePath = 'resource://TYPO3.Expose/Private/Elements/RecordList/FormatSelector.Button.html'
 	currentFormat = ${format}
 }
 

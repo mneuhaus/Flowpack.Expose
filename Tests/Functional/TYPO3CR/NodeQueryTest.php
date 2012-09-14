@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\Admin\Tests\Functional\TYPO3CR;
+namespace TYPO3\Expose\Tests\Functional\TYPO3CR;
 
 /*                                                                        *
  * This script belongs to the FLOW3 package "TYPO3CR".                    *
@@ -56,7 +56,7 @@ class NodeQueryTest extends \TYPO3\FLOW3\Tests\FunctionalTestCase {
 	 * @test
 	 */
 	public function nodeQueryReturnsNodes() {
-		$query = $this->objectManager->get('TYPO3\Admin\TYPO3CR\Persistence\Node\Query', $this->node);
+		$query = $this->objectManager->get('TYPO3\Expose\TYPO3CR\Persistence\Node\Query', $this->node);
 		$nodes = $query->execute();
 		$this->assertTrue(count($nodes) > 0);
 	}
@@ -65,7 +65,7 @@ class NodeQueryTest extends \TYPO3\FLOW3\Tests\FunctionalTestCase {
 	 * @test
 	 */
 	public function nodeQueryReturnsNodesFromPath() {
-		$query = $this->objectManager->get('TYPO3\Admin\TYPO3CR\Persistence\Node\Query', $this->node);
+		$query = $this->objectManager->get('TYPO3\Expose\TYPO3CR\Persistence\Node\Query', $this->node);
 		$query->setParentPath("/");
 		$this->assertEquals($query->count(), 3, "There are only 3 Nodes on the Path '/' got " . $query->count() . "!");
 
@@ -77,7 +77,7 @@ class NodeQueryTest extends \TYPO3\FLOW3\Tests\FunctionalTestCase {
 	 * @test
 	 */
 	public function nodeQueryAppliesLimits() {
-		$query = $this->objectManager->get('TYPO3\Admin\TYPO3CR\Persistence\Node\Query', $this->node);
+		$query = $this->objectManager->get('TYPO3\Expose\TYPO3CR\Persistence\Node\Query', $this->node);
 		$query->setLimit(2);
 		$this->assertEquals($query->count(), 2, "I limited it to return 2 Nodes, yet i got " . $query->count() . "!");
 	}
@@ -86,7 +86,7 @@ class NodeQueryTest extends \TYPO3\FLOW3\Tests\FunctionalTestCase {
 	 * @test
 	 */
 	public function nodeQueryAppliesOffsets() {
-		$query = $this->objectManager->get('TYPO3\Admin\TYPO3CR\Persistence\Node\Query', $this->node);
+		$query = $this->objectManager->get('TYPO3\Expose\TYPO3CR\Persistence\Node\Query', $this->node);
 		$query->setLimit(2);
 		$query->setOffset(2);
 		$this->assertEquals($query->count(), 1, "With a Limit of 2 and an offset of 2 i should get 1 Node, because there are 3 in total, but i got " . $query->count() . "!");
@@ -96,7 +96,7 @@ class NodeQueryTest extends \TYPO3\FLOW3\Tests\FunctionalTestCase {
 	 * @test
 	 */
 	public function fetchNodesRecursively() {
-		$query = $this->objectManager->get('TYPO3\Admin\TYPO3CR\Persistence\Node\Query', $this->node);
+		$query = $this->objectManager->get('TYPO3\Expose\TYPO3CR\Persistence\Node\Query', $this->node);
 		$query->setRecursiveLevels(INF);
 		$this->assertEquals($query->count(), 15);
 
@@ -108,7 +108,7 @@ class NodeQueryTest extends \TYPO3\FLOW3\Tests\FunctionalTestCase {
 	 * @test
 	 */
 	public function contrainNodesByProperties() {
-		$query = $this->objectManager->get('TYPO3\Admin\TYPO3CR\Persistence\Node\Query', $this->node);
+		$query = $this->objectManager->get('TYPO3\Expose\TYPO3CR\Persistence\Node\Query', $this->node);
 		$query->setRecursiveLevels(INF);
 		$query->matching($query->like("title", "Last Commits"));
 		$node = $query->execute()->getFirst();

@@ -1,8 +1,8 @@
 <?php
-namespace TYPO3\Admin\Controller;
+namespace TYPO3\Expose\Controller;
 
 /* *
- * This script belongs to the TYPO3.Admin package.              *
+ * This script belongs to the TYPO3.Expose package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License as published by the *
@@ -25,7 +25,7 @@ use Doctrine\ORM\Mapping as ORM;
 use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
- * module controller for the Admin package; main entry point when this package is
+ * module controller for the Expose package; main entry point when this package is
  * used inside Phoenix.
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
@@ -40,14 +40,14 @@ class ModuleController extends \TYPO3\TYPO3\Controller\Module\StandardController
 	 * @return void
 	 */
 	public function indexAction() {
-		$adminRuntime = new \TYPO3\Admin\Core\AdminRuntime($this->request, $this->response);
-		if (isset($this->moduleConfiguration['defaultAdminControllerClassName'])) {
-			$adminRuntime->setDefaultAdminContollerClassName($this->moduleConfiguration['defaultAdminControllerClassName']);
+		$exposeRuntime = new \TYPO3\Expose\Core\ExposeRuntime($this->request, $this->response);
+		if (isset($this->moduleConfiguration['defaultExposeControllerClassName'])) {
+			$exposeRuntime->setDefaultExposeContollerClassName($this->moduleConfiguration['defaultExposeControllerClassName']);
 		}
-		if (isset($this->moduleConfiguration['defaultAdminControllerArguments'])) {
-			$adminRuntime->setDefaultAdminControllerArguments($this->moduleConfiguration['defaultAdminControllerArguments']);
+		if (isset($this->moduleConfiguration['defaultExposeControllerArguments'])) {
+			$exposeRuntime->setDefaultExposeControllerArguments($this->moduleConfiguration['defaultExposeControllerArguments']);
 		}
-		return $adminRuntime->execute();
+		return $exposeRuntime->execute();
 	}
 
 }

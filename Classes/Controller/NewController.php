@@ -1,8 +1,8 @@
 <?php
-namespace TYPO3\Admin\Controller;
+namespace TYPO3\Expose\Controller;
 
 /* *
- * This script belongs to the TYPO3.Admin package.              *
+ * This script belongs to the TYPO3.Expose package.              *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License as published by the *
@@ -29,7 +29,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-class NewController extends \TYPO3\Admin\Core\AbstractAdminController {
+class NewController extends \TYPO3\Expose\Core\AbstractExposeController {
 
 	/**
 	 * Create a new object
@@ -62,7 +62,7 @@ class NewController extends \TYPO3\Admin\Core\AbstractAdminController {
 		foreach ($objects as $object) {
 			$this->persistenceManager->add($object);
 		}
-		$this->redirect('index', 'sametypelist', 'TYPO3.Admin', array('type' => $type));
+		$this->redirect('index', 'sametypelist', 'TYPO3.Expose', array('type' => $type));
 	}
 
 }

@@ -1,8 +1,8 @@
 <?php
-namespace TYPO3\Admin\Core\Aspect;
+namespace TYPO3\Expose\Core\Aspect;
 
 /*                                                                        *
- * This script belongs to the TYPO3.Admin package.              		  *
+ * This script belongs to the TYPO3.Expose package.              		  *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -54,7 +54,7 @@ class CachingAspect {
     /**
      * Around advice
      *
-     * @FLOW3\Around("methodAnnotatedWith(TYPO3\Admin\Annotations\Cache)")
+     * @FLOW3\Around("methodAnnotatedWith(TYPO3\Expose\Annotations\Cache)")
      * @param \TYPO3\FLOW3\Aop\JoinPointInterface $joinPoint The current join point
      * @return array Result of the target method
      */

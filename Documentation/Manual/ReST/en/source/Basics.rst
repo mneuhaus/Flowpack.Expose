@@ -6,24 +6,24 @@ Installation
 If you don't have a FLOW3 Project set up yet take a look at this:
 http://flow3.typo3.org/documentation/quickstart.html
 
-Installing Admin::
+Installing Expose::
     
     cd %FLOW3-Project-Directory%
-    git clone git@github.com:mneuhaus/FLOW3-Admin.git Packages/Application/Admin
-    ./flow3 package:activate Admin
+    git clone git@github.com:mneuhaus/FLOW3-Expose.git Packages/Application/Expose
+    ./flow3 package:activate Expose
     ./flow3 doctrine:migrate
 
-Adding AdminDemo as well::
+Adding ExposeDemo as well::
 
     cd %FLOW3-Project-Directory%
-    git clone git@github.com:mneuhaus/FLOW3-AdminDemo.git Packages/Application/AdminDemo
-    ./flow3 package:activate AdminDemo
+    git clone git@github.com:mneuhaus/FLOW3-ExposeDemo.git Packages/Application/ExposeDemo
+    ./flow3 package:activate ExposeDemo
     ./flow3 doctrine:migrate
 
 Quick start
 ***********
 
-There are 2 Ways to Configure the Admin Interface: 
+There are 2 Ways to Configure the Expose Interface: 
 
 1. Settings.yaml
 2. Class Reflections inside the Models
@@ -32,7 +32,7 @@ There are 2 Ways to Configure the Admin Interface:
 
 **Settings.yaml**::
 
-    Admin:
+    Expose:
         Beings: 
             \TYPO3\Blog\Domain\Model\Post:
                 Active: true 
@@ -40,22 +40,22 @@ There are 2 Ways to Configure the Admin Interface:
                     content:
                         Widget: TextArea
 
-This Example Activates the Post model of the Blog Example (autoadmin:true) and Changes the Widget for the Content Property from a simple Textfield to a Textarea
+This Example Activates the Post model of the Blog Example (autoexpose:true) and Changes the Widget for the Content Property from a simple Textfield to a Textarea
 
 **Class Reflections**::
 
-    use Admin\Annotations as Admin;
+    use Expose\Annotations as Expose;
     /**
      * A blog post
      * ...
-     * @Admin\Active 
+     * @Expose\Active 
      */
     class Post { 
         /**
          * @var string
-         * @Admin\Widget("TextArea")
+         * @Expose\Widget("TextArea")
          */
         protected $content;
     }
 
-This Example Does the exact same thing as the Settings.yaml Example but this time inside the Post.php file with the Tag @Admin\Active and @Admin\Widget("TextArea")
+This Example Does the exact same thing as the Settings.yaml Example but this time inside the Post.php file with the Tag @Expose\Active and @Expose\Widget("TextArea")

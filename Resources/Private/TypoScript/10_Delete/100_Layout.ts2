@@ -1,8 +1,8 @@
 # TODO: rename to "RemoveController" to be consistent
-TYPO3.Admin.DeleteController.index = TYPO3.Admin:RemovalScreen
+TYPO3.Expose.DeleteController.index = TYPO3.Expose:RemovalScreen
 
-prototype(TYPO3.Admin:RemovalScreen) < prototype(TYPO3.TypoScript:FluidRenderer) {
-	templatePath = 'resource://TYPO3.Admin/Private/Elements/Delete/Index.html'
+prototype(TYPO3.Expose:RemovalScreen) < prototype(TYPO3.TypoScript:FluidRenderer) {
+	templatePath = 'resource://TYPO3.Expose/Private/Elements/Delete/Index.html'
 	objects = ${objects}
 	type = ${className}
 	controllerCallback = 'delete'

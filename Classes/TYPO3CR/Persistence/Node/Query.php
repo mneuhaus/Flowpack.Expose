@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\Admin\TYPO3CR\Persistence\Node;
+namespace TYPO3\Expose\TYPO3CR\Persistence\Node;
 
 /*                                                                        *
  * This script belongs to the FLOW3 framework.                            *

@@ -8,18 +8,18 @@
 # file.
 #                                                                        #
 
-Admin_ConfigurationCache: []
-Admin_TemplateCache:
+Expose_ConfigurationCache: []
+Expose_TemplateCache:
   frontend: TYPO3\FLOW3\Cache\Frontend\StringFrontend
-Admin_ActionCache: []
-Admin_ImplementationCache: []
-Admin_Cache: []
+Expose_ActionCache: []
+Expose_ImplementationCache: []
+Expose_Cache: []
 
-TYPO3_Admin_ShortNames: []
-TYPO3_Admin_Annotations: []
+TYPO3_Expose_ShortNames: []
+TYPO3_Expose_Annotations: []
 
-TYPO3_Admin_Reflection_AnnotationService-getClassesAnnotatedWith: []
-TYPO3_Admin_Reflection_AnnotationService-getClassAnnotations: []
-TYPO3_Admin_Core_MetaPersistenceManager-getGroups: []
-TYPO3_Admin_Core_MetaPersistenceManager-getGroupByClass: []
-TYPO3_Admin_Core_MetaPersistenceManager-getAdapterClassByClass: []
+TYPO3_Expose_Reflection_AnnotationService-getClassesAnnotatedWith: []
+TYPO3_Expose_Reflection_AnnotationService-getClassAnnotations: []
+TYPO3_Expose_Core_MetaPersistenceManager-getGroups: []
+TYPO3_Expose_Core_MetaPersistenceManager-getGroupByClass: []
+TYPO3_Expose_Core_MetaPersistenceManager-getAdapterClassByClass: []
