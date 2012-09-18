@@ -16,7 +16,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 /**
  * Render a Form using the Form framework
  */
-class FormRenderer extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTsObject {
+class FormRenderer extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypoScriptObject {
 
 	/**
 	 * Evaluate the collection nodes

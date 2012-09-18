@@ -6,7 +6,7 @@
 # Display a list of records as List
 ########################################
 
-prototype(TYPO3.Expose:RecordList.List) < prototype(TYPO3.TypoScript:CollectionRenderer) {
+prototype(TYPO3.Expose:RecordList.List) < prototype(TYPO3.TypoScript:Collection) {
 	collection = ${objects}
 	itemName = 'item'
 	itemRenderer = TYPO3.Expose:RecordList.List.Element

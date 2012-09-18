@@ -28,11 +28,11 @@ class LimitProcessor implements \TYPO3\TypoScript\RuntimeAwareProcessorInterface
 
 	/**
 	 * @param \TYPO3\TypoScript\Core\Runtime $runtime
-	 * @param \TYPO3\TypoScript\TypoScriptObjects\AbstractTsObject $typoScriptObject
+	 * @param \TYPO3\TypoScript\TypoScriptObjects\AbstractTypoScriptObject $typoScriptObject
 	 * @param string $typoScriptPath
 	 * @return void
 	 */
-	public function beforeInvocation(\TYPO3\TypoScript\Core\Runtime $runtime, \TYPO3\TypoScript\TypoScriptObjects\AbstractTsObject $typoScriptObject, $typoScriptPath) {
+	public function beforeInvocation(\TYPO3\TypoScript\Core\Runtime $runtime, \TYPO3\TypoScript\TypoScriptObjects\AbstractTypoScriptObject $typoScriptObject, $typoScriptPath) {
 		$this->settings = $this->configurationManager->getConfiguration(\TYPO3\FLOW3\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, 'TYPO3.Expose.Pagination');
 		$this->tsRuntime = $runtime;
 		$context = $runtime->getCurrentContext();
@@ -66,11 +66,11 @@ class LimitProcessor implements \TYPO3\TypoScript\RuntimeAwareProcessorInterface
 
 	/**
 	 * @param \TYPO3\TypoScript\Core\Runtime $runtime
-	 * @param \TYPO3\TypoScript\TypoScriptObjects\AbstractTsObject $typoScriptObject
+	 * @param \TYPO3\TypoScript\TypoScriptObjects\AbstractTypoScriptObject $typoScriptObject
 	 * @param string $typoScriptPath
 	 * @return void
 	 */
-	public function afterInvocation(\TYPO3\TypoScript\Core\Runtime $runtime, \TYPO3\TypoScript\TypoScriptObjects\AbstractTsObject $typoScriptObject, $typoScriptPath) {
+	public function afterInvocation(\TYPO3\TypoScript\Core\Runtime $runtime, \TYPO3\TypoScript\TypoScriptObjects\AbstractTypoScriptObject $typoScriptObject, $typoScriptPath) {
 		if (isset($context['objects'])) {
 			$runtime->popContext();
 		}

@@ -15,7 +15,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
  */
-class Search extends \TYPO3\TypoScript\TypoScriptObjects\FluidRenderer {
+class Search extends \TYPO3\TypoScript\TypoScriptObjects\TemplateImplementation {
 
 	/**
 	 * @var \TYPO3\FLOW3\Configuration\ConfigurationManager

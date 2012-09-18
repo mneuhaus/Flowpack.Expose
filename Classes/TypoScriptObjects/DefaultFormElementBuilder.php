@@ -16,7 +16,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 /**
  * Render a Form section using the Form framework
  */
-class DefaultFormElementBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTsObject {
+class DefaultFormElementBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypoScriptObject {
 
 	/**
 	 * @var \TYPO3\Expose\Reflection\AnnotationService

@@ -23,7 +23,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * # THIS IS THE IMPORTANT LINE:
  * 10.arguments.type = ${type}
  */
-class ControllerLink extends \TYPO3\TypoScript\TypoScriptObjects\FluidRenderer {
+class ControllerLink extends \TYPO3\TypoScript\TypoScriptObjects\TemplateImplementation {
 
 	/**
 	 * @return string

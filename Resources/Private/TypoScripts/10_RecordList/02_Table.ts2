@@ -6,9 +6,9 @@
 # Display a list of common records as table
 ########################################
 
-prototype(TYPO3.Expose:RecordList.Table) < prototype(TYPO3.TypoScript:FluidRenderer) {
+prototype(TYPO3.Expose:RecordList.Table) < prototype(TYPO3.TypoScript:Template) {
 	templatePath = 'resource://TYPO3.Expose/Private/Elements/List/Table.html'
-	tableBody = TYPO3.TypoScript:CollectionRenderer {
+	tableBody = TYPO3.TypoScript:Collection {
 		collection = ${objects}
 		itemName = 'item'
 		itemRenderer = TYPO3.Expose:RecordList.Table.Row

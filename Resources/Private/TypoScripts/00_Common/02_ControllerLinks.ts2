@@ -11,7 +11,7 @@
 /**
  * Render a list of links to all global ExposeControllers available.
  *
- * See {@link ../classes/TYPO3.TypoScript:TypoScriptArrayRenderer.html TypoScriptArrayRenderer} for documentation.
+ * See {@link ../classes/TYPO3.TypoScript:Array.html Array} for documentation.
  *
  * Examples
  * --------
@@ -23,7 +23,7 @@
  *
  * @param string type: entity type on which an exposeController should be executed upon
  */
-prototype(TYPO3.Expose:GlobalControllerLinks) < prototype(TYPO3.TypoScript:TypoScriptArrayRenderer) {
+prototype(TYPO3.Expose:GlobalControllerLinks) < prototype(TYPO3.TypoScript:Array) {
 	10 = TYPO3.Expose:ControllerLink
 	10.label = 'New'
 	10.controller = 'TYPO3\\Expose\\Controller\\NewController'
@@ -36,7 +36,7 @@ prototype(TYPO3.Expose:GlobalControllerLinks) < prototype(TYPO3.TypoScript:TypoS
  * a local expose Controller gets two parameters: a *type* and an *item*, the
  * object on which to act upon.
  *
- * See {@link ../classes/TYPO3.TypoScript:TypoScriptArrayRenderer.html TypoScriptArrayRenderer} for documentation.
+ * See {@link ../classes/TYPO3.TypoScript:Array.html Array} for documentation.
  *
  * Examples
  * --------
@@ -48,7 +48,7 @@ prototype(TYPO3.Expose:GlobalControllerLinks) < prototype(TYPO3.TypoScript:TypoS
  * @param string type: entity type on which an exposeController should be executed upon
  * @param object item: the item on which the exposeController should be executed upon
  */
-prototype(TYPO3.Expose:LocalControllerLinks) < prototype(TYPO3.TypoScript:TypoScriptArrayRenderer) {
+prototype(TYPO3.Expose:LocalControllerLinks) < prototype(TYPO3.TypoScript:Array) {
 	10 = TYPO3.Expose:LocalControllerLink
 	10.label = 'Edit'
 	10.controller = 'TYPO3\\Expose\\Controller\\EditController'

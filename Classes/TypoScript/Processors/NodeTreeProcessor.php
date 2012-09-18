@@ -22,11 +22,11 @@ class NodeTreeProcessor implements \TYPO3\TypoScript\RuntimeAwareProcessorInterf
 
 	/**
 	 * @param \TYPO3\TypoScript\Core\Runtime $runtime
-	 * @param \TYPO3\TypoScript\TypoScriptObjects\AbstractTsObject $typoScriptObject
+	 * @param \TYPO3\TypoScript\TypoScriptObjects\AbstractTypoScriptObject $typoScriptObject
 	 * @param string $typoScriptPath
 	 * @return void
 	 */
-	public function beforeInvocation(\TYPO3\TypoScript\Core\Runtime $runtime, \TYPO3\TypoScript\TypoScriptObjects\AbstractTsObject $typoScriptObject, $typoScriptPath) {
+	public function beforeInvocation(\TYPO3\TypoScript\Core\Runtime $runtime, \TYPO3\TypoScript\TypoScriptObjects\AbstractTypoScriptObject $typoScriptObject, $typoScriptPath) {
 		$this->result = $runtime->render($typoScriptPath . '/nodeTree<TYPO3.Expose:NodeTree>');
 	}
 
@@ -40,11 +40,11 @@ class NodeTreeProcessor implements \TYPO3\TypoScript\RuntimeAwareProcessorInterf
 
 	/**
 	 * @param \TYPO3\TypoScript\Core\Runtime $runtime
-	 * @param \TYPO3\TypoScript\TypoScriptObjects\AbstractTsObject $typoScriptObject
+	 * @param \TYPO3\TypoScript\TypoScriptObjects\AbstractTypoScriptObject $typoScriptObject
 	 * @param string $typoScriptPath
 	 * @return void
 	 */
-	public function afterInvocation(\TYPO3\TypoScript\Core\Runtime $runtime, \TYPO3\TypoScript\TypoScriptObjects\AbstractTsObject $typoScriptObject, $typoScriptPath) {
+	public function afterInvocation(\TYPO3\TypoScript\Core\Runtime $runtime, \TYPO3\TypoScript\TypoScriptObjects\AbstractTypoScriptObject $typoScriptObject, $typoScriptPath) {
 	}
 }
 ?>

@@ -16,7 +16,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 /**
  * A matcher which only matches if the target typoscript type is actually found
  */
-class IgnoreMissingTypeMatcher extends \TYPO3\TypoScript\TypoScriptObjects\Matcher {
+class IgnoreMissingTypeMatcher extends \TYPO3\TypoScript\TypoScriptObjects\MatcherImplementation {
 
 	/**
 	 * @return mixed|string
@@ -27,7 +27,7 @@ class IgnoreMissingTypeMatcher extends \TYPO3\TypoScript\TypoScriptObjects\Match
 		} catch(\TYPO3\TypoScript\Exception $exception) {
 			if ($exception->getCode() === 1332493995) {
 					// BAD HACK!!
-				return \TYPO3\TypoScript\TypoScriptObjects\CaseTsObject::MATCH_NORESULT;
+				return \TYPO3\TypoScript\TypoScriptObjects\CaseImplementation::MATCH_NORESULT;
 			} else {
 				throw $exception;
 			}

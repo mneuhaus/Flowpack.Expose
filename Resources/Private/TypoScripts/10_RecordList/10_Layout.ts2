@@ -1,17 +1,17 @@
 TYPO3.Expose.SameTypeListController.index = TYPO3.Expose:RecordList
 
-prototype(TYPO3.Expose:RecordList) < prototype(TYPO3.TypoScript:FluidRenderer) {
+prototype(TYPO3.Expose:RecordList) < prototype(TYPO3.TypoScript:Template) {
 	templatePath = 'resource://TYPO3.Expose/Private/Elements/RecordList/Layout.html'
 	currentFormat = ${format}
 
 	formatSelector = TYPO3.Expose:RecordList.FormatSelector
 	recordList.list = TYPO3.Expose:RecordList.List
 	recordList.table = TYPO3.Expose:RecordList.Table
-	navigationArea = TYPO3.TypoScript:TypoScriptArrayRenderer
+	navigationArea = TYPO3.TypoScript:Array
 
 	localControllerLinks = TYPO3.Expose:LocalControllerLinks
 
-	topRegion = TYPO3.TypoScript:TypoScriptArrayRenderer {
+	topRegion = TYPO3.TypoScript:Array {
 		@position = 'start'
 
 		controllerLinks = TYPO3.Expose:GlobalControllerLinks {
@@ -25,7 +25,7 @@ prototype(TYPO3.Expose:RecordList) < prototype(TYPO3.TypoScript:FluidRenderer) {
 		}
 	}
 
-	bottomRegion = TYPO3.TypoScript:TypoScriptArrayRenderer
+	bottomRegion = TYPO3.TypoScript:Array
 	bottomRegion {
 		limits = TYPO3.Expose:Limits {
 			templatePath = 'resource://TYPO3.Expose/Private/Elements/RecordList/Limits.html'
@@ -45,11 +45,11 @@ prototype(TYPO3.Expose:RecordList) < prototype(TYPO3.TypoScript:FluidRenderer) {
 }
 
 
-namespace:expose=TYPO3\Expose\TypoScript
+namespace:expose=TYPO3.Expose
 
-prototype(TYPO3.Expose:RecordList) << 100.expose:pagination()
-prototype(TYPO3.Expose:RecordList) << 200.expose:limit()
-prototype(TYPO3.Expose:RecordList) << 300.expose:search()
+prototype(TYPO3.Expose:RecordList) << 100.TYPO3\Expose\TypoScript\Processors:pagination()
+prototype(TYPO3.Expose:RecordList) << 200.TYPO3\Expose\TypoScript\Processors:limit()
+prototype(TYPO3.Expose:RecordList) << 300.TYPO3\Expose\TypoScript\Processors:search()
 
 # EXAMPLE on adding a new button in a certain context
 #TYPO3.Expose.SameTypeListController.prototype(TYPO3.Expose:RecordList.FormatSelector) {

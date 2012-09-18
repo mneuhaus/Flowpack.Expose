@@ -1,0 +1,15 @@
+prototype(TYPO3.TypoScript:Array).@class = 'TYPO3\\TypoScript\\TypoScriptObjects\\ArrayImplementation'
+prototype(TYPO3.TypoScript:Template).@class = 'TYPO3\\TypoScript\\TypoScriptObjects\\TemplateImplementation'
+prototype(TYPO3.TypoScript:Collection).@class = 'TYPO3\\TypoScript\\TypoScriptObjects\\CollectionImplementation'
+prototype(TYPO3.TypoScript:Case).@class = 'TYPO3\\TypoScript\\TypoScriptObjects\\CaseImplementation'
+prototype(TYPO3.TypoScript:Matcher).@class = 'TYPO3\\TypoScript\\TypoScriptObjects\\MatcherImplementation'
+
+prototype(TYPO3.Expose:IgnoreMissingTypeMatcher).implementationClassName = 'TYPO3\\Expose\\TypoScriptObjects\\IgnoreMissingTypeMatcher'
+prototype(TYPO3.Expose:Pagination).implementationClassName = 'TYPO3\\Expose\\TypoScriptObjects\\Pagination'
+prototype(TYPO3.Expose:Limits).implementationClassName = 'TYPO3\\Expose\\TypoScriptObjects\\Limits'
+prototype(TYPO3.Expose:Search).implementationClassName = 'TYPO3\\Expose\\TypoScriptObjects\\Search'
+
+prototype(TYPO3.TypoScript:Template) {
+	partialRootPath = 'resource://TYPO3.Expose/Private/Partials'
+}
+

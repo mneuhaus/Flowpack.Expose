@@ -44,7 +44,7 @@ prototype(TYPO3.Expose:StringFormatter) < prototype(TYPO3.TypoScript:Case) {
 	}
 }
 
-prototype(TYPO3.Expose:StringFormatter.String) < prototype(TYPO3.TypoScript:FluidRenderer) {
+prototype(TYPO3.Expose:StringFormatter.String) < prototype(TYPO3.TypoScript:Template) {
 	templatePath = 'resource://TYPO3.Expose/Private/Elements/StringFormatter/String.html'
 	value = ${value}
 }
@@ -66,7 +66,7 @@ prototype(TYPO3.Expose:StringFormatter.DateTime) < prototype(TYPO3.Expose:String
 prototype(TYPO3.Expose:StringFormatter.Array) < prototype(TYPO3.Expose:StringFormatter.String) {
 	templatePath = 'resource://TYPO3.Expose/Private/Elements/StringFormatter/Array.html'
 }
-prototype(TYPO3.Expose:StringFormatter.Default) < prototype(TYPO3.TypoScript:FluidRenderer) {
+prototype(TYPO3.Expose:StringFormatter.Default) < prototype(TYPO3.TypoScript:Template) {
 	templatePath = 'resource://TYPO3.Expose/Private/Elements/StringFormatter/Default.html'
 	value = ${value}
 }

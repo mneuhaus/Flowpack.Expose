@@ -1,5 +1,5 @@
 prototype(TYPO3.Expose:ContentRecordList) < prototype(TYPO3.Expose:RecordList)
-prototype(TYPO3.Expose:ContentRecordList) << 50.expose:nodeTree()
+prototype(TYPO3.Expose:ContentRecordList) << 50.TYPO3\Expose\TypoScript\Processors:nodeTree()
 
 # adjustments for TYPO3CR Nodes
 TYPO3.Expose.ContentListController.index = TYPO3.Expose:ContentRecordList
