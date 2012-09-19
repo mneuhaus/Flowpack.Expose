@@ -24,10 +24,6 @@
  * @param string type: entity type on which an exposeController should be executed upon
  */
 prototype(TYPO3.Expose:GlobalControllerLinks) < prototype(TYPO3.TypoScript:Array) {
-	10 = TYPO3.Expose:ControllerLink
-	10.label = 'New'
-	10.controller = 'TYPO3\\Expose\\Controller\\NewController'
-	10.arguments.type = ${type}
 }
 
 /**
@@ -86,3 +82,4 @@ prototype(TYPO3.Expose:LocalControllerLink) < prototype(TYPO3.Expose:ControllerL
 	arguments.type = ${type}
 	htmlSuffix = '<span class="js" data-type="handlebars">{{#if multipleSelectionActive}} {{numberOfSelectedElements}} elements{{/if}}</span>'
 }
+prototype(TYPO3.Expose:LocalControllerLink) << 1.wrap(suffix: '<br />')

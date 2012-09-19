@@ -9,6 +9,7 @@ TYPO3.Expose.ContentListController {
 		arguments.type = 'TYPO3\\TYPO3CR\\Domain\\Model\\NodeInterface'
 		arguments.object = ${item.contextPath}
 	}
+
 }
 
 prototype(TYPO3.Expose:RecordList.List.Element).node {

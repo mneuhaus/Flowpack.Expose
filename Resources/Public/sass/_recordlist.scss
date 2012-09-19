@@ -1,40 +1,77 @@
+
+// Node Tree on left side
+.t3-ui .nav-list > li {
+	> a {
+		text-shadow:none;
+		&:hover {
+			background: rgba(255, 255, 255, 0.1);
+		}
+	}
+	&.active > a, &.active > a:hover {
+		background: rgba(255, 255, 255, 0.3);
+	}
+}
+
+// Node List
+.t3-ui .typo3-expose-recordlist {
+	// A single node
+	.widget {
+		background-color: darken(#e8e8e8, 20);
+		height: 130px;
+		h3 {
+			font-size:120%;
+		}
+		&.typo3-expose-active {
+			background-color: #eaeaea;
+		}
+	}
+}
+
+
+// Action Bar Styling
+
 @import "compass/css3/transition";
 
-.t3-ui .container {
-	width: auto;
-}
-
-body:not(.js) .js {
-	display: none;
-}
-body.js .nojs {
-	display: none;
-}
 .typo3-expose-recordlist {
+	.actionBar {
+		position: absolute;
+		right: 0;
+		width: 152px;
+		height: 100%;
+		// border: 1px solid red;
+		border-left: none;
+		background: #E8E8E8;
+		border-right: 1px solid #B3B3B3;
+		border-top: 1px solid #B3B3B3;
+		border-bottom: 1px solid #B3B3B3;
+		overflow: hidden;
+		z-index: 1;
+	}
+
+	&.hiddenActionBar {
+		[data-area=actionBar] {
+			opacity: 0;
+		}
+		[data-area=main] {
+			margin-right:0;
+		}
+	}
 	[data-area=main], [data-area=actionBar] {
 		@include transition-duration(0.2s);
 	}
 	[data-area=main] {
-		@include transition-property(width);
+		@include transition-property(margin-right);
+		margin-right:150px;
 	}
 	[data-area=actionBar] {
 		@include transition-property(opacity);
-
-		&:not(.hiddenActionBar) {
-			@include transition-delay(0.2s);
-		}
-		&.hiddenActionBar {
-			opacity: 0;
-		}
+		opacity: 1;
 	}
 
-	[data-area=actionBar] a {}
 
-	[data-area=records] .typo3-expose-active {
-	}
 }
 
-
+/*
 .t3-ui {
 	.t3-records > .well {
 		margin-right: 10px;
@@ -59,4 +96,4 @@ body.js .nojs {
 	.pagination {
 		margin: 0;
 	}
-}
+}*/

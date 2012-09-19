@@ -1,80 +1,144 @@
+/* line 1, ../sass/_mixins.scss */
+body:not(.js) .js {
+  display: none;
+}
+
+/* line 4, ../sass/_mixins.scss */
+body.js .nojs {
+  display: none;
+}
+
+/* line 10, ../sass/_mixins.scss */
+.t3-ui .nav-list ul {
+  padding: 0;
+}
+/* line 13, ../sass/_mixins.scss */
+.t3-ui .nav-list li a {
+  margin: 0px;
+}
+/* line 14, ../sass/_mixins.scss */
+.t3-ui .nav-list li a {
+  padding-left: 10px;
+}
+/* line 15, ../sass/_mixins.scss */
+.t3-ui .nav-list li li a {
+  padding-left: 20px;
+}
+/* line 16, ../sass/_mixins.scss */
+.t3-ui .nav-list li li li a {
+  padding-left: 30px;
+}
+/* line 19, ../sass/_mixins.scss */
 .t3-ui .bar {
   padding: 5px 0;
   margin-bottom: 5px;
-  height: 30px; }
-  .t3-ui .bar .pull-left {
-    margin-right: 10px; }
-  .t3-ui .bar .pull-right {
-    margin-left: 10px; }
-
-.t3-ui .nav-list ul {
-  padding: 0; }
-.t3-ui .nav-list li a {
-  margin: 0px; }
-.t3-ui .nav-list li a {
-  padding-left: 10px; }
-.t3-ui .nav-list li li a {
-  padding-left: 20px; }
-.t3-ui .nav-list li li li a {
-  padding-left: 30px; }
-
-.t3-ui .actionBar {
-  float: right;
-  width: 20%;
-  border-left: none;
-  padding: 10px;
-  background: #eee;
-  border: 1px solid #B3B3B3;
-  overflow: hidden; }
-
-.t3-pane-right {
-  border-right: 1px solid #eee; }
-
-.t3-ui .container {
-  width: auto; }
-
-body:not(.js) .js {
-  display: none; }
-
-body.js .nojs {
-  display: none; }
-
-.typo3-expose-recordlist [data-area=main], .typo3-expose-recordlist [data-area=actionBar] {
-  -webkit-transition-duration: compact(0.2s, false, false, false, false, false, false, false, false, false);
-  -moz-transition-duration: compact(0.2s, false, false, false, false, false, false, false, false, false);
-  -o-transition-duration: compact(0.2s, false, false, false, false, false, false, false, false, false);
-  transition-duration: compact(0.2s, false, false, false, false, false, false, false, false, false); }
-.typo3-expose-recordlist [data-area=main] {
-  -webkit-transition-property: compact(width, false, false, false, false, false, false, false, false, false);
-  -moz-transition-property: compact(width, false, false, false, false, false, false, false, false, false);
-  -o-transition-property: compact(width, false, false, false, false, false, false, false, false, false);
-  transition-property: compact(width, false, false, false, false, false, false, false, false, false); }
-.typo3-expose-recordlist [data-area=actionBar] {
-  -webkit-transition-property: compact(opacity, false, false, false, false, false, false, false, false, false);
-  -moz-transition-property: compact(opacity, false, false, false, false, false, false, false, false, false);
-  -o-transition-property: compact(opacity, false, false, false, false, false, false, false, false, false);
-  transition-property: compact(opacity, false, false, false, false, false, false, false, false, false); }
-  .typo3-expose-recordlist [data-area=actionBar]:not(.hiddenActionBar) {
-    -webkit-transition-delay: compact(0.2s, false, false, false, false, false, false, false, false, false);
-    -moz-transition-delay: compact(0.2s, false, false, false, false, false, false, false, false, false);
-    -o-transition-delay: compact(0.2s, false, false, false, false, false, false, false, false, false);
-    transition-delay: compact(0.2s, false, false, false, false, false, false, false, false, false); }
-  .typo3-expose-recordlist [data-area=actionBar].hiddenActionBar {
-    opacity: 0; }
-
-.t3-ui .t3-records > .well {
+  height: 30px;
+}
+/* line 23, ../sass/_mixins.scss */
+.t3-ui .bar .pull-left {
   margin-right: 10px;
-  border-color: #B3B3B3; }
-.t3-ui .t3-records > .typo3-expose-active {
-  background: #eee;
-  margin-right: 0px;
-  border-right: 0px;
-  border-top-right-radius: 0px;
-  border-bottom-right-radius: 0px;
-  z-index: 10;
-  position: relative;
-  margin-right: -1px; }
-.t3-ui .nav-list {
-  padding: 0; }
-.t3-ui .pagination {
-  margin: 0; }
+}
+/* line 26, ../sass/_mixins.scss */
+.t3-ui .bar .pull-right {
+  margin-left: 10px;
+}
+
+/* line 4, ../sass/_recordlist.scss */
+.t3-ui .nav-list > li > a {
+  text-shadow: none;
+}
+/* line 6, ../sass/_recordlist.scss */
+.t3-ui .nav-list > li > a:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+/* line 10, ../sass/_recordlist.scss */
+.t3-ui .nav-list > li.active > a, .t3-ui .nav-list > li.active > a:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* line 18, ../sass/_recordlist.scss */
+.t3-ui .typo3-expose-recordlist .widget {
+  background-color: #b5b5b5;
+  height: 130px;
+}
+/* line 21, ../sass/_recordlist.scss */
+.t3-ui .typo3-expose-recordlist .widget h3 {
+  font-size: 120%;
+}
+/* line 24, ../sass/_recordlist.scss */
+.t3-ui .typo3-expose-recordlist .widget.typo3-expose-active {
+  background-color: #eaeaea;
+}
+
+/* line 36, ../sass/_recordlist.scss */
+.typo3-expose-recordlist .actionBar {
+  position: absolute;
+  right: 0;
+  width: 152px;
+  height: 100%;
+  border-left: none;
+  background: #E8E8E8;
+  border-right: 1px solid #B3B3B3;
+  border-top: 1px solid #B3B3B3;
+  border-bottom: 1px solid #B3B3B3;
+  overflow: hidden;
+  z-index: 1;
+}
+/* line 52, ../sass/_recordlist.scss */
+.typo3-expose-recordlist.hiddenActionBar [data-area=actionBar] {
+  opacity: 0;
+}
+/* line 55, ../sass/_recordlist.scss */
+.typo3-expose-recordlist.hiddenActionBar [data-area=main] {
+  margin-right: 0;
+}
+/* line 59, ../sass/_recordlist.scss */
+.typo3-expose-recordlist [data-area=main], .typo3-expose-recordlist [data-area=actionBar] {
+  -webkit-transition-duration: 0.2s;
+  -moz-transition-duration: 0.2s;
+  -o-transition-duration: 0.2s;
+  transition-duration: 0.2s;
+}
+/* line 62, ../sass/_recordlist.scss */
+.typo3-expose-recordlist [data-area=main] {
+  -webkit-transition-property: margin-right;
+  -moz-transition-property: margin-right;
+  -o-transition-property: margin-right;
+  transition-property: margin-right;
+  margin-right: 150px;
+}
+/* line 66, ../sass/_recordlist.scss */
+.typo3-expose-recordlist [data-area=actionBar] {
+  -webkit-transition-property: opacity;
+  -moz-transition-property: opacity;
+  -o-transition-property: opacity;
+  transition-property: opacity;
+  opacity: 1;
+}
+
+/*
+.t3-ui {
+	.t3-records > .well {
+		margin-right: 10px;
+		border-color: #B3B3B3;
+	}
+
+	.t3-records > .typo3-expose-active {
+		background: #eee;
+		margin-right: 0px;
+		border-right: 0px;
+		border-top-right-radius: 0px;
+		border-bottom-right-radius: 0px;
+		z-index: 10;
+		position: relative;
+		margin-right: -1px;
+	}
+
+	.nav-list {
+		padding: 0;
+	}
+
+	.pagination {
+		margin: 0;
+	}
+}*/

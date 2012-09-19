@@ -1,6 +1,6 @@
 <f:comment>REVIEWED for release</f:comment>
 {namespace ts=TYPO3\TypoScript\ViewHelpers}
-<div class="well" data-identifier="{item.contextPath}">
-	<h3>{item.label}</h3>
-	<ts:renderTypoScript path="teaser" />
+<div class="widget" data-identifier="{item.contextPath}">
+	<div class="widget-header"><h3>{item.label}</h3></div>
+	<div class="widget-body"><p><ts:renderTypoScript path="teaser" /></p></div>
 </div>

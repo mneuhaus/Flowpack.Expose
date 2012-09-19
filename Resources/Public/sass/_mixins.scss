@@ -1,18 +1,8 @@
-.t3-inspector {
+body:not(.js) .js {
+	display: none;
 }
-
-.t3-ui {
-	.bar {
-		padding: 5px 0;
-		margin-bottom: 5px;
-		height: 30px;
-		.pull-left {
-			margin-right: 10px;
-		}
-		.pull-right {
-			margin-left: 10px;
-		}
-	}
+body.js .nojs {
+	display: none;
 }
 
 .t3-ui {
@@ -25,19 +15,18 @@
 		li li a { padding-left: 20px; }
 		li li li a { padding-left: 30px; }
 	}
+	 
+	.bar {
+		padding: 5px 0;
+		margin-bottom: 5px;
+		height: 30px;
+		.pull-left {
+			margin-right: 10px;
+		}
+		.pull-right {
+			margin-left: 10px;
+		}
+	}
+
 }
 
-.t3-ui .actionBar {
-	float: right;
-	width: 20%;
-	// border: 1px solid red;
-	border-left: none;
-	padding: 10px;
-	background: #eee;
-	border: 1px solid #B3B3B3;
-	overflow: hidden;
-}
-
-.t3-pane-right {
-	border-right: 1px solid #eee;
-}
