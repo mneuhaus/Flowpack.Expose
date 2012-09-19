@@ -1,7 +1,10 @@
 {namespace cm=TYPO3\Expose\ViewHelpers}
-<div class="box">
-	<h3 class="box-header">Are you sure you want to delete the following items?</h3>
-	<div>
+
+<div class="modal box">
+    <div class="modal-header">
+	    <h3 class="box-header">Are you sure you want to delete the following items?</h3>
+    </div>
+	<div class="modal-footer">
 		<f:for each="{objects}" as="object">
 			<ul class="whitespace">
 				<li>
@@ -13,7 +16,7 @@
 			<f:link.action
 				action="index"
 				controller="SameTypeList"
-				class="btn"
+                class="btn t3-button"
 				arguments="{type: type}">
 				Cancel
 			</f:link.action>
@@ -21,7 +24,7 @@
 		<div class="actions pull-right">
 			<f:link.action
 				action="delete"
-				class="btn"
+				class="btn btn-danger t3-button"
 				arguments="{
 					type : type,
 					objects: objects
