@@ -1,5 +1,0 @@
-TYPO3:
-  Expose:
-    Annotations:
-      TYPO3\Expose\Tests\Functional\Actions\Fixtures\Domain\Model\Post:
-        active: TRUE

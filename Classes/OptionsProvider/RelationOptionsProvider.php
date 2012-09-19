@@ -21,10 +21,10 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 class RelationOptionsProvider extends \TYPO3\Expose\Core\OptionsProvider\AbstractOptionsProvider {
 
     /**
-     * @var \TYPO3\Expose\Core\MetaPersistenceManager
+     * @var \TYPO3\FLOW3\Persistence\PersistenceManagerInterface
      * @FLOW3\Inject
      */
-    protected $persistenceService;
+    protected $persistenceManager;
 
     /**
     * TODO: Document this Method! ( getOptions )

@@ -19,12 +19,6 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 class DefaultFormElementBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypoScriptObject {
 
 	/**
-	 * @var \TYPO3\Expose\Reflection\AnnotationService
-	 * @FLOW3\Inject
-	 */
-	protected $annotationService;
-
-	/**
 	 * @var string
 	 */
 	protected $identifier;
@@ -146,10 +140,6 @@ class DefaultFormElementBuilder extends \TYPO3\TypoScript\TypoScriptObjects\Abst
 		}
 
 		$element = $parentFormElement->createElement($this->tsValue('identifier'), $this->tsValue('formFieldType'));
-		if (method_exists($element, 'setAnnotations')) {
-			$classAnnotations = $this->annotationService->getClassAnnotations($this->tsValue("className"));
-			$element->setAnnotations($classAnnotations->getPropertyAnnotations($this->tsValue("propertyName")));
-		}
 		$element->setDataType($this->tsValue("propertyType"));
 		$element->setLabel($this->tsValue('label'));
 
