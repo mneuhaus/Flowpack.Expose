@@ -18,7 +18,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * Action to Update the Being
  *
  */
-class EditController extends \TYPO3\Expose\Core\AbstractExposeController {
+class EditController extends AbstractController {
 
 	/**
 	 * @return void

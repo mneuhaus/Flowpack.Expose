@@ -19,7 +19,7 @@ use TYPO3\FLOW3\Mvc\ActionRequest;
  * Feature to display a list of TYPO3CR content nodes
  *
  */
-class ContentListController extends \TYPO3\Expose\Core\AbstractExposeController {
+class ContentListController extends AbstractController {
 
 	/**
 	 * @FLOW3\Inject

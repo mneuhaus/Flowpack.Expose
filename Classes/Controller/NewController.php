@@ -18,7 +18,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * Action to create a new Being
  *
  */
-class NewController extends \TYPO3\Expose\Core\AbstractExposeController {
+class NewController extends AbstractController {
 
 	/**
 	 * Create a new object

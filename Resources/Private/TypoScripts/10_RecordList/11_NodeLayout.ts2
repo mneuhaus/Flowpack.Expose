@@ -11,7 +11,8 @@ TYPO3.Expose.ContentListController {
 	}
 }
 
-prototype(TYPO3.Expose:RecordList.List.Element).matchers.1000 {
+prototype(TYPO3.Expose:RecordList.List.Element).node {
+	@position = 'start'
 	condition = ${q(item).is('[ instanceof TYPO3.TYPO3:AbstractNode]')}
 	type = 'TYPO3.Expose:RecordList.List.NodeElement'
 }

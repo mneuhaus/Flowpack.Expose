@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\Expose\Core;
+namespace TYPO3\Expose\Controller;
 
 /*                                                                        *
  * This script belongs to the FLOW3 package "TYPO3.Expose".               *
@@ -17,7 +17,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * Base class for expose controllers. An expose controller implements a certain
  * functionality inside the Expose UI, such as "Edit", "New", "List" or "Delete".
  */
-abstract class AbstractExposeController extends \TYPO3\FLOW3\Mvc\Controller\ActionController {
+abstract class AbstractController extends \TYPO3\FLOW3\Mvc\Controller\ActionController {
 
 	/**
 	 * @var string

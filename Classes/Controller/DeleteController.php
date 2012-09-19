@@ -18,7 +18,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * Action to confirm the deletion of a being
  *
  */
-class DeleteController extends \TYPO3\Expose\Core\AbstractExposeController {
+class DeleteController extends AbstractController {
 
 	/**
 	 * @return void

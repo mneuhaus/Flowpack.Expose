@@ -4,7 +4,7 @@ TYPO3.Expose.NewController.index = TYPO3.Expose:FormRenderer
 TYPO3.Expose.EditController.index = TYPO3.Expose:FormRenderer
 
 prototype(TYPO3.Expose:FormRenderer) {
-	implementationClassName = 'TYPO3\\Expose\\TypoScriptObjects\\FormRenderer'
+	@class = 'TYPO3\\Expose\\TypoScriptObjects\\FormRenderer'
 	form = TYPO3.Expose:FormBuilder
 }
 
@@ -32,7 +32,7 @@ prototype(TYPO3.Expose:FormBuilder) < prototype(TYPO3.TypoScript:Case) {
  * @param string formPresetName
  */
 prototype(TYPO3.Expose:ObjectFormBuilder) {
-	implementationClassName = 'TYPO3\\Expose\\TypoScriptObjects\\ObjectFormBuilder'
+	@class = 'TYPO3\\Expose\\TypoScriptObjects\\ObjectFormBuilder'
 	className = ${className}
 	objects = ${objects}
 	formIdentifier = 'form'
@@ -49,7 +49,7 @@ prototype(TYPO3.Expose:ObjectFormBuilder) {
  * @param string formPresetName
  */
 prototype(TYPO3.Expose:NodeFormBuilder) {
-	implementationClassName = 'TYPO3\\Expose\\TypoScriptObjects\\NodeFormBuilder'
+	@class = 'TYPO3\\Expose\\TypoScriptObjects\\NodeFormBuilder'
 	objects = ${objects}
 	formIdentifier = 'form'
 	formPresetName = 'expose'
@@ -65,7 +65,7 @@ prototype(TYPO3.Expose:NodeFormBuilder) {
  * @param identifier=${identifier}
  */
 prototype(TYPO3.Expose:Form.SectionBuilder) {
-	implementationClassName = 'TYPO3\\Expose\\TypoScriptObjects\\SectionBuilder'
+	@class = 'TYPO3\\Expose\\TypoScriptObjects\\SectionBuilder'
 	parentFormElement = ${parentFormElement}
 	identifier = ${identifier}
 
@@ -82,7 +82,6 @@ prototype(TYPO3.Expose:Form.ElementBuilder) < prototype(TYPO3.TypoScript:Case) {
 	prototype(TYPO3.TypoScript:Matcher).type = 'TYPO3.Expose:Form.DefaultElementBuilder'
 
 	#debug {
-	#	// TODO: bug in EEL: ['0'] should not need to be quoted.
 	#	condition = ${q(propertyType).debug(propertyAnnotations)}
 	#	@position = '10'
 	#	@override.formFieldType = 'TYPO3.Form:MultiLineText'
@@ -144,7 +143,7 @@ prototype(TYPO3.Expose:Form.ElementBuilder) < prototype(TYPO3.TypoScript:Case) {
  * @param label=${propertyName}
  */
 prototype(TYPO3.Expose:Form.DefaultElementBuilder) {
-	implementationClassName = 'TYPO3\\Expose\\TypoScriptObjects\\DefaultFormElementBuilder'
+	@class = 'TYPO3\\Expose\\TypoScriptObjects\\DefaultFormElementBuilder'
 	formFieldType = ${formFieldType}
 	parentFormElement = ${parentFormElement}
 	identifier = ${formElementIdentifier}
