@@ -3,11 +3,11 @@
 {namespace ts=TYPO3\TypoScript\ViewHelpers}
 
 <f:section name="itemRenderer">
-	<f:if condition="{cm:nodeTypeFilter(node: node, nodeType: 'TYPO3.TYPO3:Page')}">
+	<f:if condition="{cm:nodeTypeFilter(node: node, nodeType: 'TYPO3.TYPO3CR:Folder')}">
 		<f:if condition="{node.depth} != 2" >
 			<ul class="nav nav-list">
 		</f:if>
-		<f:for each="{cm:nodeTypeFilter(node: node, nodeType: 'TYPO3.TYPO3:Page')}" as="childNode">
+		<f:for each="{cm:nodeTypeFilter(node: node, nodeType: 'TYPO3.TYPO3CR:Folder')}" as="childNode">
 			<li class="{f:if(condition:'{selectedFolderNode} == {childNode}', then: 'active')}"><f:link.action arguments="{selectedFolderNode: childNode.contextPath}" addQueryString="1">{childNode.label}</f:link.action>
 				<f:render section="itemRenderer" arguments="{node: childNode, selectedFolderNode: selectedFolderNode}" />
 			</li>

@@ -38,6 +38,13 @@ class ContentListController extends AbstractController {
 	 */
 	public function indexAction($format = 'list', \TYPO3\TYPO3CR\Domain\Model\NodeInterface $selectedFolderNode = NULL) {
 		$siteNode = $this->getSiteNode();
+
+		if ($selectedFolderNode === NULL && $siteNode->getPrimaryChildNode() !== NULL) {
+				// No node selected, so we select the Site node and then the first child of the site node.
+				// This is the root-page then.
+			$selectedFolderNode = $siteNode->getPrimaryChildNode()->getPrimaryChildNode();
+		}
+
 		$this->view->assign('format', $format);
 		$this->view->assign('siteNode', $siteNode);
 		$this->view->assign('selectedFolderNode', $selectedFolderNode);
