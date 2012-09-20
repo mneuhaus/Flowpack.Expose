@@ -1,7 +1,12 @@
 // REVIEWED for release
 
-TYPO3.Expose.NewController.index = TYPO3.Expose:FormRenderer
-TYPO3.Expose.EditController.index = TYPO3.Expose:FormRenderer
+TYPO3.Expose.NewController.index = TYPO3.Expose:FormLayout
+TYPO3.Expose.EditController.index = TYPO3.Expose:FormLayout
+
+prototype(TYPO3.Expose:FormLayout) < prototype(TYPO3.TypoScript:Template) {
+	templatePath = 'resource://TYPO3.Expose/Private/Elements/FormLayout.html'
+	form = TYPO3.Expose:FormRenderer
+}
 
 prototype(TYPO3.Expose:FormRenderer) {
 	@class = 'TYPO3\\Expose\\TypoScriptObjects\\FormRenderer'
@@ -57,6 +62,12 @@ prototype(TYPO3.Expose:NodeFormBuilder) {
 
 	sectionBuilder = TYPO3.Expose:Form.SectionBuilder
 	elementBuilder = TYPO3.Expose:Form.ElementBuilder
+
+		// If we are inside the "node" context, we can use the label of the property
+		// schema as label of the form element
+	prototype(TYPO3.Expose:Form.DefaultElementBuilder) {
+		label = ${propertySchema.label}
+	}
 }
 
 /**
@@ -81,11 +92,10 @@ prototype(TYPO3.Expose:Form.SectionBuilder) {
 prototype(TYPO3.Expose:Form.ElementBuilder) < prototype(TYPO3.TypoScript:Case) {
 	prototype(TYPO3.TypoScript:Matcher).type = 'TYPO3.Expose:Form.DefaultElementBuilder'
 
-	#debug {
-	#	condition = ${q(propertyType).debug(propertyAnnotations)}
-	#	@position = '10'
-	#	@override.formFieldType = 'TYPO3.Form:MultiLineText'
-	#}
+#	debug {
+#		condition = ${q(p).debug(propertySchema)}
+#		@position = 'start'
+#	}
 
 	ignore {
 		condition = ${propertyAnnotations['TYPO3\Expose\Annotations\Ignore']}
@@ -128,6 +138,31 @@ prototype(TYPO3.Expose:Form.ElementBuilder) < prototype(TYPO3.TypoScript:Case) {
 		@position = '90'
 		@override.formFieldType = 'TYPO3.Form:MultiLineText'
 	}
+
+	// NODE START
+	booleanType {
+			// We want to hide the editor for the _removed flag
+		condition = ${propertyType == 'boolean' && propertyName != '_removed'}
+		@position = '90'
+		@override.formFieldType = 'TYPO3.Form:Checkbox'
+	}
+
+	nodeTextfieldType {
+		// TODO: bug in EEL: ['0'] should not need to be quoted.
+		condition = ${propertyType == 'string' && propertySchema.userInterface.class == 'T3.Content.UI.Editor.HtmlEditor'}
+		@position = '90'
+		@override.formFieldType = 'TYPO3.Form:MultiLineText'
+	}
+
+	nodeDateType {
+		// TODO: bug in EEL: ['0'] should not need to be quoted.
+		condition = ${propertyType == 'date'}
+		@position = '90'
+		@override.formFieldType = 'TYPO3.Form:DatePicker'
+		element.@override.propertyType = '\DateTime'
+
+	}
+	// NODE END
 
 	simpleStringType {
 		condition = ${propertyType == 'string'}

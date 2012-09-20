@@ -33,8 +33,11 @@ class NodeFormBuilder extends ObjectFormBuilder {
 	 * @return void
 	 */
 	protected function createElementsForSection($sectionName, \TYPO3\Form\FormElements\Section $section, $namespace, $object) {
-		// TODO evaluate $sectionName
+		/* @var $object \TYPO3\TYPO3CR\Domain\Model\NodeInterface */
 		$contentType = $object->getContentType();
+
+		$sectionDescription = $section->createElement('sectionDescription' . $namespace, 'TYPO3.Form:StaticText');
+		$sectionDescription->setProperty('text', $object->getContextPath());
 
 		$this->tsRuntime->pushContext('parentFormElement', $section);
 		foreach ($contentType->getProperties() as $propertyName => $propertySchema) {
@@ -85,7 +88,14 @@ class NodeFormBuilder extends ObjectFormBuilder {
 				$formElement->setDefaultValue($propertyValue);
 			}
 		}
+		$additionalProperties = array('hidden', 'hiddenBeforeDateTime', 'hiddenAfterDateTime');
 
+		foreach ($additionalProperties as $internalPropertyName) {
+			$formElement = $formDefinition->getElementByIdentifier($namespace . '._' . $internalPropertyName);
+			if ($formElement !== NULL) {
+				$formElement->setDefaultValue(\TYPO3\FLOW3\Reflection\ObjectAccess::getProperty($object, $internalPropertyName));
+			}
+		}
 	}
 }
 ?>

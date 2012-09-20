@@ -1,0 +1,10 @@
+{namespace ts=TYPO3\TypoScript\ViewHelpers}
+<script src="{f:uri.resource(path: 'Library/jquery-ui/js/jquery-ui-1.9b1.js', package: 'TYPO3.TYPO3')}"></script>
+<link rel="stylesheet" href="{f:uri.resource(path: 'Library/jquery-ui/css/custom-theme/jquery-ui-1.8.16.custom.css', package: 'TYPO3.TYPO3')}" />
+<div class="t3-content container well typo3-expose-form">
+	<div class="row t3-module-container indented">
+		<ts:renderTypoScript path="form" />
+	</div>
+</div>
+
+<link rel="stylesheet" href="{f:uri.resource(path: 'css/main.css', package: 'TYPO3.Expose')}" />
