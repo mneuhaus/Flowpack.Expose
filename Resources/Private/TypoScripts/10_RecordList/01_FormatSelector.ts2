@@ -8,15 +8,7 @@
 #
 
 
-prototype(TYPO3.Expose:RecordList.FormatSelector) < prototype(TYPO3.TypoScript:Array) {
-	10 = TYPO3.Expose:RecordList.FormatSelector.Button
-	10.format = 'table'
-	10.label = 'Table'
-
-	20 = TYPO3.Expose:RecordList.FormatSelector.Button
-	20.format = 'list'
-	20.label = 'List'
-}
+prototype(TYPO3.Expose:RecordList.FormatSelector) < prototype(TYPO3.TypoScript:Array)
 prototype(TYPO3.Expose:RecordList.FormatSelector) << 1.wrap(prefix: '<div class="btn-group">', suffix: '</div>')
 
 #
