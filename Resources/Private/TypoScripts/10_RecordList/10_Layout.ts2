@@ -5,6 +5,17 @@ TYPO3.Expose.SameTypeListController.index = TYPO3.Expose:RecordList {
 		10.controller = 'TYPO3\\Expose\\Controller\\NewController'
 		10.arguments.type = ${type}
 	}
+		// For now, we configure the format selector to be only active when listing
+		// Domain Models
+	prototype(TYPO3.Expose:RecordList.FormatSelector) {
+		10 = TYPO3.Expose:RecordList.FormatSelector.Button
+		10.format = 'table'
+		10.label = 'Table'
+
+		20 = TYPO3.Expose:RecordList.FormatSelector.Button
+		20.format = 'list'
+		20.label = 'List'
+	}
 }
 
 prototype(TYPO3.Expose:RecordList) < prototype(TYPO3.TypoScript:Template) {
