@@ -115,6 +115,11 @@ body.js .nojs {
   transition-property: opacity;
   opacity: 1;
 }
+/* line 71, ../sass/_recordlist.scss */
+.typo3-expose-recordlist .pagination a {
+  color: black;
+  font-size: 14px;
+}
 
 /*
 .t3-ui {
