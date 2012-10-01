@@ -1,0 +1,16 @@
+{
+    "name": "typo3/expose",
+    "type": "flow3-framework",
+    "description": "Package to expose models",
+    "license": "LGPL-3.0+",
+    "version": "0.1.0-dev",
+    "require": {
+        "flow3/composer-installers": "*",
+        "typo3/flow3": "*"
+    },
+    "autoload": {
+        "psr-0": {
+            "TYPO3\\Expose": "Classes"
+        }
+    }
+}
