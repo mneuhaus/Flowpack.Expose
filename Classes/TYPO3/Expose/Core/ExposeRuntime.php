@@ -60,6 +60,8 @@ class ExposeRuntime {
 		$arguments = $parentRequest->getPluginArguments();
 		$this->request = new ActionRequest($parentRequest);
 		$this->request->setArgumentNamespace('--' . $this->namespace);
+		$this->request->setControllerActionName('index');
+		$this->request->setControllerPackageKey('TYPO3.Expose');
 		if (isset($arguments[$this->namespace])) {
 			$this->request->setArguments($arguments[$this->namespace]);
 		}
