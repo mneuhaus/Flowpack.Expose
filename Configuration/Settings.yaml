@@ -14,20 +14,6 @@ TYPO3:
       Default: 20
       MaxPages: 8
 
-  TYPO3CR:
-    contentTypes:
-      'TYPO3.TYPO3:Section':
-        nodeLabelGenerator: 'TYPO3\TYPO3CR\Domain\Model\EelNodeLabelGenerator'
-        nodeLabelGeneratorOptions:
-          expression: '"Section " + context.property("_name")'
-      'TYPO3.TYPO3:Text':
-        nodeLabelGenerator: 'TYPO3\TYPO3CR\Domain\Model\EelNodeLabelGenerator'
-        nodeLabelGeneratorOptions:
-          expression: 'strings.crop(strings.cleanup(context.property("headline") + " " + context.property("text")), 50)'
-      'TYPO3.TYPO3:Html':
-        nodeLabelGenerator: 'TYPO3\TYPO3CR\Domain\Model\EelNodeLabelGenerator'
-        nodeLabelGeneratorOptions:
-          expression: 'strings.crop(strings.cleanup(context.property("source")), 50)'
   Form:
     presets:
       expose:
