@@ -11,21 +11,21 @@ namespace TYPO3\Expose\ViewHelpers;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
-use TYPO3\FLOW3\Annotations as FLOW3;
+use TYPO3\Flow\Annotations as Flow;
 
 /**
  */
 class ControllerLinkViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper {
 
 	/**
-	 * @var \TYPO3\FLOW3\Object\ObjectManagerInterface
-	 * @FLOW3\Inject
+	 * @var \TYPO3\Flow\Object\ObjectManagerInterface
+	 * @Flow\Inject
 	 */
 	protected $objectManager;
 
 	/**
-	 * @var \TYPO3\FLOW3\Persistence\PersistenceManagerInterface
-	 * @FLOW3\Inject
+	 * @var \TYPO3\Flow\Persistence\PersistenceManagerInterface
+	 * @Flow\Inject
 	 */
 	protected $persistenceManager;
 
@@ -62,7 +62,7 @@ class ControllerLinkViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractTagB
 			$arguments['type'] = $type;
 		}
 
-		$request = new \TYPO3\FLOW3\Mvc\ActionRequest($this->controllerContext->getRequest());
+		$request = new \TYPO3\Flow\Mvc\ActionRequest($this->controllerContext->getRequest());
 		$request->setControllerObjectName(get_class($controller));
 		$uri = $uriBuilder->reset()->setCreateAbsoluteUri(TRUE)->uriFor('index', $arguments, $request->getControllerName(), $request->getControllerPackageKey(), $request->getControllerSubpackageKey());
 		$this->tag->addAttribute('href', $uri);

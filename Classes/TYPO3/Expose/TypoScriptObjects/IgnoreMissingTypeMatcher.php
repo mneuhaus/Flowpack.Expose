@@ -11,7 +11,7 @@ namespace TYPO3\Expose\TypoScriptObjects;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
-use TYPO3\FLOW3\Annotations as FLOW3;
+use TYPO3\Flow\Annotations as Flow;
 
 /**
  * A matcher which only matches if the target typoscript type is actually found

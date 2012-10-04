@@ -11,7 +11,7 @@ namespace TYPO3\Expose\TypoScriptObjects;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
-use TYPO3\FLOW3\Annotations as FLOW3;
+use TYPO3\Flow\Annotations as Flow;
 
 /**
  * Render a Node-based form
@@ -93,7 +93,7 @@ class NodeFormBuilder extends ObjectFormBuilder {
 		foreach ($additionalProperties as $internalPropertyName) {
 			$formElement = $formDefinition->getElementByIdentifier($namespace . '._' . $internalPropertyName);
 			if ($formElement !== NULL) {
-				$formElement->setDefaultValue(\TYPO3\FLOW3\Reflection\ObjectAccess::getProperty($object, $internalPropertyName));
+				$formElement->setDefaultValue(\TYPO3\Flow\Reflection\ObjectAccess::getProperty($object, $internalPropertyName));
 			}
 		}
 	}

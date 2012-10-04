@@ -12,8 +12,8 @@ namespace TYPO3\Expose\Controller;
  *                                                                        */
 
 use Doctrine\ORM\Mapping as ORM;
-use TYPO3\FLOW3\Annotations as FLOW3;
-use TYPO3\FLOW3\Mvc\ActionRequest;
+use TYPO3\Flow\Annotations as Flow;
+use TYPO3\Flow\Mvc\ActionRequest;
 
 /**
  * Action to display a list of records of the same type
@@ -45,10 +45,10 @@ class SameTypeListController extends AbstractController {
 	}
 
 	/**
-	 * @param \TYPO3\FLOW3\Persistence\QueryResultInterface $result
+	 * @param \TYPO3\Flow\Persistence\QueryResultInterface $result
 	 * @return void
 	 */
-	protected function redirectToNewFormIfNoObjectsFound(\TYPO3\FLOW3\Persistence\QueryResultInterface $result) {
+	protected function redirectToNewFormIfNoObjectsFound(\TYPO3\Flow\Persistence\QueryResultInterface $result) {
 		if (count($result) === 0) {
 			$arguments = array('type' => $this->arguments['type']->getValue());
 			$this->redirect('index', 'new', NULL, $arguments);

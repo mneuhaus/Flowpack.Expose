@@ -14,7 +14,7 @@ namespace TYPO3\Expose\TYPO3CR\Persistence\Node;
 /**
  * A Query class for Nodes
  */
-class Query extends \TYPO3\FLOW3\Persistence\Doctrine\Query {
+class Query extends \TYPO3\Flow\Persistence\Doctrine\Query {
 
 	/**
 	 * current parentPath
@@ -31,7 +31,7 @@ class Query extends \TYPO3\FLOW3\Persistence\Doctrine\Query {
 	protected $recursiveLevels = 0;
 
 	/**
-	 * @var \TYPO3\FLOW3\Persistence\Generic\Qom\QueryObjectModelFactory
+	 * @var \TYPO3\Flow\Persistence\Generic\Qom\QueryObjectModelFactory
 	 */
 	protected $qomFactory;
 
@@ -48,10 +48,10 @@ class Query extends \TYPO3\FLOW3\Persistence\Doctrine\Query {
 	/**
 	 * Injects the FLOW3 QOM factory
 	 *
-	 * @param \TYPO3\FLOW3\Persistence\Generic\Qom\QueryObjectModelFactory $qomFactory
+	 * @param \TYPO3\Flow\Persistence\Generic\Qom\QueryObjectModelFactory $qomFactory
 	 * @return void
 	 */
-	public function injectQomFactory(\TYPO3\FLOW3\Persistence\Generic\Qom\QueryObjectModelFactory $qomFactory) {
+	public function injectQomFactory(\TYPO3\Flow\Persistence\Generic\Qom\QueryObjectModelFactory $qomFactory) {
 		$this->qomFactory = $qomFactory;
 	}
 
@@ -68,7 +68,7 @@ class Query extends \TYPO3\FLOW3\Persistence\Doctrine\Query {
 	/**
 	 * Executes the query and returns the result.
 	 *
-	 * @return \TYPO3\FLOW3\Persistence\QueryResultInterface The query result
+	 * @return \TYPO3\Flow\Persistence\QueryResultInterface The query result
 	 */
 	public function execute() {
 		return new QueryResult($this);
@@ -138,7 +138,7 @@ class Query extends \TYPO3\FLOW3\Persistence\Doctrine\Query {
 		$matchingNodes = array();
 		foreach ($nodes as $node) {
 			switch (get_class($this->constraint)) {
-				case 'TYPO3\FLOW3\Persistence\Generic\Qom\Comparison':
+				case 'TYPO3\Flow\Persistence\Generic\Qom\Comparison':
 					$property = $this->constraint->getOperand1()->getPropertyName();
 					$comparison = strtolower($this->constraint->getOperand2());
 
@@ -156,13 +156,13 @@ class Query extends \TYPO3\FLOW3\Persistence\Doctrine\Query {
 						$value = strtolower($node->getProperty($property));
 
 						switch ($this->constraint->getOperator()) {
-							case \TYPO3\FLOW3\Persistence\QueryInterface::OPERATOR_EQUAL_TO:
+							case \TYPO3\Flow\Persistence\QueryInterface::OPERATOR_EQUAL_TO:
 								if ($value == $comparison) {
 									$matchingNodes[] = $node;
 								}
 								break;
 
-							case \TYPO3\FLOW3\Persistence\QueryInterface::OPERATOR_LIKE:
+							case \TYPO3\Flow\Persistence\QueryInterface::OPERATOR_LIKE:
 								$comparison = preg_quote($comparison);
 								$comparison = str_replace("%", ".+", $comparison);
 								$comparison = str_replace("?", ".", $comparison);
@@ -197,8 +197,8 @@ class Query extends \TYPO3\FLOW3\Persistence\Doctrine\Query {
 	 * The constraint used to limit the result set. Returns $this to allow
 	 * for chaining (fluid interface)
 	 *
-	 * @param \TYPO3\FLOW3\Persistence\Generic\Qom\Constraint $constraint
-	 * @return \TYPO3\FLOW3\Persistence\QueryInterface
+	 * @param \TYPO3\Flow\Persistence\Generic\Qom\Constraint $constraint
+	 * @return \TYPO3\Flow\Persistence\QueryInterface
 	 */
 	public function matching($constraint) {
 		$this->constraint = $constraint;
@@ -222,12 +222,12 @@ class Query extends \TYPO3\FLOW3\Persistence\Doctrine\Query {
 		if ($operand === NULL) {
 			$comparison = $this->qomFactory->comparison(
 				$this->qomFactory->propertyValue($propertyName, '_entity'),
-				\TYPO3\FLOW3\Persistence\QueryInterface::OPERATOR_IS_NULL
+				\TYPO3\Flow\Persistence\QueryInterface::OPERATOR_IS_NULL
 			);
 		} elseif (is_object($operand) || $caseSensitive) {
 			$comparison = $this->qomFactory->comparison(
 				$this->qomFactory->propertyValue($propertyName, '_entity'),
-				\TYPO3\FLOW3\Persistence\QueryInterface::OPERATOR_EQUAL_TO,
+				\TYPO3\Flow\Persistence\QueryInterface::OPERATOR_EQUAL_TO,
 				$operand
 			);
 		} else {
@@ -235,7 +235,7 @@ class Query extends \TYPO3\FLOW3\Persistence\Doctrine\Query {
 				$this->qomFactory->lowerCase(
 					$this->qomFactory->propertyValue($propertyName, '_entity')
 				),
-				\TYPO3\FLOW3\Persistence\QueryInterface::OPERATOR_EQUAL_TO,
+				\TYPO3\Flow\Persistence\QueryInterface::OPERATOR_EQUAL_TO,
 				strtolower($operand)
 			);
 		}
@@ -252,16 +252,16 @@ class Query extends \TYPO3\FLOW3\Persistence\Doctrine\Query {
 	 * @param string $operand The value to compare with
 	 * @param boolean $caseSensitive Whether the matching should be done case-sensitive
 	 * @return object
-	 * @throws \TYPO3\FLOW3\Persistence\Exception\InvalidQueryException if used on a non-string property
+	 * @throws \TYPO3\Flow\Persistence\Exception\InvalidQueryException if used on a non-string property
 	 */
 	public function like($propertyName, $operand, $caseSensitive = TRUE) {
 		if (!is_string($operand)) {
-			throw new \TYPO3\FLOW3\Persistence\Exception\InvalidQueryException('Operand must be a string, was ' . gettype($operand), 1276781107);
+			throw new \TYPO3\Flow\Persistence\Exception\InvalidQueryException('Operand must be a string, was ' . gettype($operand), 1276781107);
 		}
 		if ($caseSensitive) {
 			$comparison = $this->qomFactory->comparison(
 				$this->qomFactory->propertyValue($propertyName, '_entity'),
-				\TYPO3\FLOW3\Persistence\QueryInterface::OPERATOR_LIKE,
+				\TYPO3\Flow\Persistence\QueryInterface::OPERATOR_LIKE,
 				$operand
 			);
 		} else {
@@ -269,7 +269,7 @@ class Query extends \TYPO3\FLOW3\Persistence\Doctrine\Query {
 				$this->qomFactory->lowerCase(
 					$this->qomFactory->propertyValue($propertyName, '_entity')
 				),
-				\TYPO3\FLOW3\Persistence\QueryInterface::OPERATOR_LIKE,
+				\TYPO3\Flow\Persistence\QueryInterface::OPERATOR_LIKE,
 				strtolower($operand)
 			);
 		}

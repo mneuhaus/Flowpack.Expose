@@ -11,7 +11,7 @@ namespace TYPO3\Expose\Operations;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
-use TYPO3\FLOW3\Annotations as FLOW3;
+use TYPO3\Flow\Annotations as Flow;
 
 /**
  * Count the number of elements in the context, possibly filtering them before counting.
@@ -40,7 +40,7 @@ class DebugOperation extends \TYPO3\Eel\FlowQuery\Operations\AbstractOperation  
      * @return mixed|null if the operation is final, the return value
      */
     public function evaluate(\TYPO3\Eel\FlowQuery\FlowQuery $flowQuery, array $arguments) {
-        \TYPO3\FLOW3\var_dump(array(
+        \TYPO3\Flow\var_dump(array(
             "context" => $flowQuery->getContext(),
             "aguments" => $arguments
         ));

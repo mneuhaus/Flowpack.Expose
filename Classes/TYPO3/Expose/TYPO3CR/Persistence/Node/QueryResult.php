@@ -11,21 +11,21 @@ namespace TYPO3\Expose\TYPO3CR\Persistence\Node;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
-use TYPO3\FLOW3\Annotations as FLOW3;
+use TYPO3\Flow\Annotations as Flow;
 
 /**
  * A lazy result list that is returned by Query::execute()
  *
  * @api
  */
-class QueryResult extends \TYPO3\FLOW3\Persistence\Doctrine\QueryResult {
+class QueryResult extends \TYPO3\Flow\Persistence\Doctrine\QueryResult {
 
 	/**
 	 * Constructor
 	 *
-	 * @param \TYPO3\FLOW3\Persistence\QueryInterface $query
+	 * @param \TYPO3\Flow\Persistence\QueryInterface $query
 	 */
-	public function __construct(\TYPO3\FLOW3\Persistence\QueryInterface $query) {
+	public function __construct(\TYPO3\Flow\Persistence\QueryInterface $query) {
 		$this->query = $query;
 	}
 

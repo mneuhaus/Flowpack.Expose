@@ -11,15 +11,15 @@ namespace TYPO3\Expose\TypoScriptObjects;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
-use TYPO3\FLOW3\Annotations as FLOW3;
+use TYPO3\Flow\Annotations as Flow;
 
 /**
  */
 class Pagination extends \TYPO3\TypoScript\TypoScriptObjects\TemplateImplementation {
 
 	/**
-	 * @var \TYPO3\FLOW3\Configuration\ConfigurationManager
-	 * @FLOW3\Inject
+	 * @var \TYPO3\Flow\Configuration\ConfigurationManager
+	 * @Flow\Inject
 	 */
 	protected $configurationManager;
 
@@ -32,7 +32,7 @@ class Pagination extends \TYPO3\TypoScript\TypoScriptObjects\TemplateImplementat
 	 * @return string
 	 */
 	public function evaluate() {
-		$this->settings = $this->configurationManager->getConfiguration(\TYPO3\FLOW3\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, 'TYPO3.Expose.Pagination');
+		$this->settings = $this->configurationManager->getConfiguration(\TYPO3\Flow\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, 'TYPO3.Expose.Pagination');
 		$this->addPaginationVariables();
 
 		return parent::evaluate();

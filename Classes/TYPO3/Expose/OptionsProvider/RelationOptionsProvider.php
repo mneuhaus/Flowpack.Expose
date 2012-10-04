@@ -12,7 +12,7 @@ namespace TYPO3\Expose\OptionsProvider;
  *                                                                        */
 
 use Doctrine\ORM\Mapping as ORM;
-use TYPO3\FLOW3\Annotations as FLOW3;
+use TYPO3\Flow\Annotations as Flow;
 
 /**
  * OptionsProvider for related Beings
@@ -21,8 +21,8 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 class RelationOptionsProvider extends \TYPO3\Expose\Core\OptionsProvider\AbstractOptionsProvider {
 
     /**
-     * @var \TYPO3\FLOW3\Persistence\PersistenceManagerInterface
-     * @FLOW3\Inject
+     * @var \TYPO3\Flow\Persistence\PersistenceManagerInterface
+     * @Flow\Inject
      */
     protected $persistenceManager;
 

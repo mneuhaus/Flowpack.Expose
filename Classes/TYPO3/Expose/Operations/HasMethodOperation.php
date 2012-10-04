@@ -11,7 +11,7 @@ namespace TYPO3\Expose\Operations;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
-use TYPO3\FLOW3\Annotations as FLOW3;
+use TYPO3\Flow\Annotations as Flow;
 
 /**
  * Count the number of elements in the context, possibly filtering them before counting.

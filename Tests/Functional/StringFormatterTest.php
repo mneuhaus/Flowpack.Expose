@@ -14,7 +14,7 @@ namespace TYPO3\Expose\Tests\Functional;
 /**
  * TypoScript stringFormatter test
  */
-class StringFormatterTest extends \TYPO3\FLOW3\Tests\FunctionalTestCase {
+class StringFormatterTest extends \TYPO3\Flow\Tests\FunctionalTestCase {
 
 	/**
 	 * @return array
@@ -72,7 +72,7 @@ class StringFormatterTest extends \TYPO3\FLOW3\Tests\FunctionalTestCase {
 		$view->setPackageKey('TYPO3.Expose');
 		$view->disableFallbackView();
 
-		$mockControllerContext = $this->getMockBuilder('TYPO3\FLOW3\Mvc\Controller\ControllerContext')->disableOriginalConstructor()->getMock();
+		$mockControllerContext = $this->getMockBuilder('TYPO3\Flow\Mvc\Controller\ControllerContext')->disableOriginalConstructor()->getMock();
 		$view->setControllerContext($mockControllerContext);
 
 		return $view;

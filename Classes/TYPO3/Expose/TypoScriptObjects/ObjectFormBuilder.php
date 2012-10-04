@@ -11,7 +11,7 @@ namespace TYPO3\Expose\TypoScriptObjects;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
-use TYPO3\FLOW3\Annotations as FLOW3;
+use TYPO3\Flow\Annotations as Flow;
 
 /**
  * Render a Form using the Form framework
@@ -19,26 +19,26 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypoScriptObject {
 
 	/**
-	 * @FLOW3\Inject
+	 * @Flow\Inject
 	 * @var \TYPO3\Expose\TypoScriptObjects\Helpers\BaseFormFactory
 	 */
 	protected $baseFormFactory;
 
 	/**
-	 * @FLOW3\Inject
-	 * @var \TYPO3\FLOW3\Validation\ValidatorResolver
+	 * @Flow\Inject
+	 * @var \TYPO3\Flow\Validation\ValidatorResolver
 	 */
 	protected $validatorResolver;
 
 	/**
-	 * @FLOW3\Inject
-	 * @var \TYPO3\FLOW3\Reflection\ReflectionService
+	 * @Flow\Inject
+	 * @var \TYPO3\Flow\Reflection\ReflectionService
 	 */
 	protected $reflectionService;
 
 	/**
-	 * @FLOW3\Inject
-	 * @var \TYPO3\FLOW3\Persistence\PersistenceManagerInterface
+	 * @Flow\Inject
+	 * @var \TYPO3\Flow\Persistence\PersistenceManagerInterface
 	 */
 	protected $persistenceManager;
 
@@ -192,10 +192,10 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypo
 	protected function addValidatorsToForm(\TYPO3\Form\Core\Model\FormDefinition $formDefinition, array $objectNamespaces) {
 		$className = $this->tsValue('className');
 		$baseValidator = $this->validatorResolver->getBaseValidatorConjunction($className, array('Default', 'Form'));
-		/* @var $baseValidator \TYPO3\FLOW3\Validation\Validator\ConjunctionValidator */
+		/* @var $baseValidator \TYPO3\Flow\Validation\Validator\ConjunctionValidator */
 		foreach ($baseValidator->getValidators() as $validator) {
-			if ($validator instanceof \TYPO3\FLOW3\Validation\Validator\GenericObjectValidator) {
-				/* @var $validator \TYPO3\FLOW3\Validation\Validator\GenericObjectValidator */
+			if ($validator instanceof \TYPO3\Flow\Validation\Validator\GenericObjectValidator) {
+				/* @var $validator \TYPO3\Flow\Validation\Validator\GenericObjectValidator */
 				foreach ($validator->getPropertyValidators() as $propertyName => $propertyValidatorList) {
 					foreach ($objectNamespaces as $objectNamespace) {
 						$formElement = $formDefinition->getElementByIdentifier($objectNamespace . '.' . $propertyName);
@@ -219,7 +219,7 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypo
 	 * @return void
 	 */
 	protected function loadDefaultValuesIntoForm(\TYPO3\Form\Core\Model\FormDefinition $formDefinition, $object, $namespace) {
-		$properties = \TYPO3\FLOW3\Reflection\ObjectAccess::getGettableProperties($object);
+		$properties = \TYPO3\Flow\Reflection\ObjectAccess::getGettableProperties($object);
 		foreach ($properties as $propertyName => $propertyValue) {
 			$formElement = $formDefinition->getElementByIdentifier($namespace . '.' . $propertyName);
 			if ($formElement !== NULL) {

@@ -11,7 +11,7 @@ namespace TYPO3\Expose\TypoScriptObjects;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
-use TYPO3\FLOW3\Annotations as FLOW3;
+use TYPO3\Flow\Annotations as Flow;
 
 /**
  * Render a Form using the Form framework
@@ -30,7 +30,7 @@ class FormRenderer extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypoScrip
 			throw new \InvalidArgumentException("TODO: FormRenderer expects a form definition inside form/");
 		}
 
-		$response = new \TYPO3\FLOW3\Http\Response($this->tsRuntime->getControllerContext()->getResponse());
+		$response = new \TYPO3\Flow\Http\Response($this->tsRuntime->getControllerContext()->getResponse());
 		return $formDefinition->bind($this->tsRuntime->getControllerContext()->getRequest(), $response)->render();
 	}
 }

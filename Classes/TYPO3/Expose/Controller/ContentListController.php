@@ -12,8 +12,8 @@ namespace TYPO3\Expose\Controller;
  *                                                                        */
 
 use Doctrine\ORM\Mapping as ORM;
-use TYPO3\FLOW3\Annotations as FLOW3;
-use TYPO3\FLOW3\Mvc\ActionRequest;
+use TYPO3\Flow\Annotations as Flow;
+use TYPO3\Flow\Mvc\ActionRequest;
 
 /**
  * Feature to display a list of TYPO3CR content nodes
@@ -22,8 +22,8 @@ use TYPO3\FLOW3\Mvc\ActionRequest;
 class ContentListController extends AbstractController {
 
 	/**
-	 * @FLOW3\Inject
-	 * @var \TYPO3\FLOW3\Security\Context
+	 * @Flow\Inject
+	 * @var \TYPO3\Flow\Security\Context
 	 */
 	protected $securityContext;
 

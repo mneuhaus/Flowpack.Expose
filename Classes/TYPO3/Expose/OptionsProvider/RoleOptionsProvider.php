@@ -12,7 +12,7 @@ namespace TYPO3\Expose\OptionsProvider;
  *                                                                        */
 
 use Doctrine\ORM\Mapping as ORM;
-use TYPO3\FLOW3\Annotations as FLOW3;
+use TYPO3\Flow\Annotations as Flow;
 
 /**
  * OptionsProvider for related Beings
@@ -21,8 +21,8 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 class RoleOptionsProvider extends \TYPO3\Expose\Core\OptionsProvider\AbstractOptionsProvider {
 
     /**
-     * @var \TYPO3\FLOW3\Configuration\ConfigurationManager
-     * @FLOW3\Inject
+     * @var \TYPO3\Flow\Configuration\ConfigurationManager
+     * @Flow\Inject
      */
     protected $configurationManager;
 
@@ -30,7 +30,7 @@ class RoleOptionsProvider extends \TYPO3\Expose\Core\OptionsProvider\AbstractOpt
     * TODO: Document this Method! ( getOptions )
     */
     public function getOptions() {
-        $acls = $this->configurationManager->getConfiguration(\TYPO3\FLOW3\Configuration\ConfigurationManager::CONFIGURATION_TYPE_POLICY, 'acls');
+        $acls = $this->configurationManager->getConfiguration(\TYPO3\Flow\Configuration\ConfigurationManager::CONFIGURATION_TYPE_POLICY, 'acls');
         return array_keys($acls);
     }
 

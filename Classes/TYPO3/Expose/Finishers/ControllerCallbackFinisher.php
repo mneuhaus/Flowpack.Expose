@@ -11,7 +11,7 @@ namespace TYPO3\Expose\Finishers;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
-use TYPO3\FLOW3\Annotations as FLOW3;
+use TYPO3\Flow\Annotations as Flow;
 
 /**
  * This finisher redirects to another Controller.
@@ -20,21 +20,21 @@ class ControllerCallbackFinisher extends \TYPO3\Form\Core\Model\AbstractFinisher
 
 	/**
 	 * @return void
-	 * @throws \TYPO3\FLOW3\Mvc\Exception\ForwardException
+	 * @throws \TYPO3\Flow\Mvc\Exception\ForwardException
 	 */
 	public function executeInternal() {
 		$formRuntime = $this->finisherContext->getFormRuntime();
 
 		$objectArguments = $formRuntime->getFormState()->getFormValue('objects');
 		if (isset($this->options['objectIdentifiers'])) {
-			$objectArguments = \TYPO3\FLOW3\Utility\Arrays::arrayMergeRecursiveOverrule($objectArguments, $this->options['objectIdentifiers']);
+			$objectArguments = \TYPO3\Flow\Utility\Arrays::arrayMergeRecursiveOverrule($objectArguments, $this->options['objectIdentifiers']);
 		}
 
 		$nextRequest = clone $formRuntime->getRequest()->getParentRequest();
 		$nextRequest->setArgument('@action', $this->parseOption("callbackAction"));
 		$nextRequest->setArgument('objects', $objectArguments);
 
-		$forwardException = new \TYPO3\FLOW3\Mvc\Exception\ForwardException();
+		$forwardException = new \TYPO3\Flow\Mvc\Exception\ForwardException();
 		$nextRequest->setDispatched(FALSE);
 		$forwardException->setNextRequest($nextRequest);
 		throw $forwardException;

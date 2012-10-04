@@ -11,8 +11,8 @@ namespace TYPO3\Expose\Core;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
-use TYPO3\FLOW3\Annotations as FLOW3;
-use TYPO3\FLOW3\Mvc\ActionRequest;
+use TYPO3\Flow\Annotations as Flow;
+use TYPO3\Flow\Mvc\ActionRequest;
 
 /**
  */
@@ -32,8 +32,8 @@ class ExposeRuntime {
 	protected $defaultExposeControllerClassName = 'TYPO3\\Expose\\Controller\\IndexController';
 
 	/**
-	 * @var \TYPO3\FLOW3\Mvc\Dispatcher
-	 * @FLOW3\Inject
+	 * @var \TYPO3\Flow\Mvc\Dispatcher
+	 * @Flow\Inject
 	 */
 	protected $dispatcher;
 
@@ -43,20 +43,20 @@ class ExposeRuntime {
 	protected $namespace = 'exposeRuntime';
 
 	/**
-	 * @var \TYPO3\FLOW3\Mvc\ActionRequest
+	 * @var \TYPO3\Flow\Mvc\ActionRequest
 	 */
 	protected $request;
 
 	/**
-	 * @var \TYPO3\FLOW3\Http\Response
+	 * @var \TYPO3\Flow\Http\Response
 	 */
 	protected $response;
 
 	/**
-	 * @param \TYPO3\FLOW3\Mvc\ActionRequest $parentRequest
-	 * @param \TYPO3\FLOW3\Http\Response $response
+	 * @param \TYPO3\Flow\Mvc\ActionRequest $parentRequest
+	 * @param \TYPO3\Flow\Http\Response $response
 	 */
-	public function __construct(\TYPO3\FLOW3\Mvc\ActionRequest $parentRequest, \TYPO3\FLOW3\Http\Response $response) {
+	public function __construct(\TYPO3\Flow\Mvc\ActionRequest $parentRequest, \TYPO3\Flow\Http\Response $response) {
 		$arguments = $parentRequest->getPluginArguments();
 		$this->request = new ActionRequest($parentRequest);
 		$this->request->setArgumentNamespace('--' . $this->namespace);
@@ -66,7 +66,7 @@ class ExposeRuntime {
 
 		$this->request->setFormat('html');
 			// TODO: the response below should be an MVC response
-		$this->response = new \TYPO3\FLOW3\Http\Response($response);
+		$this->response = new \TYPO3\Flow\Http\Response($response);
 	}
 
 	/**
@@ -78,7 +78,7 @@ class ExposeRuntime {
 	 * all up to the main request, such that they are caught by the URI builder when
 	 * addQueryString=TRUE.
 	 *
-	 * @param \TYPO3\FLOW3\Mvc\ActionRequest $request
+	 * @param \TYPO3\Flow\Mvc\ActionRequest $request
 	 * @param array $argumentValueToSet
 	 * @return void
 	 */

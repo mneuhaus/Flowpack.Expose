@@ -11,7 +11,7 @@ namespace TYPO3\Expose\TypoScript\Processors;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
-use TYPO3\FLOW3\Annotations as FLOW3;
+use TYPO3\Flow\Annotations as Flow;
 
 /**
  * Manipulate the context variable "objects", which we expect to be a QueryResultInterface;
@@ -21,8 +21,8 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 class LimitProcessor implements \TYPO3\TypoScript\RuntimeAwareProcessorInterface {
 
 	/**
-	 * @var \TYPO3\FLOW3\Configuration\ConfigurationManager
-	 * @FLOW3\Inject
+	 * @var \TYPO3\Flow\Configuration\ConfigurationManager
+	 * @Flow\Inject
 	 */
 	protected $configurationManager;
 
@@ -33,7 +33,7 @@ class LimitProcessor implements \TYPO3\TypoScript\RuntimeAwareProcessorInterface
 	 * @return void
 	 */
 	public function beforeInvocation(\TYPO3\TypoScript\Core\Runtime $runtime, \TYPO3\TypoScript\TypoScriptObjects\AbstractTypoScriptObject $typoScriptObject, $typoScriptPath) {
-		$this->settings = $this->configurationManager->getConfiguration(\TYPO3\FLOW3\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, 'TYPO3.Expose.Pagination');
+		$this->settings = $this->configurationManager->getConfiguration(\TYPO3\Flow\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, 'TYPO3.Expose.Pagination');
 		$this->tsRuntime = $runtime;
 		$context = $runtime->getCurrentContext();
 		if (isset($context['objects'])) {

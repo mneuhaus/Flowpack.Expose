@@ -11,13 +11,13 @@ namespace TYPO3\Expose\Controller;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
-use TYPO3\FLOW3\Annotations as FLOW3;
+use TYPO3\Flow\Annotations as Flow;
 
 /**
  * Base class for expose controllers. An expose controller implements a certain
  * functionality inside the Expose UI, such as "Edit", "New", "List" or "Delete".
  */
-abstract class AbstractController extends \TYPO3\FLOW3\Mvc\Controller\ActionController {
+abstract class AbstractController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 
 	/**
 	 * @var string
@@ -29,8 +29,8 @@ abstract class AbstractController extends \TYPO3\FLOW3\Mvc\Controller\ActionCont
 	 * data types and need to perform the conversion manually. that's why we inject
 	 * it here for convenience reasons.
 	 *
-	 * @var \TYPO3\FLOW3\Property\PropertyMapper
-	 * @FLOW3\Inject
+	 * @var \TYPO3\Flow\Property\PropertyMapper
+	 * @Flow\Inject
 	 */
 	protected $propertyMapper;
 

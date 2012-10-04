@@ -17,7 +17,7 @@ namespace TYPO3\Expose\Tests\Functional\TYPO3CR;
  *
  * @group large
  */
-class NodeQueryTest extends \TYPO3\FLOW3\Tests\FunctionalTestCase {
+class NodeQueryTest extends \TYPO3\Flow\Tests\FunctionalTestCase {
 
 	/**
 	 * @var boolean
@@ -42,12 +42,12 @@ class NodeQueryTest extends \TYPO3\FLOW3\Tests\FunctionalTestCase {
 	public function setUp() {
 		parent::setUp();
 		$nodeRepository = $this->objectManager->get('TYPO3\TYPO3CR\Domain\Repository\NodeRepository');
-		\TYPO3\FLOW3\Reflection\ObjectAccess::setProperty($nodeRepository, 'context', new \TYPO3\TYPO3\Domain\Service\ContentContext('live'), TRUE);
+		\TYPO3\Flow\Reflection\ObjectAccess::setProperty($nodeRepository, 'context', new \TYPO3\TYPO3\Domain\Service\ContentContext('live'), TRUE);
 		$siteImportService = $this->objectManager->get('TYPO3\TYPO3\Domain\Service\SiteImportService');
 		$siteImportService->importSitesFromFile(__DIR__ . '/Fixtures/NodeStructure.xml');
 		$this->persistenceManager->persistAll();
 
-		$propertyMapper = $this->objectManager->get('TYPO3\FLOW3\Property\PropertyMapper');
+		$propertyMapper = $this->objectManager->get('TYPO3\Flow\Property\PropertyMapper');
 		$this->node = $propertyMapper->convert('/sites/example/home', 'TYPO3\TYPO3CR\Domain\Model\Node');
 		$this->assertFalse($propertyMapper->getMessages()->hasErrors());
 	}
