@@ -2,7 +2,7 @@
 namespace TYPO3\Expose\TYPO3CR\Persistence\Node;
 
 /*                                                                        *
- * This script belongs to the FLOW3 package "TYPO3.Expose".               *
+ * This script belongs to the TYPO3 Flow package "TYPO3.Expose".               *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -46,7 +46,7 @@ class Query extends \TYPO3\Flow\Persistence\Doctrine\Query {
 	}
 
 	/**
-	 * Injects the FLOW3 QOM factory
+	 * Injects the TYPO3 Flow QOM factory
 	 *
 	 * @param \TYPO3\Flow\Persistence\Generic\Qom\QueryObjectModelFactory $qomFactory
 	 * @return void
