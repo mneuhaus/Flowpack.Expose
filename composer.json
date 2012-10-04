@@ -6,7 +6,9 @@
     "version": "0.1.0-dev",
     "require": {
         "typo3/flow-composer-installers": "*",
-        "typo3/flow": "*"
+        "typo3/flow": "*",
+        "typo3/form": "*",
+        "typo3/typoscript": "*"
     },
     "autoload": {
         "psr-0": {
