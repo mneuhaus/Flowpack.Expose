@@ -14,37 +14,6 @@ TYPO3:
       Default: 20
       MaxPages: 8
 
-  TYPO3:
-      modules:
-        management:
-          submodules:
-            content:
-              label: 'Manage Content'
-              controller: '\TYPO3\Expose\Controller\ModuleController'
-              defaultExposeControllerClassName: '\TYPO3\Expose\Controller\ContentListController'
-              description: "In this module, the contents of the TYPO3 Content Repository can be managed. You can list, filter and edit pages and arbitrary content."
-              icon: 'resource://TYPO3.Expose/Public/Icons/db_icon-24.png'
-#            blog:
-#              label: 'Blog'
-#              controller: '\TYPO3\Expose\Controller\ModuleController'
-#              defaultExposeControllerClassName: '\TYPO3\Expose\Controller\SameTypeListController'
-#              defaultExposeControllerArguments:
-#                type: 'TYPO3\Blog\Domain\Model\Blog'
-#            blogposts:
-#              label: 'Blog Posts'
-#              controller: '\TYPO3\Expose\Controller\ModuleController'
-#              defaultExposeControllerClassName: '\TYPO3\Expose\Controller\SameTypeListController'
-#              defaultExposeControllerArguments:
-#                type: 'TYPO3\Blog\Domain\Model\Post'
-#        administration:
-#          submodules:
-#            usernew:
-#              label: 'New User Administration'
-#              controller: '\TYPO3\Expose\Controller\ModuleController'
-#              defaultExposeControllerClassName: '\TYPO3\Expose\Controller\SameTypeListController'
-#              defaultExposeControllerArguments:
-#                type: 'TYPO3\TYPO3\Domain\Model\User'
-
   TYPO3CR:
     contentTypes:
       'TYPO3.TYPO3:Section':
