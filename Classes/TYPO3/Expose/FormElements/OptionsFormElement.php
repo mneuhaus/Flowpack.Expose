@@ -17,20 +17,19 @@ use TYPO3\Flow\Annotations as Flow;
  * A generic form element
  */
 class OptionsFormElement extends ComplexFormElement {
-
 	/**
-	 * @return object
-	 */
-	public function getAnnotations() {
-		return $this->properties['annotations'];
-	}
+	 * Default OptionsProvider
+	 *
+	 * @var string
+	 **/
+	protected $defaultOptionsProvider = 'TYPO3\Expose\OptionsProvider\RelationOptionsProvider';
 
 	/**
 	 * @return \TYPO3\Expose\Core\OptionsProvider\OptionsProviderInterface
 	 */
 	public function getOptionsProvider() {
-		$optionsProviderClass = (string)$this->getAnnotations()->getOptionsProvider();
-		$optionsProvider = new $optionsProviderClass($this->getAnnotations());
+		$optionsProviderClass = $this->defaultOptionsProvider;
+		$optionsProvider = new $optionsProviderClass();
 
 		return $optionsProvider;
 	}

@@ -31,9 +31,10 @@ class RelationOptionsProvider extends \TYPO3\Expose\Core\OptionsProvider\Abstrac
     */
     public function getOptions() {
         $options = array();
-        $objects = $this->persistenceService->createQueryForType($this->annotations->getType())->execute();
+        return $options;
+        $objects = $this->persistenceManager->createQueryForType($this->annotations->getType())->execute();
         foreach ($objects as $object) {
-            $options[$this->persistenceService->getIdentifierByObject($object)] = $this->convert($object);
+            $options[$this->persistenceManager->getIdentifierByObject($object)] = $this->convert($object);
         }
         return $objects;
     }

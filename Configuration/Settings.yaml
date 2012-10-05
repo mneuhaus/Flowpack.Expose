@@ -30,6 +30,10 @@ TYPO3:
             renderingOptions:
               templatePathPattern: 'resource://TYPO3.Expose/Private/Form/Form.html'
 
+          'TYPO3.Form:Section':
+            renderingOptions:
+              templatePathPattern: 'resource://TYPO3.Expose/Private/Form/Section.html'
+
           'TYPO3.Form:SelectionMixin':
             implementationClassName: 'TYPO3\Expose\FormElements\OptionsFormElement'
 
@@ -50,6 +54,7 @@ TYPO3:
             superTypes: ['TYPO3.Form:Section']
             implementationClassName: 'TYPO3\Expose\FormElements\InlineFormElement'
             renderingOptions:
+              templatePathPattern: 'resource://TYPO3.Expose/Private/Form/{@type}.html'
               renderableNameInTemplate: 'inline'
 
           'TYPO3.Expose:InlineStackedItem':

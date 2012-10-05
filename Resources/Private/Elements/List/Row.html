@@ -1,20 +1,22 @@
 <f:comment>REVIEWED for release</f:comment>
 <!-- TODO: improve string formatting using TS -->
-{namespace cm=TYPO3\Expose\ViewHelpers}
+{namespace e=TYPO3\Expose\ViewHelpers}
 {namespace ts=TYPO3\TypoScript\ViewHelpers}
 
-<cm:properties object="{item}" context="Content.List.Table">
+<e:properties object="{item}">
 	<tr data-klove="row">
 		<td class="tiny">
 			<input type="checkbox" name="bulkItems[]" value="{being.id}" class="select-row" data-klove-row-shortcut="x"/>
 		</td>
-		<f:for each="{properties}" as="property">
+		<f:for each="{properties}" as="propertySchema" key="property">
 			<td>
-				{property.value -> cm:formatAsString()}
+				<e:objectAccess object="{item}" property="{property}">
+					{value -> e:formatAsString()}
+				</e:objectAccess>
 			</td>
 		</f:for>
 		<td class="table-actions">
 			<ts:renderTypoScript path="controllerLinks" />
 		</td>
 	</tr>
-</cm:properties>
+</e:properties>

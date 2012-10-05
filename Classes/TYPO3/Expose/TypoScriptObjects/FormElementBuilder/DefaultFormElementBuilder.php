@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\Expose\TypoScriptObjects;
+namespace TYPO3\Expose\TypoScriptObjects\FormElementBuilder;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "TYPO3.Expose".               *
@@ -17,6 +17,12 @@ use TYPO3\Flow\Annotations as Flow;
  * Render a Form section using the Form framework
  */
 class DefaultFormElementBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypoScriptObject {
+
+    /**
+     * @var \TYPO3\Flow\Reflection\ReflectionService
+     * @Flow\Inject
+     */
+    protected $reflectionService;
 
 	/**
 	 * @var string
@@ -59,9 +65,15 @@ class DefaultFormElementBuilder extends \TYPO3\TypoScript\TypoScriptObjects\Abst
 	protected $propertyType;
 
 	/**
-	 * @param string $identifier
-	 * @return void
+	 * @var object
 	 */
+	protected $formBuilder;
+
+	/**
+	 * @var object
+	 */
+	protected $propertyValue;
+
 	public function setIdentifier($identifier) {
 		$this->identifier = $identifier;
 	}
@@ -122,29 +134,46 @@ class DefaultFormElementBuilder extends \TYPO3\TypoScript\TypoScriptObjects\Abst
 		$this->propertyType = $propertyType;
 	}
 
-	/**
-	 * Evaluate the collection nodes
-	 *
-	 * @return string
-	 * @throws \InvalidArgumentException
-	 */
-	public function evaluate() {
+	public function setFormBuilder($formBuilder) {
+		$this->formBuilder = $formBuilder;
+	}
+
+	public function setPropertyValue($propertyValue) {
+		$this->propertyValue = $propertyValue;
+	}
+
+    /**
+     * Evaluate the collection nodes
+     *
+     * @return string
+     */
+    public function evaluate() {
 		$parentFormElement = $this->tsValue('parentFormElement');
 		if (!($parentFormElement instanceof \TYPO3\Form\Core\Model\AbstractSection)) {
 			throw new \InvalidArgumentException('TODO: parent form element must be a section-like element');
 		}
 
 		$annotations = $this->tsValue("propertyAnnotations");
-		if (isset($annotations['TYPO3\Expose\Annotations\Ignore'])) {
+		if (isset($annotations['TYPO3\Expose\Annotations\Ignore'])){
 			return NULL;
 		}
 
 		$element = $parentFormElement->createElement($this->tsValue('identifier'), $this->tsValue('formFieldType'));
-		$element->setDataType($this->tsValue("propertyType"));
+
+		if (method_exists($element, 'setAnnotations')){
+			#$classAnnotations = $this->annotationService->getClassAnnotations($this->tsValue("className"));
+			#$element->setAnnotations($classAnnotations->getPropertyAnnotations($this->tsValue("propertyName")));
+		}
+
+		if (method_exists($element, 'setFormBuilder')){
+			$element->setFormBuilder($this->tsValue("formBuilder"));
+		}
+
 		$element->setLabel($this->tsValue('label'));
+		$element->setDefaultValue($this->tsValue('propertyValue'));
 
 		return $element;
-	}
-}
+    }
 
+}
 ?>

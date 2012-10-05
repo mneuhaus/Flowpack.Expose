@@ -32,7 +32,7 @@ class NodeFormBuilder extends ObjectFormBuilder {
 	 * @param object $object
 	 * @return void
 	 */
-	protected function createElementsForSection($sectionName, \TYPO3\Form\FormElements\Section $section, $namespace, $object) {
+	public function createElementsForSection($sectionName, \TYPO3\Form\FormElements\Section $section, $namespace, $object) {
 		/* @var $object \TYPO3\TYPO3CR\Domain\Model\NodeInterface */
 		$contentType = $object->getContentType();
 
@@ -47,9 +47,15 @@ class NodeFormBuilder extends ObjectFormBuilder {
 			$this->tsRuntime->pushContext('formElementIdentifier', $namespace . '.' . $propertyName);
 			$this->tsRuntime->pushContext('propertySchema', $propertySchema);
 			$this->tsRuntime->pushContext('propertyType', (isset($propertySchema['type']) ? $propertySchema['type'] : 'string'));
+			$this->tsRuntime->pushContext('propertyElementType', isset($propertySchema['elementType']) ? $propertySchema['elementType'] : NULL);
+			$this->tsRuntime->pushContext('formBuilder', $this);
+			$this->tsRuntime->pushContext('propertyValue', $this->getPropertyValue($object, $propertyName));
 
 			$this->tsRuntime->render($this->path . '/elementBuilder');
 
+			$this->tsRuntime->popContext();
+			$this->tsRuntime->popContext();
+			$this->tsRuntime->popContext();
 			$this->tsRuntime->popContext();
 			$this->tsRuntime->popContext();
 			$this->tsRuntime->popContext();
@@ -63,7 +69,6 @@ class NodeFormBuilder extends ObjectFormBuilder {
 	 * @return array
 	 */
 	protected function getObjectIdentifierArrayForObject($object) {
-		/* @var $object \TYPO3\TYPO3CR\Domain\Model\NodeInterface */
 		return array('__contextNodePath' => $object->getContextPath());
 	}
 
@@ -96,6 +101,22 @@ class NodeFormBuilder extends ObjectFormBuilder {
 				$formElement->setDefaultValue(\TYPO3\Flow\Reflection\ObjectAccess::getProperty($object, $internalPropertyName));
 			}
 		}
+	}
+
+	public function getPropertyValue($object, $propertyName) {
+		if ($object->hasProperty($propertyName)) {
+			return $object->getProperty($propertyName);
+		}
+
+		if (\TYPO3\Flow\Reflection\ObjectAccess::isPropertyGettable($object, $propertyName)) {
+			return \TYPO3\Flow\Reflection\ObjectAccess::getProperty($object, $propertyName);
+		}
+
+		#if ($propertyName == "_name") {
+		#	return $object->getName();
+		#}
+
+		return NULL;
 	}
 }
 ?>
