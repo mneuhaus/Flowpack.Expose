@@ -14,10 +14,10 @@
 					<th>{property}</th>
 				</f:for>
 			</tr>
-			
-			<tr class="inline-template">
-				<form:renderRenderable renderable="{inline.template}" />
-			</tr>
+
+			<!-- <tr class="inline-template">
+				<_form:renderRenderable renderable="{inline.template" />
+			</tr> -->
 
 			<f:for each="{inline.elements}" as="element">
 				<tr class="inline-item">
@@ -26,9 +26,9 @@
 			</f:for>
 
 			<f:if condition="{inline.multipleMode}">
-			<tr class="inline-item inline-unused">
-				<form:renderRenderable renderable="{inline.unusedElement}" />
-			</tr>
+			<!-- <tr class="inline-item inline-unused">
+				<_form:renderRenderable renderable="{inline.unusedElement" />
+			</tr> -->
 			</f:if>
 		</table>
 	</div>

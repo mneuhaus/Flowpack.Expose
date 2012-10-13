@@ -87,35 +87,36 @@ body.js .nojs {
 /* line 52, ../sass/_recordlist.scss */
 .typo3-expose-recordlist.hiddenActionBar [data-area=actionBar] {
   opacity: 0;
+  display: none;
 }
-/* line 55, ../sass/_recordlist.scss */
+/* line 56, ../sass/_recordlist.scss */
 .typo3-expose-recordlist.hiddenActionBar [data-area=main] {
   margin-right: 0;
 }
-/* line 59, ../sass/_recordlist.scss */
+/* line 60, ../sass/_recordlist.scss */
 .typo3-expose-recordlist [data-area=main], .typo3-expose-recordlist [data-area=actionBar] {
-  -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
+  -webkit-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
 }
-/* line 62, ../sass/_recordlist.scss */
+/* line 63, ../sass/_recordlist.scss */
 .typo3-expose-recordlist [data-area=main] {
-  -webkit-transition-property: margin-right;
   -moz-transition-property: margin-right;
+  -webkit-transition-property: margin-right;
   -o-transition-property: margin-right;
   transition-property: margin-right;
   margin-right: 150px;
 }
-/* line 66, ../sass/_recordlist.scss */
+/* line 67, ../sass/_recordlist.scss */
 .typo3-expose-recordlist [data-area=actionBar] {
-  -webkit-transition-property: opacity;
   -moz-transition-property: opacity;
+  -webkit-transition-property: opacity;
   -o-transition-property: opacity;
   transition-property: opacity;
   opacity: 1;
 }
-/* line 71, ../sass/_recordlist.scss */
+/* line 72, ../sass/_recordlist.scss */
 .typo3-expose-recordlist .pagination a {
   color: black;
   font-size: 14px;
@@ -147,3 +148,15 @@ body.js .nojs {
 		margin: 0;
 	}
 }*/
+/* line 5, ../sass/_form.scss */
+.typo3-expose-form .inline table .control-group > label {
+  display: none;
+}
+/* line 6, ../sass/_form.scss */
+.typo3-expose-form .inline table .controls {
+  margin-left: 0;
+}
+/* line 7, ../sass/_form.scss */
+.typo3-expose-form .inline table .controls input, .typo3-expose-form .inline table select {
+  width: auto;
+}

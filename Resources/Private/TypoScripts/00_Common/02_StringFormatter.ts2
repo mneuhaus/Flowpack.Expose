@@ -21,6 +21,10 @@ prototype(TYPO3.Expose:StringFormatter) < prototype(TYPO3.TypoScript:Case) {
 	array.type = 'TYPO3.Expose:StringFormatter.Array'
 	array.@position = 10
 
+	collection.condition = ${q(value).is('[instanceof Doctrine\Common\Collections\Collection]')}
+	collection.type = 'TYPO3.Expose:StringFormatter.Array'
+	collection.@position = 10
+
 	dateTime.condition = ${q(value).is('[instanceof DateTime]')}
 	dateTime.type = 'TYPO3.Expose:StringFormatter.DateTime'
 	dateTime.@position = 10

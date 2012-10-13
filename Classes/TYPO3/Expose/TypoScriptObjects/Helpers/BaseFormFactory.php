@@ -25,7 +25,7 @@ class BaseFormFactory extends \TYPO3\Form\Factory\AbstractFormFactory {
 	public function build(array $configuration, $presetName) {
 		$formDefaults = $this->getPresetConfiguration($presetName);
 
-		return new \TYPO3\Form\Core\Model\FormDefinition($configuration['identifier'], $formDefaults);
+		return new \TYPO3\Expose\Form\FormDefinition($configuration['identifier'], $formDefaults);
 	}
 
 }

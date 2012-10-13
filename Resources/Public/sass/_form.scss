@@ -1,3 +1,10 @@
-.t3-ui .typo3-expose-form {
+.typo3-expose-form {
 	// Style definitions can follow here as we need them
+	.inline {
+		table {
+			.control-group > label { display: none; }
+			.controls { margin-left: 0; }
+			.controls input, select { width: auto; }
+		}
+	}
 }

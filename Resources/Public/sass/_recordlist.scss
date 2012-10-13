@@ -51,6 +51,7 @@
 	&.hiddenActionBar {
 		[data-area=actionBar] {
 			opacity: 0;
+			display: none;
 		}
 		[data-area=main] {
 			margin-right:0;

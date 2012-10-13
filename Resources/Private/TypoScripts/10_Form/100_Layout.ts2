@@ -45,6 +45,7 @@ prototype(TYPO3.Expose:ObjectFormBuilder) {
 	callbackAction = ${callback}
 
 	sectionBuilder = TYPO3.Expose:Form.SectionBuilder
+	inlineBuilder = TYPO3.Expose:Form.InlineBuilder
 	elementBuilder = TYPO3.Expose:Form.ElementBuilder
 }
 
@@ -79,7 +80,6 @@ prototype(TYPO3.Expose:Form.SectionBuilder) {
 	@class = 'TYPO3\\Expose\\TypoScriptObjects\\SectionBuilder'
 	parentFormElement = ${parentFormElement}
 	identifier = ${identifier}
-
 }
 
 /**
@@ -93,42 +93,64 @@ prototype(TYPO3.Expose:Form.ElementBuilder) < prototype(TYPO3.TypoScript:Case) {
 	prototype(TYPO3.TypoScript:Matcher).type = 'TYPO3.Expose:Form.DefaultElementBuilder'
 
 #	debug {
-#		condition = ${q(p).debug(propertySchema)}
+#		condition = ${q(p).debug(propertyAnnotations)}
 #		@position = 'start'
 #	}
 
 	ignore {
 		condition = ${propertyAnnotations['TYPO3\Expose\Annotations\Ignore']}
-		@position = '90'
+		@position = '10'
 	}
 
-	#manyToOneInline {
-	#	condition = ${propertyAnnotations['Doctrine\ORM\Mapping\ManyToOne']}
-	#	@position = '50'
-	#	@override.formFieldType = 'TYPO3.Expose:InlineStacked'
-	#}
+	elementFromAnnotation {
+		condition = ${propertyAnnotations['TYPO3\Expose\Annotations\Element']}
+		@position = '10'
+		@override.formFieldType = ${propertyAnnotations['TYPO3\Expose\Annotations\Element']['0'].name}
+	}
+
+
+	textfieldType {
+		condition = ${propertyType == 'string' && propertyAnnotations['Doctrine\ORM\Mapping\Column']['0'].type == 'text'}
+		@position = '90'
+		@override.formFieldType = 'TYPO3.Form:MultiLineText'
+	}
+
+	simpleStringType {
+		condition = ${propertyType == 'string'}
+		@position = '100'
+		@override.formFieldType = 'TYPO3.Form:SingleLineText'
+	}
+
+
+
+	inline {
+		condition = ${propertyAnnotations['TYPO3\Expose\Annotations\Inline']}
+		type = 'TYPO3.Expose:Form.InlineElementBuilder'
+		@position = '190'
+		@override.formFieldType = ${propertyAnnotations['TYPO3\Expose\Annotations\Inline']['0'].element}
+	}
 
 	manyToMany {
 		condition = ${propertyAnnotations['Doctrine\ORM\Mapping\ManyToMany']}
-		@position = '90'
+		@position = '200'
 		@override.formFieldType = 'TYPO3.Form:MultipleSelectDropdown'
 	}
 
 	manyToOne {
 		condition = ${propertyAnnotations['Doctrine\ORM\Mapping\ManyToOne']}
-		@position = '90'
+		@position = '200'
 		@override.formFieldType = 'TYPO3.Form:SingleSelectDropdown'
 	}
 
 	oneToMany {
 		condition = ${propertyAnnotations['Doctrine\ORM\Mapping\OneToMany']}
-		@position = '90'
+		@position = '200'
 		@override.formFieldType = 'TYPO3.Form:MultipleSelectDropdown'
 	}
 
 	oneToOne {
 		condition = ${propertyAnnotations['Doctrine\ORM\Mapping\OneToOne']}
-		@position = '90'
+		@position = '200'
 		@override.formFieldType = 'TYPO3.Form:SingleSelectDropdown'
 	}
 
@@ -164,11 +186,6 @@ prototype(TYPO3.Expose:Form.ElementBuilder) < prototype(TYPO3.TypoScript:Case) {
 	}
 	// NODE END
 
-	simpleStringType {
-		condition = ${propertyType == 'string'}
-		@position = '100'
-		@override.formFieldType = 'TYPO3.Form:SingleLineText'
-	}
 }
 
 /**
@@ -178,7 +195,7 @@ prototype(TYPO3.Expose:Form.ElementBuilder) < prototype(TYPO3.TypoScript:Case) {
  * @param label=${propertyName}
  */
 prototype(TYPO3.Expose:Form.DefaultElementBuilder) {
-	@class = 'TYPO3\\Expose\\TypoScriptObjects\\DefaultFormElementBuilder'
+	@class = 'TYPO3\\Expose\\TypoScriptObjects\\FormElementBuilder\\DefaultFormElementBuilder'
 	formFieldType = ${formFieldType}
 	parentFormElement = ${parentFormElement}
 	identifier = ${formElementIdentifier}
@@ -186,5 +203,17 @@ prototype(TYPO3.Expose:Form.DefaultElementBuilder) {
 	propertyAnnotations = ${propertyAnnotations}
 	propertyName = ${propertyName}
 	propertyType = ${propertyType}
+	propertyValue = ${propertyValue}
 	className = ${className}
+}
+
+/**
+ * @param formFieldType=${formFieldType}
+ * @param parentFormElement=${parentFormElement}
+ * @param identifier=${formElementIdentifier}
+ * @param label=${propertyName}
+ */
+prototype(TYPO3.Expose:Form.InlineElementBuilder) < prototype(TYPO3.Expose:Form.DefaultElementBuilder) {
+	@class = 'TYPO3\\Expose\\TypoScriptObjects\\FormElementBuilder\\InlineFormElementBuilder'
+	formBuilder = ${formBuilder}
 }

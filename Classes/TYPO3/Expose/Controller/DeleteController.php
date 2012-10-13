@@ -24,8 +24,8 @@ class DeleteController extends AbstractController {
 	 * @return void
 	 */
 	public function initializeAction() {
-		$this->arguments['objects']->setDataType('Doctrine\Common\Collections\Collection<' . $this->request->getArgument('type') . '>');
-		$this->arguments['objects']->getPropertyMappingConfiguration()->allowAllProperties();
+#		$this->arguments['objects']->setDataType('Doctrine\Common\Collections\Collection<' . $this->request->getArgument('type') . '>');
+#		$this->arguments['objects']->getPropertyMappingConfiguration()->allowAllProperties();
 	}
 
 	/**

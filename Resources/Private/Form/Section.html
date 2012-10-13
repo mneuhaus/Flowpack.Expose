@@ -1,0 +1,20 @@
+{namespace form=TYPO3\Form\ViewHelpers}
+
+<f:form.validationResults for="{section.identifier}">
+	<fieldset id="{section.uniqueIdentifier}"{f:if(condition: section.properties.elementClassAttribute, then: ' class="{section.properties.elementClassAttribute}"')}>
+		<f:if condition="{section.label}">
+			<legend>{section.label}</legend>
+		</f:if>
+		<f:if condition="{validationResults.flattenedErrors}">
+			<div class="alert alert-error">
+				<f:for each="{validationResults.errors}" as="error">
+					{error -> f:translate(id: error.code, arguments: error.arguments, package: 'TYPO3.Form', source: 'ValidationErrors')}
+					<br />
+				</f:for>
+			</div>
+		</f:if>
+		<f:for each="{section.elements}" as="element">
+			<form:renderRenderable renderable="{element}" />
+		</f:for>
+	</fieldset>
+</f:form.validationResults>

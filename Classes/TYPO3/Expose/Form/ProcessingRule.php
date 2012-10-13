@@ -1,8 +1,8 @@
 <?php
-namespace TYPO3\Expose\ViewHelpers;
+namespace TYPO3\Expose\Form;
 
 /*                                                                        *
- * This script belongs to the TYPO3 Flow package "TYPO3.Expose".          *
+ * This script belongs to the TYPO3 Flow package "TYPO3.Form".            *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -14,18 +14,17 @@ namespace TYPO3\Expose\ViewHelpers;
 use TYPO3\Flow\Annotations as Flow;
 
 /**
- * TODO: throw this VH away once we have eel in Fluid
+ * A processing Rule contains information for property mapping and validation.
+ *
+ * **This class is not meant to be subclassed by developers.**
  */
-class NodeTypeFilterViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
+class ProcessingRule extends \TYPO3\Form\Core\Model\ProcessingRule {
 
 	/**
-	 * @param \TYPO3\TYPO3CR\Domain\Model\NodeInterface $node
-	 * @param string $nodeType
-	 * @return array
+	 * @Flow\Inject
+	 * @var \TYPO3\Expose\Form\PropertyMappingConfiguration
 	 */
-	public function render(\TYPO3\TYPO3CR\Domain\Model\NodeInterface $node, $nodeType) {
-		return $node->getChildNodes($nodeType);
-	}
-}
+	protected $propertyMappingConfiguration;
 
+}
 ?>
