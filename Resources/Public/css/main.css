@@ -204,18 +204,18 @@ body.js .nojs {
 .t3-expose-form .t3-expose-inline-multiple .t3-expose-inline-item-unused .close {
   display: none;
 }
-/* line 51, ../sass/_Form.scss */
+/* line 55, ../sass/_Form.scss */
 .t3-expose-form .t3-expose-section,
 .t3-expose-form .t3-expose-page {
   margin: 0;
 }
-/* line 57, ../sass/_Form.scss */
+/* line 61, ../sass/_Form.scss */
 .t3-expose-form .form-navigation ul,
 .t3-expose-form .form-navigation li {
   list-style: none;
 }
 
-/* line 75, ../sass/_Form.scss */
+/* line 79, ../sass/_Form.scss */
 .t3-expose-form {
   background: #ffffff;
   border: 1px solid #c0c0c0;
@@ -223,7 +223,7 @@ body.js .nojs {
   -webkit-box-shadow: #cccccc 0px 3px 5px;
   box-shadow: #cccccc 0px 3px 5px;
 }
-/* line 78, ../sass/_Form.scss */
+/* line 82, ../sass/_Form.scss */
 .t3-expose-form fieldset > h5 {
   background: #EFF5F8;
   border-bottom: 1px solid #CCC;
@@ -232,7 +232,7 @@ body.js .nojs {
   text-shadow: white 0px 1px;
   margin-top: -1px;
 }
-/* line 87, ../sass/_Form.scss */
+/* line 91, ../sass/_Form.scss */
 .t3-expose-form .t3-expose-inline {
   background: #ffffff;
   border: 1px solid #c0c0c0;
@@ -240,19 +240,29 @@ body.js .nojs {
   -webkit-box-shadow: #cccccc 0px 3px 5px;
   box-shadow: #cccccc 0px 3px 5px;
 }
-/* line 90, ../sass/_Form.scss */
+/* line 94, ../sass/_Form.scss */
 .t3-expose-form .t3-expose-inline > h5 {
   background: whiteSmoke;
 }
-/* line 94, ../sass/_Form.scss */
+/* line 98, ../sass/_Form.scss */
 .t3-expose-form .t3-expose-inline .t3-expose-inline-item {
   border-bottom: 1px solid #DDD;
 }
-/* line 98, ../sass/_Form.scss */
+/* line 102, ../sass/_Form.scss */
 .t3-expose-form .t3-expose-inline .t3-expose-inline-item-unused {
   background: #FAFAFA;
 }
-/* line 102, ../sass/_Form.scss */
+/* line 106, ../sass/_Form.scss */
 .t3-expose-form .t3-expose-inline .control-group {
   margin: 10px 20px 0;
+}
+/* line 111, ../sass/_Form.scss */
+.t3-expose-form .t3-expose-inline-seamless {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
 }

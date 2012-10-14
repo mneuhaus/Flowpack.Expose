@@ -47,6 +47,10 @@
 		}
 	}
 
+	.t3-expose-inline-seamless {
+
+	}
+
 	.t3-expose-section,
 	.t3-expose-page {
 		margin: 0;
@@ -102,5 +106,15 @@
 		.control-group {
 			margin: 10px 20px 0;
 		}
+	}
+
+	.t3-expose-inline-seamless {
+		background: none;
+		border: none;
+		padding: 0;
+		margin: 0;
+		-webkit-box-shadow: none;
+		-moz-box-shadow: none;
+		box-shadow: none;
 	}
 }

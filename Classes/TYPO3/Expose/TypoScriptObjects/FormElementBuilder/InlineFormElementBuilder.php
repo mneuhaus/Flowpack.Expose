@@ -62,9 +62,7 @@ class InlineFormElementBuilder extends DefaultFormElementBuilder {
             $containerSection->setLabel($this->tsValue('label'));
             $containerSection->setDataType('Doctrine\Common\Collections\Collection<' . $className . '>');
             $containerSection->setCounter(count($objects));
-            if (method_exists($containerSection, 'setAnnotations')){
-                $containerSection->setAnnotations($propertyAnnotations);
-            }
+            $containerSection->setAnnotations($propertyAnnotations);
             foreach ($objects as $key => $object) {
 	            $itemSection = $containerSection->createElement($namespace . '.' . $key, $this->tsValue('formFieldType').'Item');
                 $itemSection->setFormBuilder($this->tsValue("formBuilder"));
@@ -80,10 +78,11 @@ class InlineFormElementBuilder extends DefaultFormElementBuilder {
             $containerSection = $parentFormElement->createElement("container." . $this->tsValue('identifier'), $this->tsValue('formFieldType'));
             $containerSection->setFormBuilder($this->tsValue("formBuilder"));
             $containerSection->setLabel($this->tsValue('label'));
+            $containerSection->setClass($className);
+            $containerSection->setAnnotations($propertyAnnotations);
 
             $itemSection = $containerSection->createElement($namespace, $this->tsValue('formFieldType').'Item');
             $itemSection->setFormBuilder($this->tsValue("formBuilder"));
-            $itemSection->setClass($className);
             $itemSection->setDataType($className);
             $section = $this->tsValue("formBuilder")->createFormForSingleObject($itemSection, $object, $namespace);
         }
