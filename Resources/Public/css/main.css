@@ -148,15 +148,111 @@ body.js .nojs {
 		margin: 0;
 	}
 }*/
-/* line 5, ../sass/_form.scss */
-.typo3-expose-form .inline table .control-group > label {
+/* line 2, ../sass/_Inline.scss */
+.t3-expose-inline .t3-expose-inline-item-template {
   display: none;
 }
-/* line 6, ../sass/_form.scss */
-.typo3-expose-form .inline table .controls {
+
+/* line 4, ../sass/_Form.scss */
+.t3-expose-form .t3-expose-inline {
+  margin: 20px;
+}
+/* line 7, ../sass/_Form.scss */
+.t3-expose-form .t3-expose-inline table .control-group {
+  margin: 0;
+}
+/* line 8, ../sass/_Form.scss */
+.t3-expose-form .t3-expose-inline table .control-group > label {
+  display: none;
+}
+/* line 9, ../sass/_Form.scss */
+.t3-expose-form .t3-expose-inline table .controls {
   margin-left: 0;
 }
-/* line 7, ../sass/_form.scss */
-.typo3-expose-form .inline table .controls input, .typo3-expose-form .inline table select {
-  width: auto;
+/* line 10, ../sass/_Form.scss */
+.t3-expose-form .t3-expose-inline table .controls input, .t3-expose-form .t3-expose-inline table select {
+  width: 130px;
+}
+/* line 11, ../sass/_Form.scss */
+.t3-expose-form .t3-expose-inline table th {
+  border-top: none;
+}
+/* line 14, ../sass/_Form.scss */
+.t3-expose-form .t3-expose-inline > h5 {
+  margin-bottom: 0;
+}
+/* line 18, ../sass/_Form.scss */
+.t3-expose-form .t3-expose-inline .t3-expose-inline-item {
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+/* line 23, ../sass/_Form.scss */
+.t3-expose-form .t3-expose-inline .close {
+  margin-right: 20px;
+  line-height: 10px;
+}
+/* line 30, ../sass/_Form.scss */
+.t3-expose-form .t3-expose-inline-item .close {
+  display: none;
+}
+/* line 37, ../sass/_Form.scss */
+.t3-expose-form .t3-expose-inline-multiple .t3-expose-inline-item .close {
+  display: block;
+}
+/* line 44, ../sass/_Form.scss */
+.t3-expose-form .t3-expose-inline-multiple .t3-expose-inline-item-template .close,
+.t3-expose-form .t3-expose-inline-multiple .t3-expose-inline-item-unused .close {
+  display: none;
+}
+/* line 51, ../sass/_Form.scss */
+.t3-expose-form .t3-expose-section,
+.t3-expose-form .t3-expose-page {
+  margin: 0;
+}
+/* line 57, ../sass/_Form.scss */
+.t3-expose-form .form-navigation ul,
+.t3-expose-form .form-navigation li {
+  list-style: none;
+}
+
+/* line 75, ../sass/_Form.scss */
+.t3-expose-form {
+  background: #ffffff;
+  border: 1px solid #c0c0c0;
+  -moz-box-shadow: #cccccc 0px 3px 5px;
+  -webkit-box-shadow: #cccccc 0px 3px 5px;
+  box-shadow: #cccccc 0px 3px 5px;
+}
+/* line 78, ../sass/_Form.scss */
+.t3-expose-form fieldset > h5 {
+  background: #EFF5F8;
+  border-bottom: 1px solid #CCC;
+  border-top: 1px solid #CCC;
+  padding: 0.5em 20px;
+  text-shadow: white 0px 1px;
+  margin-top: -1px;
+}
+/* line 87, ../sass/_Form.scss */
+.t3-expose-form .t3-expose-inline {
+  background: #ffffff;
+  border: 1px solid #c0c0c0;
+  -moz-box-shadow: #cccccc 0px 3px 5px;
+  -webkit-box-shadow: #cccccc 0px 3px 5px;
+  box-shadow: #cccccc 0px 3px 5px;
+}
+/* line 90, ../sass/_Form.scss */
+.t3-expose-form .t3-expose-inline > h5 {
+  background: whiteSmoke;
+}
+/* line 94, ../sass/_Form.scss */
+.t3-expose-form .t3-expose-inline .t3-expose-inline-item {
+  border-bottom: 1px solid #DDD;
+}
+/* line 98, ../sass/_Form.scss */
+.t3-expose-form .t3-expose-inline .t3-expose-inline-item-unused {
+  background: #FAFAFA;
+}
+/* line 102, ../sass/_Form.scss */
+.t3-expose-form .t3-expose-inline .control-group {
+  margin: 10px 20px 0;
 }

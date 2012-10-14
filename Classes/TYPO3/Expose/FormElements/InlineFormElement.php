@@ -26,6 +26,18 @@ class InlineFormElement extends \TYPO3\Form\FormElements\Section {
 
     /**
      *
+     * @var string
+     **/
+    protected $counter = 0;
+
+    /**
+     *
+     * @var string
+     **/
+    protected $var;
+
+    /**
+     *
      * @var object
      **/
     protected $formBuilder;
@@ -61,7 +73,7 @@ class InlineFormElement extends \TYPO3\Form\FormElements\Section {
     * TODO: Document this Method! ( getMultipleMode )
     */
     public function isMultipleMode() {
-        if (isset($this->annotations["manytomany"]) || isset($this->annotations["onetomany"])){
+        if (isset($this->annotations["Doctrine\ORM\Mapping\ManyToMany"]) || isset($this->annotations["Doctrine\ORM\Mapping\OneToMany"])){
             return TRUE;
         } else {
             return FALSE;
@@ -91,13 +103,16 @@ class InlineFormElement extends \TYPO3\Form\FormElements\Section {
         $this->defaultValue = $defaultValue;
     }
 
+    public function setClass($class) {
+        $this->class = $class;
+    }
+
     public function getClass() {
-        $class = $this->annotations["var"][0];
-        if(stristr($class, "<")) {
-            preg_match("/<(.+)>/", $class, $matches);
-            $class = $matches[1];
-        }
-        return $class;
+        return $this->class;
+    }
+
+    public function setCounter($counter) {
+        $this->counter = $counter;
     }
 
     /**
@@ -117,7 +132,8 @@ class InlineFormElement extends \TYPO3\Form\FormElements\Section {
         $object = new $class();
         $namespace = '_template.' . $this->getIdentifier() . '.000';
         $parentSection = clone $this;
-        $containerSection = $parentSection->createElement('container.' . $namespace, 'TYPO3.Form:Section');
+        $inlineElement = $this->annotations["TYPO3\Expose\Annotations\Inline"][0]->getElement();
+        $containerSection = $parentSection->createElement($namespace, $inlineElement . 'Item');
         $section = $this->formBuilder->createFormForSingleObject($containerSection, $object, $namespace);
         return $containerSection;
     }
@@ -125,15 +141,15 @@ class InlineFormElement extends \TYPO3\Form\FormElements\Section {
     /**
     * TODO: Document this Method! ( getUnusedElement )
     */
-    public function getUnusedElement($key = 0) {
+    public function getUnusedElement() {
         $class = $this->getClass();
         $object = new $class();
         $namespace = $this->getIdentifier();
         if($this->isMultipleMode()){
-            $namespace.= "." . $key;
+            $namespace.= "." . $this->counter;
         }
-        $inlineElement = $this->annotations["inline"][0]->getElement();
-        $containerSection = $this->createElement('container.' . $namespace, $inlineElement . 'Item');
+        $inlineElement = $this->annotations["TYPO3\Expose\Annotations\Inline"][0]->getElement();
+        $containerSection = $this->createElement($namespace, $inlineElement . 'Item');
         $containerSection->setAnnotations($this->annotations);
         $section = $this->formBuilder->createElementsForSection(count($this->renderables), $containerSection, $namespace, $object);
         return $containerSection;

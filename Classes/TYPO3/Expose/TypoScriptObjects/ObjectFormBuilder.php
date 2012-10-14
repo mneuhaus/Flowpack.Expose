@@ -255,6 +255,9 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypo
 			$this->tsRuntime->pushContext('propertyValue', \TYPO3\Flow\Reflection\ObjectAccess::getProperty($object, $propertyName));
 
 			$element = $this->tsRuntime->render($this->path . '/elementBuilder');
+			if (method_exists($element, 'setFormBuilder')){
+				$element->setFormBuilder($this);
+			}
 
 			$this->tsRuntime->popContext();
 			$this->tsRuntime->popContext();

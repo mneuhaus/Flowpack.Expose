@@ -30,6 +30,10 @@ TYPO3:
             renderingOptions:
               templatePathPattern: 'resource://TYPO3.Expose/Private/Form/Form.html'
 
+          'TYPO3.Form:Page':
+            renderingOptions:
+              templatePathPattern: 'resource://TYPO3.Expose/Private/Form/Page.html'
+
           'TYPO3.Form:Section':
             renderingOptions:
               templatePathPattern: 'resource://TYPO3.Expose/Private/Form/Section.html'

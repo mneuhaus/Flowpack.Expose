@@ -41,25 +41,29 @@ class InlineFormElementBuilder extends DefaultFormElementBuilder {
 			return NULL;
 		}
 
-		$containerSection = $parentFormElement->createElement("container." . $this->tsValue('identifier'), $this->tsValue('formFieldType'));
-
 		$classAnnotations = $this->reflectionService->getClassAnnotations($this->tsValue("className"));
-		$propertyAnnotations = $this->reflectionService->getPropertyTagsValues($this->tsValue("className"), $this->tsValue("propertyName"));
-		if (method_exists($containerSection, 'setAnnotations')){
-			$containerSection->setAnnotations($propertyAnnotations);
-		}
+		$propertyAnnotations = $this->reflectionService->getPropertyAnnotations($this->tsValue("className"), $this->tsValue("propertyName"));
 
 		$varTags = $this->reflectionService->getPropertyTagValues($this->tsValue("className"), $this->tsValue("propertyName"), 'var');
 		#$containerSection->setDataType(ltrim(current($varTags), '\\'));
 
-        $containerSection->setLabel($this->tsValue('label'));
         $namespace = $this->tsValue('identifier');
 		if (isset($annotations["Doctrine\ORM\Mapping\ManyToMany"]) || isset($annotations["Doctrine\ORM\Mapping\OneToMany"])){
             preg_match("/<(.+)>/", $varTags[0], $matches);
 			$className = $matches[1];
         	$objects = $this->tsValue('propertyValue');
             if(is_null($objects) || count($objects) < 1){
-                $objects = array(new $className());
+                $objects = array();
+            }
+            // objects.[x].addressesStacked
+            $containerSection = $parentFormElement->createElement($this->tsValue('identifier'), $this->tsValue('formFieldType'));
+            $containerSection->setFormBuilder($this->tsValue("formBuilder"));
+            $containerSection->setClass($className);
+            $containerSection->setLabel($this->tsValue('label'));
+            $containerSection->setDataType('Doctrine\Common\Collections\Collection<' . $className . '>');
+            $containerSection->setCounter(count($objects));
+            if (method_exists($containerSection, 'setAnnotations')){
+                $containerSection->setAnnotations($propertyAnnotations);
             }
             foreach ($objects as $key => $object) {
 	            $itemSection = $containerSection->createElement($namespace . '.' . $key, $this->tsValue('formFieldType').'Item');
@@ -67,21 +71,23 @@ class InlineFormElementBuilder extends DefaultFormElementBuilder {
                 $section = $this->tsValue("formBuilder")->createFormForSingleObject($itemSection, $object, $namespace . '.' . $key);
 	            $section->setDataType($className);
             }
-            return $containerSection;
         } else {
 			$className = $this->tsValue("propertyType");
         	$object = $this->tsValue('propertyValue');
             if (is_null($object)) {
 				$object = new $className();
             }
+            $containerSection = $parentFormElement->createElement("container." . $this->tsValue('identifier'), $this->tsValue('formFieldType'));
+            $containerSection->setFormBuilder($this->tsValue("formBuilder"));
+            $containerSection->setLabel($this->tsValue('label'));
+
             $itemSection = $containerSection->createElement($namespace, $this->tsValue('formFieldType').'Item');
             $itemSection->setFormBuilder($this->tsValue("formBuilder"));
-            $section = $this->tsValue("formBuilder")->createFormForSingleObject($itemSection, $object, $namespace);
+            $itemSection->setClass($className);
             $itemSection->setDataType($className);
-            return $containerSection;
+            $section = $this->tsValue("formBuilder")->createFormForSingleObject($itemSection, $object, $namespace);
         }
-
-		return $containerSection;
+        return $containerSection;
     }
 }
 ?>
