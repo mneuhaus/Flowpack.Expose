@@ -1,0 +1,3 @@
+prototype(TYPO3.Expose:StringFormatter.Boolean) < prototype(TYPO3.Expose:StringFormatter.String) {
+	value = ${(value ? 'true' : 'false')}
+}

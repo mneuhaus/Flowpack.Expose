@@ -1,7 +1,7 @@
 # TODO: rename to "RemoveController" to be consistent
-TYPO3.Expose.DeleteController.index = TYPO3.Expose:RemovalScreen
+TYPO3.Expose.DeleteController.index = TYPO3.Expose:DeleteController
 
-prototype(TYPO3.Expose:RemovalScreen) < prototype(TYPO3.TypoScript:Template) {
+prototype(TYPO3.Expose:DeleteController) < prototype(TYPO3.TypoScript:Template) {
 	templatePath = 'resource://TYPO3.Expose/Private/Elements/Delete/Index.html'
 	objects = ${objects}
 	type = ${className}

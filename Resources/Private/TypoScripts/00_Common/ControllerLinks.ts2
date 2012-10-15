@@ -1,5 +1,3 @@
-// REVIEWED for release
-
 # This TypoScript file contains link-buttons to other relevant expose controllers depending
 # on the context. It contains two different kinds of feature links: First, "Global"
 # ExposeController links, which are always displayed for a certain RecordList (usually at the

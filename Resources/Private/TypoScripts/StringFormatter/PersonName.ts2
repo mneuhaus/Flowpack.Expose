@@ -1,0 +1,3 @@
+prototype(TYPO3.Expose:StringFormatter.PersonName) < prototype(TYPO3.Expose:StringFormatter.String) {
+	value = ${value.fullName}
+}

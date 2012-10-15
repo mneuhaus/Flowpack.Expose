@@ -1,0 +1,4 @@
+prototype(TYPO3.Expose:StringFormatter.Default) < prototype(TYPO3.TypoScript:Template) {
+	templatePath = 'resource://TYPO3.Expose/Private/Elements/StringFormatter/Default.html'
+	value = ${value}
+}

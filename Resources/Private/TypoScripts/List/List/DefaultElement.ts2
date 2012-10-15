@@ -1,0 +1,6 @@
+prototype(TYPO3.Expose:RecordList.List.DefaultElement) < prototype(TYPO3.TypoScript:Template) {
+	templatePath = 'resource://TYPO3.Expose/Private/Elements/List/Element.html'
+	item = ${item}
+
+	controllerLinks = TYPO3.Expose:LocalControllerLinks
+}

@@ -14,4 +14,3 @@ prototype(TYPO3.Expose:Elements.Label).@class = 'TYPO3\\TypoScript\\TypoScriptOb
 prototype(TYPO3.TypoScript:Template) {
 	partialRootPath = 'resource://TYPO3.Expose/Private/Partials'
 }
-
