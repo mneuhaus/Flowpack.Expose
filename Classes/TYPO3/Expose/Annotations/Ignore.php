@@ -14,7 +14,7 @@ namespace TYPO3\Expose\Annotations;
 /**
  * @Annotation
  */
-final class Ignore implements SingleAnnotationInterface {
+final class Ignore {
 
 	/**
 	 * @var string
