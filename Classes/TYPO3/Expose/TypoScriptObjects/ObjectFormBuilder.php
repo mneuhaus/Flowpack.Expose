@@ -166,9 +166,9 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypo
 		$sectionNames = $this->findSections($this->reflectionService->getClassNameByObject($object));
 		$formDefinition = $parentFormElement->getRootForm();
 
-        $formDefinition->getProcessingRule($parentFormElement->getIdentifier())->getPropertyMappingConfiguration()->setTypeConverterOption('TYPO3\\FLOW3\\Property\\TypeConverter\\PersistentObjectConverter', \TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED, TRUE);
-        $formDefinition->getProcessingRule($parentFormElement->getIdentifier())->getPropertyMappingConfiguration()->setTypeConverterOption('TYPO3\\FLOW3\\Property\\TypeConverter\\PersistentObjectConverter', \TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter::CONFIGURATION_MODIFICATION_ALLOWED, TRUE);
-        $formDefinition->getProcessingRule($parentFormElement->getIdentifier())->getPropertyMappingConfiguration()->allowAllProperties();
+		$formDefinition->getProcessingRule($parentFormElement->getIdentifier())->getPropertyMappingConfiguration()->setTypeConverterOption('TYPO3\\FLOW3\\Property\\TypeConverter\\PersistentObjectConverter', \TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED, TRUE);
+		$formDefinition->getProcessingRule($parentFormElement->getIdentifier())->getPropertyMappingConfiguration()->setTypeConverterOption('TYPO3\\FLOW3\\Property\\TypeConverter\\PersistentObjectConverter', \TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter::CONFIGURATION_MODIFICATION_ALLOWED, TRUE);
+		$formDefinition->getProcessingRule($parentFormElement->getIdentifier())->getPropertyMappingConfiguration()->allowAllProperties();
 
 		foreach ($sectionNames as $sectionName => $propertyNames) {
 			if ($parentFormElement instanceof \TYPO3\Form\Core\Model\Page) {
@@ -181,10 +181,10 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypo
 				$section = $parentFormElement;
 			}
 
-			if ($propertyNames == "*") {
+			if ($propertyNames == '*') {
 				$propertyNames = NULL;
 			} else {
-				$propertyNames = explode(",", $propertyNames);
+				$propertyNames = explode(',', $propertyNames);
 			}
 
 			$section->setLabel($sectionName);
@@ -198,7 +198,7 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypo
 		}
 
 		return $section;
-    }
+	}
 
 	/**
 	 * @param \TYPO3\Form\Core\Model\FormDefinition $formDefinition
@@ -246,7 +246,6 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypo
 	 * @param object $object
 	 */
 	public function createElementsForSection($sectionName, \TYPO3\Form\FormElements\Section $section, $namespace, $object, $propertyNames = NULL) {
-		// TODO evaluate $sectionName
 		$className = $this->reflectionService->getClassNameByObject($object);
 		if ($propertyNames == NULL) {
 			$propertyNames = $this->reflectionService->getClassPropertyNames($className);
@@ -269,7 +268,7 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypo
 			$this->tsRuntime->pushContext('propertyValue', \TYPO3\Flow\Reflection\ObjectAccess::getProperty($object, $propertyName));
 
 			$element = $this->tsRuntime->render($this->path . '/elementBuilder');
-			if (method_exists($element, 'setFormBuilder')){
+			if (method_exists($element, 'setFormBuilder')) {
 				$element->setFormBuilder($this);
 			}
 

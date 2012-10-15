@@ -52,7 +52,7 @@ class Limits extends \TYPO3\TypoScript\TypoScriptObjects\TemplateImplementation 
 			$limits = array();
 		}
 
-		$this->variables["limits"] = $limits;
+		$this->variables['limits'] = $limits;
 
 		return parent::evaluate();
 	}
@@ -61,7 +61,7 @@ class Limits extends \TYPO3\TypoScript\TypoScriptObjects\TemplateImplementation 
 	 * @return integer
 	 */
 	public function totalObjects() {
-		$objects = $this->tsRuntime->evaluateProcessor('objects', $this, $this->variables["objects"]);
+		$objects = $this->tsRuntime->evaluateProcessor('objects', $this, $this->variables['objects']);
 
 		if (is_object($objects)) {
 			$objects = $objects->getQuery()->setLimit(NULL)->setOffset(NULL)->execute();

@@ -2,7 +2,7 @@
 namespace TYPO3\Expose\Annotations;
 
 /*                                                                        *
- * This script belongs to the TYPO3.Expose package.              *
+ * This script belongs to the TYPO3 Flow package "TYPO3.Expose".          *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -16,27 +16,27 @@ namespace TYPO3\Expose\Annotations;
  */
 final class Label {
 
-    /**
-     * @var string
-     **/
-    protected $label = NULL;
+	/**
+	 * @var string
+	 */
+	protected $label = NULL;
 
-    /**
-     * @param string $value
-     */
-    public function __construct(array $values = array()) {
-        $this->label = isset($values['value']) ? $values['value'] : $this->label;
-        $this->label = isset($values['label']) ? $values['label'] : $this->label;
-    }
+	/**
+	 * @param string $value
+	 */
+	public function __construct(array $values = array()) {
+		$this->label = isset($values['value']) ? $values['value'] : $this->label;
+		$this->label = isset($values['label']) ? $values['label'] : $this->label;
+	}
 
-    /**
-    * Return the current label
-    *
-    * @return string
-    */
-    public function getLabel() {
-        return $this->label;
-    }
+	/**
+	 * Return the current label
+	 *
+	 * @return string
+	 */
+	public function getLabel() {
+		return $this->label;
+	}
 
 }
 

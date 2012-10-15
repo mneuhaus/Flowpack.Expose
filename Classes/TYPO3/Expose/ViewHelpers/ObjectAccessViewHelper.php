@@ -30,10 +30,10 @@ class ObjectAccessViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHe
 	 * @api
 	 */
 	public function render($property = NULL, $propertyPath = NULL, $object = NULL, $as = 'value') {
-		if ($property !== NULL && \TYPO3\Flow\Reflection\ObjectAccess::isPropertyGettable($object, $property)){
+		if ($property !== NULL && \TYPO3\Flow\Reflection\ObjectAccess::isPropertyGettable($object, $property)) {
 			$value = \TYPO3\Flow\Reflection\ObjectAccess::getProperty($object, $property);
 		}
-		if ($propertyPath !== NULL){
+		if ($propertyPath !== NULL) {
 			$value = \TYPO3\Flow\Reflection\ObjectAccess::getPropertyPath($object, $property);
 		}
 

@@ -2,7 +2,7 @@
 namespace TYPO3\Expose\Controller;
 
 /*                                                                        *
- * This script belongs to the TYPO3 Flow package "TYPO3.Expose".               *
+ * This script belongs to the TYPO3 Flow package "TYPO3.Expose".          *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -46,7 +46,7 @@ class EditController extends AbstractController {
 	 * @return void
 	 */
 	public function updateAction($type) {
-		$objects = $this->request->getInternalArgument("__objects");
+		$objects = $this->request->getInternalArgument('__objects');
 		foreach ($objects as $object) {
 				// TODO: the if-condition below is a little hack such that we do NOT persist for TYPO3CR Node objects,
 				// which are already persisted as they are stateful.

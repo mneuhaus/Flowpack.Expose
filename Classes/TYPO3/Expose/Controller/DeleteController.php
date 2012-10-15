@@ -21,14 +21,6 @@ use TYPO3\Flow\Annotations as Flow;
 class DeleteController extends AbstractController {
 
 	/**
-	 * @return void
-	 */
-	public function initializeAction() {
-#		$this->arguments['objects']->setDataType('Doctrine\Common\Collections\Collection<' . $this->request->getArgument('type') . '>');
-#		$this->arguments['objects']->getPropertyMappingConfiguration()->allowAllProperties();
-	}
-
-	/**
 	 * delete objects
 	 *
 	 * @param string $type

@@ -16,7 +16,9 @@ namespace TYPO3\Expose\Core\OptionsProvider;
 interface OptionsProviderInterface {
 
 	/**
-	 * TODO: Document this Method! ( getOptions )
+	 * Returns the options used by the Form Elements
+	 *
+	 * @return array
 	 */
 	public function getOptions();
 

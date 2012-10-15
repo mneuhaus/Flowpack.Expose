@@ -2,7 +2,7 @@
 namespace TYPO3\Expose\TypoScriptObjects;
 
 /*                                                                        *
- * This script belongs to the TYPO3 Flow package "TYPO3.Expose".               *
+ * This script belongs to the TYPO3 Flow package "TYPO3.Expose".          *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -77,7 +77,7 @@ class Pagination extends \TYPO3\TypoScript\TypoScriptObjects\TemplateImplementat
 	 * @return integer
 	 */
 	public function totalObjects() {
-		$objects = $this->tsRuntime->evaluateProcessor('objects', $this, $this->variables["objects"]);
+		$objects = $this->tsRuntime->evaluateProcessor('objects', $this, $this->variables['objects']);
 
 		if (is_object($objects)) {
 			$objects = $objects->getQuery()->setLimit(NULL)->setOffset(NULL)->execute();

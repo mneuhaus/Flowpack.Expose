@@ -53,10 +53,10 @@ class PaginationProcessor implements \TYPO3\TypoScript\RuntimeAwareProcessorInte
 			$page = $request->getArgument('page');
 		}
 
-		$offset = $this->getLimit() * ($page -1);
+		$offset = $this->getLimit() * ($page - 1);
 
-		$total = $this->context["objects"]->count();
-		if($offset > $total){
+		$total = $this->context['objects']->count();
+		if ($offset > $total) {
 			$pages = ceil($total / $this->getLimit());
 			$offset = $this->getLimit() * ( $pages - 1 );
 		}

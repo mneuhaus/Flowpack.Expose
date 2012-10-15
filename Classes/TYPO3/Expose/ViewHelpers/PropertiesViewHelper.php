@@ -19,11 +19,11 @@ use TYPO3\Flow\Annotations as Flow;
  */
 class PropertiesViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 
-   	/**
-   	 * @var \TYPO3\Flow\Reflection\ReflectionService
-   	 * @Flow\Inject
-   	 */
-   	protected $reflectionService;
+	/**
+	 * @var \TYPO3\Flow\Reflection\ReflectionService
+	 * @Flow\Inject
+	 */
+	protected $reflectionService;
 
 	/**
 	 * @param object $object

@@ -37,7 +37,7 @@ class NewController extends AbstractController {
 	 * @param string $type
 	 */
 	public function createAction($type) {
-		$objects = $this->request->getInternalArgument("__objects");
+		$objects = $this->request->getInternalArgument('__objects');
 		foreach ($objects as $object) {
 			$this->persistenceManager->add($object);
 		}

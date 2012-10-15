@@ -93,7 +93,7 @@ class Query extends \TYPO3\Flow\Persistence\Doctrine\Query {
 	public function getResult() {
 		$node = $this->rootNode;
 
-		if ($this->parentPath !== NULL && $this->parentPath !== "/") {
+		if ($this->parentPath !== NULL && $this->parentPath !== '/') {
 			$node = $this->rootNode->getNode($this->parentPath);
 		}
 
@@ -142,7 +142,7 @@ class Query extends \TYPO3\Flow\Persistence\Doctrine\Query {
 					$property = $this->constraint->getOperand1()->getPropertyName();
 					$comparison = strtolower($this->constraint->getOperand2());
 
-					if ($property == "*") {
+					if ($property == '*') {
 						$properties = $node->getPropertyNames();
 					} else {
 						$properties = array($property);
@@ -164,9 +164,9 @@ class Query extends \TYPO3\Flow\Persistence\Doctrine\Query {
 
 							case \TYPO3\Flow\Persistence\QueryInterface::OPERATOR_LIKE:
 								$comparison = preg_quote($comparison);
-								$comparison = str_replace("%", ".+", $comparison);
-								$comparison = str_replace("?", ".", $comparison);
-								if (preg_match("/" . $comparison . "/", $value)) {
+								$comparison = str_replace('%', '.+', $comparison);
+								$comparison = str_replace('?', '.', $comparison);
+								if (preg_match('/' . $comparison . '/', $value)) {
 									$matchingNodes[] = $node;
 								}
 								break;

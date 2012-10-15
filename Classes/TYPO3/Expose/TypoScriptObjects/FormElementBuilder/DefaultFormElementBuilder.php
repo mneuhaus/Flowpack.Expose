@@ -18,11 +18,11 @@ use TYPO3\Flow\Annotations as Flow;
  */
 class DefaultFormElementBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypoScriptObject {
 
-    /**
-     * @var \TYPO3\Flow\Reflection\ReflectionService
-     * @Flow\Inject
-     */
-    protected $reflectionService;
+	/**
+	 * @var \TYPO3\Flow\Reflection\ReflectionService
+	 * @Flow\Inject
+	 */
+	protected $reflectionService;
 
 	/**
 	 * @var string
@@ -151,51 +151,51 @@ class DefaultFormElementBuilder extends \TYPO3\TypoScript\TypoScriptObjects\Abst
 		$this->propertySchema = $propertySchema;
 	}
 
-    /**
-     * Evaluate the collection nodes
-     *
-     * @return string
-     */
-    public function evaluate() {
+	/**
+	 * Evaluate the collection nodes
+	 *
+	 * @return string
+	 */
+	public function evaluate() {
 		$parentFormElement = $this->tsValue('parentFormElement');
 		if (!($parentFormElement instanceof \TYPO3\Form\Core\Model\AbstractSection)) {
 			throw new \InvalidArgumentException('TODO: parent form element must be a section-like element');
 		}
 
-		$annotations = $this->tsValue("propertyAnnotations");
-		if (isset($annotations['TYPO3\Expose\Annotations\Ignore'])){
+		$annotations = $this->tsValue('propertyAnnotations');
+		if (isset($annotations['TYPO3\Expose\Annotations\Ignore'])) {
 			return NULL;
 		}
 
 		$element = $parentFormElement->createElement($this->tsValue('identifier'), $this->tsValue('formFieldType'));
 
-		if (method_exists($element, 'setAnnotations')){
+		if (method_exists($element, 'setAnnotations')) {
 			$element->setAnnotations($annotations);
 		}
 
-		if (method_exists($element, 'setPropertySchema')){
-			$element->setPropertySchema($this->tsValue("propertySchema"));
+		if (method_exists($element, 'setPropertySchema')) {
+			$element->setPropertySchema($this->tsValue('propertySchema'));
 		}
 
-		if (method_exists($element, 'setFormBuilder')){
-			$element->setFormBuilder($this->tsValue("formBuilder"));
+		if (method_exists($element, 'setFormBuilder')) {
+			$element->setFormBuilder($this->tsValue('formBuilder'));
 		}
 
 		$element->setLabel($this->getLabel());
 		$element->setDefaultValue($this->tsValue('propertyValue'));
 
-		$propertySchema = $this->tsValue("propertySchema");
-		$dataType = $propertySchema["type"];
-		if ($propertySchema["elementType"] !== NULL) {
-			$dataType.= '<' . $propertySchema["elementType"] . '>';
+		$propertySchema = $this->tsValue('propertySchema');
+		$dataType = $propertySchema['type'];
+		if ($propertySchema['elementType'] !== NULL) {
+			$dataType . = '<' . $propertySchema['elementType'] . '>';
 		}
 		$element->setDataType($dataType);
 
 		return $element;
-    }
+	}
 
-    public function getLabel() {
-    	return $this->tsRuntime->render($this->path . '/label');
-    }
+	public function getLabel() {
+		return $this->tsRuntime->render($this->path . '/label');
+	}
 }
 ?>

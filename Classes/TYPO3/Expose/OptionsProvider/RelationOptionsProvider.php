@@ -20,36 +20,37 @@ use TYPO3\Flow\Annotations as Flow;
  */
 class RelationOptionsProvider extends \TYPO3\Expose\Core\OptionsProvider\AbstractOptionsProvider {
 
-    /**
-     * @var \TYPO3\Flow\Persistence\PersistenceManagerInterface
-     * @Flow\Inject
-     */
-    protected $persistenceManager;
+	/**
+	 * @var \TYPO3\Flow\Persistence\PersistenceManagerInterface
+	 * @Flow\Inject
+	 */
+	protected $persistenceManager;
 
-    /**
-    * TODO: Document this Method! ( getOptions )
-    */
-    public function getOptions() {
-        $options = array();
-        $objects = $this->persistenceManager->createQueryForType($this->getRelationClass())->execute();
-        foreach ($objects as $object) {
-            $options[$this->persistenceManager->getIdentifierByObject($object)] = $this->convert($object);
-        }
-        return $objects;
-    }
+	/**
+	* TODO: Document this Method! ( getOptions )
+	*/
+	public function getOptions() {
+		$options = array();
+		$objects = $this->persistenceManager->createQueryForType($this->getRelationClass())->execute();
+		foreach ($objects as $object) {
+			$options[$this->persistenceManager->getIdentifierByObject($object)] = $this->convert($object);
+		}
+		return $objects;
+	}
 
-    public function convert($value) {
-        if (method_exists($value, "__toString"))
-            return $value->__toString();
-        return get_class($value);
-    }
+	public function convert($value) {
+		if (method_exists($value, '__toString')) {
+			return $value->__toString();
+		}
+		return get_class($value);
+	}
 
-    public function getRelationClass() {
-        if ($this->propertySchema["elementType"] !== NULL) {
-            return $this->propertySchema["elementType"];
-        }
-        return $this->propertySchema["type"];
-    }
+	public function getRelationClass() {
+		if ($this->propertySchema['elementType'] !== NULL) {
+			return $this->propertySchema['elementType'];
+		}
+		return $this->propertySchema['type'];
+	}
 }
 
 ?>

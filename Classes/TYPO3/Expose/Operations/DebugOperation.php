@@ -18,33 +18,33 @@ use TYPO3\Flow\Annotations as Flow;
  */
 class DebugOperation extends \TYPO3\Eel\FlowQuery\Operations\AbstractOperation  {
 
-    /**
-     * {@inheritdoc}
-     *
-     * @var string
-     */
-    static protected $shortName = 'debug';
+	/**
+	 * {@inheritdoc}
+	 *
+	 * @var string
+	 */
+	static protected $shortName = 'debug';
 
-    /**
-     * {@inheritdoc}
-     *
-     * @var boolean
-     */
-    static protected $final = TRUE;
+	/**
+	 * {@inheritdoc}
+	 *
+	 * @var boolean
+	 */
+	static protected $final = TRUE;
 
-    /**
-     * {@inheritdoc}
-     *$
-     * @param \TYPO3\Eel\FlowQuery\FlowQuery $flowQuery the FlowQuery object
-     * @param array $arguments the arguments for this operation
-     * @return mixed|null if the operation is final, the return value
-     */
-    public function evaluate(\TYPO3\Eel\FlowQuery\FlowQuery $flowQuery, array $arguments) {
-        \TYPO3\Flow\var_dump(array(
-            "context" => $flowQuery->getContext(),
-            "arguments" => $arguments
-        ));
-    }
+	/**
+	 * {@inheritdoc}
+	 * 
+	 * @param \TYPO3\Eel\FlowQuery\FlowQuery $flowQuery the FlowQuery object
+	 * @param array $arguments the arguments for this operation
+	 * @return mixed|null if the operation is final, the return value
+	 */
+	public function evaluate(\TYPO3\Eel\FlowQuery\FlowQuery $flowQuery, array $arguments) {
+		\TYPO3\Flow\var_dump(array(
+			'context' => $flowQuery->getContext(),
+			'arguments' => $arguments
+		));
+	}
 }
 
 ?>

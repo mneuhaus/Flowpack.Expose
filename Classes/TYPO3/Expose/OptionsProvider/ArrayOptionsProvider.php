@@ -20,27 +20,27 @@ use TYPO3\Flow\Annotations as Flow;
  */
 class ArrayOptionsProvider extends \TYPO3\Expose\Core\OptionsProvider\AbstractOptionsProvider {
 
-    /**
-     * This functions returns the Options defined by a internal property
-     * or Annotations
-     *
-     * @return array $options
-     */
-    public function getOptions() {
-        $class = $this->annotations->getClass();
-        $options = array();
-        if (isset($this->annotations->getOptionsProvider()->property)) {
-            $optionsProperty = $this->annotations->getOptionsProvider()->property;
-        } else {
-            $optionsProperty = '_' . $this->annotations->getProperty();
-        }
-        if (!empty($this->annotations->getOptionsProvider()->options)) {
-            $options = $this->annotations->getOptionsProvider()->options;
-        } else {
-            $options = $class->getValue($optionsProperty);
-        }
-        return $options;
-    }
+	/**
+	 * This functions returns the Options defined by a internal property
+	 * or Annotations
+	 *
+	 * @return array $options
+	 */
+	public function getOptions() {
+		$class = $this->annotations->getClass();
+		$options = array();
+		if (isset($this->annotations->getOptionsProvider()->property)) {
+			$optionsProperty = $this->annotations->getOptionsProvider()->property;
+		} else {
+			$optionsProperty = '_' . $this->annotations->getProperty();
+		}
+		if (!empty($this->annotations->getOptionsProvider()->options)) {
+			$options = $this->annotations->getOptionsProvider()->options;
+		} else {
+			$options = $class->getValue($optionsProperty);
+		}
+		return $options;
+	}
 
 }
 

@@ -2,7 +2,7 @@
 namespace TYPO3\Expose\Annotations;
 
 /*                                                                        *
- * This script belongs to the TYPO3 Flow package "TYPO3.Expose".               *
+ * This script belongs to the TYPO3 Flow package "TYPO3.Expose".          *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -37,6 +37,7 @@ final class Ignore implements SingleAnnotationInterface {
 	public function ignoreContext($context) {
 		return empty($this->views) || stristr($this->views, $context);
 	}
+
 }
 
 ?>

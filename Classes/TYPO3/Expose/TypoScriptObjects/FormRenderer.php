@@ -27,7 +27,7 @@ class FormRenderer extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypoScrip
 	public function evaluate() {
 		$formDefinition = $this->tsRuntime->evaluate($this->path . '/form');
 		if (!($formDefinition instanceof \TYPO3\Form\Core\Model\FormDefinition)) {
-			throw new \InvalidArgumentException("TODO: FormRenderer expects a form definition inside form/");
+			throw new \InvalidArgumentException('TODO: FormRenderer expects a form definition inside form/');
 		}
 
 		$response = new \TYPO3\Flow\Http\Response($this->tsRuntime->getControllerContext()->getResponse());

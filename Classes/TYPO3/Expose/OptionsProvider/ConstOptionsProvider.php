@@ -31,23 +31,23 @@ use TYPO3\Flow\Annotations as Flow;
  */
 class ConstOptionsProvider extends \TYPO3\Expose\Core\OptionsProvider\AbstractOptionsProvider {
 
-    /**
-     * Load the Options by searching the Entities constants based on the specified regular
-     * expression
-     *
-     * @return array $options
-     */
-    public function getOptions() {
-        $reflection = new \ReflectionClass($this->annotations->getClass());
-        $regex = $this->annotations->getOptionsProvider()->regex;
-        $constants = array();
-        foreach ($reflection->getConstants() as $key => $value) {
-            if (preg_match(('/' . $regex) . '/', $key)) {
-                $constants[constant(($this->annotations->getClass() . '::') . $key)] = $value;
-            }
-        }
-        return $constants;
-    }
+	/**
+	 * Load the Options by searching the Entities constants based on the specified regular
+	 * expression
+	 *
+	 * @return array $options
+	 */
+	public function getOptions() {
+		$reflection = new \ReflectionClass($this->annotations->getClass());
+		$regex = $this->annotations->getOptionsProvider()->regex;
+		$constants = array();
+		foreach ($reflection->getConstants() as $key => $value) {
+			if (preg_match(('/' . $regex) . '/', $key)) {
+				$constants[constant(($this->annotations->getClass() . '::') . $key)] = $value;
+			}
+		}
+		return $constants;
+	}
 
 }
 

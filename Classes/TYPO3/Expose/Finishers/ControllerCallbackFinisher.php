@@ -26,20 +26,17 @@ class ControllerCallbackFinisher extends \TYPO3\Form\Core\Model\AbstractFinisher
 		$formRuntime = $this->finisherContext->getFormRuntime();
 		$nextRequest = clone $formRuntime->getRequest()->getParentRequest();
 
-		$nextRequest->setArgument('@action', $this->parseOption("callbackAction"));
+		$nextRequest->setArgument('@action', $this->parseOption('callbackAction'));
 
 		$objectArguments = $formRuntime->getFormState()->getFormValue('objects');
 
-		#if (isset($this->options['objectIdentifiers'])) {
-		#	$objectArguments = \TYPO3\Flow\Utility\Arrays::arrayMergeRecursiveOverrule($objectArguments, $this->options['objectIdentifiers']);
-		#}
 		$nextRequest->setArgument('__objects', $objectArguments);
 
 		$forwardException = new \TYPO3\Flow\Mvc\Exception\ForwardException();
 		$nextRequest->setDispatched(FALSE);
 		$forwardException->setNextRequest($nextRequest);
 		throw $forwardException;
-    }
+	}
 
 }
 

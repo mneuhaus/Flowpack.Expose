@@ -35,7 +35,7 @@ class NodeTreeProcessor implements \TYPO3\TypoScript\RuntimeAwareProcessorInterf
 	 * @return string
 	 */
 	public function process($subject) {
-		return str_replace("<placeholder:content/>", $subject, $this->result);
+		return str_replace('<placeholder:content/>', $subject, $this->result);
 	}
 
 	/**

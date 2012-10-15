@@ -112,10 +112,6 @@ class NodeFormBuilder extends ObjectFormBuilder {
 			return \TYPO3\Flow\Reflection\ObjectAccess::getProperty($object, $propertyName);
 		}
 
-		#if ($propertyName == "_name") {
-		#	return $object->getName();
-		#}
-
 		return NULL;
 	}
 }

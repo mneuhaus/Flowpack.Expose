@@ -24,7 +24,7 @@ class IgnoreMissingTypeMatcher extends \TYPO3\TypoScript\TypoScriptObjects\Match
 	public function evaluate() {
 		try {
 			return parent::evaluate();
-		} catch(\TYPO3\TypoScript\Exception $exception) {
+		} catch (\TYPO3\TypoScript\Exception $exception) {
 			if ($exception->getCode() === 1332493995) {
 					// BAD HACK!!
 				return \TYPO3\TypoScript\TypoScriptObjects\CaseImplementation::MATCH_NORESULT;

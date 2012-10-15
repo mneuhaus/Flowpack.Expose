@@ -43,8 +43,8 @@ class SearchProcessor implements \TYPO3\TypoScript\RuntimeAwareProcessorInterfac
 	 */
 	public function getSearch() {
 		$request = $this->tsRuntime->getControllerContext()->getRequest();
-		if ($request->hasArgument("search")) {
-			return $request->getArgument("search");
+		if ($request->hasArgument('search')) {
+			return $request->getArgument('search');
 		}
 		return NULL;
 	}

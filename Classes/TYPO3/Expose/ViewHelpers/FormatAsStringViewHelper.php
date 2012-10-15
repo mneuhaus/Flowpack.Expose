@@ -21,7 +21,8 @@ class FormatAsStringViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractView
 	public function render() {
 		$value = $this->renderChildren();
 
-		$fluidTemplateTsObject = $this->templateVariableContainer->get('fluidTemplateTsObject'); // TODO: should be retrieved differently
+			// TODO: should be retrieved differently
+		$fluidTemplateTsObject = $this->templateVariableContainer->get('fluidTemplateTsObject');
 		$path = $fluidTemplateTsObject->getPath() . '/stringFormatter<TYPO3.Expose:StringFormatter>';
 		$fluidTemplateTsObject->getTsRuntime()->pushContext('value', $value);
 		$output = $fluidTemplateTsObject->getTsRuntime()->render($path);

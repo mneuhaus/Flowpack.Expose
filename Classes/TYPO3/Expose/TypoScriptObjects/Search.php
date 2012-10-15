@@ -30,8 +30,8 @@ class Search extends \TYPO3\TypoScript\TypoScriptObjects\TemplateImplementation 
 		$this->settings = $this->configurationManager->getConfiguration(\TYPO3\Flow\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, 'TYPO3.Expose.Pagination');
 
 		$request = $this->tsRuntime->getControllerContext()->getRequest();
-		if ($request->hasArgument("search")) {
-			$this->variables["search"] = $request->getArgument("search");
+		if ($request->hasArgument('search')) {
+			$this->variables['search'] = $request->getArgument('search');
 		}
 
 		return parent::evaluate();

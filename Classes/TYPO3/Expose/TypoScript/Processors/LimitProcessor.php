@@ -48,7 +48,7 @@ class LimitProcessor implements \TYPO3\TypoScript\RuntimeAwareProcessorInterface
 	public function getLimit() {
 		$request = $this->tsRuntime->getControllerContext()->getRequest();
 
-		$limit = $this->settings["Default"];
+		$limit = $this->settings['Default'];
 		if ($request->hasArgument('limit')) {
 			$limit = $request->getArgument('limit');
 		}
