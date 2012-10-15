@@ -163,14 +163,14 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypo
 	 * @return void
 	 */
 	public function createFormForSingleObject(\TYPO3\Form\Core\Model\AbstractSection $parentFormElement, $object, $namespace = '') {
-		$sectionNames = $this->findSections();
+		$sectionNames = $this->findSections($this->reflectionService->getClassNameByObject($object));
 		$formDefinition = $parentFormElement->getRootForm();
 
         $formDefinition->getProcessingRule($parentFormElement->getIdentifier())->getPropertyMappingConfiguration()->setTypeConverterOption('TYPO3\\FLOW3\\Property\\TypeConverter\\PersistentObjectConverter', \TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED, TRUE);
         $formDefinition->getProcessingRule($parentFormElement->getIdentifier())->getPropertyMappingConfiguration()->setTypeConverterOption('TYPO3\\FLOW3\\Property\\TypeConverter\\PersistentObjectConverter', \TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter::CONFIGURATION_MODIFICATION_ALLOWED, TRUE);
         $formDefinition->getProcessingRule($parentFormElement->getIdentifier())->getPropertyMappingConfiguration()->allowAllProperties();
 
-		foreach ($sectionNames as $sectionName) {
+		foreach ($sectionNames as $sectionName => $propertyNames) {
 			if ($parentFormElement instanceof \TYPO3\Form\Core\Model\Page) {
 				$this->tsRuntime->pushContext('parentFormElement', $parentFormElement);
 				$this->tsRuntime->pushContext('identifier', $sectionName . '.' . $namespace);
@@ -181,8 +181,14 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypo
 				$section = $parentFormElement;
 			}
 
-			$section->setLabel($this->getLabelForObject($object));
-			$this->createElementsForSection($sectionName, $section, $namespace, $object);
+			if ($propertyNames == "*") {
+				$propertyNames = NULL;
+			} else {
+				$propertyNames = explode(",", $propertyNames);
+			}
+
+			$section->setLabel($sectionName);
+			$this->createElementsForSection($sectionName, $section, $namespace, $object, $propertyNames);
 		}
 
 		$objectIdentifiers = $this->getObjectIdentifierArrayForObject($object);
@@ -193,9 +199,6 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypo
 
 		return $section;
     }
-
-	protected function getLabelForObject($object) {
-	}
 
 	/**
 	 * @param \TYPO3\Form\Core\Model\FormDefinition $formDefinition
@@ -224,9 +227,16 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypo
 		}
 	}
 
-	protected function findSections() {
-		// TODO implement
-		return array('Default');
+	protected function findSections($className) {
+		$annotationSections = (array) $this->reflectionService->getClassAnnotations($className, 'TYPO3\Expose\Annotations\Section');
+		if (count($annotationSections) > 0) {
+			$sections = array();
+			foreach ($annotationSections as $annotationSection) {
+				$sections[$annotationSection->title] = $annotationSection->properties;
+			}
+			return $sections;
+		}
+		return array('Default' => '*');
 	}
 
 	/**
@@ -235,14 +245,17 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypo
 	 * @param string $namespace
 	 * @param object $object
 	 */
-	public function createElementsForSection($sectionName, \TYPO3\Form\FormElements\Section $section, $namespace, $object) {
+	public function createElementsForSection($sectionName, \TYPO3\Form\FormElements\Section $section, $namespace, $object, $propertyNames = NULL) {
 		// TODO evaluate $sectionName
 		$className = $this->reflectionService->getClassNameByObject($object);
-		$propertyNames = $this->reflectionService->getClassPropertyNames($className);
+		if ($propertyNames == NULL) {
+			$propertyNames = $this->reflectionService->getClassPropertyNames($className);
+		}
 		$classSchema = $this->reflectionService->getClassSchema($className);
 		$this->tsRuntime->pushContext('parentFormElement', $section);
 
 		foreach ($propertyNames as $propertyName) {
+			$propertyName = trim($propertyName);
 			$propertySchema = $classSchema->getProperty($propertyName);
 
 			$this->tsRuntime->pushContext('className', $className);

@@ -32,7 +32,7 @@ class NodeFormBuilder extends ObjectFormBuilder {
 	 * @param object $object
 	 * @return void
 	 */
-	public function createElementsForSection($sectionName, \TYPO3\Form\FormElements\Section $section, $namespace, $object) {
+	public function createElementsForSection($sectionName, \TYPO3\Form\FormElements\Section $section, $namespace, $object, $propertyNames = NULL) {
 		/* @var $object \TYPO3\TYPO3CR\Domain\Model\NodeInterface */
 		$contentType = $object->getContentType();
 
