@@ -249,6 +249,7 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypo
 			$this->tsRuntime->pushContext('propertyName', $propertyName);
 			$this->tsRuntime->pushContext('formElementIdentifier', $namespace . '.' . $propertyName);
 			$this->tsRuntime->pushContext('propertyAnnotations', $this->reflectionService->getPropertyAnnotations($className, $propertyName));
+			$this->tsRuntime->pushContext('propertySchema', $propertySchema);
 			$this->tsRuntime->pushContext('propertyType', $propertySchema['type']);
 			$this->tsRuntime->pushContext('propertyElementType', $propertySchema['elementType']);
 			$this->tsRuntime->pushContext('formBuilder', $this);
@@ -259,6 +260,7 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypo
 				$element->setFormBuilder($this);
 			}
 
+			$this->tsRuntime->popContext();
 			$this->tsRuntime->popContext();
 			$this->tsRuntime->popContext();
 			$this->tsRuntime->popContext();

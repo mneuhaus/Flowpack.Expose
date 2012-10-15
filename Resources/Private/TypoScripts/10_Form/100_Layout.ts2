@@ -204,6 +204,7 @@ prototype(TYPO3.Expose:Form.DefaultElementBuilder) {
 	propertyName = ${propertyName}
 	propertyType = ${propertyType}
 	propertyValue = ${propertyValue}
+	propertySchema = ${propertySchema}
 	className = ${className}
 }
 

@@ -74,6 +74,11 @@ class DefaultFormElementBuilder extends \TYPO3\TypoScript\TypoScriptObjects\Abst
 	 */
 	protected $propertyValue;
 
+	/**
+	 * @var object
+	 */
+	protected $propertySchema;
+
 	public function setIdentifier($identifier) {
 		$this->identifier = $identifier;
 	}
@@ -142,6 +147,10 @@ class DefaultFormElementBuilder extends \TYPO3\TypoScript\TypoScriptObjects\Abst
 		$this->propertyValue = $propertyValue;
 	}
 
+	public function setPropertySchema($propertySchema) {
+		$this->propertySchema = $propertySchema;
+	}
+
     /**
      * Evaluate the collection nodes
      *
@@ -161,8 +170,11 @@ class DefaultFormElementBuilder extends \TYPO3\TypoScript\TypoScriptObjects\Abst
 		$element = $parentFormElement->createElement($this->tsValue('identifier'), $this->tsValue('formFieldType'));
 
 		if (method_exists($element, 'setAnnotations')){
-			#$classAnnotations = $this->annotationService->getClassAnnotations($this->tsValue("className"));
-			#$element->setAnnotations($classAnnotations->getPropertyAnnotations($this->tsValue("propertyName")));
+			$element->setAnnotations($annotations);
+		}
+
+		if (method_exists($element, 'setPropertySchema')){
+			$element->setPropertySchema($this->tsValue("propertySchema"));
 		}
 
 		if (method_exists($element, 'setFormBuilder')){
@@ -171,6 +183,13 @@ class DefaultFormElementBuilder extends \TYPO3\TypoScript\TypoScriptObjects\Abst
 
 		$element->setLabel($this->tsValue('label'));
 		$element->setDefaultValue($this->tsValue('propertyValue'));
+
+		$propertySchema = $this->tsValue("propertySchema");
+		$dataType = $propertySchema["type"];
+		if ($propertySchema["elementType"] !== NULL) {
+			$dataType.= '<' . $propertySchema["elementType"] . '>';
+		}
+		$element->setDataType($dataType);
 
 		return $element;
     }

@@ -24,12 +24,16 @@ class OptionsFormElement extends ComplexFormElement {
 	 **/
 	protected $defaultOptionsProvider = 'TYPO3\Expose\OptionsProvider\RelationOptionsProvider';
 
+	public function setPropertySchema($propertySchema) {
+		$this->properties['propertySchema'] = $propertySchema;
+	}
+
 	/**
 	 * @return \TYPO3\Expose\Core\OptionsProvider\OptionsProviderInterface
 	 */
 	public function getOptionsProvider() {
 		$optionsProviderClass = $this->defaultOptionsProvider;
-		$optionsProvider = new $optionsProviderClass();
+		$optionsProvider = new $optionsProviderClass($this->properties["annotations"], $this->properties["propertySchema"]);
 
 		return $optionsProvider;
 	}

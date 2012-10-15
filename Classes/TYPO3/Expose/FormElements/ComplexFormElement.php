@@ -17,7 +17,6 @@ use TYPO3\Flow\Annotations as Flow;
  * A generic form element
  */
 class ComplexFormElement extends \TYPO3\Form\Core\Model\AbstractFormElement {
-
 	/**
 	 * @param object $annotations
 	 * @return void

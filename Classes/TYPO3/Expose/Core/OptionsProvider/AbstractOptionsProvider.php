@@ -24,10 +24,16 @@ abstract class AbstractOptionsProvider implements OptionsProviderInterface {
 	protected $annotations;
 
 	/**
+	 * @var array
+	 */
+	protected $propertySchema;
+
+	/**
 	 * @param array $annotations
 	 */
-	public function __construct($annotations = array()) {
+	public function __construct($annotations = array(), $propertySchema = array()) {
 		$this->annotations = $annotations;
+		$this->propertySchema = $propertySchema;
 	}
 
 }
