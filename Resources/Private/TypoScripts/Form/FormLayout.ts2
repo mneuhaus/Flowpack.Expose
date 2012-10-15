@@ -1,0 +1,9 @@
+// REVIEWED for release
+
+TYPO3.Expose.NewController.index = TYPO3.Expose:FormLayout
+TYPO3.Expose.EditController.index = TYPO3.Expose:FormLayout
+
+prototype(TYPO3.Expose:FormLayout) < prototype(TYPO3.TypoScript:Template) {
+	templatePath = 'resource://TYPO3.Expose/Private/Elements/FormLayout.html'
+	form = TYPO3.Expose:FormRenderer
+}

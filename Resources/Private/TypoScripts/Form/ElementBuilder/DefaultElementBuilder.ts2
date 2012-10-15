@@ -1,0 +1,19 @@
+/**
+ * @param formFieldType=${formFieldType}
+ * @param parentFormElement=${parentFormElement}
+ * @param identifier=${formElementIdentifier}
+ * @param label=${propertyName}
+ */
+prototype(TYPO3.Expose:Form.DefaultElementBuilder) {
+	@class = 'TYPO3\\Expose\\TypoScriptObjects\\FormElementBuilder\\DefaultFormElementBuilder'
+	formFieldType = ${formFieldType}
+	parentFormElement = ${parentFormElement}
+	identifier = ${formElementIdentifier}
+	label = TYPO3.Expose:Elements.Label
+	propertyAnnotations = ${propertyAnnotations}
+	propertyName = ${propertyName}
+	propertyType = ${propertyType}
+	propertyValue = ${propertyValue}
+	propertySchema = ${propertySchema}
+	className = ${className}
+}

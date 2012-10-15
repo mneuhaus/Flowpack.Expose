@@ -1,0 +1,16 @@
+/**
+ * @context string className the class name of the form to build
+ */
+prototype(TYPO3.Expose:FormBuilder) < prototype(TYPO3.TypoScript:Case) {
+	nodeMatcher {
+		condition = ${className == 'TYPO3\TYPO3CR\Domain\Model\NodeInterface'}
+		type = 'TYPO3.Expose:NodeFormBuilder'
+		@position = 10
+	}
+
+	objectMatcher {
+		condition = ${true}
+		type = 'TYPO3.Expose:ObjectFormBuilder'
+		@position = 'end'
+	}
+}

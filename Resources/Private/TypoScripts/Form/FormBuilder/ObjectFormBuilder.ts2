@@ -1,0 +1,18 @@
+/**
+ * @param string className=${className}
+ * @param object objects=${objects} (optional) list of objects to be (optionally) bound to the form
+ * @param string formIdentifier
+ * @param string formPresetName
+ */
+prototype(TYPO3.Expose:ObjectFormBuilder) {
+	@class = 'TYPO3\\Expose\\TypoScriptObjects\\ObjectFormBuilder'
+	className = ${className}
+	objects = ${objects}
+	formIdentifier = 'form'
+	formPresetName = 'expose'
+	callbackAction = ${callback}
+
+	sectionBuilder = TYPO3.Expose:Form.SectionBuilder
+	inlineBuilder = TYPO3.Expose:Form.InlineBuilder
+	elementBuilder = TYPO3.Expose:Form.ElementBuilder
+}

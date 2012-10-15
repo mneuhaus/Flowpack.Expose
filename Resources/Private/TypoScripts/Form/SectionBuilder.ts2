@@ -1,0 +1,10 @@
+/**
+ * @param identifier
+ * @param parentFormElement=${parentFormElement}
+ * @param identifier=${identifier}
+ */
+prototype(TYPO3.Expose:Form.SectionBuilder) {
+	@class = 'TYPO3\\Expose\\TypoScriptObjects\\SectionBuilder'
+	parentFormElement = ${parentFormElement}
+	identifier = ${identifier}
+}
