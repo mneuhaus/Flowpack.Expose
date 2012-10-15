@@ -9,6 +9,8 @@ prototype(TYPO3.Expose:Pagination).@class = 'TYPO3\\Expose\\TypoScriptObjects\\P
 prototype(TYPO3.Expose:Limits).@class = 'TYPO3\\Expose\\TypoScriptObjects\\Limits'
 prototype(TYPO3.Expose:Search).@class = 'TYPO3\\Expose\\TypoScriptObjects\\Search'
 
+prototype(TYPO3.Expose:Elements.Label).@class = 'TYPO3\\TypoScript\\TypoScriptObjects\\CaseImplementation'
+
 prototype(TYPO3.TypoScript:Template) {
 	partialRootPath = 'resource://TYPO3.Expose/Private/Partials'
 }

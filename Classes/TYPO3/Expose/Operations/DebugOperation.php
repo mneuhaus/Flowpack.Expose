@@ -42,7 +42,7 @@ class DebugOperation extends \TYPO3\Eel\FlowQuery\Operations\AbstractOperation  
     public function evaluate(\TYPO3\Eel\FlowQuery\FlowQuery $flowQuery, array $arguments) {
         \TYPO3\Flow\var_dump(array(
             "context" => $flowQuery->getContext(),
-            "aguments" => $arguments
+            "arguments" => $arguments
         ));
     }
 }

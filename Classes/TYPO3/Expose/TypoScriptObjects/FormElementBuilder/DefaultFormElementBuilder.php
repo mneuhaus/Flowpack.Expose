@@ -181,7 +181,7 @@ class DefaultFormElementBuilder extends \TYPO3\TypoScript\TypoScriptObjects\Abst
 			$element->setFormBuilder($this->tsValue("formBuilder"));
 		}
 
-		$element->setLabel($this->tsValue('label'));
+		$element->setLabel($this->getLabel());
 		$element->setDefaultValue($this->tsValue('propertyValue'));
 
 		$propertySchema = $this->tsValue("propertySchema");
@@ -194,5 +194,8 @@ class DefaultFormElementBuilder extends \TYPO3\TypoScript\TypoScriptObjects\Abst
 		return $element;
     }
 
+    public function getLabel() {
+    	return $this->tsRuntime->render($this->path . '/label');
+    }
 }
 ?>

@@ -199,7 +199,7 @@ prototype(TYPO3.Expose:Form.DefaultElementBuilder) {
 	formFieldType = ${formFieldType}
 	parentFormElement = ${parentFormElement}
 	identifier = ${formElementIdentifier}
-	label = ${propertyName}
+	label = TYPO3.Expose:Elements.Label
 	propertyAnnotations = ${propertyAnnotations}
 	propertyName = ${propertyName}
 	propertyType = ${propertyType}

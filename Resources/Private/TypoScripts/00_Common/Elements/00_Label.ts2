@@ -1,0 +1,28 @@
+/**
+ * @context className the class name to be rendered
+ * @context propertyName
+ * @context propertyAnnotations
+ * @context propertyType
+ * @context propertyElementType
+ */
+prototype(TYPO3.Expose:Elements.Label) < prototype(TYPO3.TypoScript:Case) {
+	prototype(TYPO3.TypoScript:Matcher).type = 'TYPO3.Expose:Elements.LabelTemplate'
+	@override.label = ${propertyName}
+
+	annotation {
+		condition = ${propertyAnnotations['TYPO3\Expose\Annotations\Label']}
+		@position = '100'
+		@override.label = ${propertyAnnotations['TYPO3\Expose\Annotations\Label']['0'].label}
+	}
+
+	default {
+		condition = ${true}
+		@position = '999'
+		@override.label = ${propertyName}
+	}
+}
+
+prototype(TYPO3.Expose:Elements.LabelTemplate) < prototype(TYPO3.TypoScript:Template) {
+	templatePath = 'resource://TYPO3.Expose/Private/Elements/Label.html'
+	label = ${label}
+}
