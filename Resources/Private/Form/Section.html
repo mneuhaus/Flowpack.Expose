@@ -3,7 +3,7 @@
 <f:form.validationResults for="{section.identifier}">
 	<fieldset id="{section.uniqueIdentifier}"{f:if(condition: section.properties.elementClassAttribute, then: ' class="{section.properties.elementClassAttribute}"')} class="t3-expose-section">
 		<f:if condition="{section.label}">
-			<legend>{section.label}</legend>
+			<h5>{section.label}</h5>
 		</f:if>
 		<f:if condition="{validationResults.flattenedErrors}">
 			<div class="alert alert-error">

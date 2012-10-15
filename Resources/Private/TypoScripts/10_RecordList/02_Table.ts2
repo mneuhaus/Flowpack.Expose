@@ -13,5 +13,6 @@ prototype(TYPO3.Expose:RecordList.Table) < prototype(TYPO3.TypoScript:Template) 
 		itemName = 'item'
 		itemRenderer = TYPO3.Expose:RecordList.Table.Row
 	}
+	propertyLabel = TYPO3.Expose:Elements.Label
 	objects = ${objects}
 }

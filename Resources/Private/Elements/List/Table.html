@@ -10,14 +10,12 @@
 				<input type="checkbox" class="select-all" data-klove-shortcut="a" data-klove-info="toggle all"/>
 			</th>
 			<cm:properties object="{objects.0}">
-				<f:for each="{properties}" as="property">
+				<f:for each="{properties}" as="property" key="propertyName">
 					<f:if condition="{sorting.property} == {property}">
 						<f:then><th class="sort-{sorting.direction}"></f:then>
 						<f:else><th></f:else>
 					</f:if>
-						<!-- <_f:link.action action="list" addQueryString="true" arguments="{sort: property, direction: sorting.oppositeDirection}"> -->
-							{property.label}
-						<!-- </_f:link.action> -->
+						<ts:renderTypoScript path="propertyLabel" context="{propertyName: propertyName, propertyAnnotations: property}" />
 					</th>
 				</f:for>
 			</cm:properties>
