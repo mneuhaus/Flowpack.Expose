@@ -178,7 +178,7 @@ class InlineFormElement extends \TYPO3\Form\FormElements\Section {
 		$object = new $class();
 		$namespace = $this->getIdentifier();
 		if ($this->isMultipleMode()) {
-			$namespace . = '.' . $this->counter;
+			$namespace .= '.' . $this->counter;
 		}
 		$inlineElement = $this->annotations['TYPO3\Expose\Annotations\Inline'][0]->getElement();
 		$containerSection = $this->createElement($namespace, $inlineElement . 'Item');
