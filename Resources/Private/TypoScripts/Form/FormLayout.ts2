@@ -1,5 +1,3 @@
-// REVIEWED for release
-
 TYPO3.Expose.NewController.index = TYPO3.Expose:FormLayout
 TYPO3.Expose.EditController.index = TYPO3.Expose:FormLayout
 

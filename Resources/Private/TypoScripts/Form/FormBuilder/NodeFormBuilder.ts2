@@ -8,7 +8,7 @@ prototype(TYPO3.Expose:NodeFormBuilder) {
 	objects = ${objects}
 	formIdentifier = 'form'
 	formPresetName = 'expose'
-	callbackAction = ${callback}
+	callbackAction = ${callbackAction}
 
 	sectionBuilder = TYPO3.Expose:Form.SectionBuilder
 	elementBuilder = TYPO3.Expose:Form.ElementBuilder

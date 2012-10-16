@@ -30,7 +30,7 @@ class NewController extends AbstractController {
 		$objects = array(new $type());
 		$this->view->assign('className', $type);
 		$this->view->assign('objects', $objects);
-		$this->view->assign('callback', 'create');
+		$this->view->assign('callbackAction', 'create');
 	}
 
 	/**

@@ -10,7 +10,7 @@ prototype(TYPO3.Expose:ObjectFormBuilder) {
 	objects = ${objects}
 	formIdentifier = 'form'
 	formPresetName = 'expose'
-	callbackAction = ${callback}
+	callbackAction = ${callbackAction}
 
 	sectionBuilder = TYPO3.Expose:Form.SectionBuilder
 	inlineBuilder = TYPO3.Expose:Form.InlineBuilder

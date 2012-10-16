@@ -38,7 +38,7 @@ class EditController extends AbstractController {
 	public function indexAction($type, $objects) {
 		$this->view->assign('className', $type);
 		$this->view->assign('objects', $objects);
-		$this->view->assign('callback', 'update');
+		$this->view->assign('callbackAction', 'update');
 	}
 
 	/**
