@@ -25,6 +25,19 @@
 			background-color: #eaeaea;
 		}
 	}
+
+	& > .span12 {
+		position: relative;
+	}
+
+	.pagination {
+		margin: 0;
+		a {
+			color: black;
+			font-size: 14px;
+			line-height: 28px;
+		}
+	}
 }
 
 
@@ -41,11 +54,15 @@
 		// border: 1px solid red;
 		border-left: none;
 		background: #E8E8E8;
-		border-right: 1px solid #B3B3B3;
-		border-top: 1px solid #B3B3B3;
-		border-bottom: 1px solid #B3B3B3;
+		border-right: 1px solid #777;
+		border-top: 1px solid #777;
+		border-bottom: 1px solid #777;
 		overflow: hidden;
-		z-index: 1;
+		z-index: 20;
+	}
+
+	.actionBar > div {
+		padding: 10px;
 	}
 
 	&.hiddenActionBar {
@@ -69,9 +86,15 @@
 		opacity: 1;
 	}
 
-	.pagination a {
-		color: black;
-		font-size: 14px;
+	.t3-records > .typo3-expose-active {
+		background: #eee;
+		margin-right: 0px;
+		border-right: 0px;
+		border-top-right-radius: 0px;
+		border-bottom-right-radius: 0px;
+		z-index: 10;
+		position: relative;
+		margin-right: -1px;
 	}
 }
 
@@ -92,12 +115,6 @@
 		position: relative;
 		margin-right: -1px;
 	}
+}
 
-	.nav-list {
-		padding: 0;
-	}
-
-	.pagination {
-		margin: 0;
-	}
-}*/
+*/

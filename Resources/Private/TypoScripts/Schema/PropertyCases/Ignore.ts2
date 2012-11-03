@@ -1,0 +1,32 @@
+prototype(TYPO3.Expose:Schema.PropertyCases.Ignore) < prototype(TYPO3.TypoScript:Case) {
+	prototype(TYPO3.TypoScript:Matcher).type = 'TYPO3.Expose:Schema.PropertyCases.IgnoreMatcher'
+
+#	debug {
+#		condition = ${q(propertySchema['ignore']).debug(propertySchema)}
+#		@position = 'start'
+#	}
+
+	# TODO: Somehow this doesn't override the Annotations, no idea why
+	typoscript {
+		condition = ${propertySchema['ignore']}
+		@position = 'start'
+		@override.value = ${propertySchema['ignore']}
+	}
+
+	annotation {
+		condition = ${propertySchema['annotations']['TYPO3\Expose\Annotations\Ignore']}
+		@position = '100'
+		@override.value = true
+	}
+
+	default {
+		condition = true
+		@position = 'end'
+		@override.value = false
+	}
+}
+
+prototype(TYPO3.Expose:Schema.PropertyCases.IgnoreMatcher) {
+	@class = 'TYPO3\\Expose\\TypoScriptObjects\\Boolean'
+	value = ${value}
+}

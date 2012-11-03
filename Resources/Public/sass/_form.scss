@@ -1,8 +1,14 @@
 // Layouting
 .t3-expose-form {
-	// Style definitions can follow here as we need them
+
+	legend {
+		padding: 0px 20px;
+		margin-bottom: 0;
+	}
+
 	.t3-expose-inline {
 		margin: 20px;
+		overflow: hidden;
 		table {
 			.control-group { margin: 0; }
 			.control-group > label { display: none; }
@@ -62,6 +68,10 @@
 			list-style: none;
 		}
 	}
+
+	.t3-expose-inline + .control-group {
+		margin-top: 20px;
+	}
 }
 
 
@@ -76,7 +86,7 @@
 	box-shadow:#cccccc 0px 3px 5px;
 }
 
-.t3-expose-form {
+.t3-expose-form_ {
 	@include box;
 
 	fieldset > h5 {
@@ -116,5 +126,9 @@
 		-webkit-box-shadow: none;
 		-moz-box-shadow: none;
 		box-shadow: none;
+
+		.control-group {
+			margin: 10px 0 0;
+		}
 	}
 }

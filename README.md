@@ -18,11 +18,7 @@
 ## Installation
 
 ```
-  git clone --recursive git://git.typo3.org/TYPO3v5/Distributions/Base.git PhoenixContentManagement
-  cd PhoenixContentManagement
-
-  git clone git@github.com:mneuhaus/Demo.ContentManagement.git Packages/Application/Demo.ContentManagement
-  git clone git@github.com:mneuhaus/TYPO3.Expose.git Packages/Application/TYPO3.Expose
+  Demo-Environment: 
 ```
 
 See corresponding forge issue: http://forge.typo3.org/issues/37293
@@ -31,13 +27,20 @@ See corresponding forge issue: http://forge.typo3.org/issues/37293
 ### Apply the following changesets:
 
 ```
+	TYPO3.Flow:
+	# https://review.typo3.org/#/c/16392/
+	git fetch git://git.typo3.org/FLOW3/Packages/TYPO3.FLOW3 refs/changes/92/16392/3 && git cherry-pick FETCH_HEAD
 
-	TYPO3.TYPO3:
-	# http://review.typo3.org/14313
-	git fetch git://git.typo3.org/FLOW3/Packages/TYPO3.TYPO3 refs/changes/13/14313/1 && git checkout FETCH_HEAD
+	TYPO3.Expose:
+	# https://review.typo3.org/#/c/16160/
+	git fetch git://git.typo3.org/FLOW3/Packages/TYPO3.Expose refs/changes/60/16160/2 && git cherry-pick FETCH_HEAD
 
 	TYPO3.Fluid:
-	# https://review.typo3.org/#/c/13972
-	git fetch git://git.typo3.org/FLOW3/Packages/TYPO3.Fluid refs/changes/72/13972/1 && git cherry-pick FETCH_HEAD
+	# https://review.typo3.org/#/c/16393/
+	git fetch git://git.typo3.org/FLOW3/Packages/TYPO3.Fluid refs/changes/93/16393/3 && git cherry-pick FETCH_HEAD
+
+	TYPO3.TypoScript:
+	# https://review.typo3.org/#/c/16394/
+	git fetch git://git.typo3.org/FLOW3/Packages/TYPO3.TypoScript refs/changes/94/16394/3 && git cherry-pick FETCH_HEAD
 
 ```

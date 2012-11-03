@@ -3,20 +3,22 @@
 {namespace e=TYPO3\Expose\ViewHelpers}
 {namespace ts=TYPO3\TypoScript\ViewHelpers}
 
-<e:properties object="{item}">
+<e:schema object="{item}">
 	<tr data-klove="row">
 		<td class="tiny">
 			<input type="checkbox" name="bulkItems[]" value="{being.id}" class="select-row" data-klove-row-shortcut="x"/>
 		</td>
-		<f:for each="{properties}" as="propertySchema" key="property">
-			<td>
-				<e:objectAccess object="{item}" property="{property}">
-					{value -> e:formatAsString()}
-				</e:objectAccess>
-			</td>
+		<f:for each="{schema.properties}" as="property" key="propertyName">
+			<f:if condition="{property.ignore} == 0">
+				<td>
+					<e:objectAccess object="{item}" property="{propertyName}">
+						{value -> e:formatAsString()}
+					</e:objectAccess>
+				</td>
+			</f:if>
 		</f:for>
 		<td class="table-actions">
 			<ts:renderTypoScript path="controllerLinks" />
 		</td>
 	</tr>
-</e:properties>
+</e:schema>

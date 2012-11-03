@@ -15,4 +15,5 @@ prototype(TYPO3.Expose:ObjectFormBuilder) {
 	sectionBuilder = TYPO3.Expose:Form.SectionBuilder
 	inlineBuilder = TYPO3.Expose:Form.InlineBuilder
 	elementBuilder = TYPO3.Expose:Form.ElementBuilder
+	schemaLoader = TYPO3.Expose:SchemaLoader
 }

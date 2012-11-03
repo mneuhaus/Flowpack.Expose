@@ -19,6 +19,13 @@ use TYPO3\Flow\Annotations as Flow;
  *
  */
 class DeleteController extends AbstractController {
+	/**
+	 * @return void
+	 */
+	public function initializeIndexAction() {
+		$this->arguments['objects']->setDataType('Doctrine\Common\Collections\Collection<' . $this->request->getArgument('type') . '>');
+		$this->arguments['objects']->getPropertyMappingConfiguration()->allowAllProperties();
+	}
 
 	/**
 	 * delete objects
@@ -30,6 +37,15 @@ class DeleteController extends AbstractController {
 	public function indexAction($type, $objects) {
 		$this->view->assign('className', $type);
 		$this->view->assign('objects', $objects);
+	}
+
+
+	/**
+	 * @return void
+	 */
+	public function initializeDeleteAction() {
+		$this->arguments['objects']->setDataType('Doctrine\Common\Collections\Collection<' . $this->request->getArgument('type') . '>');
+		$this->arguments['objects']->getPropertyMappingConfiguration()->allowAllProperties();
 	}
 
 	/**

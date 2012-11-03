@@ -228,14 +228,14 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypo
 	}
 
 	protected function findSections($className) {
-		$annotationSections = (array) $this->reflectionService->getClassAnnotations($className, 'TYPO3\Expose\Annotations\Section');
-		if (count($annotationSections) > 0) {
-			$sections = array();
-			foreach ($annotationSections as $annotationSection) {
-				$sections[$annotationSection->title] = $annotationSection->properties;
-			}
-			return $sections;
-		}
+			// $annotationSections = (array) $this->reflectionService->getClassAnnotations($className, 'TYPO3\Expose\Annotations\Section');
+			// if (count($annotationSections) > 0) {
+			// 	$sections = array();
+			// 	foreach ($annotationSections as $annotationSection) {
+			// 		$sections[$annotationSection->title] = $annotationSection->properties;
+			// 	}
+			// 	return $sections;
+			// }
 		return array('Default' => '*');
 	}
 
@@ -247,26 +247,23 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypo
 	 */
 	public function createElementsForSection($sectionName, \TYPO3\Form\FormElements\Section $section, $namespace, $object, $propertyNames = NULL) {
 		$className = $this->reflectionService->getClassNameByObject($object);
-		if ($propertyNames == NULL) {
-			$propertyNames = $this->reflectionService->getClassPropertyNames($className);
-		}
-		$classSchema = $this->reflectionService->getClassSchema($className);
-		$this->tsRuntime->pushContext('parentFormElement', $section);
+		$schema = $this->getSchema($object);
 
-		foreach ($propertyNames as $propertyName) {
-			$propertyName = trim($propertyName);
-			$propertySchema = $classSchema->getProperty($propertyName);
+		$this->tsRuntime->pushContext('parentFormElement', $section);
+		foreach ($schema['properties'] as $propertyName => $propertySchema) {
+			if ($propertySchema['ignore']) {
+				$section->getRootForm()->addIgnoredIdentifier($namespace . '.' . $propertyName);
+				continue;
+			}
 
 			$this->tsRuntime->pushContext('className', $className);
 			$this->tsRuntime->pushContext('propertyName', $propertyName);
 			$this->tsRuntime->pushContext('formElementIdentifier', $namespace . '.' . $propertyName);
-			$this->tsRuntime->pushContext('propertyAnnotations', $this->reflectionService->getPropertyAnnotations($className, $propertyName));
 			$this->tsRuntime->pushContext('propertySchema', $propertySchema);
-			$this->tsRuntime->pushContext('propertyType', $propertySchema['type']);
-			$this->tsRuntime->pushContext('propertyElementType', $propertySchema['elementType']);
 			$this->tsRuntime->pushContext('formBuilder', $this);
-			$this->tsRuntime->pushContext('propertyValue', \TYPO3\Flow\Reflection\ObjectAccess::getProperty($object, $propertyName));
+			$this->tsRuntime->pushContext('propertyValue', $this->getPropertyValue($object, $propertyName));
 
+				// Identifier: ...[x].[property]
 			$element = $this->tsRuntime->render($this->path . '/elementBuilder');
 			if (method_exists($element, 'setFormBuilder')) {
 				$element->setFormBuilder($this);
@@ -278,11 +275,22 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypo
 			$this->tsRuntime->popContext();
 			$this->tsRuntime->popContext();
 			$this->tsRuntime->popContext();
-			$this->tsRuntime->popContext();
-			$this->tsRuntime->popContext();
-			$this->tsRuntime->popContext();
 		}
 		$this->tsRuntime->popContext();
+	}
+
+	public function getSchema($object) {
+		$className = $this->reflectionService->getClassNameByObject($object);
+		$this->tsRuntime->pushContext('object', $object);
+		$this->tsRuntime->pushContext('className', $className);
+		$schema = $this->tsRuntime->render($this->path . '/schemaLoader');
+		$this->tsRuntime->popContext();
+		$this->tsRuntime->popContext();
+		return $schema;
+	}
+
+	public function getPropertyValue($object, $propertyName) {
+		return \TYPO3\Flow\Reflection\ObjectAccess::getProperty($object, $propertyName);
 	}
 }
 ?>

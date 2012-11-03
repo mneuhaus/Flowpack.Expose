@@ -19,9 +19,12 @@ use TYPO3\Flow\Mvc\ActionRequest;
 class ExposeRuntime {
 
 	/**
-	 * @var array
+	 * Default action to render if nothing else is specified
+	 * or present in the arguments
+	 *
+	 * @var string
 	 */
-	protected $defaultExposeControllerArguments = array();
+	protected $defaultAction = 'index';
 
 	/**
 	 * Default controller to render if nothing else is specified
@@ -29,7 +32,20 @@ class ExposeRuntime {
 	 *
 	 * @var string
 	 */
-	protected $defaultExposeControllerClassName = 'TYPO3\\Expose\\Controller\\IndexController';
+	protected $defaultController = 'Index';
+
+	/**
+	 * Default package to render if nothing else is specified
+	 * or present in the arguments
+	 *
+	 * @var string
+	 */
+	protected $defaultPackage = 'TYPO3.Expose';
+
+	/**
+	 * @var array
+	 */
+	protected $defaultArguments = array();
 
 	/**
 	 * @var \TYPO3\Flow\Mvc\Dispatcher
@@ -60,8 +76,8 @@ class ExposeRuntime {
 		$arguments = $parentRequest->getPluginArguments();
 		$this->request = new ActionRequest($parentRequest);
 		$this->request->setArgumentNamespace('--' . $this->namespace);
-		$this->request->setControllerActionName('index');
-		$this->request->setControllerPackageKey('TYPO3.Expose');
+		$this->request->setControllerActionName($this->defaultAction);
+		$this->request->setControllerPackageKey($this->defaultPackage);
 		if (isset($arguments[$this->namespace])) {
 			$this->request->setArguments($arguments[$this->namespace]);
 		}
@@ -97,22 +113,44 @@ class ExposeRuntime {
 	/**
 	 * Set the arguments for the initial expose controller
 	 *
-	 * @param array $defaultExposeControllerArguments
+	 * @param array $defaultArguments
 	 * @return void
 	 */
-	public function setDefaultExposeControllerArguments(array $defaultExposeControllerArguments) {
-		$this->defaultExposeControllerArguments = $defaultExposeControllerArguments;
+	public function setDefaultArguments(array $defaultArguments) {
+		$this->defaultArguments = $defaultArguments;
 	}
 
 	/**
-	 * Set the class name for the expose controller to be used when no other
-	 * expose controller has been specified
+	 * Set the action to be used when no other
+	 * action has been specified
 	 *
-	 * @param string $defaultExposeControllerClassName
+	 * @param string $defaultAction
 	 * @return void
 	 */
-	public function setDefaultExposeControllerClassName($defaultExposeControllerClassName) {
-		$this->defaultExposeControllerClassName = $defaultExposeControllerClassName;
+	public function setDefaultAction($defaultAction) {
+		$this->defaultAction = $defaultAction;
+	}
+
+	/**
+	 * Set the controller to be used when no other
+	 * expose controller has been specified
+	 *
+	 * @param string $defaultController
+	 * @return void
+	 */
+	public function setDefaultController($defaultController) {
+		$this->defaultController = $defaultController;
+	}
+
+	/**
+	 * Set the package to be used when no other
+	 * expose package has been specified
+	 *
+	 * @param string $defaultPackage
+	 * @return void
+	 */
+	public function setDefaultPackage($defaultPackage) {
+		$this->defaultPackage = $defaultPackage;
 	}
 
 	/**
@@ -131,13 +169,24 @@ class ExposeRuntime {
 	protected function prepareExecution() {
 		$controllerObjectName = $this->request->getControllerObjectName();
 		if (empty($controllerObjectName)) {
-			$this->request->setControllerObjectName($this->defaultExposeControllerClassName);
-			$this->request->setArguments($this->defaultExposeControllerArguments);
-			$this->setArgumentInParentRequests($this->request, $this->defaultExposeControllerArguments);
+			$this->request->setControllerActionName($this->defaultAction);
+			$this->request->setControllerName($this->defaultController);
+			$this->request->setControllerPackageKey($this->defaultPackage);
+			$this->request->setArguments($this->defaultArguments);
+			$this->setArgumentInParentRequests($this->request, $this->defaultArguments);
 		}
 		if ($this->request->getControllerActionName() === NULL) {
-			$this->request->setControllerActionName('index');
+			$this->request->setControllerActionName($this->defaultAction);
 		}
+	}
+
+	/**
+	 * Set a prefix for the Controllers
+	 *
+	 * @param string $prefix
+	 */
+	public function setTypoScriptPrefix($prefix) {
+		$this->request->setArgument('__typoScriptPrefix', $prefix);
 	}
 }
 

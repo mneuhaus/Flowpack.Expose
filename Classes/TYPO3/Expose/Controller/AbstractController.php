@@ -34,6 +34,31 @@ abstract class AbstractController extends \TYPO3\Flow\Mvc\Controller\ActionContr
 	 */
 	protected $propertyMapper;
 
+	/**
+	 * Initializes the view before invoking an action method.
+	 *
+	 * Override this method to solve assign variables common for all actions
+	 * or prepare the view in another way before the action is called.
+	 *
+	 * @param \TYPO3\Flow\Mvc\View\ViewInterface $view The view to be initialized
+	 * @return void
+	 * @api
+	 */
+	protected function initializeView(\TYPO3\Flow\Mvc\View\ViewInterface $view) {
+		if ($this->request->hasArgument('type')) {
+			$type = $this->request->getArgument('type');
+			$this->prefixTypoScriptPath('<TYPO3.Expose:Schema:' . str_replace('\\', '.', ltrim($type, '\\')) . '>');
+		}
+
+		$prefix = '<' . $this->request->getInternalArgument('__typoScriptPrefix') . '>';
+		$this->prefixTypoScriptPath($prefix);
+	}
+
+	public function prefixTypoScriptPath($prefix) {
+		if ($this->view->getTypoScriptRuntime()->canRender($prefix . '/' . $this->view->getTypoScriptPath())) {
+			$this->view->setTypoScriptPath($prefix . '/' . $this->view->getTypoScriptPath());
+		}
+	}
 }
 
 ?>

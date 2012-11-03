@@ -80,4 +80,4 @@ prototype(TYPO3.Expose:LocalControllerLink) < prototype(TYPO3.Expose:ControllerL
 	arguments.type = ${type}
 	htmlSuffix = '<span class="js" data-type="handlebars" style="display:none;">{{#if multipleSelectionActive}} {{numberOfSelectedElements}} elements{{/if}}</span>'
 }
-prototype(TYPO3.Expose:LocalControllerLink) << 1.wrap(suffix: '<br />')
+#prototype(TYPO3.Expose:LocalControllerLink) << 1.wrap(suffix: '<br />')

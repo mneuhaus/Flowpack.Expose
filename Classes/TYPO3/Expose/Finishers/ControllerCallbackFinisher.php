@@ -30,6 +30,12 @@ class ControllerCallbackFinisher extends \TYPO3\Form\Core\Model\AbstractFinisher
 
 		$objectArguments = $formRuntime->getFormState()->getFormValue('objects');
 
+		foreach ($objectArguments as $key => $object) {
+			if (method_exists($object, '__prePersist')) {
+				$object->__prePersist();
+			}
+		}
+
 		$nextRequest->setArgument('__objects', $objectArguments);
 
 		$forwardException = new \TYPO3\Flow\Mvc\Exception\ForwardException();

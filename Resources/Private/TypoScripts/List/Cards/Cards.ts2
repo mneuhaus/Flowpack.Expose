@@ -1,0 +1,16 @@
+########################################
+# TYPO3.Expose:RecordList.Table
+# --------------------------------------
+# Display a list of common records as table
+########################################
+
+prototype(TYPO3.Expose:RecordList.Cards) < prototype(TYPO3.TypoScript:Template) {
+	templatePath = 'resource://TYPO3.Expose/Private/Elements/Cards/Cards.html'
+	tableBody = TYPO3.TypoScript:Collection {
+		collection = ${objects}
+		itemName = 'item'
+		itemRenderer = TYPO3.Expose:RecordList.Cards.Card
+	}
+	propertyLabel = TYPO3.Expose:Elements.Label
+	objects = ${objects}
+}

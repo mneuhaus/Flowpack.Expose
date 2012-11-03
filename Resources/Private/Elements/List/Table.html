@@ -9,16 +9,18 @@
 			<th class="tiny">
 				<input type="checkbox" class="select-all" data-klove-shortcut="a" data-klove-info="toggle all"/>
 			</th>
-			<cm:properties object="{objects.0}">
-				<f:for each="{properties}" as="property" key="propertyName">
-					<f:if condition="{sorting.property} == {property}">
-						<f:then><th class="sort-{sorting.direction}"></f:then>
-						<f:else><th></f:else>
+			<cm:schema object="{objects.0}">
+				<f:for each="{schema.properties}" as="property" key="propertyName">
+					<f:if condition="{property.ignore} == 0">
+						<f:if condition="{sorting.property} == {property}">
+							<f:then><th class="sort-{sorting.direction}"></f:then>
+							<f:else><th></f:else>
+						</f:if>
+							{property.label}
+						</th>
 					</f:if>
-						<ts:renderTypoScript path="propertyLabel" context="{propertyName: propertyName, propertyAnnotations: property}" />
-					</th>
 				</f:for>
-			</cm:properties>
+			</cm:schema>
 			<th>
 			</th>
 		</tr>

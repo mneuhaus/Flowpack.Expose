@@ -19,6 +19,12 @@ use TYPO3\Flow\Annotations as Flow;
  *
  */
 class NewController extends AbstractController {
+	/**
+	 * @Flow\Inject
+	 * @var \TYPO3\Flow\Reflection\ReflectionService
+	 */
+	protected $reflectionService;
+
 
 	/**
 	 * Create a new object
@@ -41,6 +47,7 @@ class NewController extends AbstractController {
 		foreach ($objects as $object) {
 			$this->persistenceManager->add($object);
 		}
+		$this->persistenceManager->persistAll();
 		$this->redirect('index', 'sametypelist', 'TYPO3.Expose', array('type' => $type));
 	}
 

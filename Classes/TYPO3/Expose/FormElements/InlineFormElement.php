@@ -20,21 +20,15 @@ class InlineFormElement extends \TYPO3\Form\FormElements\Section {
 
 	/**
 	 *
-	 * @var object
+	 * @var string
 	 */
-	protected $annotations;
+	protected $class;
 
 	/**
 	 *
 	 * @var string
 	 */
 	protected $counter = 0;
-
-	/**
-	 *
-	 * @var string
-	 */
-	protected $var;
 
 	/**
 	 *
@@ -56,22 +50,9 @@ class InlineFormElement extends \TYPO3\Form\FormElements\Section {
 	protected $reflectionService;
 
 	/**
-	 * Returns the Annotations
-	 * @return array
+	 * @var array
 	 */
-	public function getAnnotations() {
-		return $this->annotations;
-	}
-
-	/**
-	 * Set the annotations
-	 *
-	 * @param array $annotations
-	 * @return null
-	 */
-	public function setAnnotations($annotations) {
-		$this->annotations = $annotations;
-	}
+	protected $propertySchema;
 
 	/**
 	 * Check if the this inline element handles a multiple relation
@@ -79,7 +60,11 @@ class InlineFormElement extends \TYPO3\Form\FormElements\Section {
 	 * @return boolean
 	 */
 	public function isMultipleMode() {
-		if (isset($this->annotations['Doctrine\ORM\Mapping\ManyToMany']) || isset($this->annotations['Doctrine\ORM\Mapping\OneToMany'])) {
+		if (isset($this->propertySchema['inline']['multipleMode'])) {
+			return $this->propertySchema['inline']['multipleMode'];
+		}
+
+		if (isset($this->propertySchema['annotations']['Doctrine\ORM\Mapping\ManyToMany']) || isset($this->propertySchema['annotations']['Doctrine\ORM\Mapping\OneToMany'])) {
 			return TRUE;
 		} else {
 			return FALSE;
@@ -141,6 +126,14 @@ class InlineFormElement extends \TYPO3\Form\FormElements\Section {
 		$this->counter = $counter;
 	}
 
+	public function setPropertySchema($propertySchema) {
+		$this->propertySchema = $propertySchema;
+	}
+
+	public function getPropertySchema() {
+		return $this->propertySchema;
+	}
+
 	/**
 	 * Returns the propertNames for the elementType
 	 *
@@ -162,7 +155,7 @@ class InlineFormElement extends \TYPO3\Form\FormElements\Section {
 		$object = new $class();
 		$namespace = '_template.' . $this->getIdentifier() . '.000';
 		$parentSection = clone $this;
-		$inlineElement = $this->annotations['TYPO3\Expose\Annotations\Inline'][0]->getElement();
+		$inlineElement = $this->propertySchema['inline']['element'];
 		$containerSection = $parentSection->createElement($namespace, $inlineElement . 'Item');
 		$section = $this->formBuilder->createFormForSingleObject($containerSection, $object, $namespace);
 		return $containerSection;
@@ -180,11 +173,20 @@ class InlineFormElement extends \TYPO3\Form\FormElements\Section {
 		if ($this->isMultipleMode()) {
 			$namespace .= '.' . $this->counter;
 		}
-		$inlineElement = $this->annotations['TYPO3\Expose\Annotations\Inline'][0]->getElement();
+		$inlineElement = $this->propertySchema['inline']['element'];
 		$containerSection = $this->createElement($namespace, $inlineElement . 'Item');
-		$containerSection->setAnnotations($this->annotations);
+		$containerSection->setPropertySchema($this->propertySchema);
 		$section = $this->formBuilder->createElementsForSection(count($this->renderables), $containerSection, $namespace, $object);
 		return $containerSection;
+	}
+
+	public function getElements() {
+		$elements = array();
+		foreach ($this->renderables as $element) {
+			$parts = explode('.', $element->getIdentifier());
+			$elements[array_pop($parts)] = $element;
+		}
+		return $elements;
 	}
 }
 

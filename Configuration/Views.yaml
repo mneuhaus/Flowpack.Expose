@@ -1,0 +1,10 @@
+TYPO3:
+  Expose:
+    options:
+      typoScriptPathPatterns:
+        00_TYPO3.Expose: resource://TYPO3.Expose/Private/TypoScripts/
+
+    controllers:
+      SameTypeList:
+        options:
+          typoScriptPath: '<TYPO3.Expose:RecordList>'

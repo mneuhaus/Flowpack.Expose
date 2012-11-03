@@ -1,0 +1,41 @@
+/**
+ * @context className the class name to be rendered
+ * @context propertyName
+ * @context propertySchema['annotations']
+ * @context propertyType
+ * @context propertyElementType
+ */
+prototype(TYPO3.Expose:Schema.PropertyCases.Inline) < prototype(TYPO3.TypoScript:Case) {
+	prototype(TYPO3.TypoScript:Matcher).type = 'TYPO3.Expose:Schema.PropertyCases.InlineValue'
+
+#	debug {
+#		condition = ${q(propertyName).debug(propertySchema)}
+#		@position = 'start'
+#	}
+
+	# TODO: Somehow this doesn't override the Annotations, no idea why
+	typoscript {
+		condition = ${propertySchema['inline']}
+		@position = 'start'
+		@override.value = ${propertySchema['inline']}
+	}
+
+#	annotation {
+#		condition = ${propertySchema['annotations']['TYPO3\Expose\Annotations\Inline']}
+#		@position = '100'
+#		@override.value {
+#			element = ${propertySchema['annotations']['TYPO3\Expose\Annotations\Inline']['0'].element
+#		}
+#	}
+
+#	default {
+#		condition = ${true}
+#		@position = 'end'
+#		@override.value = 'TYPO3.Expose:InlineSeamless'
+#	}
+}
+
+prototype(TYPO3.Expose:Schema.PropertyCases.InlineValue) {
+	@class = 'TYPO3\\Expose\\TypoScriptObjects\\String'
+	value = ${value}
+}

@@ -234,6 +234,36 @@ use TYPO3\Flow\Annotations as Flow;
  */
 class FormDefinition extends \TYPO3\Form\Core\Model\FormDefinition {
 	/**
+	 * Collection of ignored identifiers used in the form
+	 * layout to show validation errors for ignored
+	 * properties
+	 *
+	 * @var array
+	 */
+	protected $ignoredIdentifiers = array();
+
+	/**
+	 * @param string $ignoredIdentifier
+	 */
+	public function addIgnoredIdentifier($ignoredIdentifier) {
+		$this->ignoredIdentifiers[] = $ignoredIdentifier;
+	}
+
+	/**
+	 * @param array $ignoredIdentifiers
+	 */
+	public function setIgnoredIdentifiers($ignoredIdentifiers) {
+		$this->ignoredIdentifiers = $ignoredIdentifiers;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getIgnoredIdentifiers() {
+		return $this->ignoredIdentifiers;
+	}
+
+	/**
 	 * @param string $propertyPath
 	 * @return ProcessingRule
 	 * @api

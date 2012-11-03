@@ -27,19 +27,7 @@ class ArrayOptionsProvider extends \TYPO3\Expose\Core\OptionsProvider\AbstractOp
 	 * @return array $options
 	 */
 	public function getOptions() {
-		$class = $this->annotations->getClass();
-		$options = array();
-		if (isset($this->annotations->getOptionsProvider()->property)) {
-			$optionsProperty = $this->annotations->getOptionsProvider()->property;
-		} else {
-			$optionsProperty = '_' . $this->annotations->getProperty();
-		}
-		if (!empty($this->annotations->getOptionsProvider()->options)) {
-			$options = $this->annotations->getOptionsProvider()->options;
-		} else {
-			$options = $class->getValue($optionsProperty);
-		}
-		return $options;
+		return $this->propertySchema['optionsProvider']['options'];
 	}
 
 }

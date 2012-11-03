@@ -25,16 +25,26 @@ class ActionViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 	/**
 	 * @param string $defaultAction name of the entry action
 	 * @param string $defaultController name of the entry controller
+	 * @param string $defaultPacakge name of the entry package
 	 * @param array $defaultArguments for the controller
+	 * @param string $type to use for the action
+	 * @param string $typoScriptPrefix prototype prefix for the TypoScript rendering
 	 * @return string the rendered form
 	 */
-	public function render($defaultAction = 'index', $defaultController = 'TYPO3\Expose\Controller\IndexController', $defaultArguments = array()) {
+	public function render($defaultAction = 'index', $defaultController = 'Index', $defaultPackage = 'TYPO3.Expose', $defaultArguments = array(), $type = NULL, $typoScriptPrefix = NULL) {
 		$response = new \TYPO3\Flow\Http\Response($this->controllerContext->getResponse());
 		$request = $this->controllerContext->getRequest();
 
+		if ($type !== NULL) {
+			$defaultArguments['type'] = $type;
+		}
+
 		$exposeRuntime = new \TYPO3\Expose\Core\ExposeRuntime($request, $response);
-        $exposeRuntime->setDefaultExposeControllerClassName($defaultController);
-        $exposeRuntime->setDefaultExposeControllerArguments($defaultArguments);
+        $exposeRuntime->setDefaultPackage($defaultPackage);
+        $exposeRuntime->setDefaultController($defaultController);
+        $exposeRuntime->setDefaultAction($defaultAction);
+        $exposeRuntime->setDefaultArguments($defaultArguments);
+        $exposeRuntime->setTypoScriptPrefix($typoScriptPrefix);
         return $exposeRuntime->execute();
 	}
 }

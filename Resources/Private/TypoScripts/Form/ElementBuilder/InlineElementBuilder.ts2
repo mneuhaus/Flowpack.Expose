@@ -7,4 +7,5 @@
 prototype(TYPO3.Expose:Form.InlineElementBuilder) < prototype(TYPO3.Expose:Form.DefaultElementBuilder) {
 	@class = 'TYPO3\\Expose\\TypoScriptObjects\\FormElementBuilder\\InlineFormElementBuilder'
 	formBuilder = ${formBuilder}
+	request = ${request}
 }

@@ -30,15 +30,14 @@ body.js .nojs {
 }
 /* line 19, ../sass/_mixins.scss */
 .t3-ui .bar {
-  padding: 5px 0;
-  margin-bottom: 5px;
+  padding: 0 0 15px;
   height: 30px;
 }
-/* line 23, ../sass/_mixins.scss */
+/* line 22, ../sass/_mixins.scss */
 .t3-ui .bar .pull-left {
   margin-right: 10px;
 }
-/* line 26, ../sass/_mixins.scss */
+/* line 25, ../sass/_mixins.scss */
 .t3-ui .bar .pull-right {
   margin-left: 10px;
 }
@@ -69,8 +68,22 @@ body.js .nojs {
 .t3-ui .typo3-expose-recordlist .widget.typo3-expose-active {
   background-color: #eaeaea;
 }
+/* line 29, ../sass/_recordlist.scss */
+.t3-ui .typo3-expose-recordlist > .span12 {
+  position: relative;
+}
+/* line 33, ../sass/_recordlist.scss */
+.t3-ui .typo3-expose-recordlist .pagination {
+  margin: 0;
+}
+/* line 35, ../sass/_recordlist.scss */
+.t3-ui .typo3-expose-recordlist .pagination a {
+  color: black;
+  font-size: 14px;
+  line-height: 28px;
+}
 
-/* line 36, ../sass/_recordlist.scss */
+/* line 49, ../sass/_recordlist.scss */
 .typo3-expose-recordlist .actionBar {
   position: absolute;
   right: 0;
@@ -78,29 +91,33 @@ body.js .nojs {
   height: 100%;
   border-left: none;
   background: #E8E8E8;
-  border-right: 1px solid #B3B3B3;
-  border-top: 1px solid #B3B3B3;
-  border-bottom: 1px solid #B3B3B3;
+  border-right: 1px solid #777;
+  border-top: 1px solid #777;
+  border-bottom: 1px solid #777;
   overflow: hidden;
-  z-index: 1;
+  z-index: 20;
 }
-/* line 52, ../sass/_recordlist.scss */
+/* line 64, ../sass/_recordlist.scss */
+.typo3-expose-recordlist .actionBar > div {
+  padding: 10px;
+}
+/* line 69, ../sass/_recordlist.scss */
 .typo3-expose-recordlist.hiddenActionBar [data-area=actionBar] {
   opacity: 0;
   display: none;
 }
-/* line 56, ../sass/_recordlist.scss */
+/* line 73, ../sass/_recordlist.scss */
 .typo3-expose-recordlist.hiddenActionBar [data-area=main] {
   margin-right: 0;
 }
-/* line 60, ../sass/_recordlist.scss */
+/* line 77, ../sass/_recordlist.scss */
 .typo3-expose-recordlist [data-area=main], .typo3-expose-recordlist [data-area=actionBar] {
   -moz-transition-duration: 0.2s;
   -webkit-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
 }
-/* line 63, ../sass/_recordlist.scss */
+/* line 80, ../sass/_recordlist.scss */
 .typo3-expose-recordlist [data-area=main] {
   -moz-transition-property: margin-right;
   -webkit-transition-property: margin-right;
@@ -108,7 +125,7 @@ body.js .nojs {
   transition-property: margin-right;
   margin-right: 150px;
 }
-/* line 67, ../sass/_recordlist.scss */
+/* line 84, ../sass/_recordlist.scss */
 .typo3-expose-recordlist [data-area=actionBar] {
   -moz-transition-property: opacity;
   -webkit-transition-property: opacity;
@@ -116,10 +133,16 @@ body.js .nojs {
   transition-property: opacity;
   opacity: 1;
 }
-/* line 72, ../sass/_recordlist.scss */
-.typo3-expose-recordlist .pagination a {
-  color: black;
-  font-size: 14px;
+/* line 89, ../sass/_recordlist.scss */
+.typo3-expose-recordlist .t3-records > .typo3-expose-active {
+  background: #eee;
+  margin-right: 0px;
+  border-right: 0px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  z-index: 10;
+  position: relative;
+  margin-right: -1px;
 }
 
 /*
@@ -139,92 +162,96 @@ body.js .nojs {
 		position: relative;
 		margin-right: -1px;
 	}
+}
 
-	.nav-list {
-		padding: 0;
-	}
-
-	.pagination {
-		margin: 0;
-	}
-}*/
+*/
 /* line 2, ../sass/_Inline.scss */
 .t3-expose-inline .t3-expose-inline-item-template {
   display: none;
 }
 
 /* line 4, ../sass/_Form.scss */
+.t3-expose-form legend {
+  padding: 0px 20px;
+  margin-bottom: 0;
+}
+/* line 9, ../sass/_Form.scss */
 .t3-expose-form .t3-expose-inline {
   margin: 20px;
+  overflow: hidden;
 }
-/* line 7, ../sass/_Form.scss */
+/* line 13, ../sass/_Form.scss */
 .t3-expose-form .t3-expose-inline table .control-group {
   margin: 0;
 }
-/* line 8, ../sass/_Form.scss */
+/* line 14, ../sass/_Form.scss */
 .t3-expose-form .t3-expose-inline table .control-group > label {
   display: none;
 }
-/* line 9, ../sass/_Form.scss */
+/* line 15, ../sass/_Form.scss */
 .t3-expose-form .t3-expose-inline table .controls {
   margin-left: 0;
 }
-/* line 10, ../sass/_Form.scss */
+/* line 16, ../sass/_Form.scss */
 .t3-expose-form .t3-expose-inline table .controls input, .t3-expose-form .t3-expose-inline table select {
   width: 130px;
 }
-/* line 11, ../sass/_Form.scss */
+/* line 17, ../sass/_Form.scss */
 .t3-expose-form .t3-expose-inline table th {
   border-top: none;
 }
-/* line 14, ../sass/_Form.scss */
+/* line 20, ../sass/_Form.scss */
 .t3-expose-form .t3-expose-inline > h5 {
   margin-bottom: 0;
 }
-/* line 18, ../sass/_Form.scss */
+/* line 24, ../sass/_Form.scss */
 .t3-expose-form .t3-expose-inline .t3-expose-inline-item {
   padding-top: 10px;
   padding-bottom: 20px;
 }
-/* line 23, ../sass/_Form.scss */
+/* line 29, ../sass/_Form.scss */
 .t3-expose-form .t3-expose-inline .close {
   margin-right: 20px;
   line-height: 10px;
 }
-/* line 30, ../sass/_Form.scss */
+/* line 36, ../sass/_Form.scss */
 .t3-expose-form .t3-expose-inline-item .close {
   display: none;
 }
-/* line 37, ../sass/_Form.scss */
+/* line 43, ../sass/_Form.scss */
 .t3-expose-form .t3-expose-inline-multiple .t3-expose-inline-item .close {
   display: block;
 }
-/* line 44, ../sass/_Form.scss */
+/* line 50, ../sass/_Form.scss */
 .t3-expose-form .t3-expose-inline-multiple .t3-expose-inline-item-template .close,
 .t3-expose-form .t3-expose-inline-multiple .t3-expose-inline-item-unused .close {
   display: none;
 }
-/* line 55, ../sass/_Form.scss */
+/* line 61, ../sass/_Form.scss */
 .t3-expose-form .t3-expose-section,
 .t3-expose-form .t3-expose-page {
   margin: 0;
 }
-/* line 61, ../sass/_Form.scss */
+/* line 67, ../sass/_Form.scss */
 .t3-expose-form .form-navigation ul,
 .t3-expose-form .form-navigation li {
   list-style: none;
 }
+/* line 72, ../sass/_Form.scss */
+.t3-expose-form .t3-expose-inline + .control-group {
+  margin-top: 20px;
+}
 
-/* line 79, ../sass/_Form.scss */
-.t3-expose-form {
+/* line 89, ../sass/_Form.scss */
+.t3-expose-form_ {
   background: #ffffff;
   border: 1px solid #c0c0c0;
   -moz-box-shadow: #cccccc 0px 3px 5px;
   -webkit-box-shadow: #cccccc 0px 3px 5px;
   box-shadow: #cccccc 0px 3px 5px;
 }
-/* line 82, ../sass/_Form.scss */
-.t3-expose-form fieldset > h5 {
+/* line 92, ../sass/_Form.scss */
+.t3-expose-form_ fieldset > h5 {
   background: #EFF5F8;
   border-bottom: 1px solid #CCC;
   border-top: 1px solid #CCC;
@@ -232,32 +259,32 @@ body.js .nojs {
   text-shadow: white 0px 1px;
   margin-top: -1px;
 }
-/* line 91, ../sass/_Form.scss */
-.t3-expose-form .t3-expose-inline {
+/* line 101, ../sass/_Form.scss */
+.t3-expose-form_ .t3-expose-inline {
   background: #ffffff;
   border: 1px solid #c0c0c0;
   -moz-box-shadow: #cccccc 0px 3px 5px;
   -webkit-box-shadow: #cccccc 0px 3px 5px;
   box-shadow: #cccccc 0px 3px 5px;
 }
-/* line 94, ../sass/_Form.scss */
-.t3-expose-form .t3-expose-inline > h5 {
+/* line 104, ../sass/_Form.scss */
+.t3-expose-form_ .t3-expose-inline > h5 {
   background: whiteSmoke;
 }
-/* line 98, ../sass/_Form.scss */
-.t3-expose-form .t3-expose-inline .t3-expose-inline-item {
+/* line 108, ../sass/_Form.scss */
+.t3-expose-form_ .t3-expose-inline .t3-expose-inline-item {
   border-bottom: 1px solid #DDD;
 }
-/* line 102, ../sass/_Form.scss */
-.t3-expose-form .t3-expose-inline .t3-expose-inline-item-unused {
+/* line 112, ../sass/_Form.scss */
+.t3-expose-form_ .t3-expose-inline .t3-expose-inline-item-unused {
   background: #FAFAFA;
 }
-/* line 106, ../sass/_Form.scss */
-.t3-expose-form .t3-expose-inline .control-group {
+/* line 116, ../sass/_Form.scss */
+.t3-expose-form_ .t3-expose-inline .control-group {
   margin: 10px 20px 0;
 }
-/* line 111, ../sass/_Form.scss */
-.t3-expose-form .t3-expose-inline-seamless {
+/* line 121, ../sass/_Form.scss */
+.t3-expose-form_ .t3-expose-inline-seamless {
   background: none;
   border: none;
   padding: 0;
@@ -265,4 +292,8 @@ body.js .nojs {
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
+}
+/* line 130, ../sass/_Form.scss */
+.t3-expose-form_ .t3-expose-inline-seamless .control-group {
+  margin: 10px 0 0;
 }

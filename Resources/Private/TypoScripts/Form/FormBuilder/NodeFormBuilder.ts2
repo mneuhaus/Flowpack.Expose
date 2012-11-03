@@ -13,6 +13,8 @@ prototype(TYPO3.Expose:NodeFormBuilder) {
 	sectionBuilder = TYPO3.Expose:Form.SectionBuilder
 	elementBuilder = TYPO3.Expose:Form.ElementBuilder
 
+	schemaLoader = TYPO3.Expose:SchemaLoader
+
 		// If we are inside the "node" context, we can use the label of the property
 		// schema as label of the form element
 	prototype(TYPO3.Expose:Form.DefaultElementBuilder) {

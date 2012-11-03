@@ -13,6 +13,8 @@ namespace TYPO3\Expose\TypoScriptObjects\FormElementBuilder;
 
 use TYPO3\Flow\Annotations as Flow;
 
+use TYPO3\Flow\Reflection\ObjectAccess;
+
 /**
  * Render a Form section using the Form framework
  */
@@ -24,67 +26,103 @@ class InlineFormElementBuilder extends DefaultFormElementBuilder {
 	protected $reflectionService;
 
 	/**
+	 *
+	 * @var object
+	 */
+	protected $request;
+
+	/**
+	 * @param object $request
+	 */
+	public function setRequest($request) {
+		$this->request = $request;
+	}
+
+	/**
+	 * @return object
+	 */
+	public function getRequest() {
+		return $this->tsValue('request');
+	}
+
+	/**
 	 * Evaluate the collection nodes
 	 *
 	 * @return string
 	 */
 	public function evaluate() {
-
 		$parentFormElement = $this->tsValue('parentFormElement');
 		if (!($parentFormElement instanceof \TYPO3\Form\Core\Model\AbstractSection)) {
 			throw new \Exception('TODO: parent form element must be a section-like element');
 		}
 
-		$annotations = $this->tsValue('propertyAnnotations');
+		$schema = $this->getSchema($this->tsValue('className'));
+		$propertySchema = $schema['properties'][$this->tsValue('propertyName')];
 
-		if (isset($annotations['TYPO3\Expose\Annotations\Ignore'])) {
-			return NULL;
-		}
-
-		$classAnnotations = $this->reflectionService->getClassAnnotations($this->tsValue('className'));
-		$propertyAnnotations = $this->reflectionService->getPropertyAnnotations($this->tsValue('className'), $this->tsValue('propertyName'));
-
-		$varTags = $this->reflectionService->getPropertyTagValues($this->tsValue('className'), $this->tsValue('propertyName'), 'var');
-
+		$this->tsRuntime->pushContext('propertySchema', $propertySchema);
 		$namespace = $this->tsValue('identifier');
-		if (isset($annotations['Doctrine\ORM\Mapping\ManyToMany']) || isset($annotations['Doctrine\ORM\Mapping\OneToMany'])) {
-			preg_match('/<(.+)>/', $varTags[0], $matches);
-			$className = $matches[1];
+		if (isset($propertySchema['annotations']['Doctrine\ORM\Mapping\ManyToMany']) || isset($propertySchema['annotations']['Doctrine\ORM\Mapping\OneToMany'])) {
+			$className = $propertySchema['elementType'];
 			$objects = $this->tsValue('propertyValue');
+
 			if (is_null($objects) || count($objects) < 1) {
 				$objects = array();
 			}
+
+			$requestArguments = $this->getRequest()->getMainRequest()->getPluginArguments();
+			if (isset($requestArguments['form'])) {
+				$formArguments = \TYPO3\Flow\Utility\Arrays::getValueByPath($requestArguments['form'], $namespace);
+				if (is_array($formArguments)) {
+					foreach ($formArguments as $key => $value) {
+						$objects = array();
+						$objects[$key] = new $className();
+					}
+				}
+			}
+
 			$containerSection = $parentFormElement->createElement($this->tsValue('identifier'), $this->tsValue('formFieldType'));
 			$containerSection->setFormBuilder($this->tsValue('formBuilder'));
 			$containerSection->setClass($className);
-			$containerSection->setLabel($this->tsRuntime->evaluate($this->path . '/label'));
+			$containerSection->setLabel($propertySchema['label']);
 			$containerSection->setDataType('Doctrine\Common\Collections\Collection<' . $className . '>');
 			$containerSection->setCounter(count($objects));
-			$containerSection->setAnnotations($propertyAnnotations);
+			$containerSection->setPropertySchema($propertySchema);
+
 			foreach ($objects as $key => $object) {
 				$itemSection = $containerSection->createElement($namespace . '.' . $key, $this->tsValue('formFieldType') . 'Item');
 				$itemSection->setFormBuilder($this->tsValue('formBuilder'));
 				$section = $this->tsValue('formBuilder')->createFormForSingleObject($itemSection, $object, $namespace . '.' . $key);
 				$section->setDataType($className);
 			}
+
 		} else {
-			$className = $this->tsValue('propertyType');
+			$className = $propertySchema['type'];
 			$object = $this->tsValue('propertyValue');
+
 			if (is_null($object)) {
 				$object = new $className();
 			}
-			$containerSection = $parentFormElement->createElement('container.' . $this->tsValue('identifier'), $this->tsValue('formFieldType'));
+
+			$containerSection = $parentFormElement->createElement('c.' . $this->tsValue('identifier'), $this->tsValue('formFieldType'));
 			$containerSection->setFormBuilder($this->tsValue('formBuilder'));
-			$containerSection->setLabel($this->tsRuntime->evaluate($this->path . '/label'));
+			$containerSection->setLabel($propertySchema['label']);
 			$containerSection->setClass($className);
-			$containerSection->setAnnotations($propertyAnnotations);
+			$containerSection->setPropertySchema($propertySchema);
 
 			$itemSection = $containerSection->createElement($namespace, $this->tsValue('formFieldType') . 'Item');
 			$itemSection->setFormBuilder($this->tsValue('formBuilder'));
 			$itemSection->setDataType($className);
 			$section = $this->tsValue('formBuilder')->createFormForSingleObject($itemSection, $object, $namespace);
 		}
+		$this->tsRuntime->popContext();
 		return $containerSection;
+	}
+
+	public function getSchema($className) {
+		$this->tsRuntime->pushContext('className', $className);
+		$schema = $this->tsRuntime->render($this->path . '/<TYPO3.Expose:SchemaLoader>');
+		$this->tsRuntime->popContext();
+		return $schema;
 	}
 }
 ?>

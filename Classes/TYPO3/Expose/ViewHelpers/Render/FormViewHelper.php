@@ -11,6 +11,7 @@ namespace TYPO3\Expose\ViewHelpers\Render;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
+use TYPO3\Flow\Annotations as Flow;
 use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
@@ -29,15 +30,21 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  * @api
  */
 class FormViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
+	/**
+	 * @Flow\Inject
+	 * @var \TYPO3\Flow\Configuration\ConfigurationManager
+	 */
+	protected $configurationManager;
 
 	/**
 	 * @param string $presetName name of the preset to use
 	 * @param string $class the class to render the form for
 	 * @param object $object the object to rende the form for
 	 * @param string $callbackAction action to redirect the successful form to
+	 * @param string $typoScriptPrefix prototype prefix for the TypoScript rendering
 	 * @return string the rendered form
 	 */
-	public function render($presetName = 'expose', $class = NULL, $object = NULL, $callbackAction = NULL) {
+	public function render($presetName = 'expose', $class = NULL, $object = NULL, $callbackAction = NULL, $typoScriptPrefix = NULL) {
 		if (!is_null($class)) {
 			$object = new $class();
 		}
@@ -46,18 +53,27 @@ class FormViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 			$class = get_class($object);
 		}
 
-		$variables = array(
+		$view = new \TYPO3\TypoScript\View\TypoScriptView();
+		$view->setPackageKey('TYPO3.Expose');
+		$view->setControllerContext($this->controllerContext);
+		$view->assignMultiple(array(
 			'className' => $class,
 			'objects' => array($object),
 			'callbackAction' => $callbackAction
-		);
+		));
 
-		$renderer = new \TYPO3\Expose\TypoScript\Renderer();
-		$renderer->setPackageKey('TYPO3.Expose');
+		$configuration = $this->configurationManager->getConfiguration('Views', 'TYPO3.Expose');
+		$view->setTypoScriptPathPatterns($configuration['options']['typoScriptPathPatterns']);
 
-		return $renderer->renderPath('<TYPO3.Expose:FormLayout>', $variables, $this->controllerContext);
+		$path = '<TYPO3.Expose:FormLayout>';
+		$schemaPath = '<' . str_replace('\\', '.', $class) . '>/' . $path;
+		if ($view->getTypoScriptRuntime()->canRender($schemaPath)) {
+			$view->setTypoScriptPath($schemaPath);
+		} else {
+			$view->setTypoScriptPath($path);
+		}
+		return $view->render();
 	}
-
 }
 
 ?>

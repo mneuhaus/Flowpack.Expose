@@ -25,7 +25,9 @@ class FormRenderer extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypoScrip
 	 * @throws \InvalidArgumentException
 	 */
 	public function evaluate() {
+		$this->tsRuntime->pushContext('request', $this->tsRuntime->getControllerContext()->getRequest());
 		$formDefinition = $this->tsRuntime->evaluate($this->path . '/form');
+		$this->tsRuntime->popContext();
 		if (!($formDefinition instanceof \TYPO3\Form\Core\Model\FormDefinition)) {
 			throw new \InvalidArgumentException('TODO: FormRenderer expects a form definition inside form/');
 		}

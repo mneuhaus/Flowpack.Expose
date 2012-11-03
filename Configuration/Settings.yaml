@@ -14,6 +14,10 @@ TYPO3:
       Default: 20
       MaxPages: 8
 
+  TypoScript:
+    # We need to Disable this, because otherwise it catches redirect Exceptions
+    catchRuntimeExceptions: FALSE
+
   Form:
     presets:
       expose:
@@ -58,7 +62,7 @@ TYPO3:
             superTypes: ['TYPO3.Form:Section']
             implementationClassName: 'TYPO3\Expose\FormElements\InlineFormElement'
             renderingOptions:
-              templatePathPattern: 'resource://TYPO3.Expose/Private/Form/{@type}.html'
+              templatePathPattern: 'resource://{@package}/Private/Form/{@type}.html'
               renderableNameInTemplate: 'inline'
 
           'TYPO3.Expose:InlineStackedItem':

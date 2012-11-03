@@ -21,11 +21,16 @@ class OptionsFormElement extends ComplexFormElement {
 	 * Default OptionsProvider
 	 *
 	 * @var string
-	 **/
+	 */
 	protected $defaultOptionsProvider = 'TYPO3\Expose\OptionsProvider\RelationOptionsProvider';
 
+	/**
+	 * @var array
+	 */
+	protected $propertySchema;
+
 	public function setPropertySchema($propertySchema) {
-		$this->properties['propertySchema'] = $propertySchema;
+		$this->propertySchema = $propertySchema;
 	}
 
 	/**
@@ -33,7 +38,13 @@ class OptionsFormElement extends ComplexFormElement {
 	 */
 	public function getOptionsProvider() {
 		$optionsProviderClass = $this->defaultOptionsProvider;
-		$optionsProvider = new $optionsProviderClass($this->properties["annotations"], $this->properties["propertySchema"]);
+		if (isset($this->propertySchema['optionsProvider']['class'])) {
+			$optionsProviderClass = $this->propertySchema['optionsProvider']['class'];
+			if (!stristr($optionsProviderClass, '\\')) {
+				$optionsProviderClass = 'TYPO3\Expose\OptionsProvider\\' . $optionsProviderClass . 'OptionsProvider';
+			}
+		}
+		$optionsProvider = new $optionsProviderClass($this->propertySchema);
 
 		return $optionsProvider;
 	}
