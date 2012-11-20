@@ -65,6 +65,7 @@ class DeleteController extends AbstractController {
 				$this->persistenceManager->remove($object);
 			}
 		}
+		$this->persistenceManager->persistAll();
 
 		$this->redirect('index', 'sametypelist', 'TYPO3.Expose', array('type' => $type));
 	}
