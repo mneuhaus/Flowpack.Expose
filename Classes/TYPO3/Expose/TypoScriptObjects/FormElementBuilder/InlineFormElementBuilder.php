@@ -77,6 +77,8 @@ class InlineFormElementBuilder extends DefaultFormElementBuilder {
 						$objects = array();
 						$objects[$key] = new $className();
 					}
+				} else {
+					$objects = array();
 				}
 			}
 
