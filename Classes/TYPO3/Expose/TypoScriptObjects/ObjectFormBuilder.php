@@ -125,7 +125,7 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypo
 		$formDefinition->addFinisher($forwardFinisher);
 
 		$objectNamespaces = array();
-		if ($this->objects !== NULL && count($this->objects) > 0) {
+		if (count($this->tsValue('objects')) > 0) {
 			$i = 0;
 			$objectIdentifiers = array();
 			foreach ($this->tsValue('objects') as $object) {
@@ -195,6 +195,7 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypo
 		foreach ($objectIdentifiers as $key => $value) {
 			$element = $section->createElement($namespace . '.' . $key, 'TYPO3.Expose:Hidden');
 			$element->setDefaultValue($value);
+			$element->setProperty('propertyName', $key);
 		}
 
 		return $section;

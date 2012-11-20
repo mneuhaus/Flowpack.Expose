@@ -181,6 +181,7 @@ class DefaultFormElementBuilder extends \TYPO3\TypoScript\TypoScriptObjects\Abst
 
 		$element->setLabel($propertySchema['label']);
 		$element->setDefaultValue($this->tsValue('propertyValue'));
+		$element->setProperty('propertyName', $this->tsValue('propertyName'));
 
 		$dataType = $propertySchema['type'];
 		if (isset($propertySchema['elementType']) && $propertySchema['elementType'] !== NULL) {

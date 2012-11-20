@@ -1,5 +1,5 @@
 /*!
- * jQuery lightweight plugin boilerplate
+ * $ lightweight plugin boilerplate
  * Original author: @ajpiano
  * Further changes, comments: @addyosmani
  * Licensed under the MIT license
@@ -19,7 +19,7 @@
 
 	// The actual plugin constructor
 	function Plugin( element, options ) {
-		this.element = jQuery(element);
+		this.element = $(element);
 
 		this.options = $.extend( {}, defaults, options) ;
 
@@ -32,9 +32,9 @@
 	Plugin.prototype.init = function () {
 		// Create new row after the last one is used
 		this.element.find("input, select, textarea").live("keyup", function(){
-			if(jQuery(this).val() == undefined || jQuery(this).val() == "") return;
-			var container = jQuery(this).parents(".t3-expose-inline");
-			var row = jQuery(this).parents(".t3-expose-inline-item").first();
+			if($(this).val() == undefined || $(this).val() == "") return;
+			var container = $(this).parents(".t3-expose-inline");
+			var row = $(this).parents(".t3-expose-inline-item").first();
 			if(row.next(".t3-expose-inline-item").length == 0 && container.attr("data-mode") == "multiple"){
 				addItem(container);
 			}
@@ -44,13 +44,19 @@
 			}
 		});
 
+		this.element.find('[data-property="__identity"] input').each(function(){
+			var identity = $(this);
+			identity.parents("tr").append(identity);
+		});
+		this.element.find('[data-property="__identity"]').remove();
+
 		// Show close buttons
 		//this.element.find(".close").show();
 		//this.element.find(".t3-expose-inline-item-unused .close").hide();
 
 		// Remove the item and create a new one if it was the last one
-		jQuery(".t3-expose-inline-item .close").live("click", function(){
-			var e = jQuery(this);
+		$(".t3-expose-inline-item .close").live("click", function(){
+			var e = $(this);
 			var container = e.parents(".t3-expose-inline");
 			e.parents(".t3-expose-inline-item").remove();
 			if(container.find(".t3-expose-inline-item").length < 1){
@@ -67,7 +73,7 @@
 		newRow.find("input:hidden, select:hidden, textarea:hidden").removeAttr("disabled");
 		newRow.html(newRow.html().replace(/000/g, counter).replace(/\[_template\]/g, ""));
 		newRow.addClass("t3-expose-inline-item-unused").hide();
-		jQuery(tpl).parent().append(newRow);
+		$(tpl).parent().append(newRow);
 		newRow.fadeIn("slow");
 		container.attr("data-counter", counter+1);
 	}
@@ -83,4 +89,4 @@
 		});
 	}
 
-})( jQuery, window, document );
+})( $, window, document );

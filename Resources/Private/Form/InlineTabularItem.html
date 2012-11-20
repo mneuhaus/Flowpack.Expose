@@ -1,6 +1,6 @@
 {namespace form=TYPO3\Form\ViewHelpers}
 <f:for each="{inline.elements}" as="element">
-	<td>
+	<td data-property="{element.properties.propertyName}" >
 		<form:renderRenderable renderable="{element}" />
 	</td>
 </f:for>

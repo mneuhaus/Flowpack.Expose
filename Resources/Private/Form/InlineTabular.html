@@ -10,8 +10,8 @@
 	<div class="scrollable" id="{inline.uniqueIdentifier}">
 		<table class="table">
 			<tr>
-				<f:for each="{inline.propertyNames}" as="property">
-					<th>{property}</th>
+				<f:for each="{inline.elementSchema.properties}" as="propertySchema" key="property">
+					<th data-property="{property}" >{propertySchema.label}</th>
 				</f:for>
 			</tr>
 

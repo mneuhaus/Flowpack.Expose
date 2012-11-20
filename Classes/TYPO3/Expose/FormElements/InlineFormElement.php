@@ -146,6 +146,17 @@ class InlineFormElement extends \TYPO3\Form\FormElements\Section {
 	}
 
 	/**
+	 * Returns the schema for the target element type
+	 *
+	 * @return array
+	 */
+	public function getElementSchema() {
+		$class = $this->getClass();
+		$schema = $this->formBuilder->getSchema(new $class());
+		return $schema;
+	}
+
+	/**
 	 * Returns a container section with elements as template for inline editing
 	 *
 	 * @return array
