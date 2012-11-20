@@ -48,12 +48,11 @@ class EditController extends AbstractController {
 	public function updateAction($type) {
 		$objects = $this->request->getInternalArgument('__objects');
 		foreach ($objects as $object) {
-				// TODO: the if-condition below is a little hack such that we do NOT persist for TYPO3CR Node objects,
-				// which are already persisted as they are stateful.
 			if (!$this->persistenceManager->isNewObject($object)) {
 				$this->persistenceManager->update($object);
 			}
 		}
+		$this->persistenceManager->persistAll();
 		$this->redirect('index', 'sametypelist', 'TYPO3.Expose', array('type' => $type));
 	}
 }
