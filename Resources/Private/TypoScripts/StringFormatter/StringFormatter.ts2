@@ -25,17 +25,17 @@ prototype(TYPO3.Expose:StringFormatter) < prototype(TYPO3.TypoScript:Case) {
 	collection.type = 'TYPO3.Expose:StringFormatter.Array'
 	collection.@position = 10
 
-	dateTime.condition = ${q(value).is('[instanceof DateTime]')}
-	dateTime.type = 'TYPO3.Expose:StringFormatter.DateTime'
-	dateTime.@position = 10
+	datetime.condition = ${q(value).is('[instanceof DateTime]')}
+	datetime.type = 'TYPO3.Expose:StringFormatter.DateTime'
+	datetime.@position = 10
 
-	personName.condition = ${q(value).is('[instanceof TYPO3\Party\Domain\Model\PersonName]')}
-	personName.type = 'TYPO3.Expose:StringFormatter.PersonName'
-	personName.@position = 10
+	personname.condition = ${q(value).is('[instanceof TYPO3\Party\Domain\Model\PersonName]')}
+	personname.type = 'TYPO3.Expose:StringFormatter.PersonName'
+	personname.@position = 10
 
-	toString.condition = ${q(value).hasMethod('__toString')}
-	toString.type = 'TYPO3.Expose:StringFormatter.String'
-	toString.@position = 10
+	object.condition = ${q(value).hasMethod('__toString')}
+	object.type = 'TYPO3.Expose:StringFormatter.String'
+	object.@position = 10
 
 	fallback.condition = ${true}
 	fallback.type = 'TYPO3.Expose:StringFormatter.Default'
