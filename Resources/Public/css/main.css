@@ -84,6 +84,11 @@ body.js .nojs {
 }
 
 /* line 49, ../sass/_recordlist.scss */
+.typo3-expose-recordlist .bar {
+  overflow: hidden;
+  margin: 10px 0;
+}
+/* line 54, ../sass/_recordlist.scss */
 .typo3-expose-recordlist .actionBar {
   position: absolute;
   right: 0;
@@ -97,27 +102,27 @@ body.js .nojs {
   overflow: hidden;
   z-index: 20;
 }
-/* line 64, ../sass/_recordlist.scss */
+/* line 69, ../sass/_recordlist.scss */
 .typo3-expose-recordlist .actionBar > div {
   padding: 10px;
 }
-/* line 69, ../sass/_recordlist.scss */
+/* line 74, ../sass/_recordlist.scss */
 .typo3-expose-recordlist.hiddenActionBar [data-area=actionBar] {
   opacity: 0;
   display: none;
 }
-/* line 73, ../sass/_recordlist.scss */
+/* line 78, ../sass/_recordlist.scss */
 .typo3-expose-recordlist.hiddenActionBar [data-area=main] {
   margin-right: 0;
 }
-/* line 77, ../sass/_recordlist.scss */
+/* line 82, ../sass/_recordlist.scss */
 .typo3-expose-recordlist [data-area=main], .typo3-expose-recordlist [data-area=actionBar] {
   -moz-transition-duration: 0.2s;
   -webkit-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
 }
-/* line 80, ../sass/_recordlist.scss */
+/* line 85, ../sass/_recordlist.scss */
 .typo3-expose-recordlist [data-area=main] {
   -moz-transition-property: margin-right;
   -webkit-transition-property: margin-right;
@@ -125,7 +130,7 @@ body.js .nojs {
   transition-property: margin-right;
   margin-right: 150px;
 }
-/* line 84, ../sass/_recordlist.scss */
+/* line 89, ../sass/_recordlist.scss */
 .typo3-expose-recordlist [data-area=actionBar] {
   -moz-transition-property: opacity;
   -webkit-transition-property: opacity;
@@ -133,7 +138,7 @@ body.js .nojs {
   transition-property: opacity;
   opacity: 1;
 }
-/* line 89, ../sass/_recordlist.scss */
+/* line 94, ../sass/_recordlist.scss */
 .typo3-expose-recordlist .t3-records > .typo3-expose-active {
   background: #eee;
   margin-right: 0px;

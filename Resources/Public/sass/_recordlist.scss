@@ -46,6 +46,11 @@
 @import "compass/css3/transition";
 
 .typo3-expose-recordlist {
+	.bar {
+		overflow: hidden;
+		margin: 10px 0;
+	}
+
 	.actionBar {
 		position: absolute;
 		right: 0;
