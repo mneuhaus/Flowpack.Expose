@@ -50,10 +50,11 @@ class ControllerLinkViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractTagB
 	 * @param mixed $controller the fully qualified class name of the controller being linked, or the controller object itself
 	 * @param string $type
 	 * @param array $arguments
+	 * @param string $action
 	 * @return string The rendered link
 	 * @api
 	 */
-	public function render($controller, $type = NULL, array $arguments = array()) {
+	public function render($controller, $type = NULL, array $arguments = array(), $action = 'index') {
 		if (is_string($controller)) {
 			$controller = $this->objectManager->get($controller);
 		}
@@ -64,7 +65,7 @@ class ControllerLinkViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractTagB
 
 		$request = new \TYPO3\Flow\Mvc\ActionRequest($this->controllerContext->getRequest());
 		$request->setControllerObjectName(get_class($controller));
-		$uri = $uriBuilder->reset()->setCreateAbsoluteUri(TRUE)->uriFor('index', $arguments, $request->getControllerName(), $request->getControllerPackageKey(), $request->getControllerSubpackageKey());
+		$uri = $uriBuilder->reset()->setCreateAbsoluteUri(TRUE)->uriFor($action, $arguments, $request->getControllerName(), $request->getControllerPackageKey(), $request->getControllerSubpackageKey());
 		$this->tag->addAttribute('href', $uri);
 		$this->tag->addAttribute('class', 'btn');
 		$this->tag->setContent($this->renderChildren());

@@ -67,6 +67,7 @@ prototype(TYPO3.Expose:LocalControllerLinks) << 1.wrap(prefix: '<div data-area="
 prototype(TYPO3.Expose:ControllerLink) {
 	implementationClassName = 'TYPO3\\Expose\\TypoScriptObjects\\ControllerLink'
 	templatePath = 'resource://TYPO3.Expose/Private/Elements/ControllerLink.html'
+	controller = 'index'
 }
 
 /**
