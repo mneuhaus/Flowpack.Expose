@@ -302,3 +302,11 @@ body.js .nojs {
 .t3-expose-form_ .t3-expose-inline-seamless .control-group {
   margin: 10px 0 0;
 }
+
+/* line 2, ../sass/_Modal.scss */
+.typo3-expose .modal {
+  position: static;
+  top: auto;
+  left: auto;
+  margin: 0;
+}

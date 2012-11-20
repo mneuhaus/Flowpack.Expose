@@ -1,37 +1,40 @@
 {namespace cm=TYPO3\Expose\ViewHelpers}
+<div class="typo3-expose">
+	<div class="modal box">
+	    <div class="modal-header">
+		    <h3 class="box-header">Are you sure you want to delete the following items?</h3>
+	    </div>
+		<div class="modal-footer">
+			<f:for each="{objects}" as="object">
+				<ul class="whitespace">
+					<li>
+						<b>{object -> cm:formatAsString()}</b>
+					</li>
+				</ul>
+			</f:for>
+			<div class="actions pull-left">
+				<f:link.action
+					action="index"
+					controller="SameTypeList"
+	                class="btn t3-button"
+					arguments="{type: type}">
+					Cancel
+				</f:link.action>
+			</div>
+			<div class="actions pull-right">
+				<f:link.action
+					action="delete"
+					class="btn btn-danger t3-button"
+					arguments="{
+						type : type,
+						objects: objects
+					}">
+					Delete
+				</f:link.action>
+			</div>
 
-<div class="modal box">
-    <div class="modal-header">
-	    <h3 class="box-header">Are you sure you want to delete the following items?</h3>
-    </div>
-	<div class="modal-footer">
-		<f:for each="{objects}" as="object">
-			<ul class="whitespace">
-				<li>
-					<b>{object -> cm:formatAsString()}</b>
-				</li>
-			</ul>
-		</f:for>
-		<div class="actions pull-left">
-			<f:link.action
-				action="index"
-				controller="SameTypeList"
-                class="btn t3-button"
-				arguments="{type: type}">
-				Cancel
-			</f:link.action>
 		</div>
-		<div class="actions pull-right">
-			<f:link.action
-				action="delete"
-				class="btn btn-danger t3-button"
-				arguments="{
-					type : type,
-					objects: objects
-				}">
-				Delete
-			</f:link.action>
-		</div>
-
 	</div>
 </div>
+
+<link rel="stylesheet" href="{f:uri.resource(path: 'css/main.css', package: 'TYPO3.Expose')}" />
