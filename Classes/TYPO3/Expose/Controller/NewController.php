@@ -19,21 +19,26 @@ use TYPO3\Flow\Annotations as Flow;
  *
  */
 class NewController extends AbstractController {
-	/**
-	 * @Flow\Inject
-	 * @var \TYPO3\Flow\Reflection\ReflectionService
-	 */
-	protected $reflectionService;
 
+	/**
+	 * @return void
+	 */
+	public function initializeIndexAction() {
+		$this->arguments['objects']->setDataType('Doctrine\Common\Collections\Collection<' . $this->request->getArgument('type') . '>');
+		$this->arguments['objects']->getPropertyMappingConfiguration()->allowAllProperties();
+	}
 
 	/**
 	 * Create a new object
 	 *
 	 * @param string $type
+	 * @param \Doctrine\Common\Collections\Collection $objects
 	 * @return void
 	 */
-	public function indexAction($type) {
-		$objects = array(new $type());
+	public function indexAction($type, $objects = NULL) {
+		if ($objects === NULL) {
+			$objects = array(new $type());
+		}
 		$this->view->assign('className', $type);
 		$this->view->assign('objects', $objects);
 		$this->view->assign('callbackAction', 'create');
