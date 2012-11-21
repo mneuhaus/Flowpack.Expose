@@ -237,7 +237,7 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypo
 			// 	}
 			// 	return $sections;
 			// }
-		return array('Default' => '*');
+		return array('' => '*');
 	}
 
 	/**

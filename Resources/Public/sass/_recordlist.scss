@@ -12,8 +12,7 @@
 	}
 }
 
-// Node List
-.t3-ui .typo3-expose-recordlist {
+.typo3-expose-recordlist {
 	// A single node
 	.widget {
 		background-color: darken(#e8e8e8, 20);
@@ -37,6 +36,15 @@
 			font-size: 14px;
 			line-height: 28px;
 		}
+	}
+
+	th.tiny,
+	td.tiny {
+		width: 15px;
+	}
+
+	.table-actions {
+		max-width: 250px;
 	}
 }
 

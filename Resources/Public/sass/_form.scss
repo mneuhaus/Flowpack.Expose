@@ -54,7 +54,10 @@
 	}
 
 	.t3-expose-inline-seamless {
-
+		margin: 0;
+		legend {
+			padding: 0;
+		}
 	}
 
 	.t3-expose-section,
