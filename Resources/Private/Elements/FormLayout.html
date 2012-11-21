@@ -1,8 +1,6 @@
 {namespace ts=TYPO3\TypoScript\ViewHelpers}
 <div class="t3-expose-form">
-	<div class="indented">
-		<ts:renderTypoScript path="form" />
-	</div>
+	<ts:renderTypoScript path="form" />
 </div>
 
-<link rel="stylesheet" href="{f:uri.resource(path: 'css/main.css', package: 'TYPO3.Expose')}" />
+<ts:renderTypoScript path="<TYPO3.Expose:ResourceHandler>" />

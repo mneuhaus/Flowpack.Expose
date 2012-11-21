@@ -1,0 +1,22 @@
+prototype(TYPO3.Expose:ResourceHandler) {
+	stylesheets {
+		main {
+			file = 'resource://TYPO3.Expose/Public/css/main.css'
+		}
+	}
+
+	javascripts {
+		jquery {
+			file = 'resource://TYPO3.Expose/Public/js/jquery.1.7.1.min.js'
+			@position = 'start'
+		}
+
+#		ember.file = 'resource://TYPO3.Neos/Public/Library/emberjs/ember-0.9.7.js'
+	}
+}
+
+# <script src="{f:uri.resource(path: 'Library/emberjs/ember-0.9.7.js', package: 'TYPO3.Neos')}"></script>
+# <script src="{f:uri.resource(path: 'Library/jquery-ui/js/jquery-ui-1.8.16.custom.min.js', package: 'TYPO3.Neos')}"></script>
+# <link rel="stylesheet" href="{f:uri.resource(path: 'Library/jquery-ui/css/custom-theme/jquery-ui-1.8.16.custom.css', package: 'TYPO3.Neos')}" />
+# <script src="{f:uri.resource(path: 'JavaScript/recordlist.js', package: 'TYPO3.Expose')}"></script>
+# <script src="{f:uri.resource(path: 'JavaScript/recordlist-module.js', package: 'TYPO3.Expose')}"></script>

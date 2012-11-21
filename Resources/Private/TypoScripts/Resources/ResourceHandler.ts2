@@ -1,0 +1,24 @@
+prototype(TYPO3.Expose:ResourceHandler) {
+	@class = 'TYPO3\\Expose\\TypoScriptObjects\\Resource\\ResourceHandler'
+
+	stylesheets {
+	}
+
+	javascripts {
+	}
+
+	javascriptsRenderer = TYPO3.Expose:Resource.JavascriptsRenderer
+	stylesheetsRenderer = TYPO3.Expose:Resource.StylesheetsRenderer
+}
+
+prototype(TYPO3.Expose:Resource.JavascriptsRenderer) < prototype(TYPO3.TypoScript:Template) {
+	@class = 'TYPO3\\TypoScript\\TypoScriptObjects\\TemplateImplementation'
+	templatePath = 'resource://TYPO3.Expose/Private/Elements/Resource/JavascriptsRenderer.html'
+	resources = ${resources}
+}
+
+prototype(TYPO3.Expose:Resource.StylesheetsRenderer) {
+	@class = 'TYPO3\\TypoScript\\TypoScriptObjects\\TemplateImplementation'
+	templatePath = 'resource://TYPO3.Expose/Private/Elements/Resource/StylesheetsRenderer.html'
+	resources = ${resources}
+}
