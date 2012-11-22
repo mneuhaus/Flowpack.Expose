@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file original="" source-language="en" target-language="en" datatype="plaintext">
+		<body>
+			<trans-unit id="submit">
+				<source>Submit</source>
+				<target>Absenden</target>
+			</trans-unit>
+			<trans-unit id="customer">
+				<source>customer</source>
+				<target>Kunde</target>
+			</trans-unit>
+			<trans-unit id="created">
+				<source>created</source>
+				<target>erstellt Am</target>
+			</trans-unit>
+			<trans-unit id="new">
+				<source>New</source>
+				<target>Neu</target>
+			</trans-unit>
+			<trans-unit id="edit">
+				<source>Edit</source>
+				<target>Bearbeiten</target>
+			</trans-unit>
+			<trans-unit id="delete">
+				<source>Delete</source>
+				<target>Löschen</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

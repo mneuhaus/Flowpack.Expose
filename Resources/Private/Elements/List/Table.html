@@ -16,7 +16,7 @@
 							<f:then><th class="sort-{sorting.direction}"></f:then>
 							<f:else><th></f:else>
 						</f:if>
-							{property.label}
+							{f:translate(value: property.label, package: 'TYPO3.Expose')}
 						</th>
 					</f:if>
 				</f:for>
