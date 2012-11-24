@@ -12,7 +12,7 @@
 	}
 }
 
-.typo3-expose-recordlist {
+.t3-expose-recordlist {
 	// A single node
 	.widget {
 		background-color: darken(#e8e8e8, 20);
@@ -53,8 +53,8 @@
 
 @import "compass/css3/transition";
 
-.typo3-expose-recordlist {
-	.bar {
+.t3-expose-recordlist {
+	t3.bar {
 		overflow: hidden;
 		margin: 10px 0;
 	}

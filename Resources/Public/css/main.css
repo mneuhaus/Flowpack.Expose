@@ -56,49 +56,49 @@ body.js .nojs {
 }
 
 /* line 17, ../sass/_recordlist.scss */
-.typo3-expose-recordlist .widget {
+.t3-expose-recordlist .widget {
   background-color: #b5b5b5;
   height: 130px;
 }
 /* line 20, ../sass/_recordlist.scss */
-.typo3-expose-recordlist .widget h3 {
+.t3-expose-recordlist .widget h3 {
   font-size: 120%;
 }
 /* line 23, ../sass/_recordlist.scss */
-.typo3-expose-recordlist .widget.typo3-expose-active {
+.t3-expose-recordlist .widget.typo3-expose-active {
   background-color: #eaeaea;
 }
 /* line 28, ../sass/_recordlist.scss */
-.typo3-expose-recordlist > .span12 {
+.t3-expose-recordlist > .span12 {
   position: relative;
 }
 /* line 32, ../sass/_recordlist.scss */
-.typo3-expose-recordlist .pagination {
+.t3-expose-recordlist .pagination {
   margin: 0;
 }
 /* line 34, ../sass/_recordlist.scss */
-.typo3-expose-recordlist .pagination a {
+.t3-expose-recordlist .pagination a {
   color: black;
   font-size: 14px;
   line-height: 28px;
 }
 /* line 42, ../sass/_recordlist.scss */
-.typo3-expose-recordlist th.tiny,
-.typo3-expose-recordlist td.tiny {
+.t3-expose-recordlist th.tiny,
+.t3-expose-recordlist td.tiny {
   width: 15px;
 }
 /* line 46, ../sass/_recordlist.scss */
-.typo3-expose-recordlist .table-actions {
+.t3-expose-recordlist .table-actions {
   max-width: 250px;
 }
 
 /* line 57, ../sass/_recordlist.scss */
-.typo3-expose-recordlist .bar {
+.t3-expose-recordlist t3.bar {
   overflow: hidden;
   margin: 10px 0;
 }
 /* line 62, ../sass/_recordlist.scss */
-.typo3-expose-recordlist .actionBar {
+.t3-expose-recordlist .actionBar {
   position: absolute;
   right: 0;
   width: 152px;
@@ -112,27 +112,27 @@ body.js .nojs {
   z-index: 20;
 }
 /* line 77, ../sass/_recordlist.scss */
-.typo3-expose-recordlist .actionBar > div {
+.t3-expose-recordlist .actionBar > div {
   padding: 10px;
 }
 /* line 82, ../sass/_recordlist.scss */
-.typo3-expose-recordlist.hiddenActionBar [data-area=actionBar] {
+.t3-expose-recordlist.hiddenActionBar [data-area=actionBar] {
   opacity: 0;
   display: none;
 }
 /* line 86, ../sass/_recordlist.scss */
-.typo3-expose-recordlist.hiddenActionBar [data-area=main] {
+.t3-expose-recordlist.hiddenActionBar [data-area=main] {
   margin-right: 0;
 }
 /* line 90, ../sass/_recordlist.scss */
-.typo3-expose-recordlist [data-area=main], .typo3-expose-recordlist [data-area=actionBar] {
+.t3-expose-recordlist [data-area=main], .t3-expose-recordlist [data-area=actionBar] {
   -moz-transition-duration: 0.2s;
   -webkit-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
 }
 /* line 93, ../sass/_recordlist.scss */
-.typo3-expose-recordlist [data-area=main] {
+.t3-expose-recordlist [data-area=main] {
   -moz-transition-property: margin-right;
   -webkit-transition-property: margin-right;
   -o-transition-property: margin-right;
@@ -140,7 +140,7 @@ body.js .nojs {
   margin-right: 150px;
 }
 /* line 97, ../sass/_recordlist.scss */
-.typo3-expose-recordlist [data-area=actionBar] {
+.t3-expose-recordlist [data-area=actionBar] {
   -moz-transition-property: opacity;
   -webkit-transition-property: opacity;
   -o-transition-property: opacity;
@@ -148,7 +148,7 @@ body.js .nojs {
   opacity: 1;
 }
 /* line 102, ../sass/_recordlist.scss */
-.typo3-expose-recordlist .t3-records > .typo3-expose-active {
+.t3-expose-recordlist .t3-records > .typo3-expose-active {
   background: #eee;
   margin-right: 0px;
   border-right: 0px;
