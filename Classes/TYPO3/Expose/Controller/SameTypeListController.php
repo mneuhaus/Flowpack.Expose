@@ -50,7 +50,7 @@ class SameTypeListController extends AbstractController {
 	 */
 	protected function redirectToNewFormIfNoObjectsFound(\TYPO3\Flow\Persistence\QueryResultInterface $result) {
 		if (count($result) === 0) {
-			$arguments = array('type' => $this->arguments['type']->getValue());
+			$arguments = array('type' => $this->arguments['type']->getValue(), 'objects' => NULL);
 			$this->redirect('index', 'new', NULL, $arguments);
 		}
 	}
