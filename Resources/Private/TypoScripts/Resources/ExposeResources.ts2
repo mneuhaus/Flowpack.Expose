@@ -11,6 +11,16 @@ prototype(TYPO3.Expose:ResourceHandler) {
 			@position = 'start'
 		}
 
+		inlineHelper {
+			file = 'resource://TYPO3.Expose/Public/JavaScript/Form/jquery.inlinehelper.js'
+			@position = 'after jquery'
+		}
+
+		form {
+			file = 'resource://TYPO3.Expose/Public/JavaScript/Form/Form.js'
+			@position = 'after jquery'
+		}
+
 #		ember.file = 'resource://TYPO3.Neos/Public/Library/emberjs/ember-0.9.7.js'
 	}
 }
