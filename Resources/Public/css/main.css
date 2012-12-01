@@ -93,7 +93,7 @@ body.js .nojs {
 }
 
 /* line 57, ../sass/_recordlist.scss */
-.t3-expose-recordlist t3.bar {
+.t3-expose-recordlist .bar {
   overflow: hidden;
   margin: 10px 0;
 }
@@ -159,26 +159,6 @@ body.js .nojs {
   margin-right: -1px;
 }
 
-/*
-.t3-ui {
-	.t3-records > .well {
-		margin-right: 10px;
-		border-color: #B3B3B3;
-	}
-
-	.t3-records > .typo3-expose-active {
-		background: #eee;
-		margin-right: 0px;
-		border-right: 0px;
-		border-top-right-radius: 0px;
-		border-bottom-right-radius: 0px;
-		z-index: 10;
-		position: relative;
-		margin-right: -1px;
-	}
-}
-
-*/
 /* line 2, ../sass/_Inline.scss */
 .t3-expose-inline .t3-expose-inline-item-template {
   display: none;
