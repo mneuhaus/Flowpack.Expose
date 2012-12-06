@@ -3,6 +3,9 @@ prototype(TYPO3.Expose:ResourceHandler) {
 		main {
 			file = 'resource://TYPO3.Expose/Public/css/main.css'
 		}
+		choosen {
+			file = 'resource://TYPO3.Expose/Public/components/chosen/chosen/chosen.css'
+		}
 	}
 
 	javascripts {
@@ -18,6 +21,11 @@ prototype(TYPO3.Expose:ResourceHandler) {
 
 		form {
 			file = 'resource://TYPO3.Expose/Public/JavaScript/Form/Form.js'
+			@position = 'after jquery'
+		}
+
+		choosen {
+			file = 'resource://TYPO3.Expose/Public/components/chosen/chosen/chosen.jquery.min.js'
 			@position = 'after jquery'
 		}
 

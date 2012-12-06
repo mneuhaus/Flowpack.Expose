@@ -45,6 +45,11 @@ TYPO3:
           'TYPO3.Form:SelectionMixin':
             implementationClassName: 'TYPO3\Expose\FormElements\OptionsFormElement'
 
+          'TYPO3.Expose:Chosen':
+            superTypes: ['TYPO3.Form:FormElement', 'TYPO3.Form:SingleSelectionMixin']
+            renderingOptions:
+              templatePathPattern: 'resource://TYPO3.Expose/Private/Form/Chosen.html'
+
           'TYPO3.Expose:PasswordWithHashing':
             superTypes: ['TYPO3.Form:PasswordWithConfirmation']
             implementationClassName: 'TYPO3\Expose\FormElements\PasswordWithHashing'
