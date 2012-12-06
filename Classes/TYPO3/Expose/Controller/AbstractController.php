@@ -45,13 +45,13 @@ abstract class AbstractController extends \TYPO3\Flow\Mvc\Controller\ActionContr
 	 * @api
 	 */
 	protected function initializeView(\TYPO3\Flow\Mvc\View\ViewInterface $view) {
+		$prefix = '<' . $this->request->getInternalArgument('__typoScriptPrefix') . '>';
+		$this->prefixTypoScriptPath($prefix);
+
 		if ($this->request->hasArgument('type')) {
 			$type = $this->request->getArgument('type');
 			$this->prefixTypoScriptPath('<TYPO3.Expose:Schema:' . str_replace('\\', '.', ltrim($type, '\\')) . '>');
 		}
-
-		$prefix = '<' . $this->request->getInternalArgument('__typoScriptPrefix') . '>';
-		$this->prefixTypoScriptPath($prefix);
 	}
 
 	public function prefixTypoScriptPath($prefix) {
