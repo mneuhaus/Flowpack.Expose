@@ -53,7 +53,11 @@ class OptionsFormElement extends ComplexFormElement {
 	 * @return array
 	 */
 	public function getProperties() {
-		$this->properties['options'] = $this->getOptionsProvider()->getOptions();
+		$options = array('' => NULL);
+		foreach ($this->getOptionsProvider()->getOptions() as $key => $value) {
+			$options[$key] = $value;
+		}
+		$this->properties['options'] = $options;
 
 		return $this->properties;
 	}
