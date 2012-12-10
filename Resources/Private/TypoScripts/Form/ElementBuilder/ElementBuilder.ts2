@@ -80,6 +80,14 @@ prototype(TYPO3.Expose:Form.ElementBuilder) < prototype(TYPO3.TypoScript:Case) {
 		@override.formFieldType = 'TYPO3.Form:SingleSelectDropdown'
 	}
 
+
+	array {
+		condition = ${propertySchema['type'] == 'array'}
+		@position = '300'
+		@override.formFieldType = 'TYPO3.Form:MultipleSelectDropdown'
+	}
+
+
 	textfieldType {
 		// TODO: bug in EEL: ['0'] should not need to be quoted.
 		condition = ${propertySchema['type'] == 'string' && propertySchema['annotations']['Doctrine\ORM\Mapping\Column']['0'].type == 'text'}
