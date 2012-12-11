@@ -31,7 +31,11 @@ class RoleOptionsProvider extends \TYPO3\Expose\Core\OptionsProvider\AbstractOpt
 	*/
 	public function getOptions() {
 		$acls = $this->configurationManager->getConfiguration(\TYPO3\Flow\Configuration\ConfigurationManager::CONFIGURATION_TYPE_POLICY, 'acls');
-		return array_keys($acls);
+		$roles = array();
+		foreach (array_keys($acls) as $roleName) {
+			$roles[] = new \TYPO3\Flow\Security\Policy\Role($roleName);;
+		}
+		return $roles;
 	}
 
 }

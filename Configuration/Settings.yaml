@@ -54,6 +54,9 @@ TYPO3:
             superTypes: ['TYPO3.Form:PasswordWithConfirmation']
             implementationClassName: 'TYPO3\Expose\FormElements\PasswordWithHashing'
 
+          'TYPO3.Expose:RoleSelector':
+            superTypes: ['TYPO3.Form:MultipleSelectDropdown']
+
 
           ### FORM ELEMENTS: CONTAINER ###
           'TYPO3.Expose:Page':
