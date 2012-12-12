@@ -20,6 +20,17 @@ use TYPO3\Flow\Mvc\ActionRequest;
  *
  */
 class SameTypeListController extends AbstractController {
+	/**
+	 * @Flow\Inject
+	 * @var \TYPO3\Flow\Reflection\ReflectionService
+	 */
+	protected $reflectionService;
+
+	/**
+	 * @var \TYPO3\Flow\Object\ObjectManager
+	 * @Flow\Inject
+	 */
+	protected $objectManager;
 
 	/**
 	 * List objects, all being of the same $type.
@@ -36,7 +47,14 @@ class SameTypeListController extends AbstractController {
 			$this->forward('index', 'contentlist', 'TYPO3.Expose', $this->request->getArguments());
 		}
 
-		$query = $this->persistenceManager->createQueryForType($type);
+		$classSchema = $this->reflectionService->getClassSchema($type);
+
+		if ($classSchema->getRepositoryClassName() !== NULL) {
+			$query = $this->objectManager->get($classSchema->getRepositoryClassName())->createQuery();
+		} else {
+			$query = $this->persistenceManager->createQueryForType($type);
+		}
+
 		$objects = $query->execute();
 		$this->redirectToNewFormIfNoObjectsFound($objects);
 		$this->view->assign('type', $type);
