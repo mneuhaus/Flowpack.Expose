@@ -1,3 +1,4 @@
-prototype(TYPO3.Expose:StringFormatter.Float) < prototype(TYPO3.Expose:StringFormatter.String) {
-	templatePath = 'resource://TYPO3.Expose/Private/Elements/StringFormatter/Float.html'
+prototype(TYPO3.Expose:StringFormatter.Float) {
+	@class = 'TYPO3\\TypoScript\\TypoScriptObjects\\ValueImplementation'
+	value = ${value}
 }
