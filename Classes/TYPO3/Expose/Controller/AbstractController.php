@@ -22,7 +22,7 @@ abstract class AbstractController extends \TYPO3\Flow\Mvc\Controller\ActionContr
 	/**
 	 * @var string
 	 */
-	protected $defaultViewObjectName = 'TYPO3\\TypoScript\\View\\TypoScriptView';
+	protected $defaultViewObjectName = 'TYPO3\\Expose\\View\\TypoScriptView';
 
 	/**
 	 * Most expose controllers need the Property Mapper as they work for arbitrary
