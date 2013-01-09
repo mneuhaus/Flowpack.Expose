@@ -41,8 +41,8 @@ class ResourceHandler extends \TYPO3\TypoScript\TypoScriptObjects\ArrayImplement
 						$value['file'] = $this->resolveResource($value['file']);
 						$resources[$key][$name] = $value;
 					}
+					$resources[$key] = \TYPO3\Expose\Utility\Arrays::sortPositionalArray($resources[$key]);
 				}
-				$resources[$key] = \TYPO3\Expose\Utility\Arrays::sortPositionalArray($resources[$key]);
 			}
 		}
 
