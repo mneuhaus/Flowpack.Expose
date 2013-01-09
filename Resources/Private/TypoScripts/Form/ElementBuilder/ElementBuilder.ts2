@@ -49,6 +49,13 @@ prototype(TYPO3.Expose:Form.ElementBuilder) < prototype(TYPO3.TypoScript:Case) {
 		@override.formFieldType = 'TYPO3.Form:SingleLineText'
 	}
 
+	dateTimeType {
+		condition = ${propertySchema['type'] == '\DateTime'}
+		@position = '90'
+		@override.formFieldType = 'TYPO3.Form:DatePicker'
+		element.@override.propertyType = 'DateTime'
+	}
+
 	inline {
 		condition = ${propertySchema['inline']['element']}
 		type = 'TYPO3.Expose:Form.InlineElementBuilder'
