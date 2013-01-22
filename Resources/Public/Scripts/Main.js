@@ -15,8 +15,4 @@ jQuery(document).ready(function(){
 	});
 
 	jQuery(".inline[data-mode='multiple']").inlineHelper();
-	jQuery(".inline[data-mode='multiple']").parents("form").submit(function(){
-		var form = jQuery(this);
-		form.find(".inline-unused").remove();
-	});
 });

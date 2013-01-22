@@ -31,18 +31,8 @@
 
 	Plugin.prototype.init = function () {
 		// Create new row after the last one is used
-		this.element.find("input, select, textarea").live("keyup", function(){
-			if($(this).val() == undefined || $(this).val() == "") return;
-			var container = $(this).parents(".t3-expose-inline");
-			var row = $(this).parents(".t3-expose-inline-item").first();
-			if(row.next(".t3-expose-inline-item").length == 0 && container.attr("data-mode") == "multiple"){
-				addItem(container);
-			}
-			if(row.hasClass("t3-expose-inline-item-unused")){
-				row.removeClass("t3-expose-inline-item-unused");
-				//row.find(".close").show();
-			}
-		});
+		this.element.find("input, select, textarea").live("keyup", handleChange);
+		this.element.find("input, select, textarea").live("change", handleChange);
 
 		this.element.find('[data-property="__identity"] input').each(function(){
 			var identity = $(this);
@@ -58,12 +48,48 @@
 		$(".t3-expose-inline-item .close").live("click", function(){
 			var e = $(this);
 			var container = e.parents(".t3-expose-inline");
-			e.parents(".t3-expose-inline-item").remove();
+			removeItem(e.parents(".t3-expose-inline-item"));
 			if(container.find(".t3-expose-inline-item").length < 1){
 				addItem(container);
 			}
 		});
+
+		this.element.parents("form").submit(function(){
+			var form = $(this);
+			form.find(".t3-expose-inline-item-unused").each(function(){
+				var item = jQuery(this);
+				var hiddenInputs = item.parents('form').find('div').first();
+				item.find('[name]').each(function(){
+					var e = jQuery(this);
+					var hiddenInput = item.parents('form').find('[name="' + e.attr('name') + '"]');
+					hiddenInput.removeAttr('name');
+				});
+			});
+		});
 	};
+
+	function removeItem(item) {
+		var hiddenInputs = item.parents('form').find('div').first();
+		item.find('input[name]').each(function(){
+			var e = jQuery(this);
+			var hiddenInput = item.parents('form').find('[name="' + e.attr('name') + '"]');
+			hiddenInput.remove();
+		});
+		item.remove();
+	}
+
+	function handleChange () {
+		if($(this).val() == undefined || $(this).val() == "") return;
+		var container = $(this).parents(".t3-expose-inline");
+		var row = $(this).parents(".t3-expose-inline-item").first();
+		if(row.next(".t3-expose-inline-item").length == 0 && container.attr("data-mode") == "multiple"){
+			addItem(container);
+		}
+		if(row.hasClass("t3-expose-inline-item-unused")){
+			row.removeClass("t3-expose-inline-item-unused");
+			//row.find(".close").show();
+		}
+	}
 
 	function addItem(container){
 		var counter = Number(container.attr("data-counter"));
