@@ -1,4 +1,4 @@
-TYPO3.Expose.SameTypeListController.index = TYPO3.Expose:RecordList {
+TYPO3.Expose.ListController.index = TYPO3.Expose:RecordList {
 }
 
 prototype(TYPO3.Expose:RecordList) < prototype(TYPO3.TypoScript:Template) {
@@ -68,7 +68,7 @@ prototype(TYPO3.Expose:RecordList) << 200.TYPO3\Expose\TypoScript\Processors:lim
 prototype(TYPO3.Expose:RecordList) << 300.TYPO3\Expose\TypoScript\Processors:search()
 
 # EXAMPLE on adding a new button in a certain context
-#TYPO3.Expose.SameTypeListController.prototype(TYPO3.Expose:RecordList.FormatSelector) {
+#TYPO3.Expose.ListController.prototype(TYPO3.Expose:RecordList.FormatSelector) {
 #	30 = TYPO3.Expose:RecordList.FormatSelector.Button
 #	30.format = 'foo'
 #	30.label = 'Foo'

@@ -19,7 +19,7 @@ use TYPO3\Flow\Mvc\ActionRequest;
  * Action to display a list of records of the same type
  *
  */
-class SameTypeListController extends AbstractController {
+class ListController extends AbstractController {
 	/**
 	 * @Flow\Inject
 	 * @var \TYPO3\Flow\Reflection\ReflectionService
