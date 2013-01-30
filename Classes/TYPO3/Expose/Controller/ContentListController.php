@@ -39,15 +39,20 @@ class ContentListController extends AbstractController {
 	protected $securityContext;
 
 	/**
+	 * @Flow\Inject
+	 * @var \TYPO3\TYPO3CR\Domain\Service\ContentTypeManager
+	 */
+	protected $contentTypeManager;
+
+	/**
 	 * List objects, all being of the same $type.
 	 *
-	 * TODO: Filtering of this list, bulk
-	 *
+	 * @param string $type
 	 * @param string $format
 	 * @param \TYPO3\TYPO3CR\Domain\Model\NodeInterface $selectedFolderNode
 	 * @return void
 	 */
-	public function indexAction($format = 'list', \TYPO3\TYPO3CR\Domain\Model\NodeInterface $selectedFolderNode = NULL) {
+	public function indexAction($type = NULL, $format = 'list', \TYPO3\TYPO3CR\Domain\Model\NodeInterface $selectedFolderNode = NULL, $recursiveLevels = INF) {
 		$siteNode = $this->getSiteNode();
 
 		if ($selectedFolderNode === NULL && $siteNode->getPrimaryChildNode() !== NULL) {
@@ -62,7 +67,12 @@ class ContentListController extends AbstractController {
 
 		if ($selectedFolderNode !== NULL) {
 			$query = new \TYPO3\Expose\TYPO3CR\Persistence\Node\Query($selectedFolderNode);
-			$query->setRecursiveLevels(INF);
+			$query->setRecursiveLevels($recursiveLevels);
+
+			if ($type !== NULL) {
+				$query->matching($query->equals('contentType', $this->contentTypeManager->getContentType($type)));
+			}
+
 			$this->view->assign('objects', $query->execute());
 		}
 	}
