@@ -83,9 +83,9 @@ body.js .nojs {
   height: 100%;
   border-left: none;
   background: #E8E8E8;
-  border-right: 1px solid #777;
-  border-top: 1px solid #777;
-  border-bottom: 1px solid #777;
+  border-right: 1px solid #777777;
+  border-top: 1px solid #777777;
+  border-bottom: 1px solid #777777;
   overflow: hidden;
   z-index: 20; }
 /* line 77, _recordlist.scss */
@@ -191,45 +191,48 @@ body.js .nojs {
 .t3-expose-form .form-navigation ul,
 .t3-expose-form .form-navigation li {
   list-style: none; }
-/* line 75, _Form.scss */
+/* line 74, _Form.scss */
+.t3-expose-form .form-navigation ul {
+  margin-left: 0; }
+/* line 79, _Form.scss */
 .t3-expose-form .t3-expose-inline + .control-group {
   margin-top: 20px; }
 
-/* line 92, _Form.scss */
+/* line 96, _Form.scss */
 .t3-expose-form_ {
   background: #ffffff;
-  border: 1px solid #c0c0c0;
+  border: 1px solid silver;
   -moz-box-shadow: #cccccc 0px 3px 5px;
   -webkit-box-shadow: #cccccc 0px 3px 5px;
   box-shadow: #cccccc 0px 3px 5px; }
-  /* line 95, _Form.scss */
+  /* line 99, _Form.scss */
   .t3-expose-form_ fieldset > h5 {
     background: #EFF5F8;
-    border-bottom: 1px solid #CCC;
-    border-top: 1px solid #CCC;
+    border-bottom: 1px solid #cccccc;
+    border-top: 1px solid #cccccc;
     padding: 0.5em 20px;
     text-shadow: white 0px 1px;
     margin-top: -1px; }
-  /* line 104, _Form.scss */
+  /* line 108, _Form.scss */
   .t3-expose-form_ .t3-expose-inline {
     background: #ffffff;
-    border: 1px solid #c0c0c0;
+    border: 1px solid silver;
     -moz-box-shadow: #cccccc 0px 3px 5px;
     -webkit-box-shadow: #cccccc 0px 3px 5px;
     box-shadow: #cccccc 0px 3px 5px; }
-    /* line 107, _Form.scss */
+    /* line 111, _Form.scss */
     .t3-expose-form_ .t3-expose-inline > h5 {
       background: whiteSmoke; }
-    /* line 111, _Form.scss */
-    .t3-expose-form_ .t3-expose-inline .t3-expose-inline-item {
-      border-bottom: 1px solid #DDD; }
     /* line 115, _Form.scss */
+    .t3-expose-form_ .t3-expose-inline .t3-expose-inline-item {
+      border-bottom: 1px solid #dddddd; }
+    /* line 119, _Form.scss */
     .t3-expose-form_ .t3-expose-inline .t3-expose-inline-item-unused {
       background: #FAFAFA; }
-    /* line 119, _Form.scss */
+    /* line 123, _Form.scss */
     .t3-expose-form_ .t3-expose-inline .control-group {
       margin: 10px 20px 0; }
-  /* line 124, _Form.scss */
+  /* line 128, _Form.scss */
   .t3-expose-form_ .t3-expose-inline-seamless {
     background: none;
     border: none;
@@ -238,7 +241,7 @@ body.js .nojs {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none; }
-    /* line 133, _Form.scss */
+    /* line 137, _Form.scss */
     .t3-expose-form_ .t3-expose-inline-seamless .control-group {
       margin: 10px 0 0; }
 
