@@ -36,6 +36,14 @@ class Query extends \TYPO3\Flow\Persistence\Doctrine\Query {
 	protected $qomFactory;
 
 	/**
+	 * An index of comparisons with the information if
+	 * they are meant to be case sensitive
+	 *
+	 * @var array
+	 */
+	protected $caseSensitivityIndex = array();
+
+	/**
 	 * Constructs a query object working on the given type
 	 *
 	 * @param \TYPO3\TYPO3CR\Domain\Model\NodeInterface $rootNode
@@ -140,7 +148,10 @@ class Query extends \TYPO3\Flow\Persistence\Doctrine\Query {
 			switch (get_class($this->constraint)) {
 				case 'TYPO3\Flow\Persistence\Generic\Qom\Comparison':
 					$property = $this->constraint->getOperand1()->getPropertyName();
-					$comparison = strtolower($this->constraint->getOperand2());
+					$comparison = $this->constraint->getOperand2();
+					if ($this->caseSensitivityIndex[spl_object_hash($this->constraint)] === FALSE) {
+						$comparison = strtolower($comparison);
+					}
 
 					if ($property == '*') {
 						$properties = $node->getPropertyNames();
@@ -149,11 +160,13 @@ class Query extends \TYPO3\Flow\Persistence\Doctrine\Query {
 					}
 
 					foreach ($properties as $property) {
-						if (!$node->hasProperty($property)) {
+						if ($node->hasProperty($property)) {
+							$value = strtolower($node->getProperty($property));
+						} elseif (\TYPO3\Flow\Reflection\ObjectAccess::isPropertyGettable($node, $property)) {
+							$value = \TYPO3\Flow\Reflection\ObjectAccess::getProperty($node, $property);
+						} else {
 							continue;
 						}
-
-						$value = strtolower($node->getProperty($property));
 
 						switch ($this->constraint->getOperator()) {
 							case \TYPO3\Flow\Persistence\QueryInterface::OPERATOR_EQUAL_TO:
@@ -240,6 +253,8 @@ class Query extends \TYPO3\Flow\Persistence\Doctrine\Query {
 			);
 		}
 
+		$this->caseSensitivityIndex[spl_object_hash($comparison)] = $caseSensitive;
+
 		return $comparison;
 	}
 
@@ -273,6 +288,8 @@ class Query extends \TYPO3\Flow\Persistence\Doctrine\Query {
 				strtolower($operand)
 			);
 		}
+
+		$this->caseSensitivityIndex[spl_object_hash($comparison)] = $caseSensitive;
 
 		return $comparison;
 	}
