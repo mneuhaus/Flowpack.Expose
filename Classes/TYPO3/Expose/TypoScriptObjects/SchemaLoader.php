@@ -18,6 +18,12 @@ use TYPO3\Flow\Annotations as Flow;
  */
 class SchemaLoader extends \TYPO3\TypoScript\TypoScriptObjects\ArrayImplementation {
 	/**
+	 * @var TYPO3\Flow\Cache\CacheManager
+	 * @Flow\Inject
+	 */
+	protected $cacheManager;
+
+	/**
 	 * the class name to build the form for
 	 *
 	 * @var string
@@ -77,6 +83,17 @@ class SchemaLoader extends \TYPO3\TypoScript\TypoScriptObjects\ArrayImplementati
 	 * @throws \InvalidArgumentException
 	 */
 	public function evaluate() {
+		$cache = $this->cacheManager->getCache('TYPO3_Expose_SchemaCache');
+		$identifier = sha1($this->getClassName()) . sha1($this->path);
+
+		if (!$cache->has($identifier)) {
+			$cache->set($identifier, $this->compileSchema());
+		}
+
+		return $cache->get($identifier);
+	}
+
+	public function compileSchema() {
 		$schema = array();
 		foreach ($this->getSources() as $sourceKey) {
 			$source = $this->tsRuntime->render($this->path . '/sources/' . $sourceKey);
