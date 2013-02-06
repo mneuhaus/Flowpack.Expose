@@ -39,7 +39,6 @@ class ContentListController extends AbstractController {
 	protected $securityContext;
 
 	/**
-	 * @Flow\Inject
 	 * @var \TYPO3\TYPO3CR\Domain\Service\ContentTypeManager
 	 */
 	protected $contentTypeManager;
@@ -54,6 +53,10 @@ class ContentListController extends AbstractController {
 	 */
 	public function indexAction($type = NULL, $format = 'list', \TYPO3\TYPO3CR\Domain\Model\NodeInterface $selectedFolderNode = NULL, $recursiveLevels = INF) {
 		$siteNode = $this->getSiteNode();
+
+		if (class_exists('\TYPO3\TYPO3CR\Domain\Service\ContentTypeManager')) {
+			$this->contentTypeManager = $this->objectManager->get('\TYPO3\TYPO3CR\Domain\Service\ContentTypeManager');
+		}
 
 		if ($selectedFolderNode === NULL && $siteNode->getPrimaryChildNode() !== NULL) {
 				// No node selected, so we select the Site node and then the first child of the site node.
