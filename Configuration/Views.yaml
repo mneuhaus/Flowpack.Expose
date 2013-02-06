@@ -5,6 +5,6 @@ TYPO3:
         00_TYPO3.Expose: resource://TYPO3.Expose/Private/TypoScripts/
 
     controllers:
-      SameTypeList:
+      List:
         options:
           typoScriptPath: '<TYPO3.Expose:RecordList>'
