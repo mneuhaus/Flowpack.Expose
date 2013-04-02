@@ -12,7 +12,6 @@ namespace TYPO3\Expose\ViewHelpers\Render;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
-use TYPO3\FLOW3\Annotations as FLOW3;
 
 /**
  * Render a Form for an Object or class

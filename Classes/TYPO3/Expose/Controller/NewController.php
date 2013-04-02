@@ -53,7 +53,7 @@ class NewController extends AbstractController {
 			$this->persistenceManager->add($object);
 		}
 		$this->persistenceManager->persistAll();
-		$this->redirect('index', 'sametypelist', 'TYPO3.Expose', array('type' => $type));
+		$this->redirect('index', 'list', 'TYPO3.Expose', array('type' => $type));
 	}
 
 }
