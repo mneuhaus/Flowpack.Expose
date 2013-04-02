@@ -1,10 +1,10 @@
-TYPO3:
-  Expose:
-    options:
-      typoScriptPathPatterns:
-        00_TYPO3.Expose: resource://TYPO3.Expose/Private/TypoScripts/
+-
+  requestFilter: 'isPackage("TYPO3.Expose")'
+  options:
+    typoScriptPathPatterns:
+      - 'resource://TYPO3.Expose/Private/TypoScripts/'
 
-    controllers:
-      List:
-        options:
-          typoScriptPath: '<TYPO3.Expose:RecordList>'
+-
+  requestFilter: 'isPackage("TYPO3.Expose") && isController("List")'
+  options:
+    typoScriptPath: '<TYPO3.Expose:RecordList>'
