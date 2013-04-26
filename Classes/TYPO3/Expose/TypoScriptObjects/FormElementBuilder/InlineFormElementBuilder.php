@@ -73,9 +73,11 @@ class InlineFormElementBuilder extends DefaultFormElementBuilder {
 			if (isset($requestArguments['form'])) {
 				$formArguments = \TYPO3\Flow\Utility\Arrays::getValueByPath($requestArguments['form'], $namespace);
 				if (is_array($formArguments)) {
+					$objects = array();
 					foreach ($formArguments as $key => $value) {
-						$objects = array();
-						$objects[$key] = new $className();
+						if (isset($value['__identity']) === FALSE) {
+							$objects[$key] = new $className();
+						}
 					}
 				} else {
 					$objects = array();
