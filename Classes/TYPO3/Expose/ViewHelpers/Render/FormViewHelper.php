@@ -37,6 +37,14 @@ class FormViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 	protected $configurationManager;
 
 	/**
+	 * The reflectionService
+	 *
+	 * @var \TYPO3\Flow\Reflection\ReflectionService
+	 * @Flow\Inject
+	 */
+	protected $reflectionService;
+
+	/**
 	 * @param string $presetName name of the preset to use
 	 * @param string $class the class to render the form for
 	 * @param object $object the object to rende the form for
@@ -50,7 +58,7 @@ class FormViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 		}
 
 		if (!is_null($object)) {
-			$class = get_class($object);
+			$class = $this->reflectionService->getClassNameByObject($object);
 		}
 
 		$view = new \TYPO3\TypoScript\View\TypoScriptView();
@@ -66,12 +74,18 @@ class FormViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 		$view->setTypoScriptPathPatterns($configuration['options']['typoScriptPathPatterns']);
 
 		$path = '<TYPO3.Expose:FormLayout>';
-		$schemaPath = '<' . str_replace('\\', '.', $class) . '>/' . $path;
-		if ($view->getTypoScriptRuntime()->canRender($schemaPath)) {
-			$view->setTypoScriptPath($schemaPath);
-		} else {
-			$view->setTypoScriptPath($path);
+
+		$customPath = '<' . $typoScriptPrefix . '>/' . $path;
+		if ($view->getTypoScriptRuntime()->canRender($customPath)) {
+			$path = $customPath;
 		}
+
+		$schemaPath = '<TYPO3.Expose:Schema:' . str_replace('\\', '.', $class) . '>/' . $path;
+		if ($view->getTypoScriptRuntime()->canRender($schemaPath)) {
+			$path = $schemaPath;
+		}
+
+		$view->setTypoScriptPath($path);
 		return $view->render();
 	}
 }

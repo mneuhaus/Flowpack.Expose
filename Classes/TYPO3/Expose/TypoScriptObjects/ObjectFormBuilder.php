@@ -132,12 +132,12 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypo
 				$section = $this->createFormForSingleObject($page, $object, 'objects.' . $i);
 				$objectNamespaces[] = 'objects.' . $i;
 				$i++;
-				$formDefinition->getProcessingRule('objects.0')->setDataType(get_class($object));
-				$section->setDataType(get_class($object));
+				$formDefinition->getProcessingRule('objects.0')->setDataType($this->reflectionService->getClassNameByObject($object));
+				$section->setDataType($this->reflectionService->getClassNameByObject($object));
 			}
 		} else {
 			$section = $this->createFormForSingleObject($page, NULL, 'objects.0.');
-			$section->setDataType(get_class($object));
+			$section->setDataType($this->reflectionService->getClassNameByObject($object));
 			$objectNamespaces[] = 'objects.0';
 		}
 

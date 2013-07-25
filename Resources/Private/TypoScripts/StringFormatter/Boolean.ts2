@@ -1,3 +1,4 @@
-prototype(TYPO3.Expose:StringFormatter.Boolean) < prototype(TYPO3.Expose:StringFormatter.String) {
+prototype(TYPO3.Expose:StringFormatter.Boolean) {
+	@class = 'TYPO3\\TypoScript\\TypoScriptObjects\\ValueImplementation'
 	value = ${(value ? 'true' : 'false')}
 }

@@ -20,6 +20,7 @@ class FormatAsStringViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractView
 	 */
 	public function render() {
 		$value = $this->renderChildren();
+		// return $this->toString($value);
 
 			// TODO: should be retrieved differently
 		$fluidTemplateTsObject = $this->templateVariableContainer->get('fluidTemplateTsObject');
@@ -29,6 +30,22 @@ class FormatAsStringViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractView
 		$fluidTemplateTsObject->getTsRuntime()->popContext();
 
 		return $output;
+	}
+
+	public function toString($source) {
+		switch (TRUE) {
+			case is_string($source):
+			case is_float($source):
+			case is_integer($source):
+			case is_bool($source):
+			case is_object($source) && method_exists($source, '__toString'):
+				return strval($source);
+				break;
+
+			default:
+				return '';
+				break;
+		}
 	}
 }
 

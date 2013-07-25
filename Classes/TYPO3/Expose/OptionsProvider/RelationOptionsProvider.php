@@ -27,10 +27,29 @@ class RelationOptionsProvider extends \TYPO3\Expose\Core\OptionsProvider\Abstrac
 	protected $persistenceManager;
 
 	/**
+	 * @Flow\Inject
+	 * @var \TYPO3\Flow\Reflection\ReflectionService
+	 */
+	protected $reflectionService;
+
+	/**
+	 * @var \TYPO3\Flow\Object\ObjectManager
+	 * @Flow\Inject
+	 */
+	protected $objectManager;
+
+
+	/**
 	* TODO: Document this Method! ( getOptions )
 	*/
 	public function getOptions() {
-		return $this->persistenceManager->createQueryForType($this->getRelationClass())->execute();
+		$classSchema = $this->reflectionService->getClassSchema($this->getRelationClass());
+		if ($classSchema->getRepositoryClassName() !== NULL) {
+			$query = $this->objectManager->get($classSchema->getRepositoryClassName())->createQuery();
+		} else {
+			$query = $this->persistenceManager->createQueryForType($this->getRelationClass());
+		}
+		return $query->execute();
 	}
 
 	public function getRelationClass() {

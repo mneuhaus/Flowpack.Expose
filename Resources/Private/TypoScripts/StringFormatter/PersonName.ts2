@@ -1,3 +1,4 @@
-prototype(TYPO3.Expose:StringFormatter.PersonName) < prototype(TYPO3.Expose:StringFormatter.String) {
+prototype(TYPO3.Expose:StringFormatter.PersonName) {
+	@class = 'TYPO3\\TypoScript\\TypoScriptObjects\\ValueImplementation'
 	value = ${value.fullName}
 }

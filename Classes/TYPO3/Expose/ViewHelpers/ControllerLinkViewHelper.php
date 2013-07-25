@@ -16,6 +16,11 @@ use TYPO3\Flow\Annotations as Flow;
 /**
  */
 class ControllerLinkViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper {
+	/**
+	 * @var \TYPO3\Flow\Cache\CacheManager
+	 * @Flow\Inject
+	 */
+	protected $cacheManager;
 
 	/**
 	 * @var \TYPO3\Flow\Object\ObjectManagerInterface
@@ -55,17 +60,29 @@ class ControllerLinkViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractTagB
 	 * @api
 	 */
 	public function render($controller, $type = NULL, array $arguments = array(), $action = 'index') {
-		if (is_string($controller)) {
-			$controller = $this->objectManager->get($controller);
-		}
 		$uriBuilder = $this->controllerContext->getUriBuilder();
 		if ($type !== NULL) {
 			$arguments['type'] = $type;
 		}
 
-		$request = new \TYPO3\Flow\Mvc\ActionRequest($this->controllerContext->getRequest());
-		$request->setControllerObjectName(get_class($controller));
-		$uri = $uriBuilder->reset()->setCreateAbsoluteUri(TRUE)->uriFor($action, $arguments, $request->getControllerName(), $request->getControllerPackageKey(), $request->getControllerSubpackageKey());
+		$cache = $this->cacheManager->getCache('TYPO3_Expose_ControllerPartsCache');
+		$identifier = sha1($controller);
+
+		if (!$cache->has($identifier)) {
+			if (is_string($controller)) {
+				$controller = $this->objectManager->get($controller);
+			}
+			$request = new \TYPO3\Flow\Mvc\ActionRequest($this->controllerContext->getRequest());
+			$request->setControllerObjectName(get_class($controller));
+			$cache->set($identifier, array(
+				'controllerName' => $request->getControllerName(),
+				'controllerPackageKey' => $request->getControllerPackageKey(),
+				'controllerSubpackageKey' => $request->getControllerSubpackageKey()
+			));
+		}
+		$controllerParts = $cache->get($identifier);
+
+		$uri = $uriBuilder->reset()->setCreateAbsoluteUri(TRUE)->uriFor($action, $arguments, $controllerParts['controllerName'], $controllerParts['controllerPackageKey'], $controllerParts['controllerSubpackageKey']);
 		$this->tag->addAttribute('href', $uri);
 		$this->tag->addAttribute('class', 'btn');
 		$this->tag->setContent($this->renderChildren());

@@ -11,6 +11,9 @@ prototype(TYPO3.Expose:SchemaLoader) {
 		default = TYPO3.Expose:Schema.DefaultSource
 		default.@position = 'start'
 
+		nodes = TYPO3.Expose:Schema.NodeSource
+		nodes.@position = 'end'
+
 		typoscript = TYPO3.Expose:Schema.TypoScriptSource
 		typoscript.@position = 'end'
 	}

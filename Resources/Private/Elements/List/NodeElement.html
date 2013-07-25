@@ -1,6 +1,16 @@
-<f:comment>REVIEWED for release</f:comment>
 {namespace ts=TYPO3\TypoScript\ViewHelpers}
+{namespace e=TYPO3\Expose\ViewHelpers}
+<e:schema object="{item}">
 <div class="widget" data-identifier="{item.contextPath}">
-	<div class="widget-header"><h3>{item.label}</h3></div>
-	<div class="widget-body"><p><ts:renderTypoScript path="teaser" /></p></div>
+	<div class="widget-header">
+		<f:if condition="{schema.darkIcon}">
+			<img src="{f:uri.resource(path: schema.darkIcon, package: 'TYPO3.Neos')}" class="pull-right" />
+		</f:if>
+		<h3>{schema.label}: {item.label}</h3>
+	</div>
+	<div class="widget-body">
+		<p><ts:renderTypoScript path="teaser" /></p>
+		<ts:renderTypoScript path="controllerLinks" />
+	</div>
 </div>
+</e:schema>

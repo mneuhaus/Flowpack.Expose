@@ -70,19 +70,22 @@ class NodeSource extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypoScriptO
 	 * @throws \InvalidArgumentException
 	 */
 	public function evaluate() {
-		$object = $this->getObject();
-		$schema = $object->getContentType()->getConfiguration();
-		$i = 1;
-		foreach ($schema['properties'] as $key => $value) {
-			if (substr($key, 0, 1) == '_') {
-				unset($schema['properties'][$key]);
-				$key = substr($key, 1);
-				$schema['properties'][$key] = $value;
+		if (class_exists('\TYPO3\TYPO3CR\Domain\Service\ContentTypeManager')) {
+			$object = $this->getObject();
+			$schema = $object->getContentType()->getConfiguration();
+			$i = 1;
+			foreach ($schema['properties'] as $key => $value) {
+				if (substr($key, 0, 1) == '_') {
+					unset($schema['properties'][$key]);
+					$key = substr($key, 1);
+					$schema['properties'][$key] = $value;
+				}
+				$schema['properties'][$key]['@position'] = ( $i ) * 100;
+				$i++;
 			}
-			$schema['properties'][$key]['@position'] = ( $i ) * 100;
-			$i++;
+			return $schema;
 		}
-		return $schema;
+		return array();
 	}
 }
 
