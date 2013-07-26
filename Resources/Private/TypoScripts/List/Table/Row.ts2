@@ -1,5 +1,3 @@
-// REVIEWED for release
-
 ########################################
 # TYPO3.Expose:RecordList.Table.Row
 # --------------------------------------
@@ -7,13 +5,12 @@
 #
 # Required Variables:
 # - item: The object being rendered in this row
-# - listElementFeatures: The list of features which can be executed for this item.
+# - type: The type of object being rendered
 ########################################
 
-prototype(TYPO3.Expose:RecordList.Table.Row) < prototype(TYPO3.TypoScript:Case)
-
-# Catch-all condition for the default case
-prototype(TYPO3.Expose:RecordList.Table.Row).matchers.999999999999 {
-	condition = ${true}
-	type = 'TYPO3.Expose:RecordList.Table.DefaultRow'
+prototype(TYPO3.Expose:RecordList.Table.Row) < prototype(TYPO3.TypoScript:Template) {
+	templatePath = 'resource://TYPO3.Expose/Private/Elements/List/Row.html'
+	item = ${item}
+	type = ${type}
+	controllerLinks = TYPO3.Expose:LocalControllerLinks
 }

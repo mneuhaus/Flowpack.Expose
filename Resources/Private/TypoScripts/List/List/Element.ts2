@@ -1,15 +1,11 @@
-// REVIEWED for release
 ########################################
 # TYPO3.Expose:RecordList.List.Element
 # --------------------------------------
 # Display a single list element
 ########################################
 
-prototype(TYPO3.Expose:RecordList.List.Element) < prototype(TYPO3.TypoScript:Case)
-
-# Catch-all condition for the default case
-prototype(TYPO3.Expose:RecordList.List.Element).default {
-	condition = ${true}
-	type = 'TYPO3.Expose:RecordList.List.DefaultElement'
-	@position = 'end'
+prototype(TYPO3.Expose:RecordList.List.Element) < prototype(TYPO3.TypoScript:Template) {
+	templatePath = 'resource://TYPO3.Expose/Private/Elements/List/Element.html'
+	item = ${item}
+	controllerLinks = TYPO3.Expose:LocalControllerLinks
 }

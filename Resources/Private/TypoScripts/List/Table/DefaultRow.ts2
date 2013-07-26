@@ -1,6 +1,0 @@
-prototype(TYPO3.Expose:RecordList.Table.DefaultRow) < prototype(TYPO3.TypoScript:Template) {
-	templatePath = 'resource://TYPO3.Expose/Private/Elements/List/Row.html'
-	item = ${item}
-	type = ${type}
-	controllerLinks = TYPO3.Expose:LocalControllerLinks
-}
