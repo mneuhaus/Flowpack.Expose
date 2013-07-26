@@ -1,6 +1,7 @@
 {namespace e=TYPO3\Expose\ViewHelpers}
 {namespace ts=TYPO3\TypoScript\ViewHelpers}
 
+<!-- List/Row.html -->
 <e:schema object="{item}">
 	<tr data-klove="row">
 		<f:for each="{schema.properties}" as="property" key="propertyName">
@@ -13,7 +14,7 @@
 			</f:if>
 		</f:for>
 		<td class="table-actions">
-			<ts:renderTypoScript path="controllerLinks" />
+			<ts:render path="controllerLinks" />
 		</td>
 	</tr>
 </e:schema>

@@ -1,16 +1,17 @@
 {namespace cm=TYPO3\Expose\ViewHelpers}
 {namespace ts=TYPO3\TypoScript\ViewHelpers}
 
+<!-- RecordList/Layout.html -->
 <div class="row-fluid t3-expose-recordlist hiddenActionBar">
 	<div class="span12">
-		<div class="bar t3-expose-bar-top"><ts:renderTypoScript path="topRegion" /></div>
+		<div class="bar t3-expose-bar-top"><ts:render path="topRegion" /></div>
 
 		<div data-area="main">
 			<div class="t3-records" data-area="records">
-				<ts:renderTypoScript path="recordList/{currentFormat}" />
+				<ts:render path="recordList.{currentFormat}" />
 			</div>
 		</div>
 
-		<div class="bar t3-expose-bar-bottom"><ts:renderTypoScript path="bottomRegion" /></div>
+		<div class="bar t3-expose-bar-bottom"><ts:render path="bottomRegion" /></div>
 	</div>
 </div>

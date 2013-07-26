@@ -27,6 +27,22 @@ use TYPO3\Flow\Annotations as Flow;
  */
 class TypoScriptView extends \TYPO3\TypoScript\View\TypoScriptView {
 	/**
+	 *
+	 * @return string
+	 */
+	public function getTypoScriptPath() {
+		return $this->typoScriptPath;
+	}
+
+	/**
+	 *
+	 * @param string
+	 */
+	public function setTypoScriptPath($typoScriptPath) {
+		$this->typoScriptPath = $typoScriptPath;
+	}
+
+	/**
 	 * Returns the initialized TypoScript Runtime
 	 *
 	 * @return \TYPO3\TypoScript\Core\Runtime
