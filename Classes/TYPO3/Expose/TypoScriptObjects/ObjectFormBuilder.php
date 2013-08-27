@@ -256,6 +256,9 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypo
 				$section->getRootForm()->addIgnoredIdentifier($namespace . '.' . $propertyName);
 				continue;
 			}
+			if (isset($propertySchema['annotations']['TYPO3\Flow\Annotations\Inject'])) {
+				continue;
+			}
 
 			$this->tsRuntime->pushContext('className', $className);
 			$this->tsRuntime->pushContext('propertyName', $propertyName);
