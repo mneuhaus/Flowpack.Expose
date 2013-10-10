@@ -1,10 +1,8 @@
 <?php
-namespace TYPO3\Expose\ViewHelpers;
-
-use TYPO3\Expose\Utility\StringRepresentation;
+namespace TYPO3\Expose\Tests\Functional\Fixtures;
 
 /*                                                                        *
- * This script belongs to the TYPO3 Flow package "TYPO3.Expose".          *
+ * This script belongs to the TYPO3 Flow package "TYPO3.Expose".               *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -15,13 +13,6 @@ use TYPO3\Expose\Utility\StringRepresentation;
 
 /**
  */
-class FormatAsStringViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
-	/**
-	 * @return string Rendered string
-	 */
-	public function render() {
-		return StringRepresentation::convert($this->renderChildren());
-	}
+class ClassWithoutToString {
 }
-
 ?>

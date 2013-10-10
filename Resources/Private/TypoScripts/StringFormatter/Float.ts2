@@ -1,4 +1,0 @@
-prototype(TYPO3.Expose:StringFormatter.Float) {
-	@class = 'TYPO3\\TypoScript\\TypoScriptObjects\\ValueImplementation'
-	value = ${value}
-}

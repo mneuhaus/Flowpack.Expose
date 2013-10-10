@@ -1,6 +1,11 @@
 <?php
 namespace TYPO3\Expose\Tests\Functional;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use TYPO3\Expose\Tests\Functional\Fixtures\ClassWithToString;
+use TYPO3\Expose\Tests\Functional\Fixtures\ClassWithoutToString;
+use TYPO3\Expose\Utility\StringRepresentation;
+
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "TYPO3.Expose".               *
  *                                                                        *
@@ -54,28 +59,75 @@ class StringFormatterTest extends \TYPO3\Flow\Tests\FunctionalTestCase {
 
 	/**
 	 * @test
-	 * @dataProvider dataSourceForFormatter
 	 */
-	public function formatterWorks($source, $expected) {
-		$view = $this->getView();
+	public function stringRepresentationWorks() {
+		$this->assertEquals(
+			'foo',
+			StringRepresentation::convert('foo')
+		);
 
-		$view->assign('value', $source);
-		$view->setTypoScriptPath('/test<TYPO3.Expose:StringFormatter>');
-		$this->assertEquals($expected, $view->render());
-	}
+		$this->assertEquals(
+			'42',
+			StringRepresentation::convert(42)
+		);
 
-	/**
-	 * @return \TYPO3\TypoScript\View\TypoScriptView
-	 */
-	protected function getView() {
-		$view = new \TYPO3\TypoScript\View\TypoScriptView();
-		$view->setPackageKey('TYPO3.Expose');
-		$view->disableFallbackView();
+		$this->assertEquals(
+			'42.34664',
+			StringRepresentation::convert(42.34664)
+		);
 
-		$mockControllerContext = $this->getMockBuilder('TYPO3\Flow\Mvc\Controller\ControllerContext')->disableOriginalConstructor()->getMock();
-		$view->setControllerContext($mockControllerContext);
+		$this->assertEquals(
+			'true',
+			StringRepresentation::convert(TRUE)
+		);
 
-		return $view;
+		$this->assertEquals(
+			'false',
+			StringRepresentation::convert(FALSE)
+		);
+
+		$dateTime = new \DateTime('2010-01-28T15:00:00+02:00');
+		$this->assertEquals(
+			'foo, bar, ' . $dateTime->format(\DateTime::W3C),
+			StringRepresentation::convert(array(
+				'foo',
+				'bar',
+				$dateTime
+			))
+		);
+
+		$classWithToString = new ClassWithToString();
+		$this->assertEquals(
+			'ClassWithToString',
+			StringRepresentation::convert($classWithToString)
+		);
+
+		$classWithoutToString = new ClassWithoutToString();
+		$this->assertEquals(
+			'<ClassWithoutToString: ' . spl_object_hash($classWithoutToString) . '>',
+			StringRepresentation::convert($classWithoutToString)
+		);
+
+
+		$collection = new ArrayCollection();
+		$collection->add($classWithToString);
+		$collection->add($classWithToString);
+		$this->assertEquals(
+			'ClassWithToString, ClassWithToString',
+			StringRepresentation::convert($collection)
+		);
+
+		$resource = fopen('php://memory', 'rb');
+		$this->assertEquals(
+			'<resource: stream #' . intval($resource) . ' rb>',
+			StringRepresentation::convert($resource)
+		);
+
+		$resource = stream_context_create();
+		$this->assertEquals(
+			'<resource: stream-context #' . intval($resource) . '>',
+			StringRepresentation::convert($resource)
+		);
 	}
 }
 ?>

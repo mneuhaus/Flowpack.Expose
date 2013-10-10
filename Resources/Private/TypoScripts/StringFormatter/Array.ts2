@@ -1,5 +1,0 @@
-prototype(TYPO3.Expose:StringFormatter.Array) {
-	@class = 'TYPO3\\TypoScript\\TypoScriptObjects\\TemplateImplementation'
-	templatePath = 'resource://TYPO3.Expose/Private/Elements/StringFormatter/Array.html'
-	value = ${value}
-}
