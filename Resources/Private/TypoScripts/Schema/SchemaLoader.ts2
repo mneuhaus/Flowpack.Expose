@@ -7,7 +7,7 @@ prototype(TYPO3.Expose:SchemaLoader) {
 
 	className = ${className}
 
-	sources {
+	sources = TYPO3.TypoScript:RawArray {
 		default = TYPO3.Expose:Schema.DefaultSource
 		default.@position = 'start'
 

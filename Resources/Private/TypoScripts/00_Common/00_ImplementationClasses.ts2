@@ -3,6 +3,7 @@ prototype(TYPO3.TypoScript:Template).@class = 'TYPO3\\TypoScript\\TypoScriptObje
 prototype(TYPO3.TypoScript:Collection).@class = 'TYPO3\\TypoScript\\TypoScriptObjects\\CollectionImplementation'
 prototype(TYPO3.TypoScript:Case).@class = 'TYPO3\\TypoScript\\TypoScriptObjects\\CaseImplementation'
 prototype(TYPO3.TypoScript:Matcher).@class = 'TYPO3\\TypoScript\\TypoScriptObjects\\MatcherImplementation'
+prototype(TYPO3.TypoScript:RawArray).@class = 'TYPO3\\TypoScript\\TypoScriptObjects\\RawArrayImplementation'
 
 prototype(TYPO3.Expose:IgnoreMissingTypeMatcher).@class = 'TYPO3\\Expose\\TypoScriptObjects\\IgnoreMissingTypeMatcher'
 prototype(TYPO3.Expose:Pagination).@class = 'TYPO3\\Expose\\TypoScriptObjects\\Pagination'

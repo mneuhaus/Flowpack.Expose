@@ -61,13 +61,7 @@ class SchemaLoader extends \TYPO3\TypoScript\TypoScriptObjects\ArrayImplementati
 	}
 
 	public function getSources() {
-		$arraySorter = new PositionalArraySorter($this->sources, '__meta.position');
-		try {
-			$sortedTypoScriptKeys = $arraySorter->getSortedKeys();
-		} catch (InvalidPositionException $exception) {
-			throw new TypoScript\Exception('Invalid position string', 1345126502, $exception);
-		}
-		return $sortedTypoScriptKeys;
+		return $this->tsValue('sources');
 	}
 
 	/**
@@ -103,12 +97,10 @@ class SchemaLoader extends \TYPO3\TypoScript\TypoScriptObjects\ArrayImplementati
 
 	public function compileSchema() {
 		$schema = array();
-		foreach ($this->getSources() as $sourceKey) {
-			$source = $this->tsRuntime->render($this->path . '/sources/' . $sourceKey);
+		foreach ($this->getSources() as $source) {
 			$schema = \TYPO3\Flow\Utility\Arrays::arrayMergeRecursiveOverrule($schema, $source);
 		}
 
-		var_dump($this->tsValue('propertyCases'), $this->tsValue('sources'));
 
 		foreach ($schema['properties'] as $propertyName => $propertySchema) {
 			$this->tsRuntime->pushContext('schema', $schema);
