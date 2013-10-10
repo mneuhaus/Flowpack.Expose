@@ -228,33 +228,6 @@ class SchemaLoader extends \TYPO3\TypoScript\TypoScriptObjects\ArrayImplementati
 
 		return $sortedArray;
 	}
-
-	/**
-	 * Collect the array keys inside $this->subElements with each position meta-argument.
-	 *
-	 * If there is no position but the array is numerically ordered, we use the array index as position.
-	 *
-	 * @return array an associative array where each key of $this->subElements has a position string assigned
-	 */
-	protected function collectArrayKeysAndPositions() {
-		$arrayKeysWithPosition = array();
-
-		foreach ($this->tsValue('sources') as $key => $subElement) {
-			if (isset($subElement['__meta']['position'])) {
-				$arrayKeysWithPosition[$key] = $subElement['__meta']['position'];
-			} else {
-				if (is_numeric($key)) {
-					$arrayKeysWithPosition[$key] = $key;
-				} else {
-					$arrayKeysWithPosition[$key] = 0;
-				}
-			}
-		}
-		var_dump($arrayKeysWithPosition);
-
-		return $arrayKeysWithPosition;
-	}
-
 }
 
 ?>
