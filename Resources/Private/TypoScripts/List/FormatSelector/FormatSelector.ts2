@@ -9,7 +9,7 @@
 
 
 prototype(TYPO3.Expose:RecordList.FormatSelector) < prototype(TYPO3.TypoScript:Array)
-prototype(TYPO3.Expose:RecordList.FormatSelector) << 1.wrap(prefix: '<div class="btn-group">', suffix: '</div>')
+prototype(TYPO3.Expose:RecordList.FormatSelector).@process.1 = ${'<div class="btn-group">' +  value + '</div>'}
 
 #
 # RecordList.FormatSelector.Button

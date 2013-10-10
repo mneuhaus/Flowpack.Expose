@@ -38,7 +38,7 @@ prototype(TYPO3.Expose:RecordList) < prototype(TYPO3.TypoScript:Template) {
 		controllerLinks = TYPO3.Expose:GlobalControllerLinks {
 			@position = 20
 		}
-		controllerLinks << 1.wrap(prefix: '<div class="pull-right">', suffix: '</div>')
+		controllerLinks.@process.1 = ${'<div class="pull-right">' + value + '</div>'}
 
 #		search = TYPO3.Expose:Search {
 #			templatePath = 'resource://TYPO3.Expose/Private/Elements/RecordList/Search.html'
@@ -54,7 +54,7 @@ prototype(TYPO3.Expose:RecordList) < prototype(TYPO3.TypoScript:Template) {
 		}
 
 		formatSelector = TYPO3.Expose:RecordList.FormatSelector
-		formatSelector << 1.wrap(prefix: '<div class="pull-left btn-group">', suffix: '</div>')
+		formatSelector.@process.1 = ${'<div class="pull-left btn-group">' + value + '</div>'}
 
 		paginator = TYPO3.Expose:Pagination {
 			templatePath = 'resource://TYPO3.Expose/Private/Elements/RecordList/Pagination.html'
@@ -63,9 +63,9 @@ prototype(TYPO3.Expose:RecordList) < prototype(TYPO3.TypoScript:Template) {
 	}
 }
 
-prototype(TYPO3.Expose:RecordList) << 100.TYPO3\Expose\TypoScript\Processors:pagination()
-prototype(TYPO3.Expose:RecordList) << 200.TYPO3\Expose\TypoScript\Processors:limit()
-prototype(TYPO3.Expose:RecordList) << 300.TYPO3\Expose\TypoScript\Processors:search()
+# prototype(TYPO3.Expose:RecordList) << 100.TYPO3\Expose\TypoScript\Processors:pagination()
+# prototype(TYPO3.Expose:RecordList) << 200.TYPO3\Expose\TypoScript\Processors:limit()
+# prototype(TYPO3.Expose:RecordList) << 300.TYPO3\Expose\TypoScript\Processors:search()
 
 # EXAMPLE on adding a new button in a certain context
 #TYPO3.Expose.ListController.prototype(TYPO3.Expose:RecordList.FormatSelector) {

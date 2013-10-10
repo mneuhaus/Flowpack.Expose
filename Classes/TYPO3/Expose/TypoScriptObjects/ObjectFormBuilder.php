@@ -288,6 +288,8 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypo
 		$this->tsRuntime->pushContext('object', $object);
 		$this->tsRuntime->pushContext('className', $className);
 		$schema = $this->tsRuntime->render($this->path . '/schemaLoader');
+		echo $schema;
+		exit();
 		$this->tsRuntime->popContext();
 		$this->tsRuntime->popContext();
 		return $schema;

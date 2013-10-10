@@ -12,6 +12,8 @@ namespace TYPO3\Expose\TypoScriptObjects;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
+use TYPO3\Flow\Utility\Exception\InvalidPositionException;
+use TYPO3\Flow\Utility\PositionalArraySorter;
 
 /**
  * Render a Form section using the Form framework
@@ -59,7 +61,13 @@ class SchemaLoader extends \TYPO3\TypoScript\TypoScriptObjects\ArrayImplementati
 	}
 
 	public function getSources() {
-		return $this->sortNestedTypoScriptKeys();
+		$arraySorter = new PositionalArraySorter($this->sources, '__meta.position');
+		try {
+			$sortedTypoScriptKeys = $arraySorter->getSortedKeys();
+		} catch (InvalidPositionException $exception) {
+			throw new TypoScript\Exception('Invalid position string', 1345126502, $exception);
+		}
+		return $sortedTypoScriptKeys;
 	}
 
 	/**
@@ -86,7 +94,7 @@ class SchemaLoader extends \TYPO3\TypoScript\TypoScriptObjects\ArrayImplementati
 		$cache = $this->cacheManager->getCache('TYPO3_Expose_SchemaCache');
 		$identifier = sha1($this->getClassName()) . sha1($this->path);
 
-		if (!$cache->has($identifier)) {
+		if (!$cache->has($identifier) || TRUE) {
 			$cache->set($identifier, $this->compileSchema());
 		}
 
@@ -99,6 +107,8 @@ class SchemaLoader extends \TYPO3\TypoScript\TypoScriptObjects\ArrayImplementati
 			$source = $this->tsRuntime->render($this->path . '/sources/' . $sourceKey);
 			$schema = \TYPO3\Flow\Utility\Arrays::arrayMergeRecursiveOverrule($schema, $source);
 		}
+
+		var_dump($this->tsValue('propertyCases'), $this->tsValue('sources'));
 
 		foreach ($schema['properties'] as $propertyName => $propertySchema) {
 			$this->tsRuntime->pushContext('schema', $schema);
@@ -248,6 +258,7 @@ class SchemaLoader extends \TYPO3\TypoScript\TypoScriptObjects\ArrayImplementati
 				}
 			}
 		}
+		var_dump($arrayKeysWithPosition);
 
 		return $arrayKeysWithPosition;
 	}

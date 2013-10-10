@@ -18,9 +18,9 @@ prototype(TYPO3.Expose:SchemaLoader) {
 		typoscript.@position = 'end'
 	}
 
-	propertyCases {
+	propertyCases = TYPO3.TypoScript:RawArray {
 		ignore = TYPO3.Expose:Schema.PropertyCases.Ignore
 		label = TYPO3.Expose:Schema.PropertyCases.Label
-#		inline = TYPO3.Expose:Schema.PropertyCases.Inline
+		# inline = TYPO3.Expose:Schema.PropertyCases.Inline
 	}
 }

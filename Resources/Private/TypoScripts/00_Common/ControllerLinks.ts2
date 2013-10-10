@@ -53,7 +53,7 @@ prototype(TYPO3.Expose:LocalControllerLinks) < prototype(TYPO3.TypoScript:Array)
 	20.action = 'index'
 	20.controller = 'TYPO3\\Expose\\Controller\\DeleteController'
 }
-prototype(TYPO3.Expose:LocalControllerLinks) << 1.wrap(prefix: '<div data-area="localControllerLinks">', suffix: '</div>')
+prototype(TYPO3.Expose:LocalControllerLinks).@process.1 = ${'<div data-area="localControllerLinks">' + value + 'div'}
 
 
 /**
