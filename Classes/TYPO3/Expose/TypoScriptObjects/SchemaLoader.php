@@ -97,7 +97,7 @@ class SchemaLoader extends \TYPO3\TypoScript\TypoScriptObjects\ArrayImplementati
 
 	public function compileSchema() {
 		$schema = array();
-		foreach ($this->getSources() as $source) {
+		foreach ($this->getSources() as $key => $source) {
 			$schema = \TYPO3\Flow\Utility\Arrays::arrayMergeRecursiveOverrule($schema, $source);
 		}
 
@@ -115,118 +115,14 @@ class SchemaLoader extends \TYPO3\TypoScript\TypoScriptObjects\ArrayImplementati
 			$this->tsRuntime->popContext();
 		}
 
-		$schema['properties'] = $this->sortArrayByPosition($schema['properties']);
+		$arraySorter = new PositionalArraySorter($schema['properties'], '@position');
+		try {
+			$schema['properties'] = $arraySorter->toArray();
+		} catch (InvalidPositionException $exception) {
+			throw new TypoScript\Exception('Invalid position string', 1345126502, $exception);
+		}
 
 		return $schema;
-	}
-
-	public function sortArrayByPosition($unsortedArray) {
-		$arrayKeysWithPosition = array();
-
-		foreach ($unsortedArray as $key => $subElement) {
-			if (isset($subElement['@position'])) {
-				$arrayKeysWithPosition[$key] = $subElement['@position'];
-			} else {
-				if (is_numeric($key)) {
-					$arrayKeysWithPosition[$key] = $key;
-				} else {
-					$arrayKeysWithPosition[$key] = 0;
-				}
-			}
-		}
-
-			// $startKeys, $middleKeys and $endKeys are multi-dimensional arrays:
-			// the KEY of each array is a PRIORITY, the VALUE is an array of sub-TypoScript-Object KEYS
-		$startKeys = array();
-		$middleKeys = array();
-		$endKeys = array();
-			// $beforeKeys and $afterKeys are multi-dimensional arrays
-			// the key of each array is another KEY, the VALUE is an array of PRIORITIES of sub-TypoScript-Object KEYS
-		$beforeKeys = array();
-		$afterKeys = array();
-
-			// First, we parse the positional string and depending on this string, add the elements to the three arrays from above
-		foreach ($arrayKeysWithPosition as $key => $position) {
-			$matches = array();
-			if (preg_match('/^start(?: ([0-9s]+))?$/', $position, $matches)) {
-				if (isset($matches[1])) {
-					$startKeys[intval($matches[1])][] = $key;
-				} else {
-					$startKeys[0][] = $key;
-				}
-			} elseif (preg_match('/^end(?: ([0-9]+))?$/', $position, $matches)) {
-				if (isset($matches[1])) {
-					$endKeys[intval($matches[1])][] = $key;
-				} else {
-					$endKeys[0][] = $key;
-				}
-			} elseif (preg_match('/^before ([a-zA-Z0-9]+)(?: ([0-9]+))?$/', $position, $matches)) {
-				if (isset($matches[2])) {
-					$beforeKeys[$matches[1]][$matches[2]][] = $key;
-				} else {
-					$beforeKeys[$matches[1]][0][] = $key;
-				}
-			} elseif (preg_match('/^after ([a-zA-Z0-9]+)(?: ([0-9]+))?$/', $position, $matches)) {
-				if (isset($matches[2])) {
-					$afterKeys[$matches[1]][$matches[2]][] = $key;
-				} else {
-					$afterKeys[$matches[1]][0][] = $key;
-				}
-			} elseif (preg_match('/^[0-9]+$/', (string)$position)) {
-				$middleKeys[intval($position)][] = $key;
-			} else {
-				throw new \TYPO3\TypoScript\Exception('The positional string "' . $position . '" is not supported.', 1345126502);
-			}
-		}
-
-			// Now, sort the three arrays by priority key
-		krsort($startKeys, SORT_NUMERIC);
-		foreach ($beforeKeys as $key => &$keysByPriority) {
-			krsort($keysByPriority, SORT_NUMERIC);
-		}
-		ksort($middleKeys, SORT_NUMERIC);
-		foreach ($afterKeys as $key => &$keysByPriority) {
-			ksort($keysByPriority, SORT_NUMERIC);
-		}
-		ksort($endKeys, SORT_NUMERIC);
-
-			// Finally, collect all results and flatten them
-		$prefinalKeys = array();
-		$flattenerFunction = function($value, $key, $step) use (&$prefinalKeys, &$beforeKeys, &$afterKeys, &$flattenerFunction) {
-			if (isset($beforeKeys[$value])) {
-				array_walk_recursive($beforeKeys[$value], $flattenerFunction, $step);
-				unset($beforeKeys[$value]);
-			}
-			$prefinalKeys[$step][] = $value;
-			if (isset($afterKeys[$value])) {
-				array_walk_recursive($afterKeys[$value], $flattenerFunction, $step);
-				unset($afterKeys[$value]);
-			}
-		};
-
-			// 1st step: collect regular keys and process before / after if keys occcured
-		array_walk_recursive($startKeys, $flattenerFunction, 0);
-		array_walk_recursive($middleKeys, $flattenerFunction, 2);
-		array_walk_recursive($endKeys, $flattenerFunction, 4);
-
-			// 2nd step: process before / after leftovers for unmatched keys
-		array_walk_recursive($beforeKeys, $flattenerFunction, 1);
-		array_walk_recursive($afterKeys, $flattenerFunction, 3);
-
-		ksort($prefinalKeys);
-
-			// 3rd step: mix everything together
-		$finalKeys = array();
-		array_walk_recursive($prefinalKeys, function($value) use (&$finalKeys) {
-			$finalKeys[] = $value;
-		});
-
-		$sortedArray = array();
-		foreach ($finalKeys as $key) {
-			$sortedArray[$key] = $unsortedArray[$key];
-		}
-
-		return $sortedArray;
 	}
 }
 

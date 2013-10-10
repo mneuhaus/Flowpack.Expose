@@ -1,7 +1,6 @@
-/**
- * @context className the class name to be rendered
- * @context object object to be rendered
- */
+# @context className the class name to be rendered
+# @context object object to be rendered
+#
 prototype(TYPO3.Expose:SchemaLoader) {
 	@class = 'TYPO3\\Expose\\TypoScriptObjects\\SchemaLoader'
 

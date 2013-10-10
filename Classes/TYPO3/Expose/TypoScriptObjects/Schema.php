@@ -32,10 +32,17 @@ class Schema extends \TYPO3\TypoScript\TypoScriptObjects\ArrayImplementation {
 
 		$schema = array();
 
-		foreach ($this->properties as $propertyName => $values) {
-			foreach ($values as $key => $value) {
-				$value = $this->processPath($key, $value, $this->path . '/properties/' . $propertyName);
-				$schema['properties'][$propertyName][$key] = $value;
+		foreach ($this->properties as $key => $value) {
+			if ($key == 'properties') {
+				$properties = $value;
+				foreach ($properties as $propertyName => $values) {
+					foreach ($values as $key => $value) {
+						$value = $this->processPath($key, $value, $this->path . '/properties/' . $propertyName);
+						$schema['properties'][$propertyName][$key] = $value;
+					}
+				}
+			} else {
+				$schema[$key] = $this->processPath($key, $value, $this->path);
 			}
 		}
 

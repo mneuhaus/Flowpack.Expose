@@ -53,7 +53,7 @@ prototype(TYPO3.Expose:LocalControllerLinks) < prototype(TYPO3.TypoScript:Array)
 	20.action = 'index'
 	20.controller = 'TYPO3\\Expose\\Controller\\DeleteController'
 }
-prototype(TYPO3.Expose:LocalControllerLinks).@process.1 = ${'<div data-area="localControllerLinks">' + value + 'div'}
+prototype(TYPO3.Expose:LocalControllerLinks).@process.1 = ${'<div data-area="localControllerLinks">' + value + '</div>'}
 
 
 /**
@@ -66,8 +66,7 @@ prototype(TYPO3.Expose:LocalControllerLinks).@process.1 = ${'<div data-area="loc
  * @param string feature: fully qualified class name pointing towards the feature
  * @optionalParam string iconClass: CSS-class name used for the icon, if any
  */
-prototype(TYPO3.Expose:ControllerLink) {
-	implementationClassName = 'TYPO3\\Expose\\TypoScriptObjects\\ControllerLink'
+prototype(TYPO3.Expose:ControllerLink) < prototype(TYPO3.TypoScript:Template) {
 	templatePath = 'resource://TYPO3.Expose/Private/Elements/ControllerLink.html'
 	controller = 'index'
 }
@@ -83,4 +82,3 @@ prototype(TYPO3.Expose:LocalControllerLink) < prototype(TYPO3.Expose:ControllerL
 	arguments.type = ${type}
 	htmlSuffix = '<span class="js" data-type="handlebars" style="display:none;">{{#if multipleSelectionActive}} {{numberOfSelectedElements}} elements{{/if}}</span>'
 }
-#prototype(TYPO3.Expose:LocalControllerLink) << 1.wrap(suffix: '<br />')
