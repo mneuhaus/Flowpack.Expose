@@ -5,7 +5,7 @@
  * @param label=${propertyName}
  */
 prototype(TYPO3.Expose:Form.InlineElementBuilder) < prototype(TYPO3.Expose:Form.DefaultElementBuilder) {
-	@class = 'TYPO3\\Expose\\TypoScriptObjects\\FormElementBuilder\\InlineFormElementBuilder'
+	@class = 'TYPO3\\Expose\\TypoScript\\Objects\\FormElementBuilder\\InlineFormElementBuilder'
 	formFieldType = ${formFieldType}
 	parentFormElement = ${parentFormElement}
 	identifier = ${formElementIdentifier}

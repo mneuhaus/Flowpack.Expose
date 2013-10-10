@@ -27,6 +27,6 @@ prototype(TYPO3.Expose:Schema.PropertyCases.Ignore) < prototype(TYPO3.TypoScript
 }
 
 prototype(TYPO3.Expose:Schema.PropertyCases.IgnoreMatcher) {
-	@class = 'TYPO3\\Expose\\TypoScriptObjects\\Boolean'
+	@class = 'TYPO3\\Expose\\TypoScript\\Objects\\Boolean'
 	value = ${value}
 }

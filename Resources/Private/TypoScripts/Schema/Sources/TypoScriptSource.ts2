@@ -1,5 +1,5 @@
 prototype(TYPO3.Expose:Schema.TypoScriptSource) {
-	@class = 'TYPO3\\Expose\\TypoScriptObjects\\Schema\\Sources\\TypoScriptSource'
+	@class = 'TYPO3\\Expose\\TypoScript\\Objects\\Schema\\Sources\\TypoScriptSource'
 	className = ${className}
 
 	schemaName = TYPO3.Expose:Schema.NameCase

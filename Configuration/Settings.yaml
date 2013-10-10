@@ -43,7 +43,7 @@ TYPO3:
               templatePathPattern: 'resource://TYPO3.Expose/Private/Form/Section.html'
 
           'TYPO3.Form:SelectionMixin':
-            implementationClassName: 'TYPO3\Expose\FormElements\OptionsFormElement'
+            implementationClassName: 'TYPO3\Expose\Form\Elements\OptionsFormElement'
 
           'TYPO3.Expose:Chosen':
             superTypes: ['TYPO3.Form:FormElement', 'TYPO3.Form:SingleSelectionMixin']
@@ -52,7 +52,7 @@ TYPO3:
 
           'TYPO3.Expose:PasswordWithHashing':
             superTypes: ['TYPO3.Form:PasswordWithConfirmation']
-            implementationClassName: 'TYPO3\Expose\FormElements\PasswordWithHashing'
+            implementationClassName: 'TYPO3\Expose\Form\Elements\PasswordWithHashing'
 
           'TYPO3.Expose:RoleSelector':
             superTypes: ['TYPO3.Form:MultipleSelectDropdown']
@@ -64,11 +64,11 @@ TYPO3:
 
           'TYPO3.Expose:Hidden':
             superTypes: ['TYPO3.Form:FormElement', 'TYPO3.Form:TextMixin']
-            implementationClassName: 'TYPO3\Expose\FormElements\ComplexFormElement'
+            implementationClassName: 'TYPO3\Expose\Form\Elements\ComplexFormElement'
 
           'TYPO3.Expose:InlineStacked':
             superTypes: ['TYPO3.Form:Section']
-            implementationClassName: 'TYPO3\Expose\FormElements\InlineFormElement'
+            implementationClassName: 'TYPO3\Expose\Form\Elements\InlineFormElement'
             renderingOptions:
               templatePathPattern: 'resource://{@package}/Private/Form/{@type}.html'
               renderableNameInTemplate: 'inline'

@@ -5,7 +5,7 @@
  * @param string formPresetName
  */
 prototype(TYPO3.Expose:ObjectFormBuilder) {
-	@class = 'TYPO3\\Expose\\TypoScriptObjects\\ObjectFormBuilder'
+	@class = 'TYPO3\\Expose\\TypoScript\\Objects\\ObjectFormBuilder'
 	className = ${className}
 	objects = ${objects}
 	formIdentifier = 'form'

@@ -13,6 +13,6 @@ prototype(TYPO3.Expose:Schema.DefaultSource) < prototype(TYPO3.TypoScript:Case) 
 }
 
 prototype(TYPO3.Expose:Schema.PHPSource) {
-	@class = 'TYPO3\\Expose\\TypoScriptObjects\\Schema\\Sources\\PhpSource'
+	@class = 'TYPO3\\Expose\\TypoScript\\Objects\\Schema\\Sources\\PhpSource'
 	className = ${className}
 }

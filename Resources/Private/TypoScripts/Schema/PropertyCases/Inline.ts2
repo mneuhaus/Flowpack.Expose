@@ -36,6 +36,6 @@ prototype(TYPO3.Expose:Schema.PropertyCases.Inline) < prototype(TYPO3.TypoScript
 }
 
 prototype(TYPO3.Expose:Schema.PropertyCases.InlineValue) {
-	@class = 'TYPO3\\Expose\\TypoScriptObjects\\String'
+	@class = 'TYPO3\\Expose\\TypoScript\\Objects\\String'
 	value = ${value}
 }

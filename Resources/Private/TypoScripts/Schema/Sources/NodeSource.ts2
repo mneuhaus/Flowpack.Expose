@@ -1,5 +1,5 @@
 prototype(TYPO3.Expose:Schema.NodeSource) {
-	@class = 'TYPO3\\Expose\\TypoScriptObjects\\Schema\\Sources\\NodeSource'
+	@class = 'TYPO3\\Expose\\TypoScript\\Objects\\Schema\\Sources\\NodeSource'
 	className = ${className}
 	object = ${object}
 }

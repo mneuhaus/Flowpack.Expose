@@ -24,8 +24,6 @@ class ExposeCommandController extends \TYPO3\Flow\Cli\CommandController {
 	 * @return void
 	 */
 	public function schemaCommand($package, $entity, $override = FALSE) {
-		//$this->outputLine('You called the example command and passed "%s" as the first argument.', array($requiredArgument));
-
 		$schema = file_get_contents('resource://TYPO3.Expose/Private/Kickstart/Schema.ts2');
 		$replacements = array(
 			'{EntityClassName}' => $package . '.Domain.Model.' . str_replace('/', '.', $entity),

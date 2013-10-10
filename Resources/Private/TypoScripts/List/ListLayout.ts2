@@ -9,17 +9,18 @@ prototype(TYPO3.Expose:RecordList) < prototype(TYPO3.TypoScript:Template) {
 		10.controller = 'TYPO3\\Expose\\Controller\\NewController'
 		10.arguments.type = ${type}
 	}
-		// For now, we configure the format selector to be only active when listing
-		// Domain Models
-//	prototype(TYPO3.Expose:RecordList.FormatSelector) {
-//		10 = TYPO3.Expose:RecordList.FormatSelector.Button
-//		10.format = 'table'
-//		10.label = 'Table'
-//
-//		20 = TYPO3.Expose:RecordList.FormatSelector.Button
-//		20.format = 'list'
-//		20.label = 'List'
-//	}
+
+	# For now, we configure the format selector to be only active when listing
+	# Domain Models
+	# prototype(TYPO3.Expose:RecordList.FormatSelector) {
+	# 	10 = TYPO3.Expose:RecordList.FormatSelector.Button
+	# 	10.format = 'table'
+	# 	10.label = 'Table'
+
+	# 	20 = TYPO3.Expose:RecordList.FormatSelector.Button
+	# 	20.format = 'list'
+	# 	20.label = 'List'
+	# }
 
 	templatePath = 'resource://TYPO3.Expose/Private/Elements/RecordList/Layout.html'
 	currentFormat = ${format}
@@ -40,10 +41,10 @@ prototype(TYPO3.Expose:RecordList) < prototype(TYPO3.TypoScript:Template) {
 		}
 		controllerLinks.@process.1 = ${'<div class="pull-right">' + value + '</div>'}
 
-#		search = TYPO3.Expose:Search {
-#			templatePath = 'resource://TYPO3.Expose/Private/Elements/RecordList/Search.html'
-#			objects = ${objects}
-#		}
+		# search = TYPO3.Expose:Search {
+		# 	templatePath = 'resource://TYPO3.Expose/Private/Elements/RecordList/Search.html'
+		# 	objects = ${objects}
+		# }
 	}
 
 	bottomRegion = TYPO3.TypoScript:Array
@@ -62,6 +63,9 @@ prototype(TYPO3.Expose:RecordList) < prototype(TYPO3.TypoScript:Template) {
 		}
 	}
 }
+
+prototype(TYPO3.Expose:RecordList).@override.100 = TYPO3.Expose:Processor.Pagination
+prototype(TYPO3.Expose:RecordList).@override.limit = TYPO3.Expose:Processor.Limit
 
 # prototype(TYPO3.Expose:RecordList) << 100.TYPO3\Expose\TypoScript\Processors:pagination()
 # prototype(TYPO3.Expose:RecordList) << 200.TYPO3\Expose\TypoScript\Processors:limit()

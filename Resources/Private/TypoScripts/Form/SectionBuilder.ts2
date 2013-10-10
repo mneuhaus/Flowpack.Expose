@@ -4,7 +4,7 @@
  * @param identifier=${identifier}
  */
 prototype(TYPO3.Expose:Form.SectionBuilder) {
-	@class = 'TYPO3\\Expose\\TypoScriptObjects\\SectionBuilder'
+	@class = 'TYPO3\\Expose\\TypoScript\\Objects\\SectionBuilder'
 	parentFormElement = ${parentFormElement}
 	identifier = ${identifier}
 }

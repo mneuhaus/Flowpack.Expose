@@ -1,11 +1,11 @@
-// prototype(TYPO3.Expose:ContentRecordList) < prototype(TYPO3.Expose:RecordList) {
-// 	prototype(TYPO3.Expose:GlobalControllerLinks) {
-// 		10.arguments.type = 'TYPO3\\TYPO3CR\\Domain\\Model\\NodeInterface'
-// 	}
-// }
-// prototype(TYPO3.Expose:ContentRecordList) << 50.TYPO3\Expose\TypoScript\Processors:nodeTree()
+# prototype(TYPO3.Expose:ContentRecordList) < prototype(TYPO3.Expose:RecordList) {
+# 	prototype(TYPO3.Expose:GlobalControllerLinks) {
+# 		10.arguments.type = 'TYPO3\\TYPO3CR\\Domain\\Model\\NodeInterface'
+# 	}
+# }
+# prototype(TYPO3.Expose:ContentRecordList) << 50.TYPO3\Expose\TypoScript\Processors:nodeTree()
 
-// adjustments for TYPO3CR Nodes
+# adjustments for TYPO3CR Nodes
 TYPO3.Expose.ContentListController.index = TYPO3.Expose:ContentRecordList
 
 TYPO3.Expose.ContentListController {

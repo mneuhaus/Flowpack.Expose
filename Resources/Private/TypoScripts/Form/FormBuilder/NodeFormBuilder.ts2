@@ -4,7 +4,7 @@
  * @param string formPresetName
  */
 prototype(TYPO3.Expose:NodeFormBuilder) {
-	@class = 'TYPO3\\Expose\\TypoScriptObjects\\NodeFormBuilder'
+	@class = 'TYPO3\\Expose\\TypoScript\\Objects\\NodeFormBuilder'
 	objects = ${objects}
 	formIdentifier = 'form'
 	formPresetName = 'expose'
