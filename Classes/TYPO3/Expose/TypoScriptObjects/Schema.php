@@ -31,7 +31,6 @@ class Schema extends \TYPO3\TypoScript\TypoScriptObjects\ArrayImplementation {
 		}
 
 		$schema = array();
-		var_dump($this->properties, array_keys(get_object_vars($this)));
 
 		foreach ($this->properties as $propertyName => $values) {
 			foreach ($values as $key => $value) {
@@ -39,21 +38,6 @@ class Schema extends \TYPO3\TypoScript\TypoScriptObjects\ArrayImplementation {
 				$schema['properties'][$propertyName][$key] = $value;
 			}
 		}
-
-		// foreach ($sortedChildTypoScriptKeys as $key) {
-		// 	$value = $this->subElements[$key];
-		// 	if ($key == 'properties') {
-		// 		$properties = $value;
-		// 		foreach ($properties as $propertyName => $values) {
-		// 			foreach ($values as $key => $value) {
-		// 				$value = $this->processPath($key, $value, $this->path . '/properties/' . $propertyName);
-		// 				$schema['properties'][$propertyName][$key] = $value;
-		// 			}
-		// 		}
-		// 	} else {
-		// 		$schema[$key] = $this->processPath($key, $value, $this->path);
-		// 	}
-		// }
 
 		return $schema;
 	}
