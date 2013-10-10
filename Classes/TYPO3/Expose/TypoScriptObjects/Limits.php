@@ -61,7 +61,7 @@ class Limits extends \TYPO3\TypoScript\TypoScriptObjects\TemplateImplementation 
 	 * @return integer
 	 */
 	public function totalObjects() {
-		$objects = $this->tsRuntime->evaluateProcessor('objects', $this, $this->variables['objects']);
+		$objects = $this->tsValue('objects');
 
 		if (is_object($objects)) {
 			$objects = $objects->getQuery()->setLimit(NULL)->setOffset(NULL)->execute();
