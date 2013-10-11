@@ -1,8 +1,8 @@
 <?php
-namespace TYPO3\Expose\TypoScript\Objects;
+namespace TYPO3\Expose\TypoScript\Processors;
 
 /*                                                                        *
- * This script belongs to the TYPO3 Flow package "TYPO3.Expose".               *
+ * This script belongs to the TYPO3 Flow package "TYPO3.Expose".          *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -15,7 +15,7 @@ use TYPO3\Flow\Annotations as Flow;
 
 /**
  */
-class Limits extends \TYPO3\TypoScript\TypoScriptObjects\TemplateImplementation {
+class PaginationPartial extends \TYPO3\TypoScript\TypoScriptObjects\TemplateImplementation {
 
 	/**
 	 * This is a template method which can be overridden in subclasses to add new variables which should
@@ -25,30 +25,35 @@ class Limits extends \TYPO3\TypoScript\TypoScriptObjects\TemplateImplementation 
 	 * @return void
 	 */
 	protected function initializeView(\TYPO3\TypoScript\TypoScriptObjects\Helpers\FluidView $view) {
-		$limits = array();
-		foreach ($this->tsValue('<TYPO3.Expose:Limits>/limits') as $limit) {
-			$limits[$limit] = FALSE;
-		}
-		$limit = $this->getLimit();
-		$total = $this->totalObjects();
+		$currentPage = $this->getCurrentPage();
 
-		$unset = FALSE;
-		foreach ($limits as $key => $value) {
-			$limits[$key] = $limit == $key;
-			if (!$unset && intval($key) >= $total) {
-				$unset = TRUE;
-				continue;
+		$pages = array();
+		for ($i = 0; $i < $this->totalObjects() / $this->getLimit(); $i++) {
+			$pages[] = $i + 1;
+		}
+
+		if ($currentPage > count($pages)) {
+			$currentPage = count($pages);
+		}
+		$view->assign('currentPage', $currentPage);
+
+		if (count($pages) > 1) {
+			if ($currentPage < count($pages)) {
+				$view->assign('nextPage', $currentPage + 1);
 			}
-			if ($unset) {
-				unset($limits[$key]);
+			if ($currentPage > 1) {
+				$view->assign('previousPage', $currentPage - 1);
 			}
+			$max = $this->tsValue('maxPages<TYPO3.Expose:Settings>/maxPages');
+			if (count($pages) > $max) {
+				$start = $currentPage - ($max + $max % 2) / 2;
+				$start = $start > 0 ? $start : 0;
+				$start = $start > 0 ? $start : 0;
+				$start = $start + $max > count($pages) ? count($pages) - $max : $start;
+				$pages = array_slice($pages, $start, $max);
+			}
+			$view->assign('pages', $pages);
 		}
-
-		if (count($limits) === 1) {
-			$limits = array();
-		}
-
-		$view->assign('limits', $limits);
 	}
 
 	/**
@@ -89,7 +94,7 @@ class Limits extends \TYPO3\TypoScript\TypoScriptObjects\TemplateImplementation 
 			return $request->getArgument('limit');
 		}
 
-		return (integer)$this->tsValue('<TYPO3.Expose:Limits>/default');
+		return (integer)$this->tsValue('defaultLimit<TYPO3.Expose:Settings>/defaultLimit');
 	}
 }
 

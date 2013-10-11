@@ -1,10 +1,9 @@
-/**
- * @context className the class name to be rendered
- * @context propertyName
- * @context propertySchema['annotations']
- * @context propertyType
- * @context propertyElementType
- */
+#
+# TYPO3.Expose:Schema.PropertyCases.Inline
+# ----------------------------------------
+#
+# determines if the property should be rendered inline
+#
 prototype(TYPO3.Expose:Schema.PropertyCases.Inline) < prototype(TYPO3.TypoScript:Case) {
 	prototype(TYPO3.TypoScript:Matcher).type = 'TYPO3.Expose:Schema.PropertyCases.InlineValue'
 

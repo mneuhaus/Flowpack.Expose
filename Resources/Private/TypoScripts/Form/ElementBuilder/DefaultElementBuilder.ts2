@@ -1,15 +1,15 @@
-/**
- * @param formFieldType=${formFieldType}
- * @param parentFormElement=${parentFormElement}
- * @param identifier=${formElementIdentifier}
- * @param label=${propertyName}
- */
+#
+# TYPO3.Expose:Form.DefaultElementBuilder
+# ---------------------------------------
+#
+# Creates an single form element
+#
 prototype(TYPO3.Expose:Form.DefaultElementBuilder) {
 	@class = 'TYPO3\\Expose\\TypoScript\\Objects\\FormElementBuilder\\DefaultFormElementBuilder'
 	formFieldType = ${formFieldType}
 	parentFormElement = ${parentFormElement}
 	identifier = ${formElementIdentifier}
-	label = TYPO3.Expose:Elements.Label
+	label = TYPO3.Expose:Form.Label
 	propertyAnnotations = ${propertyAnnotations}
 	propertyName = ${propertyName}
 	propertyType = ${propertyType}

@@ -1,8 +1,9 @@
-/**
- * @param object objects=${objects} (optional) list of objects to be (optionally) bound to the form
- * @param string formIdentifier
- * @param string formPresetName
- */
+#
+# TYPO3.Expose:NodeFormBuilder
+# ----------------------------
+#
+# Handles the formBuilding for Nodes
+#
 prototype(TYPO3.Expose:NodeFormBuilder) {
 	@class = 'TYPO3\\Expose\\TypoScript\\Objects\\NodeFormBuilder'
 	objects = ${objects}

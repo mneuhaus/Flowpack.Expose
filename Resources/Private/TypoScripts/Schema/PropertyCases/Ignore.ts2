@@ -1,3 +1,9 @@
+#
+# TYPO3.Expose:Schema.PropertyCases.Ignore
+# ----------------------------------------
+#
+# determines if the property should be ignored
+#
 prototype(TYPO3.Expose:Schema.PropertyCases.Ignore) < prototype(TYPO3.TypoScript:Case) {
 	prototype(TYPO3.TypoScript:Matcher).type = 'TYPO3.Expose:Schema.PropertyCases.IgnoreMatcher'
 

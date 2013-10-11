@@ -59,7 +59,7 @@ class PaginationProcessor extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTy
 			return $request->getArgument('limit');
 		}
 
-		return (integer)$this->tsValue('limit<TYPO3.Expose:Limits>/default');
+		return (integer)$this->tsValue('defaultLimit<TYPO3.Expose:Settings>/defaultLimit');
 	}
 }
 

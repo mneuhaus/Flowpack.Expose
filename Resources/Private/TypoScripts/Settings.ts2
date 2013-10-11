@@ -1,0 +1,10 @@
+#
+# TYPO3.Expose:Settings
+# ---------------------
+#
+# global container for non general
+# settings like pagination, limits, etc
+#
+prototype(TYPO3.Expose:Settings) {
+	@class = 'TYPO3\\TypoScript\\TypoScriptObjects\\RawArrayImplementation'
+}

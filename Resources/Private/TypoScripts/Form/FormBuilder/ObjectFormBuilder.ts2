@@ -1,9 +1,9 @@
-/**
- * @param string className=${className}
- * @param object objects=${objects} (optional) list of objects to be (optionally) bound to the form
- * @param string formIdentifier
- * @param string formPresetName
- */
+#
+# TYPO3.Expose:ObjectFormBuilder
+# ------------------------------
+#
+# Handles the formBuilding for regular objects
+#
 prototype(TYPO3.Expose:ObjectFormBuilder) {
 	@class = 'TYPO3\\Expose\\TypoScript\\Objects\\ObjectFormBuilder'
 	className = ${className}

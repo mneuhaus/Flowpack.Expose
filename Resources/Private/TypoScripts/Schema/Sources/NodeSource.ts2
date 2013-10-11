@@ -1,3 +1,10 @@
+#
+# TYPO3.Expose:Schema.NodeSource
+# ------------------
+#
+# Uses the NodeTypes to compile Schema data of
+# the provided object
+#
 prototype(TYPO3.Expose:Schema.NodeSource) {
 	@class = 'TYPO3\\Expose\\TypoScript\\Objects\\Schema\\Sources\\NodeSource'
 	className = ${className}

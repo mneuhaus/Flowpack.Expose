@@ -30,7 +30,7 @@ class LimitProcessor extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypoScr
 	 * @return integer
 	 */
 	public function getLimit() {
-		$limit = $this->tsValue('limit<TYPO3.Expose:Limits>/default');
+		$limit = $this->tsValue('defaultLimit<TYPO3.Expose:Settings>/defaultLimit');
 
 		$request = $this->tsRuntime->getControllerContext()->getRequest();
 		if ($request->hasArgument('limit')) {

@@ -1,3 +1,9 @@
+#
+# TYPO3.Expose:Schema.TypoScriptSource
+# ------------------
+#
+# Enhances the Schema with data from TypoScript Schema
+#
 prototype(TYPO3.Expose:Schema.TypoScriptSource) {
 	@class = 'TYPO3\\Expose\\TypoScript\\Objects\\Schema\\Sources\\TypoScriptSource'
 	className = ${className}

@@ -1,5 +1,8 @@
-# @context className the class name to be rendered
-# @context object object to be rendered
+#
+# TYPO3.Expose:SchemaLoader
+# -------------------------
+#
+# handles the loading of the schema for an object/className
 #
 prototype(TYPO3.Expose:SchemaLoader) {
 	@class = 'TYPO3\\Expose\\TypoScript\\Objects\\SchemaLoader'
@@ -7,8 +10,8 @@ prototype(TYPO3.Expose:SchemaLoader) {
 	className = ${className}
 
 	sources = TYPO3.TypoScript:RawArray {
-		default = TYPO3.Expose:Schema.DefaultSource
-		default.@position = 'start'
+		php = TYPO3.Expose:Schema.PHPSource
+		php.@position = 'start'
 
 		nodes = TYPO3.Expose:Schema.NodeSource
 		nodes.@position = 'end'

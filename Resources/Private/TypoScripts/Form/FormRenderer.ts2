@@ -1,3 +1,9 @@
+#
+# TYPO3.Expose:FormRenderer
+# -------------------------
+#
+# Handles the rendering of a single form
+#
 prototype(TYPO3.Expose:FormRenderer) {
 	@class = 'TYPO3\\Expose\\TypoScript\\Objects\\FormRenderer'
 	form = TYPO3.Expose:FormBuilder

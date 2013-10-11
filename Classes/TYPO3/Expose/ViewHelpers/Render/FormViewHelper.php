@@ -72,7 +72,7 @@ class FormViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 		$configuration = $this->configurationManager->getConfiguration('Views', 'TYPO3.Expose');
 		$view->setTypoScriptPathPatterns($configuration['options']['typoScriptPathPatterns']);
 
-		$path = '<TYPO3.Expose:FormLayout>';
+		$path = '<TYPO3.Expose:FormController>';
 
 		$customPath = '<' . $typoScriptPrefix . '>/' . $path;
 		if ($view->getTypoScriptRuntime()->canRender($customPath)) {

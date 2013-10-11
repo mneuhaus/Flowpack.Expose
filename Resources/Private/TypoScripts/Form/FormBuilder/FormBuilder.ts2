@@ -1,6 +1,9 @@
-/**
- * @context string className the class name of the form to build
- */
+#
+# TYPO3.Expose:FormBuilder
+# ------------------------
+#
+# Determines which FormBuilder should be used
+#
 prototype(TYPO3.Expose:FormBuilder) < prototype(TYPO3.TypoScript:Case) {
 // 	nodeMatcher {
 //		condition = ${className == 'TYPO3\TYPO3CR\Domain\Model\NodeInterface'}
