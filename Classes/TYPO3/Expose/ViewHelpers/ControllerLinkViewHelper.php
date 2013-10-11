@@ -12,6 +12,7 @@ namespace TYPO3\Expose\ViewHelpers;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
+use TYPO3\TypoScript\TypoScriptObjects\Helpers\TypoScriptPathProxy;
 
 /**
  */
@@ -60,9 +61,7 @@ class ControllerLinkViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractTagB
 	 * @api
 	 */
 	public function render($controller, $type = NULL, $arguments = array(), $action = 'index') {
-		if (is_object($arguments)) {
-			$arguments = iterator_to_array($arguments);
-		}
+		$arguments = $this->convertTypoScriptPathProxy($arguments);
 
 		$uriBuilder = $this->controllerContext->getUriBuilder();
 		if ($type !== NULL) {
@@ -93,6 +92,24 @@ class ControllerLinkViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractTagB
 		$this->tag->forceClosingTag(TRUE);
 
 		return $this->tag->render();
+	}
+
+	public function convertTypoScriptPathProxy($input) {
+		if (is_object($input) && $input instanceof TypoScriptPathProxy) {
+			$output = array();
+			foreach ($input as $key => $value) {
+				$output[$key] = $this->convertTypoScriptPathProxy($value);
+			}
+			return $output;
+		}
+		if (is_array($input)) {
+			$output = array();
+			foreach ($input as $key => $value) {
+				$output[$key] = $this->convertTypoScriptPathProxy($value);
+			}
+			return $output;
+		}
+		return $input;
 	}
 }
 
