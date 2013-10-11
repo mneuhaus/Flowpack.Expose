@@ -3,9 +3,6 @@
 #                                                                        #
 
 TYPO3:
-  Expose:
-    Pagination:
-      Default: 10
   TypoScript:
     # We need to Disable this, because otherwise it catches redirect Exceptions
     catchRuntimeExceptions: FALSE

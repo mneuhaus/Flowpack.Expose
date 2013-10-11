@@ -1,6 +1,6 @@
 prototype(TYPO3.Expose:Limits) {
 	templatePath = 'resource://TYPO3.Expose/Private/Elements/RecordList/Limits.html'
-	objects = ${value}
+	objects = ${objects}
 
 	limits = TYPO3.TypoScript:RawArray {
 		2 = '2'

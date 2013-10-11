@@ -18,30 +18,9 @@ use TYPO3\Flow\Annotations as Flow;
 class Pagination extends \TYPO3\TypoScript\TypoScriptObjects\TemplateImplementation {
 
 	/**
-	 * @var \TYPO3\Flow\Configuration\ConfigurationManager
-	 * @Flow\Inject
-	 */
-	protected $configurationManager;
-
-	/**
-	 * @var array
-	 */
-	protected $settings;
-
-	/**
 	 * @return string
 	 */
 	public function evaluate() {
-		$this->settings = $this->configurationManager->getConfiguration(\TYPO3\Flow\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, 'TYPO3.Expose.Pagination');
-		$this->addPaginationVariables();
-
-		return parent::evaluate();
-	}
-
-	/**
-	 * @return void
-	 */
-	public function addPaginationVariables() {
 		$currentPage = $this->getCurrentPage();
 
 		$pages = array();
@@ -71,6 +50,8 @@ class Pagination extends \TYPO3\TypoScript\TypoScriptObjects\TemplateImplementat
 			}
 			$this->properties['pages'] = $pages;
 		}
+
+		return parent::evaluate();
 	}
 
 	/**
@@ -111,7 +92,7 @@ class Pagination extends \TYPO3\TypoScript\TypoScriptObjects\TemplateImplementat
 			return $request->getArgument('limit');
 		}
 
-		return (integer)$this->settings['Default'];
+		return (integer)$this->tsValue('<TYPO3.Expose:Limits>/default');
 	}
 }
 

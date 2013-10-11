@@ -24,4 +24,3 @@ prototype(TYPO3.Expose:RecordList.FormatSelector.Button) < prototype(TYPO3.TypoS
 	templatePath = 'resource://TYPO3.Expose/Private/Elements/RecordList/FormatSelector.Button.html'
 	currentFormat = ${format}
 }
-

@@ -61,10 +61,6 @@ prototype(TYPO3.Expose:RecordList).@override.objects = ${objects}
 prototype(TYPO3.Expose:RecordList).@override.objects.@process.100 = TYPO3.Expose:Processor.Pagination
 prototype(TYPO3.Expose:RecordList).@override.objects.@process.200 = TYPO3.Expose:Processor.Limit
 
-# prototype(TYPO3.Expose:RecordList) << 100.TYPO3\Expose\TypoScript\Processors:pagination()
-# prototype(TYPO3.Expose:RecordList) << 200.TYPO3\Expose\TypoScript\Processors:limit()
-# prototype(TYPO3.Expose:RecordList) << 300.TYPO3\Expose\TypoScript\Processors:search()
-
 # EXAMPLE on adding a new button in a certain context
 #TYPO3.Expose.ListController.prototype(TYPO3.Expose:RecordList.FormatSelector) {
 #	30 = TYPO3.Expose:RecordList.FormatSelector.Button

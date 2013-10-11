@@ -16,19 +16,10 @@ use TYPO3\Flow\Annotations as Flow;
 /**
  */
 class Limits extends \TYPO3\TypoScript\TypoScriptObjects\TemplateImplementation {
-
-	/**
-	 * @var \TYPO3\Flow\Configuration\ConfigurationManager
-	 * @Flow\Inject
-	 */
-	protected $configurationManager;
-
 	/**
 	 * @return string
 	 */
 	public function evaluate() {
-		$this->settings = $this->configurationManager->getConfiguration(\TYPO3\Flow\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, 'TYPO3.Expose.Pagination');
-
 		$limits = array();
 		foreach ($this->tsValue('<TYPO3.Expose:Limits>/limits') as $limit) {
 			$limits[$limit] = FALSE;
