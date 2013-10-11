@@ -18,9 +18,13 @@ use TYPO3\Flow\Annotations as Flow;
 class Pagination extends \TYPO3\TypoScript\TypoScriptObjects\TemplateImplementation {
 
 	/**
-	 * @return string
+	 * This is a template method which can be overridden in subclasses to add new variables which should
+	 * be available inside the Fluid template. It is needed e.g. for Expose.
+	 *
+	 * @param Helpers\FluidView $view
+	 * @return void
 	 */
-	public function evaluate() {
+	protected function initializeView(\TYPO3\TypoScript\TypoScriptObjects\Helpers\FluidView $view) {
 		$currentPage = $this->getCurrentPage();
 
 		$pages = array();
@@ -31,27 +35,25 @@ class Pagination extends \TYPO3\TypoScript\TypoScriptObjects\TemplateImplementat
 		if ($currentPage > count($pages)) {
 			$currentPage = count($pages);
 		}
+		$view->assign('currentPage', $currentPage);
 
 		if (count($pages) > 1) {
-			$this->properties['currentPage'] = $currentPage;
 			if ($currentPage < count($pages)) {
-				$this->properties['nextPage'] = $currentPage + 1;
+				$view->assign('nextPage', $currentPage + 1);
 			}
 			if ($currentPage > 1) {
-				$this->properties['previousPage'] = $currentPage - 1;
+				$view->assign('previousPage', $currentPage - 1);
 			}
-			if (count($pages) > $this->tsValue('<TYPO3.Expose:Pagination>/maxPages')) {
-				$max = $this->tsValue('<TYPO3.Expose:Pagination>/maxPages');
+			$max = $this->tsValue('<TYPO3.Expose:Pagination>/maxPages');
+			if (count($pages) > $max) {
 				$start = $currentPage - ($max + $max % 2) / 2;
 				$start = $start > 0 ? $start : 0;
 				$start = $start > 0 ? $start : 0;
 				$start = $start + $max > count($pages) ? count($pages) - $max : $start;
 				$pages = array_slice($pages, $start, $max);
 			}
-			$this->properties['pages'] = $pages;
+			$view->assign('pages', $pages);
 		}
-
-		return parent::evaluate();
 	}
 
 	/**

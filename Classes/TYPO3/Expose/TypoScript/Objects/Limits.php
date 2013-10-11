@@ -16,10 +16,15 @@ use TYPO3\Flow\Annotations as Flow;
 /**
  */
 class Limits extends \TYPO3\TypoScript\TypoScriptObjects\TemplateImplementation {
+
 	/**
-	 * @return string
+	 * This is a template method which can be overridden in subclasses to add new variables which should
+	 * be available inside the Fluid template. It is needed e.g. for Expose.
+	 *
+	 * @param Helpers\FluidView $view
+	 * @return void
 	 */
-	public function evaluate() {
+	protected function initializeView(\TYPO3\TypoScript\TypoScriptObjects\Helpers\FluidView $view) {
 		$limits = array();
 		foreach ($this->tsValue('<TYPO3.Expose:Limits>/limits') as $limit) {
 			$limits[$limit] = FALSE;
@@ -43,9 +48,7 @@ class Limits extends \TYPO3\TypoScript\TypoScriptObjects\TemplateImplementation 
 			$limits = array();
 		}
 
-		$this->variables['limits'] = $limits;
-
-		return parent::evaluate();
+		$view->assign('limits', $limits);
 	}
 
 	/**
