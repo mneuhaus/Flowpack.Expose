@@ -16,11 +16,11 @@ prototype(TYPO3.Expose:Schema).@class = 'TYPO3\\Expose\\TypoScript\\Objects\\Sch
 
 prototype(TYPO3.Expose:Processor.Pagination) {
 	@class = 'TYPO3\\Expose\\TypoScript\\Processors\\PaginationProcessor'
-	objects = ${objects}
+	objects = ${value}
 }
 prototype(TYPO3.Expose:Processor.Limit) {
 	@class = 'TYPO3\\Expose\\TypoScript\\Processors\\LimitProcessor'
-	objects = ${objects}
+	objects = ${value}
 }
 
 prototype(TYPO3.TypoScript:Template) {

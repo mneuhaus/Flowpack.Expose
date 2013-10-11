@@ -1,6 +1,6 @@
 prototype(TYPO3.Expose:Pagination) {
 	templatePath = 'resource://TYPO3.Expose/Private/Elements/RecordList/Pagination.html'
-	objects = ${value}
+	objects = ${objects}
 
 	maxPages = 8
 }
