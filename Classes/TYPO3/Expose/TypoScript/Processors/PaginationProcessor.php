@@ -17,26 +17,16 @@ use TYPO3\Flow\Annotations as Flow;
  * Render a Form section using the Form framework
  */
 class PaginationProcessor extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypoScriptObject {
-	/**
-	 * @var \TYPO3\Flow\Configuration\ConfigurationManager
-	 * @Flow\Inject
-	 */
-	protected $configurationManager;
 
 	/**
-	 * @param \TYPO3\TypoScript\Core\Runtime $runtime
-	 * @param \TYPO3\TypoScript\TypoScriptObjects\AbstractTypoScriptObject $typoScriptObject
-	 * @param string $typoScriptPath
-	 * @return void
+	 *
+	 * @return boolean
+	 * @throws \InvalidArgumentException
 	 */
-	public function beforeInvocation(\TYPO3\TypoScript\Core\Runtime $runtime, \TYPO3\TypoScript\TypoScriptObjects\AbstractTypoScriptObject $typoScriptObject, $typoScriptPath) {
-		$this->settings = $this->configurationManager->getConfiguration(\TYPO3\Flow\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, 'TYPO3.Expose.Pagination');
-		$this->tsRuntime = $runtime;
-		$this->context = $runtime->getCurrentContext();
-		if (isset($this->context['objects'])) {
-			$offset = $this->getOffset();
-			$runtime->pushContext('objects', $this->context['objects']->getQuery()->setOffset($offset)->execute());
-		}
+	public function evaluate() {
+		return 'foo';
+		return $this->tsValue('objects')->getQuery()->setOffset(2)->execute();
+		return $this->tsValue('objects')->getQuery()->setOffset($this->getOffset())->execute();
 	}
 
 	/**
@@ -52,7 +42,7 @@ class PaginationProcessor extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTy
 
 		$offset = $this->getLimit() * ($page - 1);
 
-		$total = $this->context['objects']->count();
+		$total = $this->tsValue('objects')->count();
 		if ($offset > $total) {
 			$pages = ceil($total / $this->getLimit());
 			$offset = $this->getLimit() * ( $pages - 1 );
@@ -67,21 +57,11 @@ class PaginationProcessor extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTy
 	public function getLimit() {
 		$request = $this->tsRuntime->getControllerContext()->getRequest();
 
-		$limit = $this->settings['Default'];
 		if ($request->hasArgument('limit')) {
-			$limit = $request->getArgument('limit');
+			return $request->getArgument('limit');
 		}
 
-		return $limit;
-	}
-
-	/**
-	 *
-	 * @return boolean
-	 * @throws \InvalidArgumentException
-	 */
-	public function evaluate() {
-		// var_dump('foo');
+		return (integer)$this->tsValue('<TYPO3.Expose:Limits>/default');
 	}
 }
 

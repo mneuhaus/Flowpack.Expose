@@ -30,7 +30,7 @@ class Limits extends \TYPO3\TypoScript\TypoScriptObjects\TemplateImplementation 
 		$this->settings = $this->configurationManager->getConfiguration(\TYPO3\Flow\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, 'TYPO3.Expose.Pagination');
 
 		$limits = array();
-		foreach ($this->settings['Limits'] as $limit) {
+		foreach ($this->tsValue('<TYPO3.Expose:Limits>/limits') as $limit) {
 			$limits[$limit] = FALSE;
 		}
 		$limit = $this->getLimit();
@@ -95,7 +95,7 @@ class Limits extends \TYPO3\TypoScript\TypoScriptObjects\TemplateImplementation 
 			return $request->getArgument('limit');
 		}
 
-		return (integer)$this->settings['Default'];
+		return (integer)$this->tsValue('<TYPO3.Expose:Limits>/default');
 	}
 }
 

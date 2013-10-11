@@ -54,22 +54,22 @@ class Pagination extends \TYPO3\TypoScript\TypoScriptObjects\TemplateImplementat
 		}
 
 		if (count($pages) > 1) {
-			$this->variables['currentPage'] = $currentPage;
+			$this->properties['currentPage'] = $currentPage;
 			if ($currentPage < count($pages)) {
-				$this->variables['nextPage'] = $currentPage + 1;
+				$this->properties['nextPage'] = $currentPage + 1;
 			}
 			if ($currentPage > 1) {
-				$this->variables['previousPage'] = $currentPage - 1;
+				$this->properties['previousPage'] = $currentPage - 1;
 			}
-			if (count($pages) > $this->settings['MaxPages']) {
-				$max = $this->settings['MaxPages'];
+			if (count($pages) > $this->tsValue('<TYPO3.Expose:Pagination>/maxPages')) {
+				$max = $this->tsValue('<TYPO3.Expose:Pagination>/maxPages');
 				$start = $currentPage - ($max + $max % 2) / 2;
 				$start = $start > 0 ? $start : 0;
 				$start = $start > 0 ? $start : 0;
 				$start = $start + $max > count($pages) ? count($pages) - $max : $start;
 				$pages = array_slice($pages, $start, $max);
 			}
-			$this->variables['pages'] = $pages;
+			$this->properties['pages'] = $pages;
 		}
 	}
 

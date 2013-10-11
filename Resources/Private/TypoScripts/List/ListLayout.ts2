@@ -49,23 +49,17 @@ prototype(TYPO3.Expose:RecordList) < prototype(TYPO3.TypoScript:Template) {
 
 	bottomRegion = TYPO3.TypoScript:Array
 	bottomRegion {
-		limits = TYPO3.Expose:Limits {
-			templatePath = 'resource://TYPO3.Expose/Private/Elements/RecordList/Limits.html'
-			objects = ${objects}
-		}
+		limits = TYPO3.Expose:Limits
 
 		formatSelector = TYPO3.Expose:RecordList.FormatSelector
 		formatSelector.@process.1 = ${'<div class="pull-left btn-group">' + value + '</div>'}
 
-		paginator = TYPO3.Expose:Pagination {
-			templatePath = 'resource://TYPO3.Expose/Private/Elements/RecordList/Pagination.html'
-			objects = ${objects}
-		}
+		paginator = TYPO3.Expose:Pagination
 	}
 }
-
-prototype(TYPO3.Expose:RecordList).@override.100 = TYPO3.Expose:Processor.Pagination
-prototype(TYPO3.Expose:RecordList).@override.limit = TYPO3.Expose:Processor.Limit
+prototype(TYPO3.Expose:RecordList).@override.objects = ${objects}
+prototype(TYPO3.Expose:RecordList).@override.objects.@process.100 = TYPO3.Expose:Processor.Pagination
+prototype(TYPO3.Expose:RecordList).@override.objects.@process.200 = TYPO3.Expose:Processor.Limit
 
 # prototype(TYPO3.Expose:RecordList) << 100.TYPO3\Expose\TypoScript\Processors:pagination()
 # prototype(TYPO3.Expose:RecordList) << 200.TYPO3\Expose\TypoScript\Processors:limit()

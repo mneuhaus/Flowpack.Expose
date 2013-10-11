@@ -1,0 +1,13 @@
+prototype(TYPO3.Expose:Limits) {
+	templatePath = 'resource://TYPO3.Expose/Private/Elements/RecordList/Limits.html'
+	objects = ${value}
+
+	limits = TYPO3.TypoScript:RawArray {
+		2 = '2'
+		10 = '10'
+		30 = '30'
+		50 = '50'
+		100 = '100'
+	}
+	default = 2
+}

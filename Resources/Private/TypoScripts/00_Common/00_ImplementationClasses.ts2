@@ -4,6 +4,7 @@ prototype(TYPO3.TypoScript:Collection).@class = 'TYPO3\\TypoScript\\TypoScriptOb
 prototype(TYPO3.TypoScript:Case).@class = 'TYPO3\\TypoScript\\TypoScriptObjects\\CaseImplementation'
 prototype(TYPO3.TypoScript:Matcher).@class = 'TYPO3\\TypoScript\\TypoScriptObjects\\MatcherImplementation'
 prototype(TYPO3.TypoScript:RawArray).@class = 'TYPO3\\TypoScript\\TypoScriptObjects\\RawArrayImplementation'
+prototype(TYPO3.TypoScript:Value).@class = 'TYPO3\\TypoScript\\TypoScriptObjects\\ValueImplementation'
 
 prototype(TYPO3.Expose:IgnoreMissingTypeMatcher).@class = 'TYPO3\\Expose\\TypoScript\\Objects\\IgnoreMissingTypeMatcher'
 prototype(TYPO3.Expose:Pagination).@class = 'TYPO3\\Expose\\TypoScript\\Objects\\Pagination'
@@ -13,8 +14,14 @@ prototype(TYPO3.Expose:Search).@class = 'TYPO3\\Expose\\TypoScript\\Objects\\Sea
 prototype(TYPO3.Expose:Elements.Label).@class = 'TYPO3\\TypoScript\\TypoScriptObjects\\CaseImplementation'
 prototype(TYPO3.Expose:Schema).@class = 'TYPO3\\Expose\\TypoScript\\Objects\\Schema'
 
-prototype(TYPO3.Expose:Processor.Pagination).@class = 'TYPO3\\Expose\\TypoScript\\Processors\\PaginationProcessor'
-prototype(TYPO3.Expose:Processor.Limit).@class = 'TYPO3\\Expose\\TypoScript\\Processors\\LimitProcessor'
+prototype(TYPO3.Expose:Processor.Pagination) {
+	@class = 'TYPO3\\Expose\\TypoScript\\Processors\\PaginationProcessor'
+	objects = ${objects}
+}
+prototype(TYPO3.Expose:Processor.Limit) {
+	@class = 'TYPO3\\Expose\\TypoScript\\Processors\\LimitProcessor'
+	objects = ${objects}
+}
 
 prototype(TYPO3.TypoScript:Template) {
 	partialRootPath = 'resource://TYPO3.Expose/Private/Partials'
