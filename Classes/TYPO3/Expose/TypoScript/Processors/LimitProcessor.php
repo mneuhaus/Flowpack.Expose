@@ -23,8 +23,6 @@ class LimitProcessor extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypoScr
 	 * @throws \InvalidArgumentException
 	 */
 	public function evaluate() {
-		var_dump(get_class($this->tsValue('objects')));
-		exit();
 		return $this->tsValue('objects')->getQuery()->setLimit($this->getLimit())->execute();
 	}
 
@@ -32,7 +30,7 @@ class LimitProcessor extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypoScr
 	 * @return integer
 	 */
 	public function getLimit() {
-		$limit = $this->tsValue('<TYPO3.Expose:Limits>/default');
+		$limit = $this->tsValue('limit<TYPO3.Expose:Limits>/default');
 
 		$request = $this->tsRuntime->getControllerContext()->getRequest();
 		if ($request->hasArgument('limit')) {

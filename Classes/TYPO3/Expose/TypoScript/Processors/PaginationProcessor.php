@@ -24,8 +24,6 @@ class PaginationProcessor extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTy
 	 * @throws \InvalidArgumentException
 	 */
 	public function evaluate() {
-		return 'foo';
-		return $this->tsValue('objects')->getQuery()->setOffset(2)->execute();
 		return $this->tsValue('objects')->getQuery()->setOffset($this->getOffset())->execute();
 	}
 
@@ -61,7 +59,7 @@ class PaginationProcessor extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTy
 			return $request->getArgument('limit');
 		}
 
-		return (integer)$this->tsValue('<TYPO3.Expose:Limits>/default');
+		return (integer)$this->tsValue('limit<TYPO3.Expose:Limits>/default');
 	}
 }
 
