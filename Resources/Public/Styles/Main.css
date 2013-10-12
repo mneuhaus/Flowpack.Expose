@@ -71,183 +71,167 @@ body.js .nojs {
 .t3-expose-recordlist .table-actions {
   max-width: 250px; }
 
-/* line 57, _recordlist.scss */
-.t3-expose-recordlist .bar {
-  overflow: hidden;
-  margin: 10px 0; }
-/* line 62, _recordlist.scss */
-.t3-expose-recordlist .actionBar {
-  position: absolute;
-  right: 0;
-  width: 152px;
-  height: 100%;
-  border-left: none;
-  background: #E8E8E8;
-  border-right: 1px solid #777777;
-  border-top: 1px solid #777777;
-  border-bottom: 1px solid #777777;
-  overflow: hidden;
-  z-index: 20; }
-/* line 77, _recordlist.scss */
-.t3-expose-recordlist .actionBar > div {
-  padding: 10px; }
-/* line 82, _recordlist.scss */
-.t3-expose-recordlist.hiddenActionBar [data-area=actionBar] {
-  opacity: 0;
-  display: none; }
-/* line 86, _recordlist.scss */
-.t3-expose-recordlist.hiddenActionBar [data-area=main] {
-  margin-right: 0; }
-/* line 90, _recordlist.scss */
-.t3-expose-recordlist [data-area=main], .t3-expose-recordlist [data-area=actionBar] {
-  -webkit-transition-duration: 0.2s;
-  -moz-transition-duration: 0.2s;
-  -o-transition-duration: 0.2s;
-  transition-duration: 0.2s; }
-/* line 93, _recordlist.scss */
-.t3-expose-recordlist [data-area=main] {
-  -webkit-transition-property: margin-right;
-  -moz-transition-property: margin-right;
-  -o-transition-property: margin-right;
-  transition-property: margin-right;
-  margin-right: 150px; }
-/* line 97, _recordlist.scss */
-.t3-expose-recordlist [data-area=actionBar] {
-  -webkit-transition-property: opacity;
-  -moz-transition-property: opacity;
-  -o-transition-property: opacity;
-  transition-property: opacity;
-  opacity: 1; }
-/* line 102, _recordlist.scss */
-.t3-expose-recordlist .t3-records > .typo3-expose-active {
-  background: #eee;
-  margin-right: 0px;
-  border-right: 0px;
-  border-top-right-radius: 0px;
-  border-bottom-right-radius: 0px;
-  z-index: 10;
-  position: relative;
-  margin-right: -1px; }
-
 /* line 2, _Inline.scss */
 .t3-expose-inline .t3-expose-inline-item-template {
   display: none; }
 
-/* line 4, _Form.scss */
-.t3-expose-form legend {
-  padding: 0px 20px;
-  margin-bottom: 0; }
-/* line 9, _Form.scss */
-.t3-expose-form .t3-expose-inline {
+/* line 2, _Form.scss */
+.t3-expose-form {
+  border: 1px solid #E1E1E1;
+  padding-top: 10px;
+  margin-bottom: 20px; }
+  /* line 7, _Form.scss */
+  .t3-expose-form legend {
+    padding: 0px 20px;
+    margin-bottom: 0; }
+
+/* line 13, _Form.scss */
+.t3-expose-form > .t3-expose-page {
+  margin: 0 10px; }
+
+/* line 17, _Form.scss */
+.typo3-expose-form-actions {
+  border-top: 1px solid #E1E1E1; }
+  /* line 20, _Form.scss */
+  .typo3-expose-form-actions ul {
+    margin: 0px;
+    padding: 10px;
+    overflow: hidden; }
+  /* line 26, _Form.scss */
+  .typo3-expose-form-actions li {
+    float: right; }
+
+/* line 31, _Form.scss */
+.t3-expose-inline {
   margin: 20px;
   overflow: hidden; }
-  /* line 13, _Form.scss */
-  .t3-expose-form .t3-expose-inline table .control-group {
+  /* line 35, _Form.scss */
+  .t3-expose-inline table .control-group {
     margin: 0; }
-  /* line 14, _Form.scss */
-  .t3-expose-form .t3-expose-inline table .control-group > label {
+  /* line 36, _Form.scss */
+  .t3-expose-inline table .control-group > label {
     display: none; }
-  /* line 15, _Form.scss */
-  .t3-expose-form .t3-expose-inline table .controls {
+  /* line 37, _Form.scss */
+  .t3-expose-inline table .controls {
     margin-left: 0; }
-  /* line 16, _Form.scss */
-  .t3-expose-form .t3-expose-inline table .controls input, .t3-expose-form .t3-expose-inline table select {
+  /* line 38, _Form.scss */
+  .t3-expose-inline table .controls input, .t3-expose-inline table select {
     width: 130px; }
-  /* line 17, _Form.scss */
-  .t3-expose-form .t3-expose-inline table th {
+  /* line 39, _Form.scss */
+  .t3-expose-inline table th {
     border-top: none; }
-  /* line 20, _Form.scss */
-  .t3-expose-form .t3-expose-inline > h5 {
+  /* line 42, _Form.scss */
+  .t3-expose-inline > h5 {
     margin-bottom: 0; }
-  /* line 24, _Form.scss */
-  .t3-expose-form .t3-expose-inline .t3-expose-inline-item {
+  /* line 46, _Form.scss */
+  .t3-expose-inline .t3-expose-inline-item {
     padding-top: 10px;
     padding-bottom: 20px; }
-  /* line 29, _Form.scss */
-  .t3-expose-form .t3-expose-inline .close {
+  /* line 51, _Form.scss */
+  .t3-expose-inline .close {
     margin-right: 20px;
     line-height: 10px; }
-/* line 36, _Form.scss */
-.t3-expose-form .t3-expose-inline-item .close {
+
+/* line 58, _Form.scss */
+.t3-expose-inline-item .close {
   display: none; }
-/* line 43, _Form.scss */
-.t3-expose-form .t3-expose-inline-multiple .t3-expose-inline-item .close {
+
+/* line 65, _Form.scss */
+.t3-expose-inline-multiple .t3-expose-inline-item .close {
   display: block; }
-/* line 50, _Form.scss */
-.t3-expose-form .t3-expose-inline-multiple .t3-expose-inline-item-template .close,
-.t3-expose-form .t3-expose-inline-multiple .t3-expose-inline-item-unused .close {
+/* line 72, _Form.scss */
+.t3-expose-inline-multiple .t3-expose-inline-item-template .close,
+.t3-expose-inline-multiple .t3-expose-inline-item-unused .close {
   display: none; }
-/* line 56, _Form.scss */
-.t3-expose-form .t3-expose-inline-seamless {
+
+/* line 78, _Form.scss */
+.t3-expose-inline-seamless {
   margin: 0; }
-  /* line 58, _Form.scss */
-  .t3-expose-form .t3-expose-inline-seamless legend {
+  /* line 80, _Form.scss */
+  .t3-expose-inline-seamless legend {
     padding: 0; }
-/* line 64, _Form.scss */
-.t3-expose-form .t3-expose-section,
-.t3-expose-form .t3-expose-page {
+
+/* line 86, _Form.scss */
+.t3-expose-section,
+.t3-expose-page {
   margin: 0; }
-/* line 70, _Form.scss */
-.t3-expose-form .form-navigation ul,
-.t3-expose-form .form-navigation li {
+
+/* line 92, _Form.scss */
+.form-navigation ul,
+.form-navigation li {
   list-style: none; }
-/* line 74, _Form.scss */
-.t3-expose-form .form-navigation ul {
+/* line 96, _Form.scss */
+.form-navigation ul {
   margin-left: 0; }
-/* line 79, _Form.scss */
-.t3-expose-form .t3-expose-inline + .control-group {
+
+/* line 101, _Form.scss */
+.t3-expose-inline + .control-group {
   margin-top: 20px; }
 
-/* line 96, _Form.scss */
-.t3-expose-form_ {
-  background: #ffffff;
-  border: 1px solid silver;
-  -moz-box-shadow: #cccccc 0px 3px 5px;
-  -webkit-box-shadow: #cccccc 0px 3px 5px;
-  box-shadow: #cccccc 0px 3px 5px; }
-  /* line 99, _Form.scss */
-  .t3-expose-form_ fieldset > h5 {
-    background: #EFF5F8;
-    border-bottom: 1px solid #cccccc;
-    border-top: 1px solid #cccccc;
-    padding: 0.5em 20px;
-    text-shadow: white 0px 1px;
-    margin-top: -1px; }
-  /* line 108, _Form.scss */
-  .t3-expose-form_ .t3-expose-inline {
-    background: #ffffff;
-    border: 1px solid silver;
-    -moz-box-shadow: #cccccc 0px 3px 5px;
-    -webkit-box-shadow: #cccccc 0px 3px 5px;
-    box-shadow: #cccccc 0px 3px 5px; }
-    /* line 111, _Form.scss */
-    .t3-expose-form_ .t3-expose-inline > h5 {
-      background: whiteSmoke; }
-    /* line 115, _Form.scss */
-    .t3-expose-form_ .t3-expose-inline .t3-expose-inline-item {
-      border-bottom: 1px solid #dddddd; }
-    /* line 119, _Form.scss */
-    .t3-expose-form_ .t3-expose-inline .t3-expose-inline-item-unused {
-      background: #FAFAFA; }
-    /* line 123, _Form.scss */
-    .t3-expose-form_ .t3-expose-inline .control-group {
-      margin: 10px 20px 0; }
-  /* line 128, _Form.scss */
-  .t3-expose-form_ .t3-expose-inline-seamless {
-    background: none;
-    border: none;
-    padding: 0;
-    margin: 0;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none; }
-    /* line 137, _Form.scss */
-    .t3-expose-form_ .t3-expose-inline-seamless .control-group {
-      margin: 10px 0 0; }
+/* line 105, _Form.scss */
+.selectbox {
+  overflow: hidden; }
 
-/* line 2, _Modal.scss */
-.typo3-expose .modal {
-  position: static;
-  top: auto;
-  left: auto;
-  margin: 0; }
+/* line 106, _Form.scss */
+.selectbox a {
+  text-decoration: none; }
+
+/* line 107, _Form.scss */
+.selectbox-available {
+  width: 260px;
+  float: left; }
+
+/* line 108, _Form.scss */
+.selectbox-search {
+  height: 30px; }
+
+/* line 109, _Form.scss */
+.selectbox-available input {
+  width: 250px;
+  border: 1px solid #ccc; }
+
+/* line 110, _Form.scss */
+.selectbox-available select {
+  width: 260px;
+  border: 1px solid #ccc; }
+
+/* line 111, _Form.scss */
+.selectbox-all {
+  text-align: center; }
+
+/* line 112, _Form.scss */
+.selectbox-selected {
+  width: 260px;
+  float: left; }
+
+/* line 113, _Form.scss */
+.selectbox-header {
+  font-weight: bold;
+  line-height: 2; }
+
+/* line 114, _Form.scss */
+.selectbox-info {
+  font-size: 12px;
+  height: 22px;
+  padding: 4px; }
+
+/* line 115, _Form.scss */
+.selectbox-selected select {
+  width: 262px;
+  border: 1px solid #ccc; }
+
+/* line 116, _Form.scss */
+.selectbox-clear {
+  text-align: center; }
+
+/* line 117, _Form.scss */
+.selectbox-toolbar {
+  float: left;
+  width: 30px;
+  margin-top: 110px;
+  text-align: center; }
+
+/* line 118, _Form.scss */
+.selectbox-toolbar a {
+  display: block;
+  font-weight: bold; }

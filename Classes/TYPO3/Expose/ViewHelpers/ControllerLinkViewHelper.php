@@ -87,7 +87,6 @@ class ControllerLinkViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractTagB
 
 		$uri = $uriBuilder->reset()->setCreateAbsoluteUri(TRUE)->uriFor($action, $arguments, $controllerParts['controllerName'], $controllerParts['controllerPackageKey'], $controllerParts['controllerSubpackageKey']);
 		$this->tag->addAttribute('href', $uri);
-		$this->tag->addAttribute('class', 'btn');
 		$this->tag->setContent($this->renderChildren());
 		$this->tag->forceClosingTag(TRUE);
 

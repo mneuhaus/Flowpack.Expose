@@ -69,6 +69,7 @@ prototype(TYPO3.Expose:LocalControllerLinks).@process.1 = ${'<div data-area="loc
 prototype(TYPO3.Expose:ControllerLink) < prototype(TYPO3.TypoScript:Template) {
 	templatePath = 'resource://TYPO3.Expose/Private/Elements/ControllerLink.html'
 	controller = 'index'
+	class = 'btn btn-default'
 }
 
 /**

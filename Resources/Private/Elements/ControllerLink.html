@@ -1,5 +1,4 @@
 {namespace e=TYPO3\Expose\ViewHelpers}
-{namespace ts=TYPO3\TypoScript\ViewHelpers}
-<e:controllerLink action="{action}" controller="{controller}" arguments="{arguments}">
-{f:translate(value: label, package: 'TYPO3.Expose')}{htmlSuffix -> f:format.raw()}
+<e:controllerLink action="{action}" controller="{controller}" arguments="{arguments}" class="{class}">
+	{f:translate(value: label, package: 'TYPO3.Expose')}{htmlSuffix -> f:format.raw()}
 </e:controllerLink>

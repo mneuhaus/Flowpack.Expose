@@ -1,22 +1,20 @@
-<div class="pagination pull-right">
-  <ul>
-  	<f:if condition="{previousPage}">
-    <li>
-    	<f:link.action action="index" arguments="{page: previousPage}" addQueryString="1">Prev</f:link.action>
-    </li>
-	</f:if>
-  	<f:for each="{pages}" as="page">
-  		<f:if condition="{page} == {currentPage}">
-  			<f:then><li class="active"></f:then>
-  			<f:else><li></f:else>
-  		</f:if>
-  			<f:link.action action="index" arguments="{page: page}" addQueryString="1">{page}</f:link.action>
-  		</li>
-  	</f:for>
-  	<f:if condition="{nextPage}">
-    <li>
-    	<f:link.action action="index" arguments="{page: nextPage}" addQueryString="1">Next</f:link.action>
-    </li>
-	</f:if>
-  </ul>
-</div>
+<ul class="t3-expose-pagination pagination pull-right">
+	<f:if condition="{previousPage}">
+  <li>
+  	<f:link.action action="index" arguments="{page: previousPage}" addQueryString="1">Prev</f:link.action>
+  </li>
+</f:if>
+	<f:for each="{pages}" as="page">
+		<f:if condition="{page} == {currentPage}">
+			<f:then><li class="active"></f:then>
+			<f:else><li></f:else>
+		</f:if>
+			<f:link.action action="index" arguments="{page: page}" addQueryString="1">{page}</f:link.action>
+		</li>
+	</f:for>
+	<f:if condition="{nextPage}">
+  <li>
+  	<f:link.action action="index" arguments="{page: nextPage}" addQueryString="1">Next</f:link.action>
+  </li>
+</f:if>
+</ul>
