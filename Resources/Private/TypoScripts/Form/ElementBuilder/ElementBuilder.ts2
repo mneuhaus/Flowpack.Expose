@@ -65,7 +65,7 @@ prototype(TYPO3.Expose:Form.ElementBuilder) < prototype(TYPO3.TypoScript:Case) {
 	manyToMany {
 		condition = ${propertySchema['annotations']['Doctrine\ORM\Mapping\ManyToMany']}
 		@position = '200'
-		@override.formFieldType = 'TYPO3.Form:MultipleSelectDropdown'
+		@override.formFieldType = 'TYPO3.Expose:MultipleSelectEnhanced'
 	}
 
 	manyToOne {
@@ -77,7 +77,7 @@ prototype(TYPO3.Expose:Form.ElementBuilder) < prototype(TYPO3.TypoScript:Case) {
 	oneToMany {
 		condition = ${propertySchema['annotations']['Doctrine\ORM\Mapping\OneToMany']}
 		@position = '200'
-		@override.formFieldType = 'TYPO3.Form:MultipleSelectDropdown'
+		@override.formFieldType = 'TYPO3.Expose:MultipleSelectEnhanced'
 	}
 
 	oneToOne {
@@ -90,7 +90,7 @@ prototype(TYPO3.Expose:Form.ElementBuilder) < prototype(TYPO3.TypoScript:Case) {
 	array {
 		condition = ${propertySchema['type'] == 'array'}
 		@position = '300'
-		@override.formFieldType = 'TYPO3.Form:MultipleSelectDropdown'
+		@override.formFieldType = 'TYPO3.Expose:MultipleSelectEnhanced'
 	}
 
 
