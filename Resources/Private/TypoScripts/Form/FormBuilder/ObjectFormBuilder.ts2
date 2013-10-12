@@ -9,7 +9,7 @@ prototype(TYPO3.Expose:ObjectFormBuilder) {
 	className = ${className}
 	objects = ${objects}
 	formIdentifier = 'form'
-	formPresetName = 'expose'
+	formPresetName = 'default'
 	callbackAction = ${callbackAction}
 
 	sectionBuilder = TYPO3.Expose:Form.SectionBuilder

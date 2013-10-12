@@ -1,0 +1,102 @@
+prototype(TYPO3.Form:Namespaces) < prototype(TYPO3.TypoScript:RawArray) {
+  1 = 'TYPO3.Form:Fields'
+  2 = 'TYPO3.Expose:Fields'
+}
+
+prototype(TYPO3.Form:Base) < prototype(TYPO3.TypoScript:RawArray) {
+  superTypes = TYPO3.TypoScript:RawArray
+  renderingOptions = TYPO3.TypoScript:RawArray
+}
+prototype(TYPO3.Form:Field) < prototype(TYPO3.Form:Base) {
+  properties = TYPO3.TypoScript:RawArray
+}
+
+prototype(TYPO3.Form:Fields) < prototype(TYPO3.TypoScript:RawArray) {
+	DatePicker = TYPO3.Form:Field {
+		properties {
+			dateFormat = 'd.m.Y'
+		}
+	}
+  Base = TYPO3.Form:Base {
+    renderingOptions.layoutPathPattern = 'resource://TYPO3.Expose/Private/Form/Layouts/{@type}.html'
+  }
+  Form = TYPO3.Form:Base {
+    renderingOptions.templatePathPattern = 'resource://TYPO3.Expose/Private/Form/Form.html'
+  }
+  Page = TYPO3.Form:Base {
+    renderingOptions.templatePathPattern = 'resource://TYPO3.Expose/Private/Form/Page.html'
+  }
+  Section = TYPO3.Form:Base {
+    renderingOptions.templatePathPattern = 'resource://TYPO3.Expose/Private/Form/Section.html'
+  }
+
+  TextMixin = TYPO3.Form:Field {
+    properties.elementClassAttribute = 'form-control'
+  }
+  MultiLineText = TYPO3.Form:Field {
+    properties.elementClassAttribute = 'form-control'
+  }
+  SelectionMixin = TYPO3.Form:Field {
+    implementationClassName = 'TYPO3\\Expose\\Form\\Elements\\OptionsFormElement'
+    properties.elementClassAttribute = 'form-control'
+  }
+
+  MultipleSelectDropdown = TYPO3.Form:Field {
+    properties.elementClassAttribute = 'form-control'
+  }
+}
+
+prototype(TYPO3.Expose:Fields) < prototype(TYPO3.TypoScript:RawArray) {
+	Chosen = TYPO3.Form:Field {
+    superTypes {
+      1 = 'TYPO3.Form:FormElement'
+      2 = 'TYPO3.Form:SingleSelectionMixin'
+    }
+		renderingOptions.layoutPathPattern = 'resource://TYPO3.Expose/Private/Form/Chosen.html'
+	}
+  PasswordWithHashing = TYPO3.Form:Field {
+    superTypes.1 = 'TYPO3.Form:PasswordWithConfirmation'
+    renderingOptions.layoutPathPattern = 'TYPO3\\Expose\\Form\\Elements\\PasswordWithHashing'
+  }
+  RoleSelector = TYPO3.Form:Field {
+    superTypes.1 = 'TYPO3.Form:MultipleSelectDropdown'
+  }
+  MultipleSelectEnhanced = TYPO3.Form:Field {
+    superTypes.1 = 'TYPO3.Form:MultipleSelectDropdown'
+  }
+
+  Page = TYPO3.Form:Field {
+    superTypes.1 = 'TYPO3.Form:Page'
+  }
+  Hidden = TYPO3.Form:Field {
+    superTypes {
+      1 = 'TYPO3.Form:FormElement'
+      2 = 'TYPO3.Form:TextMixin'
+    }
+    implementationClassName = 'TYPO3\\Expose\\Form\\Elements\\ComplexFormElement'
+  }
+
+  InlineStacked = TYPO3.Form:Field {
+    superTypes.1 = 'TYPO3.Form:Section'
+    implementationClassName = 'TYPO3\\Expose\\Form\\Elements\\InlineFormElement'
+    renderingOptions {
+      templatePathPattern = 'resource://{@package}/Private/Form/{@type}.html'
+      renderableNameInTemplate = 'inline'
+    }
+  }
+  InlineStackedItem = TYPO3.Form:Field {
+    superTypes.1 = 'TYPO3.Expose:InlineStacked'
+  }
+  InlineTabular = TYPO3.Form:Field {
+    superTypes.1 = 'TYPO3.Expose:InlineStacked'
+  }
+  InlineTabularItem = TYPO3.Form:Field {
+    superTypes.1 = 'TYPO3.Expose:InlineStacked'
+  }
+  InlineSeamless = TYPO3.Form:Field {
+    superTypes.1 = 'TYPO3.Expose:InlineStacked'
+  }
+  InlineSeamlessItem = TYPO3.Form:Field {
+    superTypes.1 = 'TYPO3.Expose:InlineStacked'
+  }
+}

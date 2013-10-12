@@ -118,6 +118,7 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypo
 	 * @return string
 	 */
 	public function evaluate() {
+		$this->baseFormFactory->setTsRuntime($this->tsRuntime);
 		$formDefinition = $this->baseFormFactory->build(array('identifier' => $this->tsValue('formIdentifier')), $this->tsValue('formPresetName'));
 		$page = $formDefinition->createPage('page1');
 
@@ -144,6 +145,17 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypo
 
 		$this->addValidatorsToForm($formDefinition, $objectNamespaces);
 		return $formDefinition;
+	}
+
+	/**
+	 * Return the typoscript value relative to this TypoScript object (with processors
+	 * etc applied)
+	 *
+	 * @param string $path
+	 * @return mixed
+	 */
+	public function tsValue($path) {
+		return parent::tsValue($path);
 	}
 
 	/**
@@ -289,8 +301,6 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypo
 		$this->tsRuntime->pushContext('object', $object);
 		$this->tsRuntime->pushContext('className', $className);
 		$schema = $this->tsRuntime->render($this->path . '/schemaLoader');
-		//echo $schema;
-		//exit();
 		$this->tsRuntime->popContext();
 		$this->tsRuntime->popContext();
 		return $schema;
