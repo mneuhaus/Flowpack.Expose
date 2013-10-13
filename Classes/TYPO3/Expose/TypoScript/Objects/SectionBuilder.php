@@ -56,7 +56,9 @@ class SectionBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypoScr
 			throw new \InvalidArgumentException('TODO: parent form element must be a section-like element');
 		}
 
-		return $parentFormElement->createElement($this->tsValue('identifier'), 'TYPO3.Form:Section');
+		$formFieldType = $this->tsValue('formFieldType');
+
+		return $parentFormElement->createElement($this->tsValue('identifier'), $formFieldType);
 	}
 }
 

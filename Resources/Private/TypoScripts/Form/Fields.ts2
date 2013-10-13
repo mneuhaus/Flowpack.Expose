@@ -47,6 +47,11 @@ prototype(TYPO3.Form:Fields) < prototype(TYPO3.TypoScript:RawArray) {
 }
 
 prototype(TYPO3.Expose:Fields) < prototype(TYPO3.TypoScript:RawArray) {
+  CollapsableSection = TYPO3.Form:Field {
+    superTypes.1 = 'TYPO3.Form:Section'
+    renderingOptions.templatePathPattern = 'resource://TYPO3.Expose/Private/Form/CollapsableSection.html'
+  }
+
 	Chosen = TYPO3.Form:Field {
     superTypes {
       1 = 'TYPO3.Form:FormElement'

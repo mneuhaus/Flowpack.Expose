@@ -176,32 +176,34 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypo
 	 * @return void
 	 */
 	public function createFormForSingleObject(\TYPO3\Form\Core\Model\AbstractSection $parentFormElement, $object, $namespace = '') {
-		$sectionNames = $this->findSections($this->reflectionService->getClassNameByObject($object));
+		$sectionNames = $this->findSections($object);
 		$formDefinition = $parentFormElement->getRootForm();
 
 		$formDefinition->getProcessingRule($parentFormElement->getIdentifier())->getPropertyMappingConfiguration()->setTypeConverterOption('TYPO3\\Flow\\Property\\TypeConverter\\PersistentObjectConverter', \TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED, TRUE);
 		$formDefinition->getProcessingRule($parentFormElement->getIdentifier())->getPropertyMappingConfiguration()->setTypeConverterOption('TYPO3\\Flow\\Property\\TypeConverter\\PersistentObjectConverter', \TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter::CONFIGURATION_MODIFICATION_ALLOWED, TRUE);
 		$formDefinition->getProcessingRule($parentFormElement->getIdentifier())->getPropertyMappingConfiguration()->allowAllProperties();
 
-		foreach ($sectionNames as $sectionName => $propertyNames) {
+		foreach ($sectionNames as $sectionName => $sectionConfiguration) {
 			if ($parentFormElement instanceof \TYPO3\Form\Core\Model\Page) {
 				$this->tsRuntime->pushContext('parentFormElement', $parentFormElement);
 				$this->tsRuntime->pushContext('identifier', $sectionName . '.' . $namespace);
+				$this->tsRuntime->pushContext('formFieldType', isset($sectionConfiguration['type']) ? $sectionConfiguration['type'] : 'TYPO3.Form:Section');
 				$section = $this->tsRuntime->render($this->path . '/sectionBuilder');
+				$this->tsRuntime->popContext();
 				$this->tsRuntime->popContext();
 				$this->tsRuntime->popContext();
 			} else {
 				$section = $parentFormElement;
 			}
 
-			if ($propertyNames == '*') {
-				$propertyNames = NULL;
+			if ($sectionConfiguration['properties'] == '*') {
+				$sectionConfiguration['properties'] = NULL;
 			} else {
-				$propertyNames = explode(',', $propertyNames);
+				$sectionConfiguration['properties'] = explode(',', $sectionConfiguration['properties']);
 			}
 
-			$section->setLabel($sectionName);
-			$this->createElementsForSection($sectionName, $section, $namespace, $object, $propertyNames);
+			$section->setLabel($sectionConfiguration['name']);
+			$this->createElementsForSection($sectionName, $section, $namespace, $object, $sectionConfiguration['properties']);
 		}
 
 		$objectIdentifiers = $this->getObjectIdentifierArrayForObject($object);
@@ -241,16 +243,18 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypo
 		}
 	}
 
-	protected function findSections($className) {
-			// $annotationSections = (array) $this->reflectionService->getClassAnnotations($className, 'TYPO3\Expose\Annotations\Section');
-			// if (count($annotationSections) > 0) {
-			// 	$sections = array();
-			// 	foreach ($annotationSections as $annotationSection) {
-			// 		$sections[$annotationSection->title] = $annotationSection->properties;
-			// 	}
-			// 	return $sections;
-			// }
-		return array('' => '*');
+	protected function findSections($object) {
+		$schema = $this->getSchema($object);
+
+		if (isset($schema['sections'])) {
+			$sections = array();
+			foreach ($schema['sections'] as $section) {
+				$sections[] = $section;
+			}
+			return $sections;
+		}
+
+		return array('all' => array('name' => '', 'properties' => '*'));
 	}
 
 	/**
@@ -263,8 +267,15 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypo
 		$className = $this->reflectionService->getClassNameByObject($object);
 		$schema = $this->getSchema($object);
 
+		if ($propertyNames === NULL) {
+			$propertyNames = array_keys($schema['properties']);
+		}
+
 		$this->tsRuntime->pushContext('parentFormElement', $section);
-		foreach ($schema['properties'] as $propertyName => $propertySchema) {
+		foreach ($propertyNames as $propertyName) {
+			$propertyName = trim($propertyName);
+			$propertySchema = $schema['properties'][$propertyName];
+
 			if ($propertySchema['ignore']) {
 				$section->getRootForm()->addIgnoredIdentifier($namespace . '.' . $propertyName);
 				continue;

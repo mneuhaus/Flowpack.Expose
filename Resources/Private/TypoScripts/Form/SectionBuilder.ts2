@@ -8,4 +8,5 @@ prototype(TYPO3.Expose:Form.SectionBuilder) {
 	@class = 'TYPO3\\Expose\\TypoScript\\Objects\\SectionBuilder'
 	parentFormElement = ${parentFormElement}
 	identifier = ${identifier}
+	formFieldType = ${formFieldType}
 }
