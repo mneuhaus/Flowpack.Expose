@@ -202,7 +202,9 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypo
 				$sectionConfiguration['properties'] = explode(',', $sectionConfiguration['properties']);
 			}
 
-			$section->setLabel($sectionConfiguration['name']);
+			if (isset($sectionConfiguration['name'])) {
+				$section->setLabel($sectionConfiguration['name']);
+			}
 			$this->createElementsForSection($sectionName, $section, $namespace, $object, $sectionConfiguration['properties']);
 		}
 
