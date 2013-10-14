@@ -1,5 +1,9 @@
 {namespace form=TYPO3\Form\ViewHelpers}
-<a class="close">x</a>
+<div class="t3-expose-inline-stacked-toolbar">
+	<a class="close"><span class="glyphicon glyphicon-remove-circle"></span></a>
+</div>
+<div class="t3-expose-inline-stacked-fields">
 <f:for each="{inline.elements}" as="element">
 	<form:renderRenderable renderable="{element}" />
 </f:for>
+</div>

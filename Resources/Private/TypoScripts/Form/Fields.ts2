@@ -31,18 +31,18 @@ prototype(TYPO3.Form:Fields) < prototype(TYPO3.TypoScript:RawArray) {
   }
 
   TextMixin = TYPO3.Form:Field {
-    properties.elementClassAttribute = 'form-control'
+    properties.elementClassAttribute = 'form-control input-sm'
   }
   MultiLineText = TYPO3.Form:Field {
-    properties.elementClassAttribute = 'form-control'
+    properties.elementClassAttribute = 'form-control input-sm'
   }
   SelectionMixin = TYPO3.Form:Field {
     implementationClassName = 'TYPO3\\Expose\\Form\\Elements\\OptionsFormElement'
-    properties.elementClassAttribute = 'form-control'
+    properties.elementClassAttribute = 'form-control input-sm'
   }
 
   MultipleSelectDropdown = TYPO3.Form:Field {
-    properties.elementClassAttribute = 'form-control'
+    properties.elementClassAttribute = 'form-control input-sm'
   }
 }
 

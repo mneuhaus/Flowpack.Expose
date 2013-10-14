@@ -1,8 +1,9 @@
 // Layouting
 .t3-expose-form {
 	border: 1px solid #E1E1E1;
-	padding-top: 10px;
+	padding-top: 0px;
 	margin-bottom: 20px;
+	background: #F9F9F9;
 
 	legend {
 		padding: 0px 20px;
@@ -16,6 +17,7 @@
 
 .typo3-expose-form-actions {
 	border-top: 1px solid #E1E1E1;
+	background: white;
 
 	ul {
 		margin: 0px;
@@ -29,13 +31,13 @@
 }
 
 .t3-expose-inline {
-	margin: 20px;
 	overflow: hidden;
+	margin-bottom: 20px;
 	table {
-		.control-group { margin: 0; }
-		.control-group > label { display: none; }
-		.controls { margin-left: 0; }
-		.controls input, select { width: 130px; }
+		.t3-expose-form-group { margin: 0; }
+		.t3-expose-control-label { display: none; }
+		.t3-expose-form-controls { width: 100%; }
+		.form-control { margin-left: 0; width: 100%; }
 		th { border-top: none; }
 	}
 
@@ -49,7 +51,6 @@
 	}
 
 	.close {
-		margin-right: 20px;
 		line-height: 10px;
 	}
 }
@@ -75,6 +76,41 @@
 	}
 }
 
+.t3-expose-inline-stacked {
+	background: #F9F9F9;
+	border: 1px solid #e1e1e1;
+	padding: 0 10px;
+
+	.t3-expose-inline-item {
+		background: #FFFFFF;
+		border: 1px solid #e1e1e1;
+		margin: 10px 0;
+		padding: 0px 10px 0;
+	}
+	.glyphicon {
+		margin-top: 10px;
+		display: block;
+	}
+}
+
+.t3-expose-inline-stacked-fields {
+	padding-top: 10px;
+	overflow: hidden;
+}
+
+.t3-expose-inline-multiple {
+	.t3-expose-inline-stacked-fields {
+		margin-right: 30px;
+		border-right: 1px solid #e1e1e1;
+		padding-right: 10px;
+	}
+
+	.t3-expose-inline-stacked-toolbar {
+		display: block;
+		float: right;
+	}
+}
+
 .t3-expose-inline-seamless {
 	margin: 0;
 	legend {
@@ -85,6 +121,13 @@
 .t3-expose-section,
 .t3-expose-page {
 	margin: 0;
+}
+
+.t3-expose-section {
+	border: 1px solid #e1e1e1;
+	margin: 10px 0;
+	padding: 10px 10px 0;
+	background: white;
 }
 
 .form-navigation {

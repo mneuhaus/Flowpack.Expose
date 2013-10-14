@@ -78,160 +78,200 @@ body.js .nojs {
 /* line 2, _Form.scss */
 .t3-expose-form {
   border: 1px solid #E1E1E1;
-  padding-top: 10px;
-  margin-bottom: 20px; }
-  /* line 7, _Form.scss */
+  padding-top: 0px;
+  margin-bottom: 20px;
+  background: #F9F9F9; }
+  /* line 8, _Form.scss */
   .t3-expose-form legend {
     padding: 0px 20px;
     margin-bottom: 0; }
 
-/* line 13, _Form.scss */
+/* line 14, _Form.scss */
 .t3-expose-form > .t3-expose-page {
   margin: 0 10px; }
 
-/* line 17, _Form.scss */
+/* line 18, _Form.scss */
 .typo3-expose-form-actions {
-  border-top: 1px solid #E1E1E1; }
-  /* line 20, _Form.scss */
+  border-top: 1px solid #E1E1E1;
+  background: white; }
+  /* line 22, _Form.scss */
   .typo3-expose-form-actions ul {
     margin: 0px;
     padding: 10px;
     overflow: hidden; }
-  /* line 26, _Form.scss */
+  /* line 28, _Form.scss */
   .typo3-expose-form-actions li {
     float: right; }
 
-/* line 31, _Form.scss */
+/* line 33, _Form.scss */
 .t3-expose-inline {
-  margin: 20px;
-  overflow: hidden; }
-  /* line 35, _Form.scss */
-  .t3-expose-inline table .control-group {
-    margin: 0; }
-  /* line 36, _Form.scss */
-  .t3-expose-inline table .control-group > label {
-    display: none; }
+  overflow: hidden;
+  margin-bottom: 20px; }
   /* line 37, _Form.scss */
-  .t3-expose-inline table .controls {
-    margin-left: 0; }
+  .t3-expose-inline table .t3-expose-form-group {
+    margin: 0; }
   /* line 38, _Form.scss */
-  .t3-expose-inline table .controls input, .t3-expose-inline table select {
-    width: 130px; }
+  .t3-expose-inline table .t3-expose-control-label {
+    display: none; }
   /* line 39, _Form.scss */
+  .t3-expose-inline table .t3-expose-form-controls {
+    width: 100%; }
+  /* line 40, _Form.scss */
+  .t3-expose-inline table .form-control {
+    margin-left: 0;
+    width: 100%; }
+  /* line 41, _Form.scss */
   .t3-expose-inline table th {
     border-top: none; }
-  /* line 42, _Form.scss */
+  /* line 44, _Form.scss */
   .t3-expose-inline > h5 {
     margin-bottom: 0; }
-  /* line 46, _Form.scss */
+  /* line 48, _Form.scss */
   .t3-expose-inline .t3-expose-inline-item {
     padding-top: 10px;
     padding-bottom: 20px; }
-  /* line 51, _Form.scss */
+  /* line 53, _Form.scss */
   .t3-expose-inline .close {
-    margin-right: 20px;
     line-height: 10px; }
 
-/* line 58, _Form.scss */
+/* line 59, _Form.scss */
 .t3-expose-inline-item .close {
   display: none; }
 
-/* line 65, _Form.scss */
+/* line 66, _Form.scss */
 .t3-expose-inline-multiple .t3-expose-inline-item .close {
   display: block; }
-/* line 72, _Form.scss */
+/* line 73, _Form.scss */
 .t3-expose-inline-multiple .t3-expose-inline-item-template .close,
 .t3-expose-inline-multiple .t3-expose-inline-item-unused .close {
   display: none; }
 
-/* line 78, _Form.scss */
+/* line 79, _Form.scss */
+.t3-expose-inline-stacked {
+  background: #F9F9F9;
+  border: 1px solid #e1e1e1;
+  padding: 0 10px; }
+  /* line 84, _Form.scss */
+  .t3-expose-inline-stacked .t3-expose-inline-item {
+    background: #FFFFFF;
+    border: 1px solid #e1e1e1;
+    margin: 10px 0;
+    padding: 0px 10px 0; }
+  /* line 90, _Form.scss */
+  .t3-expose-inline-stacked .glyphicon {
+    margin-top: 10px;
+    display: block; }
+
+/* line 96, _Form.scss */
+.t3-expose-inline-stacked-fields {
+  padding-top: 10px;
+  overflow: hidden; }
+
+/* line 102, _Form.scss */
+.t3-expose-inline-multiple .t3-expose-inline-stacked-fields {
+  margin-right: 30px;
+  border-right: 1px solid #e1e1e1;
+  padding-right: 10px; }
+/* line 108, _Form.scss */
+.t3-expose-inline-multiple .t3-expose-inline-stacked-toolbar {
+  display: block;
+  float: right; }
+
+/* line 114, _Form.scss */
 .t3-expose-inline-seamless {
   margin: 0; }
-  /* line 80, _Form.scss */
+  /* line 116, _Form.scss */
   .t3-expose-inline-seamless legend {
     padding: 0; }
 
-/* line 86, _Form.scss */
+/* line 122, _Form.scss */
 .t3-expose-section,
 .t3-expose-page {
   margin: 0; }
 
-/* line 92, _Form.scss */
+/* line 126, _Form.scss */
+.t3-expose-section {
+  border: 1px solid #e1e1e1;
+  margin: 10px 0;
+  padding: 10px 10px 0;
+  background: white; }
+
+/* line 135, _Form.scss */
 .form-navigation ul,
 .form-navigation li {
   list-style: none; }
-/* line 96, _Form.scss */
+/* line 139, _Form.scss */
 .form-navigation ul {
   margin-left: 0; }
 
-/* line 101, _Form.scss */
+/* line 144, _Form.scss */
 .t3-expose-inline + .control-group {
   margin-top: 20px; }
 
-/* line 105, _Form.scss */
+/* line 148, _Form.scss */
 .selectbox {
   overflow: hidden; }
 
-/* line 106, _Form.scss */
+/* line 149, _Form.scss */
 .selectbox a {
   text-decoration: none; }
 
-/* line 107, _Form.scss */
+/* line 150, _Form.scss */
 .selectbox-available {
   width: 260px;
   float: left; }
 
-/* line 108, _Form.scss */
+/* line 151, _Form.scss */
 .selectbox-search {
   height: 30px; }
 
-/* line 109, _Form.scss */
+/* line 152, _Form.scss */
 .selectbox-available input {
   width: 250px;
   border: 1px solid #ccc; }
 
-/* line 110, _Form.scss */
+/* line 153, _Form.scss */
 .selectbox-available select {
   width: 260px;
   border: 1px solid #ccc; }
 
-/* line 111, _Form.scss */
+/* line 154, _Form.scss */
 .selectbox-all {
   text-align: center; }
 
-/* line 112, _Form.scss */
+/* line 155, _Form.scss */
 .selectbox-selected {
   width: 260px;
   float: left; }
 
-/* line 113, _Form.scss */
+/* line 156, _Form.scss */
 .selectbox-header {
   font-weight: bold;
   line-height: 2; }
 
-/* line 114, _Form.scss */
+/* line 157, _Form.scss */
 .selectbox-info {
   font-size: 12px;
   height: 22px;
   padding: 4px; }
 
-/* line 115, _Form.scss */
+/* line 158, _Form.scss */
 .selectbox-selected select {
   width: 262px;
   border: 1px solid #ccc; }
 
-/* line 116, _Form.scss */
+/* line 159, _Form.scss */
 .selectbox-clear {
   text-align: center; }
 
-/* line 117, _Form.scss */
+/* line 160, _Form.scss */
 .selectbox-toolbar {
   float: left;
   width: 30px;
   margin-top: 110px;
   text-align: center; }
 
-/* line 118, _Form.scss */
+/* line 161, _Form.scss */
 .selectbox-toolbar a {
   display: block;
   font-weight: bold; }

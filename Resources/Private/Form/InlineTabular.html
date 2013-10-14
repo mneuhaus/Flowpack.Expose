@@ -8,11 +8,12 @@
 		<h5>{inline.label}</h5>
 	</f:if>
 	<div class="scrollable" id="{inline.uniqueIdentifier}">
-		<table class="table">
+		<table class="table table-bordered table-striped">
 			<tr>
 				<f:for each="{inline.elementSchema.properties}" as="propertySchema" key="property">
 					<th data-property="{property}" >{propertySchema.label}</th>
 				</f:for>
+				<th></th>
 			</tr>
 
 			<tr class="t3-expose-inline-item-template">
