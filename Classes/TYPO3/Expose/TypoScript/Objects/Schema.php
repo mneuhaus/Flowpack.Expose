@@ -51,7 +51,7 @@ class Schema extends \TYPO3\TypoScript\TypoScriptObjects\ArrayImplementation {
 
 	public function processPath($key, $value, $path) {
 		if (isset($value['__eelExpression'])) {
-			$result = $this->tsRuntime->evaluateProcessor($key, $this, $value);
+			$result = $this->tsRuntime->evaluate($path . '/' . $key);
 		} elseif (isset($value['__objectType'])) {
 			$result = $this->tsRuntime->evaluate($path . '/' . $key);
 		} else {
