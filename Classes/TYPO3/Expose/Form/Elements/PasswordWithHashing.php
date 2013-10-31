@@ -30,16 +30,8 @@ class PasswordWithHashing extends \TYPO3\Form\FormElements\PasswordWithConfirmat
 	 * @return void
 	 */
 	public function onSubmit(\TYPO3\Form\Core\Runtime\FormRuntime $formRuntime, &$elementValue) {
-		if ($elementValue['password'] !== $elementValue['confirmation']) {
-			$processingRule = $this->getRootForm()->getProcessingRule($this->getIdentifier());
-			$processingRule->getProcessingMessages()->addError(new \TYPO3\Flow\Error\Error('Password doesn\'t match confirmation', 1334768052));
-		}
-		if (empty($elementValue['password'])) {
-				// TODO: Somehow this is empty!!!
-			$elementValue = $this->getDefaultValue();
-		} else {
-			$elementValue = $this->hashService->hashPassword($elementValue['password'], 'default');
-		}
+		parent::onSubmit($formRuntime, $elementValue);
+		$elementValue = $this->hashService->hashPassword($elementValue, 'default');
 	}
 }
 
