@@ -3,8 +3,3 @@
   options:
     typoScriptPathPatterns:
       - 'resource://TYPO3.Expose/Private/TypoScripts/'
-
--
-  requestFilter: 'isPackage("TYPO3.Expose") && isController("List")'
-  options:
-    typoScriptPath: '<TYPO3.Expose:RecordList>'
