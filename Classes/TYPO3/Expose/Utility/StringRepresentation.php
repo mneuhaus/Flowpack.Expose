@@ -50,6 +50,9 @@ class StringRepresentation {
 			case $mixed instanceof \DateTime:
 				return $mixed->format(\DateTime::W3C);
 
+			case $mixed instanceof \TYPO3\Flow\Security\Account:
+				return $mixed->getAccountIdentifier();
+
 			case is_object($mixed) && method_exists($mixed, '__toString'):
 				return $mixed->__toString();
 
