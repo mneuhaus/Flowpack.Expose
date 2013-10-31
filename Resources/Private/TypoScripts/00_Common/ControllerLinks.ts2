@@ -44,12 +44,12 @@ prototype(TYPO3.Expose:GlobalControllerLinks) < prototype(TYPO3.TypoScript:Array
  */
 prototype(TYPO3.Expose:LocalControllerLinks) < prototype(TYPO3.TypoScript:Array) {
 	10 = TYPO3.Expose:LocalControllerLink
-	10.label = 'Edit'
+	10.label = '<i class="fa fa-pencil"></i>'
 	10.action = 'index'
 	10.controller = 'TYPO3\\Expose\\Controller\\EditController'
 
 	20 = TYPO3.Expose:LocalControllerLink
-	20.label = 'Delete'
+	20.label = '<i class="fa fa-trash-o"></i>'
 	20.action = 'index'
 	20.controller = 'TYPO3\\Expose\\Controller\\DeleteController'
 }

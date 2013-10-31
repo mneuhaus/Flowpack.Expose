@@ -8,7 +8,7 @@ TYPO3.Expose.ListController.index = TYPO3.Expose:RecordList
 prototype(TYPO3.Expose:RecordList) < prototype(TYPO3.TypoScript:Template) {
 	prototype(TYPO3.Expose:GlobalControllerLinks) {
 		10 = TYPO3.Expose:ControllerLink
-		10.label = 'New'
+		10.label = '<i class="fa fa-plus"></i>'
 		10.action = 'index'
 		10.controller = 'TYPO3\\Expose\\Controller\\NewController'
 		10.arguments.type = ${type}
