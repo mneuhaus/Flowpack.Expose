@@ -88,7 +88,7 @@ class SchemaLoader extends \TYPO3\TypoScript\TypoScriptObjects\ArrayImplementati
 		$cache = $this->cacheManager->getCache('TYPO3_Expose_SchemaCache');
 		$identifier = sha1($this->getClassName()) . sha1($this->path);
 
-		if (!$cache->has($identifier) || TRUE) {
+		if (!$cache->has($identifier)) {
 			$cache->set($identifier, $this->compileSchema());
 		}
 

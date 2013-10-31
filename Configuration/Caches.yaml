@@ -1,2 +1,16 @@
-TYPO3_Expose_SchemaCache: []
+TYPO3_Expose_SchemaCache:
+  flush:
+    -
+      path: 'Resources/Private/TypoScripts'
+      filePattern: '\.ts2$'
+    -
+      path: 'Classes/'
+      filePattern: '\.php$'
+
 TYPO3_Expose_ControllerPartsCache: []
+
+TYPO3_Expose_TypeRoutePartCache:
+  flush:
+    -
+      path: 'Configuration'
+      filePattern: 'Routes\.yaml$'
