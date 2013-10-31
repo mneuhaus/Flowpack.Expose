@@ -56,7 +56,7 @@ class ExposeRuntime {
 	/**
 	 * @var string
 	 */
-	protected $namespace = 'exposeRuntime';
+	protected $namespace = 'expose';
 
 	/**
 	 * @var \TYPO3\Flow\Mvc\ActionRequest

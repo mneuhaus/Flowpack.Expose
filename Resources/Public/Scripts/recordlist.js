@@ -87,7 +87,7 @@
 			// Open an expose controller based on URI and currentSelection
 
 			this.get('currentSelection').forEach(function(identifier) {
-				uri += encodeURI('&moduleArguments[--exposeRuntime][objects][]=') + encodeURIComponent(identifier);
+				uri += encodeURI('&moduleArguments[--expose][objects][]=') + encodeURIComponent(identifier);
 			});
 
 			window.location.href = uri;
