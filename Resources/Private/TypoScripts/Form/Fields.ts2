@@ -13,8 +13,11 @@ prototype(TYPO3.Form:Field) < prototype(TYPO3.Form:Base) {
 
 prototype(TYPO3.Form:Fields) < prototype(TYPO3.TypoScript:RawArray) {
 	DatePicker = TYPO3.Form:Field {
+    renderingOptions.templatePathPattern = 'resource://TYPO3.Expose/Private/Form/DatePicker.html'
 		properties {
-			dateFormat = 'd.m.Y'
+			jsDateFormat = 'dd.mm.yyyy'
+      dateFormat = 'd.m.Y'
+      enableDatePicker = false
 		}
 	}
   Base = TYPO3.Form:Base {
@@ -61,7 +64,7 @@ prototype(TYPO3.Expose:Fields) < prototype(TYPO3.TypoScript:RawArray) {
 	}
   PasswordWithHashing = TYPO3.Form:Field {
     superTypes.1 = 'TYPO3.Form:PasswordWithConfirmation'
-    renderingOptions.layoutPathPattern = 'TYPO3\\Expose\\Form\\Elements\\PasswordWithHashing'
+    implementationClassName = 'TYPO3\\Expose\\Form\\Elements\\PasswordWithHashing'
   }
   RoleSelector = TYPO3.Form:Field {
     superTypes.1 = 'TYPO3.Form:MultipleSelectDropdown'
