@@ -134,12 +134,12 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypo
 				$section = $this->createFormForSingleObject($page, $object, 'objects.' . $i);
 				$objectNamespaces[] = 'objects.' . $i;
 				$i++;
-				$formDefinition->getProcessingRule('objects.0')->setDataType($this->reflectionService->getClassNameByObject($object));
-				$section->setDataType($this->reflectionService->getClassNameByObject($object));
+				$formDefinition->getProcessingRule('objects.0')->setDataType($this->getClassName($object));
+				$section->setDataType($this->getClassName($object));
 			}
 		} else {
 			$section = $this->createFormForSingleObject($page, NULL, 'objects.0.');
-			$section->setDataType($this->reflectionService->getClassNameByObject($object));
+			$section->setDataType($this->getClassName($object));
 			$objectNamespaces[] = 'objects.0';
 		}
 
@@ -266,7 +266,7 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypo
 	 * @param object $object
 	 */
 	public function createElementsForSection($sectionName, \TYPO3\Form\FormElements\Section $section, $namespace, $object, $propertyNames = NULL) {
-		$className = $this->reflectionService->getClassNameByObject($object);
+		$className = $this->getClassName($object);
 		$schema = $this->getSchema($object);
 
 		if ($propertyNames === NULL) {
@@ -310,7 +310,7 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypo
 	}
 
 	public function getSchema($object) {
-		$className = $this->reflectionService->getClassNameByObject($object);
+		$className = $this->getClassName($object);
 		$this->tsRuntime->pushContext('object', $object);
 		$this->tsRuntime->pushContext('className', $className);
 		$schema = $this->tsRuntime->render($this->path . '/schemaLoader');
@@ -321,6 +321,10 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypo
 
 	public function getPropertyValue($object, $propertyName) {
 		return \TYPO3\Flow\Reflection\ObjectAccess::getProperty($object, $propertyName);
+	}
+
+	public function getClassName($object) {
+		return ltrim($this->reflectionService->getClassNameByObject($object), '\\');
 	}
 }
 ?>

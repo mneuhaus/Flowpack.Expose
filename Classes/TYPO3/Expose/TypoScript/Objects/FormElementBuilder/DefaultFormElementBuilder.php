@@ -187,7 +187,7 @@ class DefaultFormElementBuilder extends \TYPO3\TypoScript\TypoScriptObjects\Abst
 		if (isset($propertySchema['elementType']) && $propertySchema['elementType'] !== NULL) {
 			$dataType .= '<' . $propertySchema['elementType'] . '>';
 		}
-		$element->setDataType($dataType);
+		$element->setDataType(ltrim($dataType, '\\'));
 
 		return $element;
 	}
