@@ -25,6 +25,12 @@ prototype(TYPO3.Expose:Schema.PropertyCases.Ignore) < prototype(TYPO3.TypoScript
 		@override.value = true
 	}
 
+	injected {
+		condition = ${propertySchema['annotations']['TYPO3\Flow\Annotations\Inject']}
+		@position = '100'
+		@override.value = true
+	}
+
 	default {
 		condition = true
 		@position = 'end'
