@@ -1394,8 +1394,7 @@ body.js .nojs {
   margin: 0; }
   .t3-expose-recordlist .pagination a {
     color: black;
-    font-size: 14px;
-    line-height: 28px; }
+    font-size: 14px; }
 .t3-expose-recordlist th.tiny,
 .t3-expose-recordlist td.tiny {
   width: 15px; }
@@ -1409,7 +1408,7 @@ body.js .nojs {
 table.t3-expose-table {
   border: 1px solid #e9e9e9; }
   table.t3-expose-table thead {
-    background: #435157;
+    background: #474747;
     color: #efefef; }
   table.t3-expose-table > thead > tr > th {
     border: none;
