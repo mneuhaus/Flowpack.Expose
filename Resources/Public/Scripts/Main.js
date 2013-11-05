@@ -2,6 +2,7 @@
 // @codekit-prepend "Form/Form.js"
 // @codekit-prepend "../components/chosen/chosen/chosen.jquery.min.js"
 // @codekit-prepend "../components/datepicker/js/bootstrap-datepicker.js"
+// @codekit-prepend "../components/jquery.hotkeys.js"
 // @codekit-prepend "Form/jquery.selectbox.js"
 
 $(document).ready(function(){
