@@ -199,6 +199,11 @@ class InlineFormElement extends \TYPO3\Form\FormElements\Section {
 		}
 		return $elements;
 	}
+
+	public function getIdentityElement() {
+		$elements = $this->getElements();
+		return $elements['__identity'];
+	}
 }
 
 ?>
