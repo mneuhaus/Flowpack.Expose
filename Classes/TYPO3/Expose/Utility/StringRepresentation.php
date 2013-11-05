@@ -17,12 +17,22 @@ use TYPO3\Flow\Annotations as Flow;
  * @Flow\Scope("singleton")
  */
 class StringRepresentation {
+	/**
+	 * @var \TYPO3\TypoScript\Core\Runtime
+	 */
+	protected static $typoScriptRuntime;
+
+	public static function setTypoScriptRuntime($typoScriptRuntime) {
+		self::$typoScriptRuntime = $typoScriptRuntime;
+	}
+
 	public static function convert($mixed) {
 		switch (true) {
 			case is_string($mixed):
 			case is_int($mixed):
 			case is_float($mixed):
 			case is_double($mixed):
+			case is_null($mixed):
 				return strval($mixed);
 
 			case is_bool($mixed):
@@ -48,7 +58,11 @@ class StringRepresentation {
 				return implode(', ', $mixed);
 
 			case $mixed instanceof \DateTime:
-				return $mixed->format(\DateTime::W3C);
+				if (self::$typoScriptRuntime === NULL) {
+					return $mixed->format(\DateTime::W3C);
+				}
+				$dateFormat = self::$typoScriptRuntime->evaluate('dateFormat<TYPO3.Expose:Settings>/dateFormat');
+				return $mixed->format($dateFormat);
 
 			case $mixed instanceof \TYPO3\Flow\Security\Account:
 				return $mixed->getAccountIdentifier();

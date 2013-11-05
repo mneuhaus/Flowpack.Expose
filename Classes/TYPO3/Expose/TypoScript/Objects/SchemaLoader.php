@@ -85,6 +85,8 @@ class SchemaLoader extends \TYPO3\TypoScript\TypoScriptObjects\ArrayImplementati
 	 * @throws \InvalidArgumentException
 	 */
 	public function evaluate() {
+		\TYPO3\Expose\Utility\StringRepresentation::setTypoScriptRuntime($this->tsRuntime);
+
 		$cache = $this->cacheManager->getCache('TYPO3_Expose_SchemaCache');
 		$identifier = sha1($this->getClassName()) . sha1($this->path);
 

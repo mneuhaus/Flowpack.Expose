@@ -7,4 +7,6 @@
 #
 prototype(TYPO3.Expose:Settings) {
 	@class = 'TYPO3\\TypoScript\\TypoScriptObjects\\RawArrayImplementation'
+
+	dateFormat = 'd.m.Y'
 }
