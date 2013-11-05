@@ -31,9 +31,9 @@ use TYPO3\Flow\Annotations as Flow;
 class FormViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 	/**
 	 * @Flow\Inject
-	 * @var \TYPO3\Flow\Configuration\ConfigurationManager
+	 * @var \TYPO3\Flow\Mvc\ViewConfigurationManager
 	 */
-	protected $configurationManager;
+	protected $viewConfigurationManager;
 
 	/**
 	 * The reflectionService
@@ -60,7 +60,16 @@ class FormViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 			$class = $this->reflectionService->getClassNameByObject($object);
 		}
 
-		$view = new \TYPO3\TypoScript\View\TypoScriptView();
+		$request = clone $this->controllerContext->getRequest();
+		$request->setControllerPackageKey('TYPO3.Expose');
+		$request->setControllerSubpackageKey(NULL);
+		$request->setControllerName('New');
+		$request->setControllerActionName('index');
+		$request->setFormat('html');
+
+		$viewConfiguration = $this->viewConfigurationManager->getViewConfiguration($request);
+
+		$view = new \TYPO3\Expose\View\TypoScriptView($viewConfiguration['options']);
 		$view->setPackageKey('TYPO3.Expose');
 		$view->setControllerContext($this->controllerContext);
 		$view->assignMultiple(array(
@@ -68,9 +77,6 @@ class FormViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 			'objects' => array($object),
 			'callbackAction' => $callbackAction
 		));
-
-		$configuration = $this->configurationManager->getConfiguration('Views', 'TYPO3.Expose');
-		$view->setTypoScriptPathPatterns($configuration['options']['typoScriptPathPatterns']);
 
 		$path = '<TYPO3.Expose:FormController>';
 
