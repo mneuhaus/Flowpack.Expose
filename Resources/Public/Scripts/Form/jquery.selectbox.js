@@ -104,7 +104,6 @@
 			var items = jQuery(e).find("option");
 			target.append(items);
 			$.fn.selectbox.pushSelection(select);
-            console.log(select,"select[name="+jQuery(e).data("name")+"]");
 			return false;
 		}
 
