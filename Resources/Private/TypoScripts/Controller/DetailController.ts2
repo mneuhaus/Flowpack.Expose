@@ -1,0 +1,14 @@
+#
+# TYPO3.Expose:DetailController
+# -----------------------------
+#
+# Handles the deletion of objects
+#
+# TODO: rename to "RemoveController" to be consistent
+#
+TYPO3.Expose.DetailController.index = TYPO3.Expose:DetailController
+prototype(TYPO3.Expose:DetailController) < prototype(TYPO3.TypoScript:Template) {
+	templatePath = 'resource://TYPO3.Expose/Private/Elements/Detail/Index.html'
+	objects = ${objects}
+	type = ${className}
+}

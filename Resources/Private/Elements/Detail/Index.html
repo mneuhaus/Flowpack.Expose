@@ -1,0 +1,20 @@
+{namespace e=TYPO3\Expose\ViewHelpers}
+<div class="t3-expose t3-expose-detail">
+	<f:for each="{objects}" as="object">
+		<e:schema object="{object}">
+			<dl class="dl-horizontal">
+				<f:for each="{schema.properties}" as="property" key="propertyName">
+					<f:if condition="{property.ignore} == 0">
+							<dt>{f:translate(value: property.label, package: 'TYPO3.Expose')}</dt>
+							<dd>
+								<e:objectAccess property="{propertyName}" object="{object}" >
+									{value -> e:formatAsString()}
+								</e:objectAccess>
+							</dd>
+						</th>
+					</f:if>
+				</f:for>
+			</dl>
+		</e:schema>
+	</f:for>
+</div>
