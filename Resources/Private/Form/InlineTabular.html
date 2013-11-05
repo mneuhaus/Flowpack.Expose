@@ -11,7 +11,9 @@
 		<table class="table table-bordered table-striped">
 			<tr>
 				<f:for each="{inline.elementSchema.properties}" as="propertySchema" key="property">
-					<th data-property="{property}" >{propertySchema.label}</th>
+					<f:if condition="{propertySchema.ignore} == 0">
+						<th data-property="{property}" >{propertySchema.label}</th>
+					</f:if>
 				</f:for>
 				<th></th>
 			</tr>
