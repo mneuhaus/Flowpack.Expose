@@ -83,7 +83,6 @@ class ExposeRuntime {
 		}
 
 		$this->request->setFormat('html');
-			// TODO: the response below should be an MVC response
 		$this->response = new \TYPO3\Flow\Http\Response($response);
 	}
 

@@ -1,0 +1,7 @@
+-
+  name: 'Backend'
+  uriPattern: ''
+  defaults:
+    '@action':      'index'
+    '@controller':  'Backend'
+    '@package':     'TYPO3.Expose'

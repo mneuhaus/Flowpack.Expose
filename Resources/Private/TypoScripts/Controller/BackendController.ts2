@@ -1,0 +1,45 @@
+#
+# TYPO3.Expose:Backend
+# -----------------------
+#
+# Renders objects into a table or other form with ControllerLinks
+#
+TYPO3.Expose.BackendController.index = TYPO3.Expose:Backend
+prototype(TYPO3.Expose:Backend) < prototype(TYPO3.TypoScript:Template) {
+	templatePath = 'resource://TYPO3.Expose/Private/Elements/Backend/Layout.html'
+
+	navigation = TYPO3.Expose:Navigation {
+
+		intro = TYPO3.Expose:NavigationItem {
+			name = 'Intro'
+			action = 'index'
+			controller = 'Standard'
+			package = 'Famelo.Demo.Admin'
+		}
+		models = TYPO3.Expose:ExposeNavigationItem {
+			name = 'Models'
+			arguments {
+				object = 'index'
+			}
+		}
+	}
+}
+
+prototype(TYPO3.Expose:Resource).@class = 'TYPO3\\Expose\\TypoScript\\Objects\\Backend\\Resource'
+
+prototype(TYPO3.Expose:Navigation) {
+	@class = 'TYPO3\\Expose\\TypoScript\\Objects\\Backend\\Navigation'
+	templatePath = 'resource://TYPO3.Expose/Private/Elements/Backend/Navigation.html'
+}
+
+prototype(TYPO3.Expose:NavigationItem) {
+	@class = 'TYPO3\\Expose\\TypoScript\\Objects\\Backend\\NavigationItem'
+	templatePath = 'resource://TYPO3.Expose/Private/Elements/Backend/NavigationItem.html'
+	useSubrequest = true
+}
+
+prototype(TYPO3.Expose:ExposeNavigationItem) < prototype(TYPO3.TypoScript:NavigationItem) {
+	action = 'index'
+	controller = 'List'
+	package = 'TYPO3.Expose'
+}
