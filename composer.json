@@ -4,12 +4,6 @@
     "description": "Package to expose models",
     "license": "LGPL-3.0+",
     "version": "0.1.0-dev",
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/afoeder/TYPO3.Asset.git"
-        }
-    ],
     "require": {
         "typo3/flow": "*",
         "typo3/form": "*",
