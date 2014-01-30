@@ -6,3 +6,7 @@ TYPO3:
   TypoScript:
     # We need to Disable this, because otherwise it catches redirect Exceptions
     catchRuntimeExceptions: FALSE
+  Neos:
+    typoScript:
+      autoInclude:
+        'TYPO3.Expose': TRUE

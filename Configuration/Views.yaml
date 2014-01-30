@@ -1,5 +1,5 @@
 -
-  requestFilter: 'isPackage("TYPO3.Expose")'
+  requestFilter: 'isDefaultView("TYPO3\Expose\View\TypoScriptView")'
   options:
     typoScriptPathPatterns:
-      - 'resource://TYPO3.Expose/Private/TypoScripts/'
+      - 'resource://TYPO3.Expose/Private/TypoScript/'

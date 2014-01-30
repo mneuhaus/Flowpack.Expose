@@ -20,7 +20,7 @@ class FormatAsStringViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractView
 	 * @return string Rendered string
 	 */
 	public function render() {
-		StringRepresentation::setTypoScriptRuntime($this->templateVariableContainer->get('fluidTemplateTsObject')->getTsRuntime());
+		// StringRepresentation::setTypoScriptRuntime($this->viewHelperVariableContainer->getView()->getTypoScriptObject());
 		return StringRepresentation::convert($this->renderChildren());
 	}
 }

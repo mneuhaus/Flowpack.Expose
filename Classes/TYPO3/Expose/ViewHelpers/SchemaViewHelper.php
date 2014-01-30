@@ -35,7 +35,7 @@ class SchemaViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 			$className = $this->reflectionService->getClassNameByObject($object);
 		}
 
-		$fluidTemplateTsObject = $this->templateVariableContainer->get('fluidTemplateTsObject');
+		$fluidTemplateTsObject = $this->viewHelperVariableContainer->getView()->getTypoScriptObject();
 		$path = $fluidTemplateTsObject->getPath() . '/<TYPO3.Expose:SchemaLoader>';
 
 		$fluidTemplateTsObject->getTsRuntime()->pushContext('className', $className);

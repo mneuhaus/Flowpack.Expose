@@ -1,0 +1,31 @@
+'TYPO3.Expose:Plugin':
+  superTypes: ['TYPO3.Neos:Plugin']
+  ui:
+    label: 'Expose Plugin'
+    inspector:
+      groups:
+        'expose':
+          label: Expose
+  postprocessors:
+    'ExposePostprocessor':
+      postprocessor: 'TYPO3\Expose\Neos\ExposeNodeTypePostprocessor'
+
+  properties:
+    'controller':
+      type: string
+      defaultValue: 'Index'
+      ui:
+        label: 'Controller'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'expose'
+          editor: 'TYPO3.Neos/Inspector/Editors/SelectBoxEditor'
+    'type':
+      type: string
+      defaultValue: ''
+      ui:
+        label: 'Type'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'expose'
+          editor: 'TYPO3.Neos/Inspector/Editors/SelectBoxEditor'
