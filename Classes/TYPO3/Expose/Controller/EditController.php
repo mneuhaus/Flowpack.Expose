@@ -19,6 +19,10 @@ use TYPO3\Flow\Annotations as Flow;
  *
  */
 class EditController extends AbstractController {
+	/**
+	 * @var string
+	 */
+	protected $typoScriptPath = 'editController<TYPO3.Expose:FormController>';
 
 	/**
 	 * @return void

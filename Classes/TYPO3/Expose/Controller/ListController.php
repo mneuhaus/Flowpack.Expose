@@ -21,6 +21,11 @@ use TYPO3\Flow\Mvc\ActionRequest;
  */
 class ListController extends AbstractController {
 	/**
+	 * @var string
+	 */
+	protected $typoScriptPath = 'listController<TYPO3.Expose:RecordList>';
+
+	/**
 	 * @Flow\Inject
 	 * @var \TYPO3\Flow\Reflection\ReflectionService
 	 */

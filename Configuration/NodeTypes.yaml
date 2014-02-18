@@ -29,3 +29,12 @@
         inspector:
           group: 'expose'
           editor: 'TYPO3.Neos/Inspector/Editors/SelectBoxEditor'
+
+    'tsPrefix':
+      type: string
+      defaultValue: ''
+      ui:
+        label: 'TypoScript Prefix'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'expose'

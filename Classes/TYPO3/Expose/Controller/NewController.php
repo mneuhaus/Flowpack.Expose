@@ -21,6 +21,11 @@ use TYPO3\Flow\Annotations as Flow;
 class NewController extends AbstractController {
 
 	/**
+	 * @var string
+	 */
+	protected $typoScriptPath = 'newController<TYPO3.Expose:FormController>';
+
+	/**
 	 * @return void
 	 */
 	public function initializeIndexAction() {

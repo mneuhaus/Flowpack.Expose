@@ -20,11 +20,14 @@ class ExposePluginImplementation extends \TYPO3\Neos\TypoScript\PluginImplementa
 	 * @return ActionRequest
 	 */
 	protected function buildPluginRequest() {
-		/** @var $parentRequest ActionRequest */
 		$pluginRequest = parent::buildPluginRequest();
 
 		$pluginRequest->setArgument('type', $this->node->getProperty('type'));
 		$pluginRequest->setArgument('controller', $this->node->getProperty('controller'));
+		$tsPrefix = $this->node->getProperty('tsPrefix');
+		if (strlen($tsPrefix) > 0) {
+			$pluginRequest->setArgument('__typoScriptPrefix', $tsPrefix);
+		}
 
 		return $pluginRequest;
 	}
