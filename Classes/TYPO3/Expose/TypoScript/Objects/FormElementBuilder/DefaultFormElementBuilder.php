@@ -169,19 +169,23 @@ class DefaultFormElementBuilder extends \TYPO3\TypoScript\TypoScriptObjects\Abst
 
 		$element = $parentFormElement->createElement($this->tsValue('identifier'), $this->tsValue('formFieldType'));
 
+		$propertySchema = $this->tsValue('propertySchema');
+
 		if (method_exists($element, 'setPropertySchema')) {
-			$element->setPropertySchema($this->tsValue('propertySchema'));
+			$element->setPropertySchema($propertySchema);
 		}
 
 		if (method_exists($element, 'setFormBuilder')) {
 			$element->setFormBuilder($this->tsValue('formBuilder'));
 		}
 
-		$propertySchema = $this->tsValue('propertySchema');
-
 		$element->setLabel($propertySchema['label']);
 		$element->setDefaultValue($this->tsValue('propertyValue'));
 		$element->setProperty('propertyName', $this->tsValue('propertyName'));
+
+		if (isset($propertySchema['infotext'])) {
+			$element->setProperty('infotext', $propertySchema['infotext']);
+		}
 
 		$dataType = $propertySchema['type'];
 		if (isset($propertySchema['elementType']) && $propertySchema['elementType'] !== NULL) {
