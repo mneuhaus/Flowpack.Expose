@@ -6,6 +6,7 @@
 	<f:if condition="{inline.label}">
 		<legend>{inline.label}</legend>
 	</f:if>
+
 	<f:if condition="{inline.multipleMode}">
 	<div class="t3-expose-inline-item-template">
 		<form:renderRenderable renderable="{inline.template}" />
@@ -14,7 +15,6 @@
 
 	<f:for each="{inline.elements}" as="element">
 	<div class="t3-expose-inline-item">
-		<a class="close">x</a>
 		<form:renderRenderable renderable="{element}" />
 	</div>
 	</f:for>
