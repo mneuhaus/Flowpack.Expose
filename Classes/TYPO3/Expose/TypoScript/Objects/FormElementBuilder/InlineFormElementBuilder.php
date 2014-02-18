@@ -26,23 +26,16 @@ class InlineFormElementBuilder extends DefaultFormElementBuilder {
 	protected $reflectionService;
 
 	/**
-	 *
-	 * @var object
+	 * @Flow\Inject
+	 * @var \TYPO3\Flow\Core\Bootstrap
 	 */
-	protected $request;
-
-	/**
-	 * @param object $request
-	 */
-	public function setRequest($request) {
-		$this->request = $request;
-	}
+	protected $bootstrap;
 
 	/**
 	 * @return object
 	 */
 	public function getRequest() {
-		return $this->tsValue('request');
+		return $this->bootstrap->getActiveRequestHandler()->getHttpRequest()->createActionRequest();
 	}
 
 	/**
