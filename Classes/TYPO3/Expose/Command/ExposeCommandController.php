@@ -32,7 +32,7 @@ class ExposeCommandController extends \TYPO3\Flow\Cli\CommandController {
 		);
 		$schema = str_replace(array_keys($replacements), array_values($replacements), $schema);
 
-		$schemaPath = 'resource://' . $package . '/Private/TypoScripts/Schema/';
+		$schemaPath = 'resource://' . $package . '/Private/TypoScript/Schema/';
 		if (!is_dir($schemaPath)) {
 			\TYPO3\Flow\Utility\Files::createDirectoryRecursively($schemaPath);
 		}

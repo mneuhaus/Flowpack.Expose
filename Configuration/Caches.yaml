@@ -1,7 +1,7 @@
 TYPO3_Expose_SchemaCache:
   flush:
     -
-      path: 'Resources/Private/TypoScripts'
+      path: 'Resources/Private'
       filePattern: '\.ts2$'
     -
       path: 'Classes/'
