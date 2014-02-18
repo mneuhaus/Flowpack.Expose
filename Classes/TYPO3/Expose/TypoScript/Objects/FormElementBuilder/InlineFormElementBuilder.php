@@ -83,7 +83,9 @@ class InlineFormElementBuilder extends DefaultFormElementBuilder {
 			$containerSection = $parentFormElement->createElement($this->tsValue('identifier'), $this->tsValue('formFieldType'));
 			$containerSection->setFormBuilder($this->tsValue('formBuilder'));
 			$containerSection->setClass($className);
-			$containerSection->setLabel($propertySchema['label']);
+			if (!(isset($propertySchema['noLabel']) && $propertySchema['noLabel'] === TRUE)) {
+				$containerSection->setLabel($propertySchema['label']);
+			}
 			$containerSection->setDataType('Doctrine\Common\Collections\Collection<' . $className . '>');
 			$containerSection->setCounter(count($objects));
 			$containerSection->setPropertySchema($propertySchema);
@@ -105,7 +107,9 @@ class InlineFormElementBuilder extends DefaultFormElementBuilder {
 
 			$containerSection = $parentFormElement->createElement('c.' . $this->tsValue('identifier'), $this->tsValue('formFieldType'));
 			$containerSection->setFormBuilder($this->tsValue('formBuilder'));
-			$containerSection->setLabel($propertySchema['label']);
+			if (!(isset($propertySchema['noLabel']) && $propertySchema['noLabel'] === TRUE)) {
+				$containerSection->setLabel($propertySchema['label']);
+			}
 			$containerSection->setClass($className);
 			$containerSection->setPropertySchema($propertySchema);
 
