@@ -47,7 +47,7 @@ class ExposeNodeTypePostprocessor implements NodeTypePostprocessorInterface {
 	public function getControllers() {
 		$exposeControllers = $this->reflectionService->getAllSubClassNamesForClass('\TYPO3\Expose\Controller\AbstractController');
 
-		$values = array();
+		$values = array('');
 		foreach ($exposeControllers as $exposeController) {
 			preg_match('/
 				^(
@@ -68,7 +68,7 @@ class ExposeNodeTypePostprocessor implements NodeTypePostprocessorInterface {
 	public function getTypes() {
 		$types = $this->reflectionService->getClassNamesByAnnotation('\TYPO3\Flow\Annotations\Entity');
 
-		$values = array();
+		$values = array('');
 		foreach ($types as $type) {
 			$values[$type] = array(
 				'label' => $this->getClassLabel($type)
