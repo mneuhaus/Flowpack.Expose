@@ -54,8 +54,11 @@ abstract class AbstractController extends \TYPO3\Flow\Mvc\Controller\ActionContr
 			$this->view->setTypoScriptPath($this->typoScriptPath);
 		}
 
-		$prefix = 'prefix<' . $this->request->getInternalArgument('__typoScriptPrefix') . '>';
-		$this->prefixTypoScriptPath($prefix);
+		$typoScriptPrefix = $this->request->getInternalArgument('__typoScriptPrefix');
+		if ($typoScriptPrefix !== NULL) {
+			$prefix = 'prefix<' . $typoScriptPrefix . '>';
+			$this->prefixTypoScriptPath($prefix);
+		}
 
 		if ($this->request->hasArgument('type')) {
 			$type = $this->request->getArgument('type');
