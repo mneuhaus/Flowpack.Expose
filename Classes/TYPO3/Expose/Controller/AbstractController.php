@@ -71,6 +71,17 @@ abstract class AbstractController extends \TYPO3\Flow\Mvc\Controller\ActionContr
 			$this->view->setTypoScriptPath($prefix . '/' . $this->view->getTypoScriptPath());
 		}
 	}
+
+	public function getSchema($className) {
+		$typoScriptRuntime = $this->view->getTypoScriptRuntime();
+		$path = $this->view->getTypoScriptPath() . '/<TYPO3.Expose:SchemaLoader>';
+
+		$typoScriptRuntime->pushContextArray(array());
+		$typoScriptRuntime->pushContext('className', $className);
+		$schema = $typoScriptRuntime->render($path);
+		$typoScriptRuntime->popContext();
+		return $schema;
+	}
 }
 
 ?>
