@@ -50,6 +50,7 @@ class PhpSource extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypoScriptOb
 	 */
 	public function evaluate() {
 		$schema = array();
+		$schema['queryMethod'] = 'createQuery';
 		$propertyNames = $this->reflectionService->getClassPropertyNames($this->getClassName());
 		foreach ($propertyNames as $key => $propertyName) {
 			$schema['properties'][$propertyName] = $this->getPropertyTypes($propertyName);

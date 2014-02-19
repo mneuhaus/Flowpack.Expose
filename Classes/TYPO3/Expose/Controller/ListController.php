@@ -53,9 +53,11 @@ class ListController extends AbstractController {
 		}
 
 		$classSchema = $this->reflectionService->getClassSchema($type);
+		$exposeSchema = $this->getSchema($type);
 
 		if ($classSchema->getRepositoryClassName() !== NULL) {
-			$query = $this->objectManager->get($classSchema->getRepositoryClassName())->createQuery();
+			$queryMethod = $exposeSchema['queryMethod'];
+			$query = $this->objectManager->get($classSchema->getRepositoryClassName())->$queryMethod();
 		} else {
 			$query = $this->persistenceManager->createQueryForType($type);
 		}
