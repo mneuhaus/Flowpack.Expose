@@ -5,13 +5,12 @@
 			<dl class="dl-horizontal">
 				<f:for each="{schema.properties}" as="property" key="propertyName">
 					<f:if condition="{property.ignore} == 0">
-							<dt>{f:translate(value: property.label, package: 'TYPO3.Expose')}</dt>
-							<dd>
-								<e:objectAccess property="{propertyName}" object="{object}" >
-									{value -> e:formatAsString()}
-								</e:objectAccess>
-							</dd>
-						</th>
+						<dt>{f:translate(value: property.label, package: 'TYPO3.Expose')}</dt>
+						<dd>
+							<e:objectAccess property="{propertyName}" object="{object}" >
+								{value -> e:formatAsString()}
+							</e:objectAccess>
+						</dd>
 					</f:if>
 				</f:for>
 			</dl>
