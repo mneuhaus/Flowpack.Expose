@@ -65,6 +65,9 @@ prototype(TYPO3.Expose:Fields) < prototype(TYPO3.TypoScript:RawArray) {
   PasswordWithHashing = TYPO3.Form:Field {
     superTypes.1 = 'TYPO3.Form:PasswordWithConfirmation'
     implementationClassName = 'TYPO3\\Expose\\Form\\Elements\\PasswordWithHashing'
+    properties {
+      confirmationLabel = 'Confirmation'
+    }
   }
   RoleSelector = TYPO3.Form:Field {
     superTypes.1 = 'TYPO3.Form:MultipleSelectDropdown'

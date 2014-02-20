@@ -26,6 +26,14 @@
 				<source>Delete</source>
 				<target>Löschen</target>
 			</trans-unit>
+			<trans-unit id="cancel">
+				<source>Cancel</source>
+				<target>Abbrechen</target>
+			</trans-unit>
+			<trans-unit id="delete.index.header">
+				<source>Are you sure you want to delete the following items?</source>
+				<target>Sind Sie sicher, dass Sie die folgenden Elemente löschen möchten?</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
