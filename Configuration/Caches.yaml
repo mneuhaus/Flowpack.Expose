@@ -1,5 +1,5 @@
 TYPO3_Expose_SchemaCache:
-  flush:
+  affectedFiles:
     -
       path: 'Resources/Private'
       filePattern: '\.ts2$'
@@ -10,7 +10,7 @@ TYPO3_Expose_SchemaCache:
 TYPO3_Expose_ControllerPartsCache: []
 
 TYPO3_Expose_TypeRoutePartCache:
-  flush:
+  affectedFiles:
     -
       path: 'Configuration'
       filePattern: 'Routes\.yaml$'
