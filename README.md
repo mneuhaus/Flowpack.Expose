@@ -15,13 +15,24 @@ add this repository to your composer.json:
 composer require typo3/expose
 ```
 
-**Apply the following changesets:**
+## Required pending ChangeSets
+
+create an 'gerrit.json' file with this content in your project root:
 
 ```
-	# TYPO3.TypoScript:
-	# [!!!][FEATURE] re-implement Processors based on TypoScript Objects and Eel
-	# https://review.typo3.org/#/c/24423/
-	cd Packages/Application/TYPO3.TypoScript/
-	git fetch git://git.typo3.org/Packages/TYPO3.TypoScript refs/changes/23/24423/9 && git cherry-pick FETCH_HEAD
+{
+	"TYPO3.Flow": {
+		"[WIP][FEATURE] Add an isDefaultView matcher for ViewConfiguration": "25147",
+		"[WIP][FEATURE] Add a way to clear caches by Path + FilePattern": "25078"
+	}
+}
+```
+
+Then run the following command in your root directory:
 
 ```
+beard patch
+```
+
+**beard** is a little helper to automatically patch based on gerrit
+changes specified in gerrit.json. (https://github.com/mneuhaus/Beard)
