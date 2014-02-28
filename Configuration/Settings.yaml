@@ -10,3 +10,7 @@ TYPO3:
     typoScript:
       autoInclude:
         'TYPO3.Expose': TRUE
+  Flow:
+    object:
+      excludeClasses:
+       'TYPO3.Expose' : ['Neos\\.*']
