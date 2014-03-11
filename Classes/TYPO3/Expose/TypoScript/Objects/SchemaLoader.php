@@ -26,6 +26,12 @@ class SchemaLoader extends \TYPO3\TypoScript\TypoScriptObjects\ArrayImplementati
 	protected $cacheManager;
 
 	/**
+	 * @var \TYPO3\Flow\I18n\Translator
+	 * @Flow\Inject
+	 */
+	protected $translator;
+
+	/**
 	 * the class name to build the form for
 	 *
 	 * @var string
@@ -88,7 +94,7 @@ class SchemaLoader extends \TYPO3\TypoScript\TypoScriptObjects\ArrayImplementati
 		\TYPO3\Expose\Utility\StringRepresentation::setTypoScriptRuntime($this->tsRuntime);
 
 		$cache = $this->cacheManager->getCache('TYPO3_Expose_SchemaCache');
-		$identifier = sha1($this->getClassName()) . sha1($this->path);
+		$identifier = md5($this->getClassName() . $this->path);
 
 		if (!$cache->has($identifier)) {
 			$cache->set($identifier, $this->compileSchema());
@@ -103,7 +109,6 @@ class SchemaLoader extends \TYPO3\TypoScript\TypoScriptObjects\ArrayImplementati
 			$schema = \TYPO3\Flow\Utility\Arrays::arrayMergeRecursiveOverrule($schema, $source);
 		}
 
-
 		foreach ($schema['properties'] as $propertyName => $propertySchema) {
 			$this->tsRuntime->pushContext('schema', $schema);
 			$this->tsRuntime->pushContext('propertySchema', $propertySchema);
@@ -117,6 +122,25 @@ class SchemaLoader extends \TYPO3\TypoScript\TypoScriptObjects\ArrayImplementati
 			$this->tsRuntime->popContext();
 		}
 
+		if (isset($schema['translationPackage'])) {
+			$package = $schema['translationPackage'];
+		} else {
+			$package = $this->getPackageByClassName($this->getClassName());
+		}
+		$translatables = array('label', 'infotext');
+
+		foreach ($schema['properties'] as $propertyName => $propertySchema) {
+			foreach ($propertySchema as $key => $value) {
+				if (in_array($key, $translatables)) {
+					$id = str_replace('\\', '.', $this->getClassName()) . '.' . $propertyName . '.' . $key;
+					$translation = $this->translator->translateById($id, array(), NULL, NULL, 'Main', $package, $value);
+					if ($translation !== $id) {
+						$schema['properties'][$propertyName][$key] = $translation;
+					}
+				}
+			}
+		}
+
 		$arraySorter = new PositionalArraySorter($schema['properties'], '@position');
 		try {
 			$schema['properties'] = $arraySorter->toArray();
@@ -125,6 +149,11 @@ class SchemaLoader extends \TYPO3\TypoScript\TypoScriptObjects\ArrayImplementati
 		}
 
 		return $schema;
+	}
+
+	public function getPackageByClassName($className) {
+		preg_match('/([^\\\\]*)\\\\([^\\\\]*)/', $className, $match);
+		return $match[1] . '.' . $match[2];
 	}
 }
 
