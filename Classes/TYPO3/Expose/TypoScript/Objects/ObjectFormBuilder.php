@@ -13,6 +13,7 @@ namespace TYPO3\Expose\TypoScript\Objects;
 
 use TYPO3\Expose\Form\Finishers\ControllerCallbackFinisher;
 use TYPO3\Flow\Annotations as Flow;
+use TYPO3\Flow\Reflection\ObjectAccess;
 
 /**
  * Render a Form using the Form framework
@@ -276,6 +277,10 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypo
 		foreach ($schema['properties'] as $propertyName => $propertySchema) {
 			if ($propertySchema['ignore']) {
 				$section->getRootForm()->addIgnoredIdentifier($namespace . '.' . $propertyName);
+			}
+
+			if (isset($propertySchema['value'])) {
+				ObjectAccess::setProperty($object, $propertyName, $propertySchema['value']);
 			}
 		}
 
