@@ -3,7 +3,7 @@
 	<f:for each="{form.currentPage.rootForm.ignoredIdentifiers}" as="identifier">
 		<f:form.validationResults for="{identifier}">
 			<f:if condition="{validationResults.flattenedErrors}">
-				There are validation errors with a ignored properties:
+				There are validation errors with ignored properties:
 				<ul>
 					<f:for each="{validationResults.errors}" as="error">
 					<li class="text-error">
@@ -14,8 +14,8 @@
 			</f:if>
 		</f:form.validationResults>
 	</f:for>
-   <form:renderRenderable renderable="{form.currentPage}" />
-   <div class="form-actions typo3-expose-form-actions">
-      <f:render partial="TYPO3.Expose:Form/Navigation" arguments="{form: form}" />
-   </div>
+	<form:renderRenderable renderable="{form.currentPage}" />
+	<div class="form-actions typo3-expose-form-actions">
+		<f:render partial="TYPO3.Expose:Form/Navigation" arguments="{form: form}" />
+	</div>
 </form:form>

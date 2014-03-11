@@ -273,6 +273,12 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypo
 			$propertyNames = array_keys($schema['properties']);
 		}
 
+		foreach ($schema['properties'] as $propertyName => $propertySchema) {
+			if ($propertySchema['ignore']) {
+				$section->getRootForm()->addIgnoredIdentifier($namespace . '.' . $propertyName);
+			}
+		}
+
 		$this->tsRuntime->pushContext('parentFormElement', $section);
 		foreach ($propertyNames as $propertyName) {
 			$propertyName = trim($propertyName);
