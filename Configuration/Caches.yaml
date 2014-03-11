@@ -4,6 +4,9 @@ TYPO3_Expose_SchemaCache:
       path: 'Resources/Private'
       filePattern: '\.ts2$'
     -
+      path: 'Resources/Private'
+      filePattern: '\.xlf$'
+    -
       path: 'Classes/'
       filePattern: '\.php$'
 

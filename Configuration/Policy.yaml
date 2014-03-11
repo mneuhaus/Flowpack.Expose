@@ -1,0 +1,12 @@
+#                                                                        #
+# Security policy for the TYPO3.NeosDemoTypo3Org package                 #
+#                                                                        #
+
+resources:
+  methods:
+    TYPO3_Expose_PluginAccess: 'method(TYPO3\Expose\Controller\(Plugin|List|Index|New|Edit|Delete|Detail)Controller->.*Action())'
+
+acls:
+  Everybody:
+    methods:
+      TYPO3_Expose_PluginAccess: ABSTAIN

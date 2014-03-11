@@ -17,7 +17,7 @@ use TYPO3\Flow\Annotations as Flow;
  * Base class for expose controllers. An expose controller implements a certain
  * functionality inside the Expose UI, such as "Edit", "New", "List" or "Delete".
  */
-abstract class AbstractController extends \TYPO3\Flow\Mvc\Controller\ActionController {
+abstract class AbstractController extends \TYPO3\Flow\Mvc\Controller\ActionController implements ExposeControllerInterface {
 
 	/**
 	 * @var string
@@ -72,6 +72,14 @@ abstract class AbstractController extends \TYPO3\Flow\Mvc\Controller\ActionContr
 		}
 	}
 
+	public function getTypoScriptPath() {
+		if (is_object($this->view)) {
+			return $this->view->getTypoScriptPath();
+		}
+
+		return $this->typoScriptPath;
+	}
+
 	public function getSchema($className) {
 		$typoScriptRuntime = $this->view->getTypoScriptRuntime();
 		$path = $this->view->getTypoScriptPath() . '/<TYPO3.Expose:SchemaLoader>';
@@ -81,6 +89,10 @@ abstract class AbstractController extends \TYPO3\Flow\Mvc\Controller\ActionContr
 		$schema = $typoScriptRuntime->render($path);
 		$typoScriptRuntime->popContext();
 		return $schema;
+	}
+
+	public function getRequest() {
+		return $this->request;
 	}
 }
 
