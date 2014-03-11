@@ -56,6 +56,7 @@ class PhpSource extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypoScriptOb
 			$schema['properties'][$propertyName] = $this->getPropertyTypes($propertyName);
 			$schema['properties'][$propertyName]['@position'] = ( $key + 1 ) * 100;
 			$schema['properties'][$propertyName]['annotations'] = $this->reflectionService->getPropertyAnnotations($this->getClassName(), $propertyName);
+			$schema['properties'][$propertyName]['infotext'] = '';
 		}
 		return $schema;
 	}
