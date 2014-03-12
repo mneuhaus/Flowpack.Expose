@@ -133,10 +133,12 @@ class SchemaLoader extends \TYPO3\TypoScript\TypoScriptObjects\ArrayImplementati
 			foreach ($propertySchema as $key => $value) {
 				if (in_array($key, $translatables)) {
 					$id = str_replace('\\', '.', $this->getClassName()) . '.' . $propertyName . '.' . $key;
-					$translation = $this->translator->translateById($id, array(), NULL, NULL, 'Main', $package, $value);
-					if ($translation !== $id) {
-						$schema['properties'][$propertyName][$key] = $translation;
-					}
+					try {
+						$translation = $this->translator->translateById($id, array(), NULL, NULL, 'Main', $package, $value);
+						if ($translation !== $id) {
+							$schema['properties'][$propertyName][$key] = $translation;
+						}
+					} catch(\Exception $exception) {}
 				}
 			}
 		}

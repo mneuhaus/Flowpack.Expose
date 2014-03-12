@@ -42,7 +42,14 @@ class NewController extends AbstractController {
 	 */
 	public function indexAction($type, $objects = NULL) {
 		if ($objects === NULL) {
-			$objects = array(new $type());
+			$schema = $this->getSchema($type);
+			if (isset($schema['factory'])) {
+				$factoryClassName = $schema['factory'];
+				$factory = new $factoryClassName($schema);
+				$objects = array($factory->create());
+			} else {
+				$objects = array(new $type());
+			}
 		}
 		$this->view->assign('className', $type);
 		$this->view->assign('objects', $objects);

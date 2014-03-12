@@ -275,12 +275,14 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypo
 		}
 
 		foreach ($schema['properties'] as $propertyName => $propertySchema) {
-			if ($propertySchema['ignore']) {
-				$section->getRootForm()->addIgnoredIdentifier($namespace . '.' . $propertyName);
+			if (isset($propertySchema['annotations']['TYPO3\Flow\Annotations\Inject'])) {
+				continue;
 			}
-
 			if (isset($propertySchema['value'])) {
 				ObjectAccess::setProperty($object, $propertyName, $propertySchema['value']);
+			}
+			if ($propertySchema['ignore']) {
+				$section->getRootForm()->addIgnoredIdentifier($namespace . '.' . $propertyName);
 			}
 		}
 
