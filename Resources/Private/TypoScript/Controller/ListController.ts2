@@ -12,6 +12,7 @@ prototype(TYPO3.Expose:RecordList) < prototype(TYPO3.TypoScript:Template) {
 		10.action = 'index'
 		10.controller = 'TYPO3\\Expose\\Controller\\NewController'
 		10.arguments.type = ${type}
+		10.id = "btn-add"
 	}
 
 	templatePath = 'resource://TYPO3.Expose/Private/Elements/RecordList/Layout.html'
