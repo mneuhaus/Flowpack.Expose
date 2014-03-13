@@ -2,26 +2,33 @@
 {namespace ts=TYPO3\TypoScript\ViewHelpers}
 
 <!-- List/Table.html -->
-<table class="table table-striped t3-expose-table" >
-	<thead>
-		<tr>
-			<cm:schema object="{objects.0}">
-				<f:for each="{schema.properties}" as="property" key="propertyName">
-					<f:if condition="{property.ignore} == 0">
-						<f:if condition="{sorting.property} == {property}">
-							<f:then><th class="sort-{sorting.direction}"></f:then>
-							<f:else><th></f:else>
-						</f:if>
-							{f:translate(value: property.label, package: 'TYPO3.Expose')}
-						</th>
-					</f:if>
-				</f:for>
-			</cm:schema>
-			<th>
-			</th>
-		</tr>
-	</thead>
-	<tbody>
-		<ts:render path="tableBody"  />
-	</tbody>
-</table>
+<f:if condition="{objects}">
+	<f:then>
+		<table class="table table-striped t3-expose-table" >
+			<thead>
+				<tr>
+					<cm:schema object="{objects.0}">
+						<f:for each="{schema.properties}" as="property" key="propertyName">
+							<f:if condition="{property.ignore} == 0">
+								<f:if condition="{sorting.property} == {property}">
+									<f:then><th class="sort-{sorting.direction}"></f:then>
+									<f:else><th></f:else>
+								</f:if>
+									{f:translate(value: property.label, package: 'TYPO3.Expose')}
+								</th>
+							</f:if>
+						</f:for>
+					</cm:schema>
+					<th>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<ts:render path="tableBody"  />
+			</tbody>
+		</table>
+	</then>
+	<f:else>
+		No Objects found
+	</f:else>
+</if>

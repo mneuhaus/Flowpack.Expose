@@ -63,7 +63,7 @@ class ListController extends AbstractController {
 		}
 
 		$objects = $query->execute();
-		$this->redirectToNewFormIfNoObjectsFound($objects);
+		// $this->redirectToNewFormIfNoObjectsFound($objects);
 		$this->view->assign('type', $type);
 		$this->view->assign('format', $format);
 		$this->view->assign('objects', $objects);
