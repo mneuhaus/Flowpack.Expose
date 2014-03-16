@@ -138,7 +138,9 @@ class SchemaLoader extends \TYPO3\TypoScript\TypoScriptObjects\ArrayImplementati
 						if ($translation !== $id) {
 							$schema['properties'][$propertyName][$key] = $translation;
 						}
-					} catch(\Exception $exception) {}
+					} catch(\Exception $exception) {
+						// Fail silently because no translation exists
+					}
 				}
 			}
 		}

@@ -41,7 +41,7 @@ class PolicyMatcher extends RequestMatcher {
 	 *
 	 * @param \TYPO3\Flow\Mvc\ActionRequest $actionRequest
 	 * @param \TYPO3\Flow\Mvc\RequestMatcher $parentMatcher
-	 * @param \TYPO3\Flow\Aop\JoinPoint $joinPoint
+	 * @param \TYPO3\Flow\Aop\JoinPointInterface $joinPoint
 	 */
 	public function __construct(\TYPO3\Flow\Mvc\ActionRequest $actionRequest = NULL, $parentMatcher = NULL, $joinPoint = NULL) {
 		$this->request = $actionRequest;
@@ -53,7 +53,7 @@ class PolicyMatcher extends RequestMatcher {
 
 		if ($joinPoint->isMethodArgument('type')) {
 			$this->type = $joinPoint->getMethodArgument('type');
-		} else if ($this->request->hasArgument('type')) {
+		} elseif ($this->request->hasArgument('type')) {
 			$this->type = $this->request->getArgument('type');
 		}
 

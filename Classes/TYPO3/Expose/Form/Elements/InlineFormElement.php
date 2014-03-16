@@ -168,7 +168,7 @@ class InlineFormElement extends \TYPO3\Form\FormElements\Section {
 		$parentSection = clone $this;
 		$inlineElement = $this->propertySchema['inline']['element'];
 		$containerSection = $parentSection->createElement($namespace, $inlineElement . 'Item');
-		$section = $this->formBuilder->createFormForSingleObject($containerSection, $object, $namespace);
+		$this->formBuilder->createFormForSingleObject($containerSection, $object, $namespace);
 		return $containerSection;
 	}
 
@@ -187,7 +187,7 @@ class InlineFormElement extends \TYPO3\Form\FormElements\Section {
 		$inlineElement = $this->propertySchema['inline']['element'];
 		$containerSection = $this->createElement($namespace, $inlineElement . 'Item');
 		$containerSection->setPropertySchema($this->propertySchema);
-		$section = $this->formBuilder->createElementsForSection(count($this->renderables), $containerSection, $namespace, $object);
+		$this->formBuilder->createElementsForSection(count($this->renderables), $containerSection, $namespace, $object);
 		return $containerSection;
 	}
 

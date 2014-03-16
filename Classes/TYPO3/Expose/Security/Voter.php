@@ -48,8 +48,6 @@ class Voter implements \TYPO3\Flow\Security\Authorization\AccessDecisionVoterInt
 			return self::VOTE_ABSTAIN;
 		}
 
-		$methodIdentifier = strtolower($joinPoint->getClassName() . '->' . $joinPoint->getMethodName());
-
 		if ($this->isActionMethod($joinPoint->getMethodName()) === FALSE) {
 			return self::VOTE_GRANT;
 		}

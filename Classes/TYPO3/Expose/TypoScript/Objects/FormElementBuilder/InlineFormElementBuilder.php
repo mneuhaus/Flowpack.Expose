@@ -127,7 +127,7 @@ class InlineFormElementBuilder extends DefaultFormElementBuilder {
 		$itemSection = $containerSection->createElement($namespace, $this->tsValue('formFieldType') . 'Item');
 		$itemSection->setFormBuilder($this->tsValue('formBuilder'));
 		$itemSection->setDataType($className);
-		$section = $this->tsValue('formBuilder')->createFormForSingleObject($itemSection, $object, $namespace);
+		$this->tsValue('formBuilder')->createFormForSingleObject($itemSection, $object, $namespace);
 
 		return $containerSection;
 	}
@@ -185,7 +185,7 @@ class InlineFormElementBuilder extends DefaultFormElementBuilder {
 		return $schema;
 	}
 
-	public function createNewObject($className) {
+	public function createNewObject($className, $schema) {
 		if (isset($schema['factory'])) {
 			$factoryClassName = $schema['factory'];
 			return new $factoryClassName($schema);

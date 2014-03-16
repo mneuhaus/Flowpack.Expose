@@ -36,6 +36,11 @@ class Query extends \TYPO3\Flow\Persistence\Doctrine\Query {
 	protected $qomFactory;
 
 	/**
+	 * @var \TYPO3\TYPO3CR\Domain\Model\NodeInterface
+	 */
+	protected $rootNode;
+
+	/**
 	 * An index of comparisons with the information if
 	 * they are meant to be case sensitive
 	 *
@@ -80,7 +85,7 @@ class Query extends \TYPO3\Flow\Persistence\Doctrine\Query {
 	 * @return \TYPO3\Flow\Persistence\QueryResultInterface The query result
 	 * @api
 	 */
-	public function execute($cacheResult = FALSE){
+	public function execute($cacheResult = FALSE) {
 		return new QueryResult($this);
 	}
 
@@ -191,7 +196,6 @@ class Query extends \TYPO3\Flow\Persistence\Doctrine\Query {
 
 				default:
 					throw new \TYPO3\TYPO3\Exception('Currently on Comparisons are supported for Node Queries', 1346761586);
-					break;
 			}
 		}
 

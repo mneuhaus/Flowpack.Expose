@@ -26,7 +26,8 @@ class PaginationPartial extends \TYPO3\TypoScript\TypoScriptObjects\TemplateImpl
 		$currentPage = $this->getCurrentPage();
 
 		$pages = array();
-		for ($i = 0; $i < $this->totalObjects() / $this->getLimit(); $i++) {
+		$pageCount = $this->totalObjects() / $this->getLimit();
+		for ($i = 0; $i < $pageCount; $i++) {
 			$pages[] = $i + 1;
 		}
 

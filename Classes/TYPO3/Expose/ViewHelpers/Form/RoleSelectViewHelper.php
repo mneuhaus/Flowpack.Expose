@@ -98,12 +98,12 @@ class RoleSelectViewHelper extends \TYPO3\Fluid\ViewHelpers\Form\SelectViewHelpe
 						if (method_exists($key, '__toString')) {
 							$key = (string)$key;
 						} else {
-							throw new \TYPO3\Fluid\Core\ViewHelper\Exception('Identifying value for object of class "' . get_class($value) . '" was an object.' , 1247827428);
+							throw new \TYPO3\Fluid\Core\ViewHelper\Exception('Identifying value for object of class "' . get_class($value) . '" was an object.', 1247827428);
 						}
 					}
 				} elseif ($value instanceof \TYPO3\Flow\Security\Policy\Role) {
 					$key = (string)$value;
-			 	} elseif ($this->persistenceManager->getIdentifierByObject($value) !== NULL) {
+				} elseif ($this->persistenceManager->getIdentifierByObject($value) !== NULL) {
 					$key = $this->persistenceManager->getIdentifierByObject($value);
 				} elseif (method_exists($value, '__toString')) {
 					$key = (string)$value;
@@ -117,7 +117,7 @@ class RoleSelectViewHelper extends \TYPO3\Fluid\ViewHelpers\Form\SelectViewHelpe
 						if (method_exists($value, '__toString')) {
 							$value = (string)$value;
 						} else {
-							throw new \TYPO3\Fluid\Core\ViewHelper\Exception('Label value for object of class "' . get_class($value) . '" was an object without a __toString() method.' , 1247827553);
+							throw new \TYPO3\Fluid\Core\ViewHelper\Exception('Label value for object of class "' . get_class($value) . '" was an object without a __toString() method.', 1247827553);
 						}
 					}
 				} elseif (method_exists($value, '__toString')) {
