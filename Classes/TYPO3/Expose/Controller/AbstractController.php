@@ -66,6 +66,9 @@ abstract class AbstractController extends \TYPO3\Flow\Mvc\Controller\ActionContr
 		}
 	}
 
+	/**
+	 * @param string $prefix
+	 */
 	public function prefixTypoScriptPath($prefix) {
 		if ($this->view->getTypoScriptRuntime()->canRender($prefix . '/' . $this->view->getTypoScriptPath())) {
 			$this->view->setTypoScriptPath($prefix . '/' . $this->view->getTypoScriptPath());
@@ -80,6 +83,9 @@ abstract class AbstractController extends \TYPO3\Flow\Mvc\Controller\ActionContr
 		return $this->typoScriptPath;
 	}
 
+	/**
+	 * @param string $className
+	 */
 	public function getSchema($className) {
 		$typoScriptRuntime = $this->view->getTypoScriptRuntime();
 		$path = $this->view->getTypoScriptPath() . '/<TYPO3.Expose:SchemaLoader>';

@@ -85,6 +85,9 @@ class Voter implements \TYPO3\Flow\Security\Authorization\AccessDecisionVoterInt
 		return self::VOTE_ABSTAIN;
 	}
 
+	/**
+	 * @param string $methodName
+	 */
 	public function isActionMethod($methodName) {
 		if (substr($methodName, -6) !== 'Action') {
 			return FALSE;

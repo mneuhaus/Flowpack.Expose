@@ -11,9 +11,6 @@ namespace TYPO3\Expose\Core\OptionsProvider;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
-use Doctrine\ORM\Mapping as ORM;
-use TYPO3\Flow\Annotations as Flow;
-
 /**
  */
 abstract class AbstractOptionsProvider implements OptionsProviderInterface {
@@ -24,7 +21,6 @@ abstract class AbstractOptionsProvider implements OptionsProviderInterface {
 	protected $propertySchema;
 
 	/**
-	 * @param array $annotations
 	 */
 	public function __construct($propertySchema = array()) {
 		$this->propertySchema = $propertySchema;

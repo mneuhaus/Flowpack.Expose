@@ -11,8 +11,6 @@ namespace TYPO3\Expose\TypoScript\Objects;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
-use TYPO3\Flow\Annotations as Flow;
-
 /**
  * Render a Form section using the Form framework
  */
@@ -47,7 +45,7 @@ class SectionBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypoScr
 	/**
 	 * Evaluate the collection nodes
 	 *
-	 * @return string
+	 * @return \TYPO3\Form\Core\Model\FormElementInterface
 	 * @throws \InvalidArgumentException
 	 */
 	public function evaluate() {

@@ -116,7 +116,7 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypo
 	/**
 	 * Evaluate the collection nodes
 	 *
-	 * @return string
+	 * @return \TYPO3\Expose\Form\FormDefinition
 	 */
 	public function evaluate() {
 		$this->baseFormFactory->setTsRuntime($this->tsRuntime);
@@ -332,6 +332,9 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypo
 		return $schema;
 	}
 
+	/**
+	 * @param string $propertyName
+	 */
 	public function getPropertyValue($object, $propertyName) {
 		return \TYPO3\Flow\Reflection\ObjectAccess::getProperty($object, $propertyName);
 	}

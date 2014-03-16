@@ -230,7 +230,7 @@ class Query extends \TYPO3\Flow\Persistence\Doctrine\Query {
 	 * @param string $propertyName The name of the property to compare against
 	 * @param mixed $operand The value to compare with
 	 * @param boolean $caseSensitive Whether the equality test should be done case-sensitive for strings
-	 * @return object
+	 * @return \TYPO3\Flow\Persistence\Generic\Qom\Comparison
 	 * @todo Decide what to do about equality on multi-valued properties
 	 */
 	public function equals($propertyName, $operand, $caseSensitive = TRUE) {
@@ -268,7 +268,7 @@ class Query extends \TYPO3\Flow\Persistence\Doctrine\Query {
 	 * @param string $propertyName The name of the property to compare against
 	 * @param string $operand The value to compare with
 	 * @param boolean $caseSensitive Whether the matching should be done case-sensitive
-	 * @return object
+	 * @return \TYPO3\Flow\Persistence\Generic\Qom\Comparison
 	 * @throws \TYPO3\Flow\Persistence\Exception\InvalidQueryException if used on a non-string property
 	 */
 	public function like($propertyName, $operand, $caseSensitive = TRUE) {

@@ -11,8 +11,6 @@ namespace TYPO3\Expose\TypoScript\Objects;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
-use TYPO3\Flow\Annotations as Flow;
-
 /**
  * Render a Form section using the Form framework
  */
@@ -49,6 +47,9 @@ class Schema extends \TYPO3\TypoScript\TypoScriptObjects\ArrayImplementation {
 		return $schema;
 	}
 
+	/**
+	 * @param string $path
+	 */
 	public function processPath($key, $value, $path) {
 		if (isset($value['__eelExpression'])) {
 			$result = $this->tsRuntime->evaluate($path . '/' . $key);

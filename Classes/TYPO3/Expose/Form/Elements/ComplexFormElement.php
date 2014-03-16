@@ -11,8 +11,6 @@ namespace TYPO3\Expose\Form\Elements;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
-use TYPO3\Flow\Annotations as Flow;
-
 /**
  * A generic form element
  */

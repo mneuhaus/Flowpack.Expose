@@ -11,9 +11,6 @@ namespace TYPO3\Expose\OptionsProvider;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
-use Doctrine\ORM\Mapping as ORM;
-use TYPO3\Flow\Annotations as Flow;
-
 /**
  *
  * This OptionsProvider is used to load options from an Entities class

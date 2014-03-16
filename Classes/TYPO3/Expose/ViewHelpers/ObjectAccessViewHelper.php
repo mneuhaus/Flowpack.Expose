@@ -11,7 +11,6 @@ namespace TYPO3\Expose\ViewHelpers;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
-use Doctrine\ORM\Mapping as ORM;
 use TYPO3\Flow\Annotations as Flow;
 
 /**
@@ -23,9 +22,7 @@ class ObjectAccessViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHe
 	 * @param string $property
 	 * @param string $propertyPath
 	 * @param object $object
-	 * @param string $className
 	 * @param string $as
-	 * @param string $context
 	 * @return string Rendered string
 	 * @api
 	 */

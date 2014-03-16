@@ -13,8 +13,6 @@ namespace TYPO3\Expose\TypoScript\Objects\FormElementBuilder;
 
 use TYPO3\Flow\Annotations as Flow;
 
-use TYPO3\Flow\Reflection\ObjectAccess;
-
 /**
  * Render a Form section using the Form framework
  */
@@ -68,6 +66,10 @@ class InlineFormElementBuilder extends DefaultFormElementBuilder {
 		return $containerSection;
 	}
 
+	/**
+	 * @param \TYPO3\Form\Core\Model\AbstractSection $parentFormElement
+	 * @param string $propertySchema
+	 */
 	public function createMultileForm($parentFormElement, $propertySchema) {
 		$namespace = $this->tsValue('identifier');
 		$className = $propertySchema['elementType'];
@@ -100,6 +102,10 @@ class InlineFormElementBuilder extends DefaultFormElementBuilder {
 		return $containerSection;
 	}
 
+	/**
+	 * @param \TYPO3\Form\Core\Model\AbstractSection $parentFormElement
+	 * @param string $propertySchema
+	 */
 	public function createSingleForm($parentFormElement, $propertySchema) {
 		$namespace = $this->tsValue('identifier');
 		$className = $propertySchema['type'];
@@ -137,6 +143,9 @@ class InlineFormElementBuilder extends DefaultFormElementBuilder {
 		return $containerSection;
 	}
 
+	/**
+	 * @param string $schema
+	 */
 	public function createObjectsForRequestIfNeeded($objects, $schema, $type) {
 		$namespace = $this->tsValue('identifier');
 		$requestArguments = $this->getRequest()->getMainRequest()->getPluginArguments();

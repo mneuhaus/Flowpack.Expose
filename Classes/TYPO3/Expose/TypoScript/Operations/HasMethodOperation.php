@@ -11,8 +11,6 @@ namespace TYPO3\Expose\TypoScript\Operations;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
-use TYPO3\Flow\Annotations as Flow;
-
 /**
  * Count the number of elements in the context, possibly filtering them before counting.
  */
@@ -37,7 +35,7 @@ class HasMethodOperation extends \TYPO3\Eel\FlowQuery\Operations\AbstractOperati
 	 *
 	 * @param \TYPO3\Eel\FlowQuery\FlowQuery $flowQuery the FlowQuery object
 	 * @param array $arguments the arguments for this operation
-	 * @return mixed|null if the operation is final, the return value
+	 * @return boolean|null if the operation is final, the return value
 	 */
 	public function evaluate(\TYPO3\Eel\FlowQuery\FlowQuery $flowQuery, array $arguments) {
 		if (count($arguments) == 1) {
