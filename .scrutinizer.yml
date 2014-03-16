@@ -1,3 +1,7 @@
+before_commands:
+    - git clone https://github.com/typo3-ci/TYPO3SniffPool.git ../TYPO3SniffPool/
+    - git clone https://github.com/typo3-ci/TYPO3Flow.git ../TYPO3Flow/
+
 tools:
 
     php_cpd:
@@ -5,6 +9,8 @@ tools:
 
     php_code_sniffer:
         enabled: true
+        config:
+            ruleset: ../TYPO3Flow/ruleset.xml
 
     php_cs_fixer:
         enabled: true
