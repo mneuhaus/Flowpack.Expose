@@ -154,7 +154,7 @@ class DefaultFormElementBuilder extends \TYPO3\TypoScript\TypoScriptObjects\Abst
 	/**
 	 * Evaluate the collection nodes
 	 *
-	 * @return string
+	 * @return null|\TYPO3\Form\Core\Model\FormElementInterface
 	 */
 	public function evaluate() {
 		$parentFormElement = $this->tsValue('parentFormElement');

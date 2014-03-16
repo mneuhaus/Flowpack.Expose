@@ -11,8 +11,6 @@ namespace TYPO3\Expose\TypoScript\Processors;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
-use TYPO3\Flow\Annotations as Flow;
-
 /**
  * Render a Form section using the Form framework
  */

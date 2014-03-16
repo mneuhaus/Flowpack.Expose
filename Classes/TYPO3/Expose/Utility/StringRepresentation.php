@@ -22,6 +22,9 @@ class StringRepresentation {
 	 */
 	protected static $typoScriptRuntime;
 
+	/**
+	 * @param \TYPO3\TypoScript\Core\Runtime $typoScriptRuntime
+	 */
 	public static function setTypoScriptRuntime($typoScriptRuntime) {
 		self::$typoScriptRuntime = $typoScriptRuntime;
 	}

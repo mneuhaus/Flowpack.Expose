@@ -11,8 +11,6 @@ namespace TYPO3\Expose\ViewHelpers;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
-use TYPO3\Flow\Annotations as Flow;
-
 /**
  * TODO: throw this VH away once we have eel in Fluid
  */

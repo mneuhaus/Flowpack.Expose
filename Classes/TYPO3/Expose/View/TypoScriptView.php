@@ -37,6 +37,7 @@ class TypoScriptView extends \TYPO3\TypoScript\View\TypoScriptView {
 	/**
 	 *
 	 * @param string
+	 * @param string $typoScriptPath
 	 */
 	public function setTypoScriptPath($typoScriptPath) {
 		$this->typoScriptPath = $typoScriptPath;

@@ -11,9 +11,7 @@ namespace TYPO3\Expose\Controller;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
-use Doctrine\ORM\Mapping as ORM;
 use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Mvc\ActionRequest;
 
 /**
  * Action to display a list of records of the same type

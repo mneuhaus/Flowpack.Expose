@@ -159,7 +159,7 @@ class InlineFormElement extends \TYPO3\Form\FormElements\Section {
 	/**
 	 * Returns a container section with elements as template for inline editing
 	 *
-	 * @return array
+	 * @return \TYPO3\Form\Core\Model\FormElementInterface
 	 */
 	public function getTemplate() {
 		$class = $this->getClass();
@@ -175,7 +175,7 @@ class InlineFormElement extends \TYPO3\Form\FormElements\Section {
 	/**
 	 * Returns an section with new unused elements for inline editing
 	 *
-	 * @return array
+	 * @return \TYPO3\Form\Core\Model\FormElementInterface
 	 */
 	public function getUnusedElement() {
 		$class = $this->getClass();

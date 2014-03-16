@@ -6,7 +6,6 @@ namespace TYPO3\Expose\Security;
  *                                                                        *
  *                                                                        */
 
-use Doctrine\ORM\Mapping as ORM;
 use TYPO3\Eel\Context;
 use TYPO3\Expose\Security\PolicyMatcher;
 use TYPO3\Flow\Annotations as Flow;
@@ -83,6 +82,9 @@ class PolicyService {
 		return $this->runtimeCache[$joinPointIdenifier];
 	}
 
+	/**
+	 * @param \TYPO3\Flow\Aop\JoinPointInterface $joinPoint
+	 */
 	protected function getJoinPointIdenifier($joinPoint) {
 		$identifier = strtolower($joinPoint->getClassName() . '->' . $joinPoint->getMethodName());
 

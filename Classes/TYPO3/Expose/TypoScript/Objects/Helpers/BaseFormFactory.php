@@ -16,6 +16,10 @@ use TYPO3\Flow\Annotations as Flow;
 /**
  */
 class BaseFormFactory extends \TYPO3\Form\Factory\AbstractFormFactory {
+
+	/**
+	 * @param \TYPO3\TypoScript\Core\Runtime $tsRuntime
+	 */
 	public function setTsRuntime($tsRuntime) {
 		$this->tsRuntime = $tsRuntime;
 	}
