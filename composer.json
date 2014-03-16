@@ -10,6 +10,7 @@
         "typo3/typoscript": "*",
         "typo3/asset": "*"
     },
+    "minimum-stability": "dev",
     "autoload": {
         "psr-0": {
             "TYPO3\\Expose": "Classes"
