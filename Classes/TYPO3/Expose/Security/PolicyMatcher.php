@@ -12,6 +12,7 @@ namespace TYPO3\Expose\Security;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
+use TYPO3\Flow\Mvc\ActionRequest;
 use TYPO3\Flow\Mvc\RequestMatcher;
 
 /**
@@ -53,7 +54,7 @@ class PolicyMatcher extends RequestMatcher {
 
 		if ($joinPoint->isMethodArgument('type')) {
 			$this->type = $joinPoint->getMethodArgument('type');
-		} elseif ($this->request->hasArgument('type')) {
+		} elseif ($this->request instanceof ActionRequest && $this->request->hasArgument('type')) {
 			$this->type = $this->request->getArgument('type');
 		}
 
