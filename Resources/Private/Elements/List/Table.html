@@ -4,31 +4,25 @@
 <!-- List/Table.html -->
 <f:if condition="{objects}">
 	<f:then>
-		<table class="table table-striped t3-expose-table" >
+		<table class="table table-striped t3-expose-table">
 			<thead>
 				<tr>
 					<cm:schema object="{objects.0}">
 						<f:for each="{schema.properties}" as="property" key="propertyName">
 							<f:if condition="{property.ignore} == 0">
-								<f:if condition="{sorting.property} == {property}">
-									<f:then><th class="sort-{sorting.direction}"></f:then>
-									<f:else><th></f:else>
-								</f:if>
-									{f:translate(value: property.label, package: 'TYPO3.Expose')}
-								</th>
+								<th class="{f:if(condition: '{sorting.property} == {property}', then: 'sort-{sorting.direction}')}">{f:translate(value: property.label, package: 'TYPO3.Expose')}</th>
 							</f:if>
 						</f:for>
 					</cm:schema>
-					<th>
-					</th>
+					<th><f:comment>Placeholder for the column where the buttons will be placed.</f:comment></th>
 				</tr>
 			</thead>
 			<tbody>
-				<ts:render path="tableBody"  />
+				<ts:render path="tableBody" />
 			</tbody>
 		</table>
-	</then>
+	</f:then>
 	<f:else>
 		No Objects found
 	</f:else>
-</if>
+</f:if>
