@@ -126,14 +126,11 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypo
 		$forwardFinisher = new ControllerCallbackFinisher();
 		$forwardFinisher->setOption('callbackAction', $this->tsValue('callbackAction'));
 		$formDefinition->addFinisher($forwardFinisher);
-
-		$objectNamespaces = array();
 		if (count($this->tsValue('objects')) > 0) {
 			$i = 0;
 			$objectIdentifiers = array();
 			foreach ($this->tsValue('objects') as $object) {
 				$section = $this->createFormForSingleObject($page, $object, 'objects.' . $i);
-				$objectNamespaces[] = 'objects.' . $i;
 				$i++;
 				$formDefinition->getProcessingRule('objects.0')->setDataType($this->getClassName($object));
 				$section->setDataType($this->getClassName($object));
@@ -141,13 +138,9 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypo
 		} else {
 			$section = $this->createFormForSingleObject($page, NULL, 'objects.0.');
 			$section->setDataType($this->getClassName($object));
-			$objectNamespaces[] = 'objects.0';
 		}
-
-		$this->addValidatorsToForm($formDefinition, $objectNamespaces);
 		return $formDefinition;
 	}
-
 	/**
 	 * Return the typoscript value relative to this TypoScript object (with processors
 	 * etc applied)
@@ -215,33 +208,46 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypo
 			$element->setDefaultValue($value);
 			$element->setProperty('propertyName', $key);
 		}
-
+		$this->addValidatorsToForm($formDefinition, $namespace, $object);
 		return $section;
 	}
-
 	/**
 	 * @param \TYPO3\Form\Core\Model\FormDefinition $formDefinition
 	 * @param array $objectNamespaces
 	 * @return void
 	 */
-	protected function addValidatorsToForm(\TYPO3\Form\Core\Model\FormDefinition $formDefinition, array $objectNamespaces) {
+	protected function addValidatorsToForm(\TYPO3\Form\Core\Model\FormDefinition $formDefinition, $objectNamespace, $object) {
 		$className = $this->tsValue('className');
+		$schema = $this->getSchema($object);
 		$baseValidator = $this->validatorResolver->getBaseValidatorConjunction($className, array('Default', 'Form'));
 
 		foreach ($baseValidator->getValidators() as $validator) {
 			if ($validator instanceof \TYPO3\Flow\Validation\Validator\GenericObjectValidator) {
 				foreach ($validator->getPropertyValidators() as $propertyName => $propertyValidatorList) {
-					foreach ($objectNamespaces as $objectNamespace) {
-						$formElement = $formDefinition->getElementByIdentifier($objectNamespace . '.' . $propertyName);
-						if ($formElement !== NULL) {
-							foreach ($propertyValidatorList as $propertyValidator) {
-								$formElement->addValidator($propertyValidator);
-							}
+					$formElement = $formDefinition->getElementByIdentifier($objectNamespace . '.' . $propertyName);
+					if ($formElement !== NULL) {
+						foreach ($propertyValidatorList as $propertyValidator) {
+							$formElement->addValidator($propertyValidator);
 						}
 					}
 				}
 			} else {
 				// TODO: implement ELSE-case for other validators
+			}
+		}
+		foreach ($schema['properties'] as $propertyName => $propertySchema) {
+			if (isset($propertySchema['validate'])) {
+				$formElement = $formDefinition->getElementByIdentifier($objectNamespace . '.' . $propertyName);
+				if ($formElement !== NULL) {
+					foreach ($propertySchema['validate'] as $validation) {
+						$options = array();
+						if (isset($validation['options'])) {
+							$options = $validation['options'];
+						}
+						$validator = $this->validatorResolver->createValidator($validation['type'], $options);
+						$formElement->addValidator($validator);
+					}
+				}
 			}
 		}
 	}
@@ -321,9 +327,10 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypo
 		}
 		$this->tsRuntime->popContext();
 	}
-
 	public function getSchema($object) {
-		$className = $this->getClassName($object);
+		if (is_object($object)) {
+			$className = $this->getClassName($object);
+		}
 		$this->tsRuntime->pushContext('object', $object);
 		$this->tsRuntime->pushContext('className', $className);
 		$schema = $this->tsRuntime->render($this->path . '/schemaLoader');

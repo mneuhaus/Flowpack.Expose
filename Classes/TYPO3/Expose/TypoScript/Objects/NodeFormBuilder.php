@@ -19,13 +19,6 @@ use TYPO3\Flow\Annotations as Flow;
 class NodeFormBuilder extends ObjectFormBuilder {
 
 	/**
-	 * @param \TYPO3\Form\Core\Model\FormDefinition $formDefinition
-	 * @param array $objectNamespaces
-	 */
-	protected function addValidatorsToForm(\TYPO3\Form\Core\Model\FormDefinition $formDefinition, array $objectNamespaces) {
-	}
-
-	/**
 	 * @param string $sectionName
 	 * @param \TYPO3\Form\FormElements\Section $section
 	 * @param string $namespace
