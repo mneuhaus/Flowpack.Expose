@@ -174,6 +174,8 @@ class DefaultFormElementBuilder extends \TYPO3\TypoScript\TypoScriptObjects\Abst
 		if (method_exists($element, 'setPropertySchema')) {
 			$element->setPropertySchema($propertySchema);
 		}
+		$element->setProperty('propertySchema', $propertySchema);
+		$element->setProperty('classSchema', $this->tsValue('classSchema'));
 
 		if (method_exists($element, 'setFormBuilder')) {
 			$element->setFormBuilder($this->tsValue('formBuilder'));

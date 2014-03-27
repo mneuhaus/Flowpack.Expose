@@ -33,6 +33,10 @@ class PasswordWithHashing extends \TYPO3\Form\FormElements\PasswordWithConfirmat
 		parent::onSubmit($formRuntime, $elementValue);
 		$elementValue = $this->hashService->hashPassword($elementValue, 'default');
 	}
+
+	public function getConfirmationUniqueIdentifier() {
+		return $this->getUniqueIdentifier() . '-confirmation';
+	}
 }
 
 ?>

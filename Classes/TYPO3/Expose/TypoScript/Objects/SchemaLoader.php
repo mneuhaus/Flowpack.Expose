@@ -122,24 +122,20 @@ class SchemaLoader extends \TYPO3\TypoScript\TypoScriptObjects\ArrayImplementati
 			$this->tsRuntime->popContext();
 		}
 
-		if (isset($schema['translationPackage'])) {
-			$package = $schema['translationPackage'];
-		} else {
-			$package = $this->getPackageByClassName($this->getClassName());
-		}
-		$translatables = array('label', 'infotext');
+		$package = $this->getPackageByClassName($this->getClassName());
+		$translatables = array('label', 'infotext', 'confirmationLabel');
 
 		foreach ($schema['properties'] as $propertyName => $propertySchema) {
 			foreach ($propertySchema as $key => $value) {
-				if (in_array($key, $translatables)) {
-					$id = str_replace('\\', '.', $this->getClassName()) . '.' . $propertyName . '.' . $key;
-					try {
-						$translation = $this->translator->translateById($id, array(), NULL, NULL, 'Main', $package, $value);
-						if ($translation !== $id) {
-							$schema['properties'][$propertyName][$key] = $translation;
-						}
-					} catch(\Exception $exception) {
-						// Fail silently because no translation exists
+				if (in_array($key, $translatables) && empty($value) === FALSE) {
+					$id = str_replace('\\', '.', ltrim($this->getClassName(), '\\')) . '.' . $propertyName . '.' . $key;
+					$originalLabel = $schema['properties'][$propertyName][$key];
+					$translation = $this->translator->reset()
+						->setSourceName('Expose')
+						->setPackageKey($package)
+						->translate($id, $originalLabel);
+					if ($translation !== $originalLabel) {
+						$schema['properties'][$propertyName][$key] = $translation;
 					}
 				}
 			}
@@ -156,7 +152,7 @@ class SchemaLoader extends \TYPO3\TypoScript\TypoScriptObjects\ArrayImplementati
 	}
 
 	public function getPackageByClassName($className) {
-		preg_match('/([^\\\\]*)\\\\([^\\\\]*)/', $className, $match);
+		preg_match('/\\\\*([^\\\\]*)\\\\([^\\\\]*)/', $className, $match);
 		return $match[1] . '.' . $match[2];
 	}
 }
