@@ -23,7 +23,11 @@ create an 'gerrit.json' file with this content in your project root:
 {
 	"TYPO3.Flow": {
 		"[WIP][FEATURE] Add an isDefaultView matcher for ViewConfiguration": "25147",
-		"[WIP][FEATURE] Add a way to clear caches by Path + FilePattern": "25078"
+		"[WIP][FEATURE] Add a way to clear caches by Path + FilePattern": "25078",
+		"[WIP][FEATURE] Improve Translator API": "28897"
+	},
+	"TYPO3.Fluid": {
+		"[WIP][FEATURE] Refactor TranslateViewHelper to use new translate method": "28899"
 	}
 }
 ```
