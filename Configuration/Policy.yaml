@@ -9,4 +9,4 @@ resources:
 acls:
   Everybody:
     methods:
-      TYPO3_Expose_PluginAccess: ABSTAIN
+      TYPO3_Expose_PluginAccess: GRANT
