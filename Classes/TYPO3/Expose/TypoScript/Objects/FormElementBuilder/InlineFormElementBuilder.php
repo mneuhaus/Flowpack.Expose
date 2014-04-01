@@ -58,7 +58,7 @@ class InlineFormElementBuilder extends DefaultFormElementBuilder {
 
 		$this->tsRuntime->pushContext('propertySchema', $propertySchema);
 		if (isset($propertySchema['annotations']['Doctrine\ORM\Mapping\ManyToMany']) || isset($propertySchema['annotations']['Doctrine\ORM\Mapping\OneToMany'])) {
-			$containerSection = $this->createMultileForm($parentFormElement, $propertySchema);
+			$containerSection = $this->createMultipleForm($parentFormElement, $propertySchema);
 		} else {
 			$containerSection = $this->createSingleForm($parentFormElement, $propertySchema);
 		}
@@ -70,7 +70,7 @@ class InlineFormElementBuilder extends DefaultFormElementBuilder {
 	 * @param \TYPO3\Form\Core\Model\AbstractSection $parentFormElement
 	 * @param string $propertySchema
 	 */
-	public function createMultileForm($parentFormElement, $propertySchema) {
+	public function createMultipleForm($parentFormElement, $propertySchema) {
 		$namespace = $this->tsValue('identifier');
 		$className = $propertySchema['elementType'];
 		$objects = $this->tsValue('propertyValue');
