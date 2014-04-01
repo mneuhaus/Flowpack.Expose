@@ -4,21 +4,10 @@
     "description": "Package to expose models",
     "license": "LGPL-3.0+",
     "version": "0.1.0-dev",
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/afoeder/TYPO3.Asset.git"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/mneuhaus/less.php.git"
-        }
-    ],
     "require": {
         "typo3/flow": "*",
         "typo3/form": "*",
-        "typo3/typoscript": "*",
-        "typo3/asset": "*"
+        "typo3/typoscript": "*"
     },
     "minimum-stability": "dev",
     "autoload": {
