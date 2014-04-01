@@ -1,0 +1,25 @@
+#
+# TYPO3.Expose:LimitPartial
+# ------------------
+#
+# Renders the Search for the ListController
+#
+prototype(TYPO3.Expose:SearchPartial) {
+	@class = 'TYPO3\\Expose\\TypoScript\\Processors\\SearchPartial'
+	templatePath = 'resource://TYPO3.Expose/Private/Elements/Processors/Search.html'
+	objects = ${objects}
+}
+
+#
+# TYPO3.Expose:SearchProcessor
+# ------------------
+#
+# Takes care of the actual paging of the the ListController objects
+# through @overriding the objects variable
+#
+prototype(TYPO3.Expose:SearchProcessor) {
+	@class = 'TYPO3\\Expose\\TypoScript\\Processors\\SearchProcessor'
+	objects = ${value}
+	schema = ${classSchema}
+}
+prototype(TYPO3.Expose:RecordList).@override.objects.@process.300 = TYPO3.Expose:SearchProcessor
