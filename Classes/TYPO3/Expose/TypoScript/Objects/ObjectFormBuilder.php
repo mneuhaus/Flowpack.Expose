@@ -131,9 +131,9 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypo
 			$objectIdentifiers = array();
 			foreach ($this->tsValue('objects') as $object) {
 				$section = $this->createFormForSingleObject($page, $object, 'objects.' . $i);
-				$i++;
-				$formDefinition->getProcessingRule('objects.0')->setDataType($this->getClassName($object));
+				$formDefinition->getProcessingRule('objects.' . $i)->setDataType($this->getClassName($object));
 				$section->setDataType($this->getClassName($object));
+				$i++;
 			}
 		} else {
 			$section = $this->createFormForSingleObject($page, NULL, 'objects.0.');
