@@ -25,17 +25,38 @@ class PasswordWithHashing extends \TYPO3\Form\FormElements\PasswordWithConfirmat
 	protected $hashService;
 
 	/**
+	 * @var string
+	 */
+	protected $defaultValue;
+
+	/**
 	 * @param \TYPO3\Form\Core\Runtime\FormRuntime $formRuntime
 	 * @param mixed $elementValue
 	 * @return void
 	 */
 	public function onSubmit(\TYPO3\Form\Core\Runtime\FormRuntime $formRuntime, &$elementValue) {
 		parent::onSubmit($formRuntime, $elementValue);
-		$elementValue = $this->hashService->hashPassword($elementValue, 'default');
+		if (strlen($elementValue) > 0) {
+			$elementValue = $this->hashService->hashPassword($elementValue, 'default');
+		} else {
+			$elementValue = $this->defaultValue;
+		}
 	}
 
 	public function getConfirmationUniqueIdentifier() {
 		return $this->getUniqueIdentifier() . '-confirmation';
+	}
+
+	/**
+	 * Set the default value of the element
+	 *
+	 * @param mixed $defaultValue
+	 * @return void
+	 */
+	public function setDefaultValue($defaultValue) {
+		$this->defaultValue = $defaultValue;
+		$formDefinition = $this->getRootForm();
+		$formDefinition->addElementDefaultValue($this->identifier, $defaultValue);
 	}
 }
 
