@@ -1,39 +1,43 @@
 <?xml version="1.0"?>
-<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-	<file original="" source-language="en" target-language="en" datatype="plaintext">
-		<body>
-			<trans-unit id="submit">
-				<source>Submit</source>
-				<target>Absenden</target>
-			</trans-unit>
-			<trans-unit id="customer">
-				<source>customer</source>
-				<target>Kunde</target>
-			</trans-unit>
-			<trans-unit id="created">
-				<source>created</source>
-				<target>erstellt Am</target>
-			</trans-unit>
-			<trans-unit id="new">
-				<source>New</source>
-				<target>Neu</target>
-			</trans-unit>
-			<trans-unit id="edit">
-				<source>Edit</source>
-				<target>Bearbeiten</target>
-			</trans-unit>
-			<trans-unit id="delete">
-				<source>Delete</source>
-				<target>Löschen</target>
-			</trans-unit>
-			<trans-unit id="cancel">
-				<source>Cancel</source>
-				<target>Abbrechen</target>
-			</trans-unit>
-			<trans-unit id="delete.index.header">
-				<source>Are you sure you want to delete the following items?</source>
-				<target>Sind Sie sicher, dass Sie die folgenden Elemente löschen möchten?</target>
-			</trans-unit>
-		</body>
-	</file>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file original="" source-language="en" target-language="en" datatype="plaintext">
+    <body>
+      <trans-unit id="submit">
+        <source>Submit</source>
+        <target>Absenden</target>
+      </trans-unit>
+      <trans-unit id="customer">
+        <source>customer</source>
+        <target>Kunde</target>
+      </trans-unit>
+      <trans-unit id="created">
+        <source>created</source>
+        <target>erstellt Am</target>
+      </trans-unit>
+      <trans-unit id="new">
+        <source>New</source>
+        <target>Neu</target>
+      </trans-unit>
+      <trans-unit id="edit">
+        <source>Edit</source>
+        <target>Bearbeiten</target>
+      </trans-unit>
+      <trans-unit id="delete">
+        <source>Delete</source>
+        <target>L&#xF6;schen</target>
+      </trans-unit>
+      <trans-unit id="cancel">
+        <source>Cancel</source>
+        <target>Abbrechen</target>
+      </trans-unit>
+      <trans-unit id="delete.index.header">
+        <source>Are you sure you want to delete the following items?</source>
+        <target>Sind Sie sicher, dass Sie die folgenden Elemente l&#xF6;schen m&#xF6;chten?</target>
+      </trans-unit>
+      <trans-unit id="claim.noObjects">
+        <source>No Objects found</source>
+        <target>No Objects found</target>
+      </trans-unit>
+    </body>
+  </file>
 </xliff>
