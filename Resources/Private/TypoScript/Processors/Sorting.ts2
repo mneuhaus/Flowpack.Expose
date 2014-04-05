@@ -1,0 +1,12 @@
+#
+# TYPO3.Expose:SortProcessor
+# ------------------
+#
+# Takes care of the actual sorting of the the ListController objects
+# through @overriding the objects variable
+#
+prototype(TYPO3.Expose:SortProcessor) {
+	@class = 'TYPO3\\Expose\\TypoScript\\Processors\\SortProcessor'
+	objects = ${value}
+}
+prototype(TYPO3.Expose:RecordList).@override.objects.@process.400 = TYPO3.Expose:SortProcessor

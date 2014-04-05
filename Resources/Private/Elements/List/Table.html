@@ -1,4 +1,4 @@
-{namespace cm=TYPO3\Expose\ViewHelpers}
+{namespace e=TYPO3\Expose\ViewHelpers}
 {namespace ts=TYPO3\TypoScript\ViewHelpers}
 
 <!-- List/Table.html -->
@@ -7,13 +7,17 @@
 		<table class="table table-striped t3-expose-table">
 			<thead>
 				<tr>
-					<cm:schema object="{objects.0}">
+					<e:schema object="{objects.0}">
 						<f:for each="{schema.properties}" as="property" key="propertyName">
 							<f:if condition="{property.ignore} == 0">
-								<th class="{f:if(condition: '{sorting.property} == {property}', then: 'sort-{sorting.direction}')}">{f:translate(value: property.label, package: 'TYPO3.Expose')}</th>
+								<th>
+									<e:link.sort property="{propertyName}">
+										{f:translate(value: property.label, package: 'TYPO3.Expose')}
+									</e:link.sort>
+								</th>
 							</f:if>
 						</f:for>
-					</cm:schema>
+					</e:schema>
 					<th><f:comment>Placeholder for the column where the buttons will be placed.</f:comment></th>
 				</tr>
 			</thead>
