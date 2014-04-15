@@ -1,11 +1,11 @@
 {namespace form=TYPO3\Form\ViewHelpers}
 <f:form.validationResults for="{element.identifier}">
   <div class="form-group t3-expose-form-group{f:if(condition: validationResults.flattenedErrors, then: ' has-error')}">
-	<label for="{element.uniqueIdentifier}" class="col-sd-2 col-md-2 control-label t3-expose-control-label">
+	<label for="{element.uniqueIdentifier}" class="col-sd-3 col-md-3 control-label t3-expose-control-label">
 		{element.label -> f:format.nl2br()}
 		<f:if condition="{element.required}"><f:render partial="TYPO3.Form:Field/Required" /></f:if>
 	</label>
-	<div class="col-md-10 col-sd-10 t3-expose-form-controls">
+	<div class="col-md-9 col-sd-9 t3-expose-form-controls">
 		<f:render section="field" />
 		<f:if condition="{validationResults.flattenedErrors}">
 			<span class="help-block t3-expose-help-block">
