@@ -217,7 +217,7 @@ class ObjectFormBuilder extends \TYPO3\TypoScript\TypoScriptObjects\AbstractTypo
 	 * @return void
 	 */
 	protected function addValidatorsToForm(\TYPO3\Form\Core\Model\FormDefinition $formDefinition, $objectNamespace, $object) {
-		$className = $this->tsValue('className');
+		$className = $this->getClassName($object);
 		$schema = $this->getSchema($object);
 		$baseValidator = $this->validatorResolver->getBaseValidatorConjunction($className, array('Default', 'Form'));
 
