@@ -1,9 +1,0 @@
-{namespace form=TYPO3\Form\ViewHelpers}
-<fieldset class="t3-expose-page">
-	<f:if condition="{page.label}">
-		<legend>{page.label}</legend>
-	</f:if>
-	<f:for each="{page.elements}" as="element">
-		<form:renderRenderable renderable="{element}" />
-	</f:for>
-</fieldset>

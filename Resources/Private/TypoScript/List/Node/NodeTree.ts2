@@ -1,5 +1,0 @@
-prototype(TYPO3.Expose:NodeTree) < prototype(TYPO3.TypoScript:Template) {
-	templatePath = 'resource://TYPO3.Expose/Private/Elements/RecordList/NodeTree.html'
-	siteNode = ${siteNode}
-	selectedFolderNode = ${selectedFolderNode}
-}
