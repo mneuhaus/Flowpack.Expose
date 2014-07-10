@@ -1,0 +1,17 @@
+{namespace e=TYPO3\Expose\ViewHelpers}
+<e:process objects="{entities}" processors="{listProcessors}">
+	<div class="row">
+		<div class="col-xs-9">
+			<e:block name="top"/>
+			<table class="table table-bordered table-striped">
+				<e:render partial="Table/Header" />
+				<e:render partial="Table/Body" />
+			</table>
+			<e:block name="bottom" />
+			<f:render partial="Pagination" arguments="{action: 'index', pagination: pagination, limits: limits}" />
+		</div>
+		<div class="col-xs-3">
+			<e:block name="sidebar" />
+		</div>
+	</div>
+</e:process>

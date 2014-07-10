@@ -11,30 +11,19 @@ namespace TYPO3\Expose\OptionsProvider;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
-use TYPO3\Flow\Annotations as Flow;
-
 /**
- * OptionsProvider for related Beings
- *
  */
-class RoleOptionsProvider extends \TYPO3\Expose\Core\OptionsProvider\AbstractOptionsProvider {
+abstract class AbstractOptionsProvider implements OptionsProviderInterface {
 
 	/**
-	 * @var \TYPO3\Flow\Configuration\ConfigurationManager
-	 * @Flow\Inject
+	 * @var array
 	 */
-	protected $configurationManager;
+	protected $propertySchema;
 
 	/**
-	* TODO: Document this Method! ( getOptions )
-	*/
-	public function getOptions() {
-		$roleDefinitions = $this->configurationManager->getConfiguration(\TYPO3\Flow\Configuration\ConfigurationManager::CONFIGURATION_TYPE_POLICY, 'roles');
-		$roles = array();
-		foreach (array_keys($roleDefinitions) as $roleName) {
-			$roles[] = new \TYPO3\Flow\Security\Policy\Role($roleName);;
-		}
-		return $roles;
+	 */
+	public function __construct($propertySchema = array()) {
+		$this->propertySchema = $propertySchema;
 	}
 
 }

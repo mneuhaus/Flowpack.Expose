@@ -1,0 +1,33 @@
+-
+  name: 'Expose Home'
+  uriPattern: ''
+  defaults:
+    '@package': TYPO3.Expose
+    '@controller': Standard
+    '@action': index
+    '@format': html
+
+
+-
+  name: 'Dynamic Expose CRUD Route'
+  uriPattern: '{entityClassName}/{@action}/{entity}'
+  defaults:
+    '@action': 'index'
+    '@package':    'TYPO3.Expose'
+    '@controller': 'Crud'
+  routeParts:
+    'entityClassName':
+      handler:   'TYPO3\Expose\Routing\ExposeRoutePartHandler'
+  appendExceedingArguments: true
+
+-
+  name: 'Dynamic Expose CRUD Route'
+  uriPattern: '{entityClassName}/{@action}'
+  defaults:
+    '@action': 'index'
+    '@package':    'TYPO3.Expose'
+    '@controller': 'Crud'
+  routeParts:
+    'entityClassName':
+      handler:   'TYPO3\Expose\Routing\ExposeRoutePartHandler'
+  appendExceedingArguments: true

@@ -1,0 +1,4 @@
+TYPO3\Expose\View\FallbackView:
+  properties:
+    renderingContext:
+      object: TYPO3\Fluid\Core\Rendering\RenderingContext

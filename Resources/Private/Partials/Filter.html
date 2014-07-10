@@ -1,0 +1,5 @@
+{namespace c=Famelo\Components\ViewHelpers}
+<f:for each="{fields}" as="field" key="propertyName">
+	<h3>{propertyName -> c:format.humanizeCamelCase()}</h3>
+	<c:render partial="Filter/{field.type -> c:format.ucfirst()}" />
+</f:for>

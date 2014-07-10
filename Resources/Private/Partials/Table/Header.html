@@ -1,0 +1,11 @@
+{namespace e=TYPO3\Expose\ViewHelpers}
+<f:if condition="{listFields}">
+	<tr>
+		<f:for each="{listFields}" as="field">
+			<th>
+				<e:wrap name="field" arguments="{field: field}"><i class="fa"></i> {field -> e:format.humanizeCamelCase()}</e:wrap>
+			</th>
+		</f:for>
+		<th></th>
+	</tr>
+</f:if>

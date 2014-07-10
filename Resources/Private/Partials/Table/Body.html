@@ -1,0 +1,13 @@
+{namespace e=TYPO3\Expose\ViewHelpers}
+<f:for each="{entities}" as="entity">
+	<tr>
+		<f:for each="{listFields}" as="field">
+			<td>
+				<e:property object="{entity}" name="{field}" />
+			</td>
+		</f:for>
+		<td class="actions">
+			<f:render partial="Table/Actions" arguments="{entity: entity}" />
+		</td>
+	<tr>
+</f:for>

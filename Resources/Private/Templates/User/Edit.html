@@ -1,0 +1,21 @@
+<f:layout name="Default" />
+{namespace c=Famelo\Components\ViewHelpers}
+
+<f:section name="Content">
+	<f:form action="update" object="{entity}" objectName="entity" class="form-horizontal">
+		<fieldset>
+			<c:form.field property="name.firstName" id="name.firstName" />
+			<c:form.field property="name.lastName" id="name.lastName" />
+			<c:form.field property="email" id="email" />
+
+			<c:form.field property="accounts.0.accountIdentifier" id="accounts.0.accountIdentifier" />
+			<c:form.field name="password" id="password" control="Password" />
+		</fieldset>
+
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+				<f:form.submit value="Update" class="btn btn-default" />
+			</div>
+		</div>
+	</f:form>
+</f:section>

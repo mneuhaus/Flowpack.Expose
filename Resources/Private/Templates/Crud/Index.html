@@ -1,0 +1,16 @@
+<f:layout name="Default" />
+{namespace e=TYPO3\Expose\ViewHelpers}
+
+<f:section name="Content">
+	<div class="actions">
+		<e:link.action action="new" class="btn btn-primary pull-right">New</e:link.action>
+	</div>
+	<f:if condition="{entities}">
+		<f:then>
+			<e:render partial="Table/Layout"/>
+		</f:then>
+		<f:else>
+			<p>No entities found.</p>
+		</f:else>
+	</f:if>
+</f:section>

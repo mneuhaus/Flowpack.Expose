@@ -17,7 +17,7 @@ use TYPO3\Flow\Annotations as Flow;
  * OptionsProvider for related Beings
  *
  */
-class RelationOptionsProvider extends \TYPO3\Expose\Core\OptionsProvider\AbstractOptionsProvider {
+class RelationOptionsProvider extends AbstractOptionsProvider {
 
 	/**
 	 * @var \TYPO3\Flow\Persistence\PersistenceManagerInterface
@@ -39,7 +39,6 @@ class RelationOptionsProvider extends \TYPO3\Expose\Core\OptionsProvider\Abstrac
 
 
 	/**
-	* TODO: Document this Method! ( getOptions )
 	*/
 	public function getOptions() {
 		$classSchema = $this->reflectionService->getClassSchema($this->getRelationClass());

@@ -14,27 +14,19 @@ namespace TYPO3\Expose\Annotations;
 /**
  * @Annotation
  */
-final class Section {
+final class OptionsProvider {
 
 	/**
 	 * @var string
 	 */
-	public $properties = '';
-
-	/**
-	 * @var string
-	 */
-	public $title = '';
+	public $className = '';
 
 	/**
 	 * @param string $value
 	 */
 	public function __construct(array $values) {
-		if (isset($values['title'])) {
-			$this->title = $values['title'];
-		}
-		if (isset($values['properties'])) {
-			$this->properties = $values['properties'];
+		if (isset($values['value'])) {
+			$this->className = $values['value'];
 		}
 	}
 

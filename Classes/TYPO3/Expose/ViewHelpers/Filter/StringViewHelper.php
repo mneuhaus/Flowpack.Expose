@@ -1,8 +1,8 @@
 <?php
-namespace TYPO3\Expose\OptionsProvider;
+namespace TYPO3\Expose\ViewHelpers\Filter;
 
 /*                                                                        *
- * This script belongs to the TYPO3 Flow package "TYPO3.Expose".               *
+ * This script belongs to the TYPO3 Flow package "TYPO3.Kickstart".       *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -11,22 +11,20 @@ namespace TYPO3\Expose\OptionsProvider;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
+use TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper;
+
 /**
- * OptionsProvider for related Beings
- *
  */
-class ArrayOptionsProvider extends \TYPO3\Expose\Core\OptionsProvider\AbstractOptionsProvider {
+class StringViewHelper extends AbstractViewHelper {
 
 	/**
-	 * This functions returns the Options defined by a internal property
-	 * or Annotations
+	 * Uppercase first character
 	 *
-	 * @return array $options
+	 * @param string $property
+	 * @param object $query
+	 * @return string The altered string.
 	 */
-	public function getOptions() {
-		return $this->propertySchema['optionsProvider']['options'];
+	public function render($property, $query) {
+		return $this->renderChildren();
 	}
-
 }
-
-?>
