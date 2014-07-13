@@ -55,22 +55,26 @@ class DefaultSchema {
 	 * @param string $className
 	 * @param string $propertyPrefix
 	 * @param \TYPO3\Flow\Reflection\ReflectionService $reflectionService
+	 * @param \TYPO3\Flow\Configuration\ConfigurationManager $configurationManager
 	 * @param \TYPO3\Kickstart\Utility\Inflector $inflector
 	 */
-	public function __construct($className, $propertyPrefix = '', \TYPO3\Flow\Reflection\ReflectionService $reflectionService, \TYPO3\Kickstart\Utility\Inflector $inflector) {
+	public function __construct($className, $propertyPrefix = '', \TYPO3\Flow\Reflection\ReflectionService $reflectionService, \TYPO3\Flow\Configuration\ConfigurationManager $configurationManager, \TYPO3\Kickstart\Utility\Inflector $inflector) {
 		$this->className = $className;
 		$this->reflectionService = $reflectionService;
+		$this->configurationManager = $configurationManager;
 		$this->inflector = $inflector;
+		$this->settings = $this->configurationManager->getConfiguration('Expose', $className);
 
 		$propertyNames = $this->reflectionService->getClassPropertyNames($this->className);
 		foreach ($propertyNames as $key => $propertyName) {
 			$property = $this->getPropertyTypes($propertyName);
 			$property['name'] = $propertyPrefix . $propertyName;
 			$property['label'] = $this->getPropertyLabel($propertyName, $property);
+			$property['description'] = $this->getPropertyDescription($propertyName, $property);
 			$property['annotations'] = $this->reflectionService->getPropertyAnnotations($this->className, $propertyName);
 
 			if ($property['metaType'] == 'SingleSelect' || $property['metaType'] == 'MultiSelect') {
-				#$property['optionsProvider'] = $this->getOptionsProvider($property);
+				$property['optionsProvider'] = $this->getOptionsProvider($property);
 			}
 
 			$this->properties[$propertyName] = $property;
@@ -142,7 +146,79 @@ class DefaultSchema {
 	}
 
 	public function getPropertyLabel($propertyName, $property) {
+		if (isset($this->settings['properties'][$propertyName]['label'])) {
+			return $this->settings['properties'][$propertyName]['label'];
+		}
 		return $this->inflector->humanizeCamelCase($propertyName, FALSE);
+	}
+
+	public function getPropertyDescription($propertyName, $property) {
+		if (isset($this->settings['properties'][$propertyName]['description'])) {
+			return $this->settings['properties'][$propertyName]['description'];
+		}
+	}
+
+	public function getListFields() {
+		if (isset($this->settings['listFields'])) {
+			if (is_array($this->settings['listFields'])) {
+				return $this->settings['listFields'];
+			}
+
+			$fields = array();
+			foreach(explode(',', $this->settings['listFields']) as $field)  {
+				$fields[] = trim($field);
+			}
+			return $fields;
+		}
+		return array('__toString');
+	}
+
+	public function getListProcessors() {
+		if (isset($this->settings['listProcessors'])) {
+			return $this->settings['listProcessors'];
+		}
+		return array(
+			'\TYPO3\Expose\Processors\SearchProcessor' => TRUE,
+			'\TYPO3\Expose\Processors\FilterProcessor' => TRUE,
+			'\TYPO3\Expose\Processors\PaginationProcessor' => TRUE,
+			'\TYPO3\Expose\Processors\SortProcessor' => TRUE
+		);
+	}
+
+	public function getSearchFields() {
+		if (isset($this->settings['searchFields'])) {
+			return $this->settings['searchFields'];
+		}
+		return array();
+	}
+
+	public function getFilterFields() {
+		if (isset($this->settings['filterFields'])) {
+			if (is_array($this->settings['filterFields'])) {
+				return $this->settings['filterFields'];
+			}
+
+			if (is_string($this->settings['filterFields'])) {
+				$fields = array();
+				foreach(explode(',', $this->settings['filterFields']) as $field)  {
+					$fields[] = trim($field);
+				}
+				return $fields;
+			}
+		}
+		return array();
+	}
+
+	public function getDefaultOrder() {
+		if (isset($this->settings['defaultOrder'])) {
+			return $this->settings['defaultOrder'];
+		}
+	}
+
+	public function getDefaultSortBy() {
+		if (isset($this->settings['defaultSortBy'])) {
+			return $this->settings['defaultSortBy'];
+		}
 	}
 }
 

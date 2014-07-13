@@ -7,10 +7,22 @@
     '@action': index
     '@format': html
 
-
 -
   name: 'Dynamic Expose CRUD Route'
   uriPattern: '{entityClassName}/{@action}/{entity}'
+  defaults:
+    '@action': 'index'
+    '@package':    'TYPO3.Expose'
+    '@controller': 'Crud'
+  routeParts:
+    'entityClassName':
+      handler:   'TYPO3\Expose\Routing\ExposeRoutePartHandler'
+  appendExceedingArguments: true
+
+
+-
+  name: 'Dynamic Expose CRUD Route'
+  uriPattern: '{entityClassName}'
   defaults:
     '@action': 'index'
     '@package':    'TYPO3.Expose'

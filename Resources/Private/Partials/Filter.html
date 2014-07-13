@@ -1,5 +1,5 @@
-{namespace c=Famelo\Components\ViewHelpers}
+{namespace e=TYPO3\Expose\ViewHelpers}
 <f:for each="{fields}" as="field" key="propertyName">
-	<h3>{propertyName -> c:format.humanizeCamelCase()}</h3>
-	<c:render partial="Filter/{field.type -> c:format.ucfirst()}" />
+	<h3>{propertyName -> e:format.humanizeCamelCase()}</h3>
+	<e:render partial="Filter/{field.type -> e:format.ucfirst()}" />
 </f:for>

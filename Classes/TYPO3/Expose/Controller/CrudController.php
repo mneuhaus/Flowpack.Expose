@@ -3,6 +3,7 @@ namespace TYPO3\Expose\Controller;
 
 use TYPO3\Expose\Domain\Schema;
 use TYPO3\Flow\Annotations as Flow;
+use TYPO3\Expose\Annotations as Expose;
 
 class CrudController extends FallbackController {
 	/**
@@ -16,50 +17,16 @@ class CrudController extends FallbackController {
 	protected $repository;
 
 	/**
-	 * @var array
-	 */
-	protected $listFields = array('__toString');
-
-	/**
-	 * @var array
-	 */
-	protected $listProcessors = array(
-		'\TYPO3\Expose\Processors\SearchProcessor',
-		'\TYPO3\Expose\Processors\FilterProcessor',
-		'\TYPO3\Expose\Processors\PaginationProcessor',
-		'\TYPO3\Expose\Processors\SortProcessor'
-	);
-
-	/**
-	 * @var array
-	 */
-	protected $searchFields = array();
-
-	/**
-	 * @var array
-	 */
-	protected $filterFields = array();
-
-	/**
-	 * @var array
-	 */
-	protected $fields = array();
-
-	/**
-	 * @var string
-	 */
-	protected $defaultSortBy;
-
-	/**
-	 * @var string
-	 */
-	protected $defaultOrder = 'ASC';
-
-	/**
 	 * @var \TYPO3\Flow\Reflection\ReflectionService
 	 * @Flow\Inject
 	 */
 	protected $reflectionService;
+
+	/**
+	 * @Flow\Inject
+	 * @var \TYPO3\Flow\Configuration\ConfigurationManager
+	 */
+	protected $configurationManager;
 
 	/**
 	 * @return void
@@ -75,6 +42,8 @@ class CrudController extends FallbackController {
 			$this->arguments['entity']->setDataType($this->entity);
 			$this->arguments['entity']->getPropertyMappingConfiguration()->allowAllProperties();
 		}
+
+		$this->schema = new \TYPO3\Expose\Schema\DefaultSchema($this->entity);
 	}
 
 	/**
@@ -96,12 +65,7 @@ class CrudController extends FallbackController {
 	 */
 	public function indexAction() {
 		$this->view->assign('entities', $this->getEntities());
-		$this->view->assign('listFields', $this->listFields);
-		$this->view->assign('defaultSortBy', $this->defaultSortBy);
-		$this->view->assign('defaultOrder', $this->defaultOrder);
-		$this->view->assign('searchFields', $this->searchFields);
-		$this->view->assign('filterFields', $this->filterFields);
-		$this->view->assign('listProcessors', $this->listProcessors);
+		$this->view->assign('schema', $this->schema);
 	}
 
 	public function getEntities() {
@@ -110,6 +74,7 @@ class CrudController extends FallbackController {
 	}
 
 	/**
+	 * @Expose\Action(type="local", label="Show")
 	 * @param object $entity
 	 * @return void
 	 */
@@ -118,6 +83,7 @@ class CrudController extends FallbackController {
 	}
 
 	/**
+	 * @Expose\Action(type="global", label="New")
 	 * @return void
 	 */
 	public function newAction() {
@@ -135,6 +101,7 @@ class CrudController extends FallbackController {
 	}
 
 	/**
+	 * @Expose\Action(type="local", label="Edit")
 	 * @param object $entity
 	 * @return void
 	 */
@@ -163,12 +130,44 @@ class CrudController extends FallbackController {
 	}
 
 	/**
+	 * @Expose\Action(type="local", label="Delete")
 	 * @param object $entity
 	 * @return void
 	 */
 	public function deleteAction($entity) {
 		$this->persistenceManager->remove($entity);
+		$this->persistenceManager->persistAll();
 		$this->addFlashMessage('Deleted the entity.');
+		$this->redirect('index');
+	}
+
+	/**
+	 * @param array $entities
+	 * @param string $batchAction
+	 * @return void
+	 */
+	public function batchAction($entities, $batchAction) {
+		// foreach ($entities as $key => $entity) {
+		// 	$entities[$key] = $this->persistenceManager->getObjectByIdentifier($entity, $this->entity);
+		// }
+		return $this->forward($batchAction, NULL, NULL, array('entities' => $entities));
+	}
+
+	/**
+	 * @Expose\Action(type="batch", label="Delete")
+	 * @param array $entities
+	 * @return void
+	 */
+	public function deleteBatchAction($entities) {
+		foreach ($entities as $key => $entity) {
+			$entities[$key] = $this->persistenceManager->getObjectByIdentifier($entity, $this->entity);
+		}
+		var_dump($entities);
+		foreach ($entities as $key => $entity) {
+			$this->persistenceManager->remove($entity);
+		}
+		$this->persistenceManager->persistAll();
+		$this->addFlashMessage('Deleted the entitries.');
 		$this->redirect('index');
 	}
 

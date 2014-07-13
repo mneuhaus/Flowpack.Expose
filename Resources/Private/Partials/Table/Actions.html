@@ -1,6 +1,6 @@
-<f:link.action action="edit" arguments="{entity: entity}" class="btn btn-default btn-sm">
-	Edit
-</f:link.action>
-<f:form action="delete" arguments="{entity: entity}">
-	<f:form.submit value="Delete" class="btn btn-default btn-sm"/>
-</f:form>
+{namespace e=TYPO3\Expose\ViewHelpers}
+<e:actions type="local">
+	<f:for each="{actions}" key="action" as="actionName">
+		<e:link.action action="{action}" arguments="{entity: entity}" class="btn btn-primary pull-right method-post">{actionName}</e:link.action>
+	</f:for>
+</e:actions>

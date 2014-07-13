@@ -1,8 +1,21 @@
 {namespace e=TYPO3\Expose\ViewHelpers}
-<e:process objects="{entities}" processors="{listProcessors}">
+<e:process objects="{entities}" processors="{schema.listProcessors}">
+	<f:form action="batch">
 	<div class="row">
 		<div class="col-xs-9">
-			<e:block name="top"/>
+			<div class="row">
+				<div class="col-xs-4">
+					<e:actions type="batch">
+						<f:form.select name="batchAction" options="{actions}" class="form-control col-xs-6" />
+					</e:actions>
+				</div>
+				<div class="col-xs-2">
+					<button type="submit" class="btn btn-default pull-left">Execute</button>
+				</div>
+				<div class="col-xs-6">
+					<e:block name="top"/>
+				</div>
+			</div>
 			<table class="table table-bordered table-striped">
 				<e:render partial="Table/Header" />
 				<e:render partial="Table/Body" />
@@ -14,4 +27,5 @@
 			<e:block name="sidebar" />
 		</div>
 	</div>
+	</f:form>
 </e:process>

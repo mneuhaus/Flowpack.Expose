@@ -46,9 +46,15 @@ class FilterProcessor extends AbstractProcessor {
 	public function process($query) {
 		$this->request = $this->controllerContext->getRequest();
 
-		$fieldNames = $this->templateVariableContainer->get('filterFields');
+		$schema = $this->templateVariableContainer->get('schema');
+		$fieldNames = $schema->getFilterFields();
 		$className = $this->templateVariableContainer->get('className');
 		$classSchema = $this->reflectionService->getClassSchema($className);
+
+		if (empty($fieldNames)) {
+			return;
+		}
+
 		$fields = array();
 		foreach ($fieldNames as $fieldName) {
 			$fields[$fieldName] = $classSchema->getProperty($fieldName);

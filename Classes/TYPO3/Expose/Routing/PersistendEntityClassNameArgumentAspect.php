@@ -20,7 +20,7 @@ class PersistendEntityClassNameArgumentAspect {
      */
     public function addEntityClassName(\TYPO3\Flow\AOP\JoinPointInterface $joinPoint) {
         if ($this->isExposeController($joinPoint) === FALSE) {
-            return;
+            #return;
         }
 
         $request = $joinPoint->getProxy()->getRequest();

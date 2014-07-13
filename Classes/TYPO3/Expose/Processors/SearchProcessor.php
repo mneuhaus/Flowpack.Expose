@@ -39,7 +39,12 @@ class SearchProcessor extends AbstractProcessor {
 	public function process($query) {
 		$this->request = $this->controllerContext->getRequest();
 
-		$fields = $this->templateVariableContainer->get('searchFields');
+		$schema = $this->templateVariableContainer->get('schema');
+		$fields = $schema->getSearchFields();
+
+		if (empty($fields)) {
+			return;
+		}
 
 		$search = '';
 		if( $this->request->hasArgument("search") ){

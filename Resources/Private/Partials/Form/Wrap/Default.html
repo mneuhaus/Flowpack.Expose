@@ -1,4 +1,5 @@
 {namespace e=TYPO3\Expose\ViewHelpers}
 <e:form.fieldWrapper id="{property.name}" label="{property.label}" property="{property.name}">
 	{control -> f:format.raw()}
+	<f:if condition="{property.description}"><p class="help-block">{property.description}</p></f:if>
 </e:form.fieldWrapper>

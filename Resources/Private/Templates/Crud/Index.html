@@ -3,7 +3,11 @@
 
 <f:section name="Content">
 	<div class="actions">
-		<e:link.action action="new" class="btn btn-primary pull-right">New</e:link.action>
+		<e:actions type="global">
+			<f:for each="{actions}" key="action" as="actionName">
+				<e:link.action action="{action}" class="btn btn-primary pull-right">{actionName}</e:link.action>
+			</f:for>
+		</e:actions>
 	</div>
 	<f:if condition="{entities}">
 		<f:then>

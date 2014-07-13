@@ -1,7 +1,10 @@
 {namespace e=TYPO3\Expose\ViewHelpers}
 <f:for each="{entities}" as="entity">
 	<tr>
-		<f:for each="{listFields}" as="field">
+		<td class="batch">
+			<f:form.checkbox name="entities[]" value="{e:format.uuid(object: entity)}" class="select-row" />
+		</td>
+		<f:for each="{schema.listFields}" as="field">
 			<td>
 				<e:property object="{entity}" name="{field}" />
 			</td>

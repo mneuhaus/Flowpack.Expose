@@ -37,7 +37,10 @@ class ProcessViewHelper extends AbstractViewHelper {
 	 */
 	public function render($objects, $processors = array()) {
 		$query = $objects->getQuery();
-		foreach ($processors as $processorClassName) {
+		foreach ($processors as $processorClassName => $active) {
+			if ($active !== TRUE) {
+				continue;
+			}
 			$processor = new $processorClassName();
 			$processor->setRenderingContext($this->renderingContext);
 			$processor->process($query);
