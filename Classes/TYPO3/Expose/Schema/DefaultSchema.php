@@ -67,6 +67,9 @@ class DefaultSchema {
 
 		$propertyNames = $this->reflectionService->getClassPropertyNames($this->className);
 		foreach ($propertyNames as $key => $propertyName) {
+			if ($this->reflectionService->isPropertyAnnotatedWith($this->className, $propertyName, 'TYPO3\Flow\Annotations\Inject')) {
+				continue;
+			}
 			$property = $this->getPropertyTypes($propertyName);
 			$property['name'] = $propertyPrefix . $propertyName;
 			$property['label'] = $this->getPropertyLabel($propertyName, $property);
@@ -77,8 +80,16 @@ class DefaultSchema {
 				$property['optionsProvider'] = $this->getOptionsProvider($property);
 			}
 
+			if (isset($this->settings['properties'][$propertyName]['control'])) {
+				$property['control'] = $this->settings['properties'][$propertyName]['control'];
+			}
+
 			$this->properties[$propertyName] = $property;
 		}
+	}
+
+	public function getPropertyNames() {
+		return array_keys($this->properties);
 	}
 
 	public function getProperty($propertyName) {

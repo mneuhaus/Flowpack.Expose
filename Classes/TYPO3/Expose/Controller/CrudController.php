@@ -114,7 +114,7 @@ class CrudController extends FallbackController {
 		if (empty($this->fields)) {
 			return array(array(
 				'name' => '',
-				'fields' => $this->reflectionService->getClassPropertyNames($this->entity)
+				'fields' => $this->schema->getPropertyNames()
 			));
 		}
 	}

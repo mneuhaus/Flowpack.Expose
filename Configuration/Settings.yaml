@@ -16,39 +16,3 @@ TYPO3:
       float: 'Textfield'
       boolean: 'Checkbox'
       array: 'Select'
-
-    Menu:
-      'Simple Controller':
-        controller: 'Standard'
-        package: 'Famelo.ExposeDemo'
-
-      'Types':
-        controller: 'Fields'
-        package: 'Famelo.ExposeDemo'
-
-      'Addresses':
-        entityClassName: '\Famelo\ExposeDemo\Domain\Model\Address'
-
-      'FieldsWithoutController':
-        entityClassName: '\Famelo\ExposeDemo\Domain\Model\Fields'
-
-      # 'Entity':
-      #   entityClassName: '\My\Package\Domain\Model\Entity'
-
-      # 'Project':
-      #   entityClassName: '\My\Package\Domain\Model\Project'
-      #   controller: '\My\Package\Controller\ProjectController'
-      #   children:
-
-      #     'New':
-      #       defaultAction: 'new'
-      #       entityClassName: '\My\Package\Domain\Model\Project'
-      #       controller: '\My\Package\Controller\ProjectController'
-
-      # 'Settings':
-      #   controller: '\My\Package\Controller\SettingsController'
-
-
-    # Entities:
-    #   '\Famelo\ExposeDemo\Domain\Model\Address':
-    #     name: 'Address'

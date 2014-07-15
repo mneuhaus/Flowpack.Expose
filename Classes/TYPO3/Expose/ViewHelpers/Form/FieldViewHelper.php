@@ -76,6 +76,8 @@ class FieldViewHelper extends AbstractFormFieldViewHelper {
 
 		if ($this->arguments['control'] !== NULL) {
 			$partial = $this->arguments['control'];
+		} else if (isset($property['control'])) {
+			$partial = $property['control'];
 		} else {
 			$partial = $property['partial'];
 		}
