@@ -1,8 +1,8 @@
 <?php
-namespace TYPO3\Expose\Tests\Functional\Fixtures;
+namespace Flowpack\Expose\Tests\Functional\Fixtures;
 
 /*                                                                        *
- * This script belongs to the TYPO3 Flow package "TYPO3.Expose".               *
+ * This script belongs to the TYPO3 Flow package "Flowpack.Expose".               *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *

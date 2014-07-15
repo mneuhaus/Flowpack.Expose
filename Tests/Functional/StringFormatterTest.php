@@ -1,13 +1,13 @@
 <?php
-namespace TYPO3\Expose\Tests\Functional;
+namespace Flowpack\Expose\Tests\Functional;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use TYPO3\Expose\Tests\Functional\Fixtures\ClassWithToString;
-use TYPO3\Expose\Tests\Functional\Fixtures\ClassWithoutToString;
-use TYPO3\Expose\Utility\StringRepresentation;
+use Flowpack\Expose\Tests\Functional\Fixtures\ClassWithToString;
+use Flowpack\Expose\Tests\Functional\Fixtures\ClassWithoutToString;
+use Flowpack\Expose\Utility\StringRepresentation;
 
 /*                                                                        *
- * This script belongs to the TYPO3 Flow package "TYPO3.Expose".               *
+ * This script belongs to the TYPO3 Flow package "Flowpack.Expose".               *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *

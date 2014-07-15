@@ -1,4 +1,4 @@
-TYPO3:
+Flowpack:
   Expose:
     pagination:
       defaultLimit: 10

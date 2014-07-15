@@ -1,5 +1,5 @@
 {
-    "name": "typo3/expose",
+    "name": "flowpack/expose",
     "type": "typo3-flow-package",
     "description": "Package to expose models",
     "license": "LGPL-3.0+",
@@ -10,7 +10,7 @@
     "minimum-stability": "dev",
     "autoload": {
         "psr-0": {
-            "TYPO3\\Expose": "Classes"
+            "Flowpack\\Expose": "Classes"
         }
     }
 }

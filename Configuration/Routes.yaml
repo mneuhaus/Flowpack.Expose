@@ -2,7 +2,7 @@
   name: 'Expose Home'
   uriPattern: ''
   defaults:
-    '@package': TYPO3.Expose
+    '@package': Flowpack.Expose
     '@controller': Standard
     '@action': index
     '@format': html
@@ -12,11 +12,11 @@
   uriPattern: '{entityClassName}/{@action}/{entity}'
   defaults:
     '@action': 'index'
-    '@package':    'TYPO3.Expose'
+    '@package':    'Flowpack.Expose'
     '@controller': 'Crud'
   routeParts:
     'entityClassName':
-      handler:   'TYPO3\Expose\Routing\ExposeRoutePartHandler'
+      handler:   'Flowpack\Expose\Routing\ExposeRoutePartHandler'
   appendExceedingArguments: true
 
 
@@ -25,11 +25,11 @@
   uriPattern: '{entityClassName}'
   defaults:
     '@action': 'index'
-    '@package':    'TYPO3.Expose'
+    '@package':    'Flowpack.Expose'
     '@controller': 'Crud'
   routeParts:
     'entityClassName':
-      handler:   'TYPO3\Expose\Routing\ExposeRoutePartHandler'
+      handler:   'Flowpack\Expose\Routing\ExposeRoutePartHandler'
   appendExceedingArguments: true
 
 -
@@ -37,9 +37,9 @@
   uriPattern: '{entityClassName}/{@action}'
   defaults:
     '@action': 'index'
-    '@package':    'TYPO3.Expose'
+    '@package':    'Flowpack.Expose'
     '@controller': 'Crud'
   routeParts:
     'entityClassName':
-      handler:   'TYPO3\Expose\Routing\ExposeRoutePartHandler'
+      handler:   'Flowpack\Expose\Routing\ExposeRoutePartHandler'
   appendExceedingArguments: true

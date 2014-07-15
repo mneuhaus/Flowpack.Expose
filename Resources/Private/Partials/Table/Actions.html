@@ -1,4 +1,4 @@
-{namespace e=TYPO3\Expose\ViewHelpers}
+{namespace e=Flowpack\Expose\ViewHelpers}
 <e:actions type="local">
 	<f:for each="{actions}" key="action" as="actionName">
 		<e:link.action action="{action}" arguments="{entity: entity}" class="btn btn-primary pull-right method-post">{actionName}</e:link.action>
