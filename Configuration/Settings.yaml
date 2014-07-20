@@ -1,9 +1,9 @@
 Flowpack:
   Expose:
-    pagination:
-      defaultLimit: 10
-      maxPages: 10
-      limits:
+    Pagination:
+      DefaultLimit: 10
+      MaxPages: 10
+      Limits:
         - 10
         - 20
         - 30
@@ -16,3 +16,6 @@ Flowpack:
       float: 'Textfield'
       boolean: 'Checkbox'
       array: 'Select'
+      '\DateTime': 'Textfield'
+
+    Menu: []

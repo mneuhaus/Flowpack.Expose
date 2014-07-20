@@ -70,6 +70,9 @@ class DefaultSchema {
 			if ($this->reflectionService->isPropertyAnnotatedWith($this->className, $propertyName, 'TYPO3\Flow\Annotations\Inject')) {
 				continue;
 			}
+			if ($this->reflectionService->isPropertyAnnotatedWith($this->className, $propertyName, 'Flowpack\Expose\Annotations\Ignore')) {
+				continue;
+			}
 			$property = $this->getPropertyTypes($propertyName);
 			$property['name'] = $propertyPrefix . $propertyName;
 			$property['label'] = $this->getPropertyLabel($propertyName, $property);

@@ -43,7 +43,7 @@ class PaginationProcessor extends AbstractProcessor {
 	 * @api
 	 */
 	public function process($query) {
-		$configurationPath = 'Flowpack.Expose.pagination';
+		$configurationPath = 'Flowpack.Expose.Pagination';
 		$this->query = $query;
 		$this->settings = $this->configurationManager->getConfiguration(ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, $configurationPath);
 		$this->request = $this->controllerContext->getRequest();
@@ -62,14 +62,14 @@ class PaginationProcessor extends AbstractProcessor {
 	public function handleLimits(){
 
 		$limits = array();
-		foreach ($this->settings["limits"] as $limit) {
+		foreach ($this->settings["Limits"] as $limit) {
 			$limits[$limit] = false;
 		}
 
 		if($this->request->hasArgument("limit"))
 			$this->limit = $this->request->getArgument("limit");
 		else
-			$this->limit = $this->settings["defaultLimit"];
+			$this->limit = $this->settings["DefaultLimit"];
 
 		$unset = false;
 		foreach ($limits as $key => $value) {
@@ -119,8 +119,8 @@ class PaginationProcessor extends AbstractProcessor {
 			if($currentPage > 1)
 				$pagination["prevPage"] = $currentPage - 1;
 
-			if(count($pages) > $this->settings["maxPages"]){
-				$max = $this->settings["maxPages"];
+			if(count($pages) > $this->settings["MaxPages"]){
+				$max = $this->settings["MaxPages"];
 				$start = $currentPage - ( ($max + ($max % 2) ) / 2);
 				$start = $start > 0 ? $start : 0;
 				$start = $start > 0 ? $start : 0;

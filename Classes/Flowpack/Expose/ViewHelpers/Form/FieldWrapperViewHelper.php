@@ -45,7 +45,7 @@ class FieldWrapperViewHelper extends AbstractViewHelper {
 		$validationResults = $request->getInternalArgument('__submittedArgumentValidationResults');
 		$formObjectName = $this->viewHelperVariableContainer->get('TYPO3\Fluid\ViewHelpers\FormViewHelper', 'formObjectName');
 		if ($validationResults !== NULL && $property !== '') {
-			$validationResults = $validationResults->forProperty($formObjectName . '.' . $property);
+			$validationResults = $validationResults->forProperty(str_replace('[', '.', str_replace(']', '', $property)));
 			if (count($validationResults->getErrors()) > 0) {
 				$formGroupClass.= ' has-error';
 				foreach ($validationResults->getErrors() as $error) {

@@ -38,13 +38,22 @@ class MenuViewHelper extends AbstractViewHelper {
 		$menuConfiguration = $this->configurationManager->getConfiguration(\TYPO3\Flow\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, 'Flowpack.Expose.Menu');
 
 		#$items = $this->parseRoutes($routes);
+		$items = $this->prepareMenuItems($menuConfiguration);
 
+		$this->templateVariableContainer->add($as, $items);
+		$output = $this->renderChildren();
+		$this->templateVariableContainer->remove($as);
+		return $output;
+	}
+
+	public function prepareMenuItems($menuItems) {
 		$menuItemDefaults = array(
 			'action' => 'index',
 			'arguments' => array()
 		);
+
 		$items = array();
-		foreach ($menuConfiguration as $menuItemName => $menuItemConfiguration) {
+		foreach ($menuItems as $menuItemName => $menuItemConfiguration) {
 			if (isset($menuItemConfiguration['entityClassName'])) {
 				$menuItemConfiguration = array_merge(array(
 					'controller' => 'Crud',
@@ -55,13 +64,13 @@ class MenuViewHelper extends AbstractViewHelper {
 				), $menuItemConfiguration);
 			}
 			$menuItemConfiguration['name'] = $menuItemName;
+			if (isset($menuItemConfiguration['subMenu'])) {
+				$menuItemConfiguration['subMenu'] = $this->prepareMenuItems($menuItemConfiguration['subMenu']);
+			}
 			$items[] = array_merge($menuItemDefaults, $menuItemConfiguration);
 		}
 
-		$this->templateVariableContainer->add($as, $items);
-		$output = $this->renderChildren();
-		$this->templateVariableContainer->remove($as);
-		return $output;
+		return $items;
 	}
 
 	public function parseRoutes($routes) {
