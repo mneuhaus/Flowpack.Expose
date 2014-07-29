@@ -87,6 +87,8 @@ class CrudController extends FallbackController {
 	 * @return void
 	 */
 	public function newAction() {
+		$entity = new $this->entity();
+		$this->view->assign('entity', $entity);
 		$this->view->assign('fieldsets', $this->getFieldsets());
 	}
 
