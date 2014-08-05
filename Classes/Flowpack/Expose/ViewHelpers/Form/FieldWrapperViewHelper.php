@@ -55,8 +55,8 @@ class FieldWrapperViewHelper extends AbstractViewHelper {
 		}
 
 		$content = '<div class="' . $formGroupClass . '">';
-		$content.= '<label for="' . $id . '" class="col-sm-2 control-label">' . $label . '</label>';
-		$content.= '<div class="col-sm-10">';
+		$content.= '<label for="' . $id . '" class="col-sm-3 control-label">' . $label . '</label>';
+		$content.= '<div class="col-sm-9">';
 		$content.= $this->renderChildren();
 		$content.= $helpBlock;
 		$content.= '</div>';

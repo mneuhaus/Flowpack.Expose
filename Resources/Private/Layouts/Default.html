@@ -8,7 +8,7 @@
 		<link rel="stylesheet" type="text/css" href="{f:uri.resource(path: 'Components/bootstrap/dist/css/bootstrap.min.css', package: 'Flowpack.Expose')}" />
 		<link rel="stylesheet" type="text/css" href="{f:uri.resource(path: 'Styles/Main.css', package: 'Flowpack.Expose')}" />
 
-		<script src="{f:uri.resource(path: 'Components/jquery.1.7.1.min.js', package: 'Flowpack.Expose')}"></script>
+		<script src="{f:uri.resource(path: 'Components/jquery/dist/jquery.js', package: 'Famelo.Harvest')}"></script>
 	</head>
 	<body class="layout-default">
 		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -26,23 +26,9 @@
 			  		<ul class="nav navbar-nav">
 						<e:navigation.menu>
 							<f:for each="{items}" as="menuItem">
-								<f:if condition="{menuItem.subMenu}">
-									<f:then>
-										<li class="dropdown">
-											<a href="#" class="dropdown-toggle" data-toggle="dropdown">{menuItem.name} <span class="caret"></span></a>
-											<ul class="dropdown-menu" role="menu">
-												<f:for each="{menuItem.subMenu}" as="subMenuItem">
-													<li><e:navigation.menuItem item="{subMenuItem}">{subMenuItem.name}</e:navigation.menuItem></li>
-												</f:for>
-											</ul>
-								        </li>
-									</f:then>
-									<f:else>
-										<li>
-											<e:navigation.menuItem item="{menuItem}">{menuItem.name}</e:navigation.menuItem>
-										</li>
-									</f:else>
-								</f:if>
+								<li>
+									<e:navigation.menuItem item="{menuItem}">{menuItem.name}</e:navigation.menuItem>
+								</li>
 							</f:for>
 						</e:navigation.menu>
 			  		</ul>
