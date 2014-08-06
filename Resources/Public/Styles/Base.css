@@ -1,0 +1,42 @@
+body.layout-default {
+  padding-top: 80px;
+}
+
+body.layout-login {
+  background: #3b3e40;
+}
+
+.typo3-expose-login {
+  width: 330px;
+  margin: 100px auto 0;
+  background: #f4f6f9;
+  padding: 20px;
+  box-shadow: 0 2px 1px -1px rgba(0,0,0,0.3);
+}
+
+.typo3-expose-login label {
+}
+
+.typo3-expose-login input,
+.typo3-expose-login button {
+  border-radius: 0;
+}
+
+.expose-table th.batch,
+.expose-table td.batch{
+	width: 30px;
+}
+
+.expose-toolbar {
+	overflow: hidden;
+	margin-bottom: 10px;
+}
+
+.expose-batch-control select.form-control{
+	width: auto;
+	float: left;
+	margin-right: 10px;
+}
+.expose-batch-control select.button{
+	float: left;
+}

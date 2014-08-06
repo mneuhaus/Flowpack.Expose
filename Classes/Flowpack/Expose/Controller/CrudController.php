@@ -149,9 +149,6 @@ class CrudController extends FallbackController {
 	 * @return void
 	 */
 	public function batchAction($entities, $batchAction) {
-		// foreach ($entities as $key => $entity) {
-		// 	$entities[$key] = $this->persistenceManager->getObjectByIdentifier($entity, $this->entity);
-		// }
 		return $this->forward($batchAction, NULL, NULL, array('entities' => $entities));
 	}
 
@@ -164,12 +161,11 @@ class CrudController extends FallbackController {
 		foreach ($entities as $key => $entity) {
 			$entities[$key] = $this->persistenceManager->getObjectByIdentifier($entity, $this->entity);
 		}
-		var_dump($entities);
 		foreach ($entities as $key => $entity) {
 			$this->persistenceManager->remove($entity);
 		}
 		$this->persistenceManager->persistAll();
-		$this->addFlashMessage('Deleted the entitries.');
+		$this->addFlashMessage('Deleted the entities.');
 		$this->redirect('index');
 	}
 

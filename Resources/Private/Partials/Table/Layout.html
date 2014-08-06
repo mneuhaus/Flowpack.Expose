@@ -3,20 +3,20 @@
 	<f:form action="batch">
 	<div class="row">
 		<div class="col-xs-12">
-			<div class="row">
+			<div class="row expose-toolbar">
 				<div class="col-xs-4">
-					<e:actions type="batch">
-						<f:form.select name="batchAction" options="{actions}" class="form-control col-xs-6" />
-					</e:actions>
-				</div>
-				<div class="col-xs-2">
-					<button type="submit" class="btn btn-default pull-left">Execute</button>
+					<div class="expose-batch-control">
+						<e:actions type="batch">
+							<f:form.select name="batchAction" options="{actions}" class="form-control" />
+						</e:actions>
+						<button type="submit" class="btn btn-default pull-left">Execute</button>
+					</div>
 				</div>
 				<div class="col-xs-6">
 					<e:block name="top"/>
 				</div>
 			</div>
-			<table class="table table-bordered table-striped">
+			<table class="table table-bordered table-striped expose-table">
 				<e:render partial="Table/Header" />
 				<e:render partial="Table/Body" />
 			</table>

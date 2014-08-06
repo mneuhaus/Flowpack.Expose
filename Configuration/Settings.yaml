@@ -16,6 +16,6 @@ Flowpack:
       float: 'Textfield'
       boolean: 'Checkbox'
       array: 'Select'
-      '\DateTime': 'Textfield'
+      '\DateTime': 'DateTime'
 
     Menu: []
