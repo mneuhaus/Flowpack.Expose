@@ -4,9 +4,9 @@
 		<td class="batch">
 			<f:form.checkbox name="entities[]" value="{e:format.uuid(object: entity)}" class="select-row" />
 		</td>
-		<f:for each="{schema.listFields}" as="field" iteration="iteration">
+		<f:for each="{schema.listProperties}" as="property" iteration="iteration">
 			<td>
-				<e:property object="{entity}" name="{field}" />
+				<e:property object="{entity}" name="{property.path}" />
 				<f:if condition="{iteration.isFirst}">
 					<div class="expose-actions">
 						<f:render partial="Table/Actions" arguments="{entity: entity, controller: controller}" />

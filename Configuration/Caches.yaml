@@ -1,0 +1,11 @@
+Flowpack_Expose_SchemaCache:
+  affectedFiles:
+    -
+      path: 'Configuration'
+      filePattern: '\.yaml$'
+    -
+      path: 'Resources/Private'
+      filePattern: '\.xlf$'
+    -
+      path: 'Classes/'
+      filePattern: '\.php$'

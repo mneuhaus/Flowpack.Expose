@@ -1,5 +1,5 @@
 {namespace e=Flowpack\Expose\ViewHelpers}
-<e:form.fieldWrapper id="{property.name}" label="{property.label}" property="{property.name}">
+<e:form.fieldWrapper id="{propertySchema.name}" label="{propertySchema.label}" property="{propertySchema.name}">
 	{control -> f:format.raw()}
-	<f:if condition="{property.description}"><p class="help-block">{property.description}</p></f:if>
+	<f:if condition="{propertySchema.intotext}"><p class="help-block">{propertySchema.intotext}</p></f:if>
 </e:form.fieldWrapper>

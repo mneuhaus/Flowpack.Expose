@@ -47,17 +47,12 @@ class FilterProcessor extends AbstractProcessor {
 		$this->request = $this->controllerContext->getRequest();
 
 		$schema = $this->templateVariableContainer->get('schema');
-		$fieldNames = $schema->getFilterFields();
+		$properties = $schema->getFilterProperties();
 		$className = $this->templateVariableContainer->get('className');
 		$classSchema = $this->reflectionService->getClassSchema($className);
 
-		if (empty($fieldNames)) {
+		if (empty($properties)) {
 			return;
-		}
-
-		$fields = array();
-		foreach ($fieldNames as $fieldName) {
-			$fields[$fieldName] = $classSchema->getProperty($fieldName);
 		}
 
 		$filter = array();
@@ -79,7 +74,7 @@ class FilterProcessor extends AbstractProcessor {
 		$this->viewHelperVariableContainer->add('Flowpack\Expose\Processor\FilterProcessor', 'filter', $filter);
 		$content = $this->viewHelperVariableContainer->getView()->renderPartial('Filter', NULL, array(
 			'filter' => $filter,
-			'fields' => $fields
+			'properties' => $properties
 		));
 		$this->viewHelperVariableContainer->remove('Flowpack\Expose\Processor\FilterProcessor', 'filter');
 		$this->addToBlock('sidebar', $content);

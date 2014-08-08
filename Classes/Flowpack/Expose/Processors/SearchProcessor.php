@@ -40,9 +40,9 @@ class SearchProcessor extends AbstractProcessor {
 		$this->request = $this->controllerContext->getRequest();
 
 		$schema = $this->templateVariableContainer->get('schema');
-		$fields = $schema->getSearchFields();
+		$properties = $schema->getSearchProperties();
 
-		if (empty($fields)) {
+		if (empty($properties)) {
 			return;
 		}
 
@@ -52,8 +52,8 @@ class SearchProcessor extends AbstractProcessor {
 
 			if (!empty($search)) {
 				$constraints = array();
-				foreach ($fields as $field) {
-					$constraints[] = $query->like($field, '%' . $search . '%', FALSE);
+				foreach ($properties as $property) {
+					$constraints[] = $query->like($property, '%' . $search . '%', FALSE);
 				}
 				$query->matching($query->logicalAnd(
 					$query->getConstraint(),

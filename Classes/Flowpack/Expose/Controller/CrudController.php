@@ -1,11 +1,12 @@
 <?php
 namespace Flowpack\Expose\Controller;
 
-use Flowpack\Expose\Domain\Schema;
-use TYPO3\Flow\Annotations as Flow;
 use Flowpack\Expose\Annotations as Expose;
+use Flowpack\Expose\Reflection\ClassSchema;
+use TYPO3\Flow\Annotations as Flow;
+use TYPO3\Flow\Mvc\Controller\ActionController;
 
-class CrudController extends FallbackController {
+class CrudController extends ActionController {
 	/**
 	 * @var string
 	 */
@@ -48,7 +49,7 @@ class CrudController extends FallbackController {
 			$this->arguments['entity']->getPropertyMappingConfiguration()->allowAllProperties();
 		}
 
-		$this->schema = new \Flowpack\Expose\Schema\DefaultSchema($this->entity);
+		$this->schema = new ClassSchema($this->entity);
 	}
 
 	/**

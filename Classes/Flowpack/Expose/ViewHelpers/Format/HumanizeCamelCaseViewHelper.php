@@ -11,6 +11,7 @@ namespace Flowpack\Expose\ViewHelpers\Format;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
+use Flowpack\Expose\Utility\Inflector;
 use TYPO3\Flow\Annotations as Flow;
 
 /**
@@ -29,7 +30,7 @@ use TYPO3\Flow\Annotations as Flow;
 class HumanizeCamelCaseViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
-	 * @var \TYPO3\Kickstart\Utility\Inflector
+	 * @var Inflector
 	 * @Flow\Inject
 	 */
 	protected $inflector;

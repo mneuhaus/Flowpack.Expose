@@ -1,12 +1,12 @@
 {namespace e=Flowpack\Expose\ViewHelpers}
-<f:if condition="{schema.listFields}">
+<f:if condition="{schema.listProperties}">
 	<tr>
 		<td class="batch">
 			<input type="checkbox" class="select-all" />
 		</td>
-		<f:for each="{schema.listFields}" as="field">
+		<f:for each="{schema.listProperties}" as="property">
 			<th>
-				<e:wrap name="field" arguments="{field: field}"><i class="fa"></i> {field -> e:format.humanizeCamelCase()}</e:wrap>
+				<e:wrap name="property" arguments="{property: property.name}"><i class="fa"></i> {property.label}</e:wrap>
 			</th>
 		</f:for>
 	</tr>

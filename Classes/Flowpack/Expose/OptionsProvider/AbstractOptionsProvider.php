@@ -1,6 +1,8 @@
 <?php
 namespace Flowpack\Expose\OptionsProvider;
 
+use Flowpack\Expose\Reflection\PropertySchema;
+
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "Flowpack.Expose".               *
  *                                                                        *
@@ -16,14 +18,20 @@ namespace Flowpack\Expose\OptionsProvider;
 abstract class AbstractOptionsProvider implements OptionsProviderInterface {
 
 	/**
-	 * @var array
+	 * @var PropertySchema
 	 */
 	protected $propertySchema;
 
 	/**
+	 * @var array
 	 */
-	public function __construct($propertySchema = array()) {
+	protected $settings;
+
+	/**
+	 */
+	public function __construct($propertySchema, $settings = array()) {
 		$this->propertySchema = $propertySchema;
+		$this->settings = $settings;
 	}
 
 }

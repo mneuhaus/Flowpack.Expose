@@ -23,7 +23,7 @@ namespace Flowpack\Expose\OptionsProvider;
  *                  Element: TYPO3.Form:SingleSelectDropdown
  *                  OptionsProvider:
  *                      Name: ConstOptionsProvider
- *                      RegEx: TYPE_.+
+ *                      Regex: TYPE_.+
  *
  */
 class ConstantOptionsProvider extends AbstractOptionsProvider {
@@ -34,10 +34,9 @@ class ConstantOptionsProvider extends AbstractOptionsProvider {
 	 * @return array $options
 	 */
 	public function getOptions() {
-		$className = $this->propertySchema['className'];
-		$options = $this->propertySchema['settings']['optionsProvider'];
+		$className = $this->propertySchema->getClassName();
 		$reflection = new \ReflectionClass($className);
-		$regex = $options['Regex'];
+		$regex = $this->settings['Regex'];
 		$constants = array();
 		foreach ($reflection->getConstants() as $key => $value) {
 			if (preg_match(('/' . $regex) . '/', $key)) {

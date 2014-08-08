@@ -22,6 +22,8 @@ namespace Flowpack\Expose\ViewHelpers\Form;
  *                                                                        */
 
 use Doctrine\ORM\Mapping as ORM;
+use Flowpack\Expose\Reflection\ClassSchema;
+use Flowpack\Expose\Reflection\PropertySchema;
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\Fluid\ViewHelpers\Form\AbstractFormFieldViewHelper;
@@ -72,14 +74,14 @@ class FieldViewHelper extends AbstractFormFieldViewHelper {
 		}
 
 		$property = $this->getProperty();
-		$this->arguments['property'] = $property;
+		$this->arguments['propertySchema'] = $property;
+		$this->arguments['value'] = $this->getValue();
 
 		if ($this->arguments['control'] !== NULL) {
+			$property->setControl($this->arguments['control']);
 			$partial = $this->arguments['control'];
-		} else if (isset($property['control'])) {
-			$partial = $property['control'];
 		} else {
-			$partial = $property['partial'];
+			$partial = $property->getControl();
 		}
 
 		$control = $this->viewHelperVariableContainer->getView()->renderPartial('Form/Field/' . $partial, NULL, $this->arguments);
@@ -96,27 +98,19 @@ class FieldViewHelper extends AbstractFormFieldViewHelper {
 	public function getProperty() {
 		if (empty($this->arguments['property']) === FALSE) {
 			$className = $this->templateVariableContainer->get('className');
-			$classSchema = new \Flowpack\Expose\Schema\DefaultSchema($className);
+			$classSchema = new ClassSchema($className);
 			$property = $classSchema->getProperty($this->arguments['property']);
 		} else {
-			$property = array(
-				'metaType' => $this->getTypeByValue(),
+			$property = new PropertySchema(array(
+				'control' => $this->resolveTypeByValue(),
 				'label' => $this->inflector->humanizeCamelCase($this->arguments['name'], FALSE)
-			);
+			));
 		}
-
-		$property['name'] = $this->getName();
-		$this->arguments['value'] = $this->getValue();
-
-		if (isset($this->fieldTypes[$property['metaType']]) === TRUE) {
-			$property['partial'] = $this->fieldTypes[$property['metaType']];
-		} else {
-			$property['partial'] = $property['metaType'];
-		}
+		$property->setFormName($this->getName());
 		return $property;
 	}
 
-	public function getTypeByValue() {
+	public function resolveTypeByValue() {
 		$value = $this->getValue();
 
 		if (is_string($value) || is_null($value)) {

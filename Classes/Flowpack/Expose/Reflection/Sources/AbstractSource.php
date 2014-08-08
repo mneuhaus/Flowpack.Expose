@@ -1,8 +1,8 @@
 <?php
-namespace Flowpack\Expose\Tests\Functional\Fixtures;
+namespace Flowpack\Expose\Reflection\Sources;
 
 /*                                                                        *
- * This script belongs to the TYPO3 Flow package "Flowpack.Expose".               *
+ * This script belongs to the TYPO3 Flow package "Flowpack.Expose".       *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -11,11 +11,19 @@ namespace Flowpack\Expose\Tests\Functional\Fixtures;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
+use TYPO3\Flow\Annotations as Flow;
+
 /**
  */
-class ClassWithToString {
-	public function __toString() {
-		return 'ClassWithToString';
+class AbstractSource {
+	/**
+	 * @var string
+	 */
+	protected $className;
+
+	public function __construct($className) {
+		$this->className = $className;
 	}
 }
+
 ?>

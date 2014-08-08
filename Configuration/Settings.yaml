@@ -10,7 +10,7 @@ Flowpack:
         - 50
         - 100
 
-    FieldTypes:
+    Controls:
       string: 'Textfield'
       integer: 'Textfield'
       float: 'Textfield'
@@ -19,3 +19,9 @@ Flowpack:
       '\DateTime': 'DateTime'
 
     Menu: []
+
+    ClassSchemaSources:
+      - '\Flowpack\Expose\Reflection\Sources\DefaultSource'
+      - '\Flowpack\Expose\Reflection\Sources\PhpSource'
+      # - '\Flowpack\Expose\Reflection\Sources\AnnotationSource'
+      - '\Flowpack\Expose\Reflection\Sources\YamlSource'

@@ -51,10 +51,10 @@ class RelationOptionsProvider extends AbstractOptionsProvider {
 	}
 
 	public function getRelationClass() {
-		if ($this->propertySchema['elementType'] !== NULL) {
-			return $this->propertySchema['elementType'];
+		if ($this->propertySchema->getElementType() !== NULL) {
+			return $this->propertySchema->getElementType();
 		}
-		return $this->propertySchema['type'];
+		return $this->propertySchema->getType();
 	}
 }
 
