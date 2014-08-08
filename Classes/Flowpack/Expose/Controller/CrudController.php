@@ -66,6 +66,7 @@ class CrudController extends FallbackController {
 	public function indexAction() {
 		$this->view->assign('entities', $this->getEntities());
 		$this->view->assign('schema', $this->schema);
+		$this->view->assign('controller', NULL);
 	}
 
 	public function getEntities() {
@@ -132,7 +133,7 @@ class CrudController extends FallbackController {
 	}
 
 	/**
-	 * @Expose\Action(type="local", label="Delete")
+	 * @Expose\Action(type="local", label="Delete", class="danger")
 	 * @param object $entity
 	 * @return void
 	 */

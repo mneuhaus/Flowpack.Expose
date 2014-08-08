@@ -1,6 +1,8 @@
 {namespace e=Flowpack\Expose\ViewHelpers}
 <e:actions type="local">
-	<f:for each="{actions}" key="action" as="actionName">
-		<e:link.action action="{action}" arguments="{entity: entity}" class="btn btn-primary pull-right method-post">{actionName}</e:link.action>
+<ul class="list-inline">
+	<f:for each="{actions}" key="action" as="actionAnnotation" iteration="actionIteration">
+		<li><e:link.action action="{action}" controller="{controller}" arguments="{entity: entity}" class="text-{actionAnnotation.class}" >{actionAnnotation.label}</e:link.action></li>
 	</f:for>
+</ul>
 </e:actions>

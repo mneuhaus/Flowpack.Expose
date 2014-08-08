@@ -54,7 +54,8 @@ class ActionsViewHelper extends AbstractViewHelper {
 				}
 				$annotation = current($annotations);
 				if ($annotation->type === $type) {
-					$actions[substr($objectMethod, 0, -6)] = $annotation->label;
+					$annotation->action = substr($objectMethod, 0, -6);
+					$actions[$annotation->action] = $annotation;
 				}
 			}
 		}

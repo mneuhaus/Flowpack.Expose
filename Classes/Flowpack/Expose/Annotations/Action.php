@@ -27,11 +27,22 @@ final class Action {
 	public $label = NULL;
 
 	/**
+	 * @var string
+	 */
+	public $class = NULL;
+
+	/**
+	 * @var string
+	 */
+	public $action = NULL;
+
+	/**
 	 * @param string $value
 	 */
 	public function __construct(array $values = array()) {
 		$this->type = isset($values['type']) ? $values['type'] : '';
 		$this->label = isset($values['label']) ? $values['label'] : '';
+		$this->class = isset($values['class']) ? $values['class'] : '';
 	}
 }
 

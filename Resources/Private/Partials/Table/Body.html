@@ -4,13 +4,15 @@
 		<td class="batch">
 			<f:form.checkbox name="entities[]" value="{e:format.uuid(object: entity)}" class="select-row" />
 		</td>
-		<f:for each="{schema.listFields}" as="field">
+		<f:for each="{schema.listFields}" as="field" iteration="iteration">
 			<td>
 				<e:property object="{entity}" name="{field}" />
+				<f:if condition="{iteration.isFirst}">
+					<div class="expose-actions">
+						<f:render partial="Table/Actions" arguments="{entity: entity, controller: controller}" />
+					</div>
+				</f:if>
 			</td>
 		</f:for>
-		<td class="actions">
-			<f:render partial="Table/Actions" arguments="{entity: entity}" />
-		</td>
 	<tr>
 </f:for>

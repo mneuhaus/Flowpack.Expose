@@ -8,9 +8,14 @@ class SchemaViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 	/**
 	 *
 	 * @param string $className
+	 * @param string $as
 	 * @return string
 	 */
-	public function render($className) {
-		// return ObjectAccess::getProperty($object, $name);
+	public function render($className, $as = 'schema') {
+		$schema = new \Flowpack\Expose\Schema\DefaultSchema($className);
+		$this->templateVariableContainer->add($as, $schema);
+		$content = $this->renderChildren();
+		$this->templateVariableContainer->remove($as);
+		return $content;
 	}
 }

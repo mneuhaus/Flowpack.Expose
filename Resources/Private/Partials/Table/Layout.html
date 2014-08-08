@@ -1,18 +1,19 @@
 {namespace e=Flowpack\Expose\ViewHelpers}
 <e:process objects="{entities}" processors="{schema.listProcessors}">
-	<f:form action="batch">
 	<div class="row">
 		<div class="col-xs-12">
 			<div class="row expose-toolbar">
 				<div class="col-xs-4">
 					<div class="expose-batch-control">
-						<e:actions type="batch">
-							<f:form.select name="batchAction" options="{actions}" class="form-control" />
-						</e:actions>
-						<button type="submit" class="btn btn-default pull-left">Execute</button>
+						<f:form action="batch">
+							<e:actions type="batch">
+								<f:form.select name="batchAction" options="{actions}" optionLabelField="label" optionValueField="action" class="form-control" />
+							</e:actions>
+							<button type="submit" class="btn btn-default pull-left">Execute</button>
+						</f:form>
 					</div>
 				</div>
-				<div class="col-xs-6">
+				<div class="col-xs-8">
 					<e:block name="top"/>
 				</div>
 			</div>
@@ -24,5 +25,4 @@
 		</div>
 		<e:block name="sidebar" />
 	</div>
-	</f:form>
 </e:process>

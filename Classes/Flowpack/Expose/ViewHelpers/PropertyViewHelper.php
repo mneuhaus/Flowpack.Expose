@@ -15,6 +15,6 @@ class PropertyViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper
 		if (method_exists($object, $name)) {
 			return $object->$name();
 		}
-		return ObjectAccess::getProperty($object, $name);
+		return ObjectAccess::getPropertyPath($object, $name);
 	}
 }

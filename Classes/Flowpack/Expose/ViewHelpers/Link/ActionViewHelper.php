@@ -79,7 +79,6 @@ class ActionViewHelper extends \TYPO3\Fluid\ViewHelpers\Link\ActionViewHelper {
 	 * @api
 	 */
 	public function render($action, $arguments = array(), $controller = NULL, $package = NULL, $subpackage = NULL, $section = '', $format = '',  array $additionalParams = array(), $addQueryString = FALSE, array $argumentsToBeExcludedFromQueryString = array(), $useParentRequest = FALSE, $absolute = TRUE) {
-
 		$request = $this->controllerContext->getRequest();
 
 		if ($request->hasArgument('entityClassName') && isset($arguments['entityClassName']) === FALSE) {

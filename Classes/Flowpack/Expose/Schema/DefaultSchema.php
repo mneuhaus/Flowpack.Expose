@@ -25,6 +25,7 @@ namespace Flowpack\Expose\Schema;
 use Doctrine\ORM\Mapping as ORM;
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Configuration\ConfigurationManager;
+use TYPO3\Flow\Utility\Arrays;
 use TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
@@ -201,7 +202,12 @@ class DefaultSchema {
 
 	public function getSearchFields() {
 		if (isset($this->settings['searchFields'])) {
-			return $this->settings['searchFields'];
+			if (is_array($this->settings['searchFields'])) {
+				return $this->settings['searchFields'];
+			}
+			if (is_string($this->settings['searchFields'])) {
+				return Arrays::trimExplode(',', $this->settings['searchFields']);
+			}
 		}
 		return array();
 	}
@@ -213,11 +219,7 @@ class DefaultSchema {
 			}
 
 			if (is_string($this->settings['filterFields'])) {
-				$fields = array();
-				foreach(explode(',', $this->settings['filterFields']) as $field)  {
-					$fields[] = trim($field);
-				}
-				return $fields;
+				return Arrays::trimExplode(',', $this->settings['filterFields']);
 			}
 		}
 		return array();

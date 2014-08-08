@@ -1,4 +1,4 @@
-<ul class="pagination">
+<ul class="pagination expose-limits">
 	<f:for each="{limits}" as="active" key="limit">
 		<f:if condition="{active}" ><f:then><li class="active"></f:then><f:else><li></f:else></f:if>
 			<f:link.action action="index" addQueryString="true" arguments="{limit: limit}">{limit}</f:link.action>
@@ -6,7 +6,7 @@
 	</f:for>
 </ul>
 
-<ul class="pagination pull-right">
+<ul class="pagination expose-pagination pull-right">
 	<f:if condition="{pagination.prevPage}">
 		<li><f:link.action action="index" addQueryString="true" arguments="{page: pagination.prevPage}">prev</f:link.action></li>
 	</f:if>

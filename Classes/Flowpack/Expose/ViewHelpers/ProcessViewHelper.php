@@ -22,12 +22,21 @@ namespace Flowpack\Expose\ViewHelpers;
  *                                                                        */
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\PersistentCollection;
 use TYPO3\Flow\Annotations as Flow;
+use TYPO3\Flow\Persistence\PersistenceManagerInterface;
 use TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  */
 class ProcessViewHelper extends AbstractViewHelper {
+
+	/**
+	 * @Flow\Inject
+	 * @var PersistenceManagerInterface
+	 */
+	protected $persistenceManager;
+
 	/**
 	 *
 	 * @param objects $objects
@@ -36,7 +45,17 @@ class ProcessViewHelper extends AbstractViewHelper {
 	 * @api
 	 */
 	public function render($objects, $processors = array()) {
-		$query = $objects->getQuery();
+		if ($objects instanceof PersistentCollection) {
+			$query = $this->persistenceManager->createQueryForType($objects->getTypeClass()->name);
+			$ids = array();
+			foreach ($objects as $object) {
+				$ids[] = $this->persistenceManager->getIdentifierByObject($object);
+			}
+			$query->matching($query->in('Persistence_Object_Identifier', $ids));
+		} else {
+			$query = $objects->getQuery();
+		}
+
 		foreach ($processors as $processorClassName => $active) {
 			if ($active !== TRUE) {
 				continue;

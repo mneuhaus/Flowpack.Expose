@@ -65,7 +65,7 @@ class SearchProcessor extends AbstractProcessor {
 		$content = $this->viewHelperVariableContainer->getView()->renderPartial('Search', NULL, array(
 			'search' => $search
 		));
-		$this->addToBlock('sidebar', $content);
+		$this->addToBlock('top', $content);
 	}
 }
 
