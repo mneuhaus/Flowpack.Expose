@@ -12,6 +12,11 @@ class CrudController extends FallbackController {
 	protected $entity;
 
 	/**
+	 * @var string
+	 */
+	protected $layout = 'Default';
+
+	/**
 	 * @var \TYPO3\Flow\Persistence\Repository
 	 */
 	protected $repository;
@@ -58,6 +63,7 @@ class CrudController extends FallbackController {
 	 */
 	protected function initializeView(\TYPO3\Flow\Mvc\View\ViewInterface $view) {
 		$view->assign('className', $this->entity);
+		$view->assign('layout', $this->layout);
 	}
 
 	/**
