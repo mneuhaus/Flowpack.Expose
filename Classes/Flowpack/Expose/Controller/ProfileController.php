@@ -14,16 +14,7 @@ use TYPO3\Party\Domain\Model\AbstractParty;
 /**
  * @Flow\Scope("singleton")
  */
-class UserController extends AbstractAuthenticationController {
-	/**
-	 * The default view object to use if none of the resolved views can render
-	 * a response for the current request.
-	 *
-	 * @var string
-	 * @api
-	 */
-	protected $defaultViewObjectName = 'Flowpack\Expose\View\FallbackView';
-
+class ProfileController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 	/**
 	 * @var string
 	 */
@@ -71,63 +62,6 @@ class UserController extends AbstractAuthenticationController {
 	}
 
 	/**
-	 *
-	 *
-	 * @return string
-	 */
-	public function indexAction() {
-		if ($this->securityContext->getParty() instanceof \TYPO3\Party\Domain\Model\AbstractParty) {
-			$this->redirectToUri('/');
-		}
-	}
-
-	/**
-	 * Authenticates an account by invoking the Provider based Authentication Manager.
-	 *
-	 * On successful authentication redirects to the list of posts, otherwise returns
-	 * to the login screen.
-	 *
-	 * @return void
-	 * @throws \TYPO3\Flow\Security\Exception\AuthenticationRequiredException
-	 */
-	public function authenticateAction() {
-		try {
-			$this->authenticationManager->authenticate();
-			$this->addFlashMessage('Login successul!');
-			$this->redirect('index');
-		} catch (\TYPO3\Flow\Security\Exception\AuthenticationRequiredException $exception) {
-			$this->addFlashMessage('Wrong username or password.');
-			throw $exception;
-		}
-	}
-
-	/**
-	 * Redirects to a potentially intercepted request. Returns an error message if there has been none.
-	 *
-	 * @param \TYPO3\Flow\Mvc\ActionRequest $originalRequest The request that was intercepted by the security framework, NULL if there was none
-	 * @return string
-	 */
-	protected function onAuthenticationSuccess(\TYPO3\Flow\Mvc\ActionRequest $originalRequest = NULL) {
-		if ($originalRequest !== NULL) {
-			$this->redirectToRequest($originalRequest);
-		}
-		return 'There was no redirect implemented and no intercepted request could be found after authentication.
-				Please implement onAuthenticationSuccess() in your login controller to handle this case correctly.
-				If you have a template for the authenticate action, simply make sure that onAuthenticationSuccess()
-				returns NULL in your login controller.';
-	}
-
-	/**
-	 *
-	 * @return void
-	 */
-	public function logoutAction() {
-		$this->authenticationManager->logout();
-		$this->addFlashMessage('Successfully logged out.');
-		$this->redirectToUri('/');
-	}
-
-	/**
 	 * @param object $entity
 	 * @return void
 	 */
@@ -138,15 +72,6 @@ class UserController extends AbstractAuthenticationController {
 		$this->view->assign('entity', $entity);
 		$this->view->assign('fieldsets', $this->getFieldsets());
 		$this->view->assign('className', $this->entity);
-	}
-
-	public function getFieldsets() {
-		if (empty($this->fields)) {
-			return array(array(
-				'name' => '',
-				'fields' => $this->reflectionService->getClassPropertyNames($this->entity)
-			));
-		}
 	}
 
 	/**
