@@ -79,8 +79,13 @@ class DefaultSchema {
 			$property['label'] = $this->getPropertyLabel($propertyName, $property);
 			$property['description'] = $this->getPropertyDescription($propertyName, $property);
 			$property['annotations'] = $this->reflectionService->getPropertyAnnotations($this->className, $propertyName);
+			$property['className'] = $className;
 
-			if ($property['metaType'] == 'SingleSelect' || $property['metaType'] == 'MultiSelect') {
+			if (isset($this->settings['properties'][$propertyName])) {
+				$property['settings'] = $this->settings['properties'][$propertyName];
+			}
+
+			if ($property['metaType'] == 'SingleSelect' || $property['metaType'] == 'MultiSelect' || isset($this->settings['properties'][$propertyName]['optionsProvider'])) {
 				$property['optionsProvider'] = $this->getOptionsProvider($property);
 			}
 
@@ -157,6 +162,12 @@ class DefaultSchema {
 
 		if (($property['type'] === 'array' || $property['type'] === 'SplObjectStorage' || $property['type'] === '\Doctrine\Common\Collections\Collection' || $property['type'] === '\Doctrine\Common\Collections\ArrayCollection')) {
 			return new \Flowpack\Expose\OptionsProvider\RelationOptionsProvider($property);
+		}
+
+		if (isset($property['settings']['optionsProvider'])) {
+			$optionsProviderSettings = $property['settings']['optionsProvider'];
+			$optionsProviderClassName = '\Flowpack\Expose\OptionsProvider\\' . $optionsProviderSettings['Name'] . 'OptionsProvider';
+			return new $optionsProviderClassName($property);
 		}
 	}
 
