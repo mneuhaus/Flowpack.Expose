@@ -22,46 +22,55 @@ namespace Flowpack\Expose\ViewHelpers\Form;
  *                                                                        */
 
 use Doctrine\ORM\Mapping as ORM;
+use Flowpack\Expose\Utility\StringFormatter;
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
+ * Checks if the specified property has errors and adds them as a variable to the view.
+ *
+ * Example
+ * =======
+ *
+ * .. code-block:: html
+ *
+ *   <e:form.propertyResults property="someProperty">
+ *     <f:for each="{errors}" as="error">
+ *       <p class="help-block">{error.message}</p>
+ *     </f:for>
+ *   </e:form.propertyResults>
+ *
  */
-class FieldWrapperViewHelper extends AbstractViewHelper {
+class PropertyResultsViewHelper extends AbstractViewHelper {
 	/**
 	 *
-	 * @param string $id
-	 * @param string $label
-	 * @param string $property
+	 * @param string $property Name of the propert to check for Validation errors
+	 * @param string $as Name of the variable the errors will be assigned into
 	 * @return string Rendered string
-	 * @author Marc Neuhaus <apocalip@gmail.com>
 	 * @api
 	 */
-	public function render($id, $label, $property) {
-		$formGroupClass = 'form-group';
-		$helpBlock = '';
-
+	public function render($property, $as = 'errors') {
 		$request = $this->controllerContext->getRequest();
 		$validationResults = $request->getInternalArgument('__submittedArgumentValidationResults');
 		$formObjectName = $this->viewHelperVariableContainer->get('TYPO3\Fluid\ViewHelpers\FormViewHelper', 'formObjectName');
-		if ($validationResults !== NULL && $property !== '') {
-			$validationResults = $validationResults->forProperty(str_replace('[', '.', str_replace(']', '', $property)));
-			if (count($validationResults->getErrors()) > 0) {
-				$formGroupClass.= ' has-error';
-				foreach ($validationResults->getErrors() as $error) {
-					$helpBlock.= '<span class="help-block">' . $error->getMessage() . '</span>';
-				}
-			}
+
+		if ($validationResults === NULL || $property === '') {
+			return;
 		}
 
-		$content = '<div class="' . $formGroupClass . '">';
-		$content.= '<label for="' . $id . '" class="col-sm-3 control-label">' . $label . '</label>';
-		$content.= '<div class="col-sm-9">';
-		$content.= $this->renderChildren();
-		$content.= $helpBlock;
-		$content.= '</div>';
-		$content.= '</div>';
-		return $content;
+		$propertyPath = StringFormatter::formNameToPath($property);
+		$validationResults = $validationResults->forProperty($propertyPath);
+
+		if (empty($validationResults->getErrors())) {
+			return;
+		}
+
+		$templateVariableContainer = $this->renderingContext->getTemplateVariableContainer();
+		$templateVariableContainer->add($as, $validationResults->getErrors());
+		$output = $this->renderChildren();
+		$templateVariableContainer->remove($as);
+
+		return $output;
 	}
 }
 

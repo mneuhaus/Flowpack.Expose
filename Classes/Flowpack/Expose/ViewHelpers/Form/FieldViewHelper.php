@@ -29,6 +29,90 @@ use TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\Fluid\ViewHelpers\Form\AbstractFormFieldViewHelper;
 
 /**
+ * You can use this ViewHelper to create complete form fields for your form.
+ * By default you have to take care of quite a lot of things yourself to render a form field, like
+ *
+ * * form control
+ * * label
+ * * relation between label and form control to enable focusing by clicking on the label
+ * * wrapper around the label + control for better styling
+ * * showing validation errors next to the form control
+ * * add a class to the wrapper around the label + control to indicate an validation error
+ * * maybe add an infotext
+ *
+ * To make this easier and reduce the fluid code needed you can use this viewhelper like this:
+ *
+ * Basic usage
+ * ===========
+ *
+ * .. code-block:: html
+ *
+ *   <e:form.field name="foo" control="Textfield" wrap="Default" value="bar" />
+ *
+ * This will render a ``Textfield`` with the name ``foo`` inside the default wrapper based on Bootstrap 3
+ * and a value of ``bar`
+ *
+ * .. code-block:: html
+ *
+ *   <div class="form-group">
+ *     <label for="foo" class="col-sm-3 control-label">Foo</label>
+ *     <div class="col-sm-9">
+ *       <input class="form-control" id="foo" type="text" name="foo" value="bar">
+ *     </div>
+ *   </div>
+ *
+ * **Output of the same field when validation failed**
+ *
+ * .. code-block:: html
+ *
+ *   <div class="form-group has-error">
+ *     <label for="foo" class="col-sm-3 control-label">Foo</label>
+ *     <div class="col-sm-9">
+ *       <input class="form-control" id="foo" type="text" name="foo" value="bar">
+ *       <span class="help-block">This property is required.</span>
+ *     </div>
+ *   </div>
+ *
+ * Usage with an object bound form
+ * ===============================
+ *
+ * To make things even easier you can use it in combinatin with the binding of objects to you form like this:
+ *
+ * .. code-block:: html
+ *   <f:form action="create" object="myObject" name="myObject">
+ *     <e:form.field property="someString" />
+ *     <e:form.field property="someRelation" />
+ *     <e:form.field property="someBoolean" />
+ *     ...
+ *   </f:form>
+ *
+ * This will automatically resolve the control that should be used based on the property type and use the default wrap.
+ *
+ * .. code-block:: html
+ *
+ *	 <form action="...">
+ *     <div class="form-group">
+ *       <label for="someString" class="col-sm-3 control-label">Some String</label>
+ *       <div class="col-sm-9">
+ *         <input class="form-control" id="someString" type="text" name="someString">
+ *       </div>
+ *     </div>
+ *     <div class="form-group">
+ *       <label for="someRelation" class="col-sm-3 control-label">Some String</label>
+ *       <div class="col-sm-9">
+ *         <input class="form-control" id="someRelation" type="text" name="someRelation">
+ *         <select class="form-control" id="someRelation" name="someRelation">
+ *           <!-- Options provided by the RelationOptionsProvider -->
+ *         </select>
+ *       </div>
+ *     </div>
+ *     <div class="form-group">
+ *       <label for="someString" class="col-sm-3 control-label">Some String</label>
+ *       <div class="col-sm-9">
+ *         <input class="form-control" id="someString" type="text" name="someString">
+ *       </div>
+ *     </div>
+ *   </form>
  */
 class FieldViewHelper extends AbstractFormFieldViewHelper {
 
@@ -58,7 +142,7 @@ class FieldViewHelper extends AbstractFormFieldViewHelper {
 	 */
 	public function initializeArguments() {
 		parent::initializeArguments();
-		$this->registerArgument('control', 'string', 'Specifies the type of the properties value', FALSE, NULL);
+		$this->registerArgument('control', 'string', 'Specifies the control to use to render this field', FALSE, NULL);
 		$this->registerArgument('wrap', 'string', 'Specifies the wrap used to render the field', FALSE, 'Default');
 		$this->registerUniversalTagAttributes();
 	}

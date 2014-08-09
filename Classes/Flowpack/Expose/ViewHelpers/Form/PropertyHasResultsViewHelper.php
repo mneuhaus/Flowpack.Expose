@@ -1,5 +1,5 @@
 <?php
-namespace Flowpack\Expose\ViewHelpers;
+namespace Flowpack\Expose\ViewHelpers\Form;
 
 /*                                                                        *
  * This script belongs to the Flow framework.                             *
@@ -22,38 +22,52 @@ namespace Flowpack\Expose\ViewHelpers;
  *                                                                        */
 
 use Doctrine\ORM\Mapping as ORM;
+use Flowpack\Expose\Utility\StringFormatter;
 use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3\Fluid\Core\ViewHelper\AbstractConditionViewHelper;
 
 /**
+ * You can use this viewhelper to check if a property has validation errors.
+ *
+ * Examples
+ * =======
+ *
+ * .. code-block:: html
+ *
+ *   <div class="form-group {e:form.propertyHasResults(property: someProperty, then: 'has-error')}">
+ *     ...
+ *   </div>
+ *
+ * .. code-block:: html
+ *
+ *   <e:form.propertyHasResults property="someProperty">
+ *     This property has some errors!
+ *   </e:form.propertyHasResults>
  */
-class WrapViewHelper extends AbstractViewHelper {
-	/**
-	 * Constructor
-	 *
-	 * @api
-	 */
-	public function __construct() {
-		$this->registerArgument('name', 'string', 'Name of the Wrapper', TRUE);
-		$this->registerArgument('arguments', 'array', 'Arguments supplied to the callback applying this wrapper', FALSE);
-	}
-
+class PropertyHasResultsViewHelper extends AbstractConditionViewHelper {
 	/**
 	 *
-	 * @param string $name Name of the Wrapper
-	 * @param array $arguments Arguments supplied to the callback applying this wrapper
+	 * @param string $property Name of the property to check for Validation errors
 	 * @return string Rendered string
 	 * @api
 	 */
-	public function render($name, $arguments = array()) {
-		$content = $this->renderChildren();
-		if ($this->viewHelperVariableContainer->exists('Flowpack\Expose\ViewHelpers\WrapViewHelper', $name)) {
-			$wraps = $this->viewHelperVariableContainer->get('Flowpack\Expose\ViewHelpers\WrapViewHelper', $name);
-			foreach ($wraps as $wrap) {
-				$content = $wrap->wrap($content, $arguments);
-			}
+	public function render($property) {
+		$request = $this->controllerContext->getRequest();
+		$validationResults = $request->getInternalArgument('__submittedArgumentValidationResults');
+		$formObjectName = $this->viewHelperVariableContainer->get('TYPO3\Fluid\ViewHelpers\FormViewHelper', 'formObjectName');
+
+		if ($validationResults === NULL || $property === '') {
+			return;
 		}
-		return $content;
+
+		$propertyPath = StringFormatter::formNameToPath($property);
+		$validationResults = $validationResults->forProperty($propertyPath);
+
+		if (!empty($validationResults->getErrors())) {
+			return $this->renderThenChild();
+		} else {
+			return $this->renderElseChild();
+		}
 	}
 }
 

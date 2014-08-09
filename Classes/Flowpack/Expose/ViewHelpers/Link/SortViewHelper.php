@@ -26,6 +26,14 @@ use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 
 /**
+ * This viewhelper only works in conjunction with the SortProcessor.
+ *
+ * Example
+ * =======
+ *
+ * .. code-block:: html
+ *
+ *   <e:link.sort property="someProperty">Some Property</e:link.sort>
  */
 class SortViewHelper extends AbstractTagBasedViewHelper {
 	/**

@@ -26,6 +26,22 @@ use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
+ * This viewhelper looks for actions annotated with the ``\Flowpack\Expose\Annotations\Action`` annotation and filter them
+ * by the type of action specified (local, global, batch)
+ *
+ * Example
+ * =======
+ *
+ * .. code-block:: html
+ *
+ *   <e:actions type="global">
+ *     <f:for each="{actions}" key="action" as="actionAnnotation">
+ *       <e:link.action action="{action}" class="{actionAnnotation.class}">
+ *         {actionAnnotation.label}
+ *       </e:link.action>
+ *     </f:for>
+ *   </e:actions>
+ *
  */
 class ActionsViewHelper extends AbstractViewHelper {
 
@@ -37,8 +53,8 @@ class ActionsViewHelper extends AbstractViewHelper {
 
 	/**
 	 *
-	 * @param string $type
-	 * @param string $actions
+	 * @param string $type Type of actions to return [local|global|batch]
+	 * @param string $actions Variable to assign the actions into the view with
 	 * @return string Rendered string
 	 * @api
 	 */

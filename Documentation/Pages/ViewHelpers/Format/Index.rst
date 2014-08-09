@@ -1,0 +1,8 @@
+Format
+======
+
+.. toctree::
+  :titlesonly:
+  :glob:
+
+  *

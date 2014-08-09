@@ -8,6 +8,11 @@ namespace Flowpack\Expose\ViewHelpers;
 
 use TYPO3\Flow\Annotations as Flow;
 
+
+/**
+ * This ViewHelper helps you to use the currently logged in party in your fluid template without littering every controller
+ * the securityContext and assigning the current party to the view.
+ */
 class UserViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**

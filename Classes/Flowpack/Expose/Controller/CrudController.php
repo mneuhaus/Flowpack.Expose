@@ -177,4 +177,21 @@ class CrudController extends ActionController {
 		$this->redirect('index');
 	}
 
+	/**
+	 * A special action which is called if the originally intended action could
+	 * not be called, for example if the arguments were not valid.
+	 *
+	 * The default implementation sets a flash message, request errors and forwards back
+	 * to the originating action. This is suitable for most actions dealing with form input.
+	 *
+	 * @return string
+	 * @api
+	 */
+	protected function errorAction() {
+		// $this->addErrorFlashMessage();
+		$this->redirectToReferringRequest();
+
+		return $this->getFlattenedValidationErrorMessage();
+	}
+
 }

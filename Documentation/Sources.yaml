@@ -1,0 +1,7 @@
+'ViewHelpers':
+  path: Classes/Flowpack/Expose/ViewHelpers
+  namespace: Flowpack\Expose\ViewHelpers
+  namespaceName: 'e'
+  filePattern: 'Pages/ViewHelpers/{dirname}{basename}.rst'
+  scraper: ViewHelperDocumentationScraper
+  template: resource://Flowpack.DocumentationScraper/Private/Templates/ViewHelper.rst

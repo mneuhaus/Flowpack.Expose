@@ -1,0 +1,8 @@
+Navigation
+==========
+
+.. toctree::
+  :titlesonly:
+  :glob:
+
+  *

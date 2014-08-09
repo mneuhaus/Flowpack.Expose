@@ -12,8 +12,8 @@ SingleSelectionMixin, MultiSelectionMixin and similar.
 The interface consists of only 1 method called "getOptions" which should return
 an associative array of key, value pairs.
 
-TYPO3.Expose OptionsProvider
-============================
+Flowpack.Expose OptionsProvider
+===============================
 
 RoleOptionsProvider
 ===================
@@ -24,22 +24,36 @@ ArrayOptionsProvider
 ConstOptionsProvider
 ===================
 
-This OptionsProvider is used to load options from an Entities classby using a
-regular expression to match existing constants
+This OptionsProvider is used to load options from an Entities class by using a
+regular expression to match existing constants.
 
-.. code-block:: typoscript
+.. code-block:: php
 
-	prototype(TYPO3.Expose:Schema:TYPO3.Party.Domain.Model.ElectronicAddress) < prototype(TYPO3.Expose:Schema) {
-		properties {
-			cycle {
-				element = 'TYPO3.Form:SingleSelectDropdown'
-				optionsProvider {
-					class = 'ConstOptionsProvider'
-					RegEx = 'TYPE_.+'
-				}
-			}
-		}
-	}
+  <?php
+  class ElectronicAddress {
+
+    const TYPE_AIM = 'Aim';
+    const TYPE_EMAIL = 'Email';
+    const TYPE_ICQ = 'Icq';
+    const TYPE_JABBER = 'Jabber';
+    ...
+
+    /**
+     * @var string
+     */
+    protected $type;
+  }
+
+.. code-block:: yaml
+
+  '\TYPO3\Party\Domain\Model\ElectronicAddress':
+    properties:
+      type:
+        control: 'SingleSelect'
+          optionsProvider:
+            Name: Constant
+            Regex: TYPE_.+
+
 
 Custom OptionsProvider
 ======================

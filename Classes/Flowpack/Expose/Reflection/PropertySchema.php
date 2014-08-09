@@ -12,6 +12,7 @@ namespace Flowpack\Expose\Reflection;
  *                                                                        */
 
 use Flowpack\Expose\Reflection\ClassSchema;
+use Flowpack\Expose\Utility\StringFormatter;
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Reflection\ReflectionService;
 
@@ -74,6 +75,10 @@ class PropertySchema {
 
 	public function getPath() {
 		return $this->prefix === NULL ? $this->schema['name'] : $this->prefix . '.' . $this->schema['name'];
+	}
+
+	public function getFormId() {
+		return StringFormatter::pathToFormId($this->getPath());
 	}
 
 	public function getLabel() {
