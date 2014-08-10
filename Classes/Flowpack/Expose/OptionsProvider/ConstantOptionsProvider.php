@@ -11,6 +11,8 @@ namespace Flowpack\Expose\OptionsProvider;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
+use Flowpack\Expose\Core\OptionsProvider\AbstractOptionsProvider;
+
 /**
  *
  * This OptionsProvider is used to load options from an Entities class

@@ -1,5 +1,5 @@
 <?php
-namespace Flowpack\Expose\Annotations;
+namespace Flowpack\Expose\Core\QueryBehaviors;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "Flowpack.Expose".       *
@@ -12,24 +12,15 @@ namespace Flowpack\Expose\Annotations;
  *                                                                        */
 
 /**
- * @Annotation
  */
-final class OptionsProvider {
-
+interface QueryBehaviorInterface {
 	/**
-	 * @var string
+	 *
+	 * @param object $query
+	 * @return void
+	 * @api
 	 */
-	public $className = '';
-
-	/**
-	 * @param string $value
-	 */
-	public function __construct(array $values) {
-		if (isset($values['value'])) {
-			$this->className = $values['value'];
-		}
-	}
-
+	public function run($query);
 }
 
 ?>

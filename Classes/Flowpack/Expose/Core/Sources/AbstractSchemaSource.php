@@ -1,5 +1,5 @@
 <?php
-namespace Flowpack\Expose\Reflection\Sources;
+namespace Flowpack\Expose\Core\Sources;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "Flowpack.Expose".       *
@@ -15,7 +15,7 @@ use TYPO3\Flow\Annotations as Flow;
 
 /**
  */
-class AbstractSource {
+abstract class AbstractSchemaSource implements SchemaSourceInterface {
 	/**
 	 * @var string
 	 */

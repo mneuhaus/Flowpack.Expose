@@ -1,8 +1,8 @@
 <?php
-namespace Flowpack\Expose\OptionsProvider;
+namespace Flowpack\Expose\Core\Sources;
 
 /*                                                                        *
- * This script belongs to the TYPO3 Flow package "Flowpack.Expose".          *
+ * This script belongs to the TYPO3 Flow package "Flowpack.Expose".       *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -11,17 +11,16 @@ namespace Flowpack\Expose\OptionsProvider;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
+use TYPO3\Flow\Annotations as Flow;
+
 /**
  */
-interface OptionsProviderInterface {
-
+interface SchemaSourceInterface {
 	/**
-	 * Returns the options used by the Form Elements
-	 *
-	 * @return array
+	 * Compile the schema for a specific className
+	 * @return array $schema
 	 */
-	public function getOptions();
-
+	public function compileSchema();
 }
 
 ?>

@@ -11,13 +11,14 @@ namespace Flowpack\Expose\Reflection\Sources;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
+use Flowpack\Expose\Core\Sources\AbstractSchemaSource;
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Configuration\ConfigurationManager;
 use TYPO3\Flow\Utility\Arrays;
 
 /**
  */
-class YamlSource extends AbstractSource {
+class YamlSource extends AbstractSchemaSource {
 
 	/**
 	 * @Flow\Inject

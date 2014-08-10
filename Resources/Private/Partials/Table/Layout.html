@@ -1,5 +1,5 @@
 {namespace e=Flowpack\Expose\ViewHelpers}
-<e:process objects="{entities}" processors="{schema.listProcessors}">
+<e:behavior objects="{entities}" behaviors="{schema.listBehaviors}">
 	<div class="row">
 		<div class="col-xs-12">
 			<div class="row expose-toolbar">
@@ -25,4 +25,4 @@
 		</div>
 		<e:block name="sidebar" />
 	</div>
-</e:process>
+</e:behavior>

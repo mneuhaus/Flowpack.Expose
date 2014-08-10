@@ -11,12 +11,13 @@ namespace Flowpack\Expose\Reflection\Sources;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
+use Flowpack\Expose\Core\Sources\AbstractSchemaSource;
 use Flowpack\Expose\Utility\Inflector;
 use TYPO3\Flow\Annotations as Flow;
 
 /**
  */
-class DefaultSource extends AbstractSource {
+class DefaultSource extends AbstractSchemaSource {
 
 	/**
 	 * @var Inflector
@@ -33,16 +34,16 @@ class DefaultSource extends AbstractSource {
 	public function compileSchema() {
 		$schema = array(
 			'listProperties' => array('__toString'),
-			'searchProperties' => array(),
-			'filterProperties' => array(),
+			'listBehaviors' => array(
+				'\Flowpack\Expose\QueryBehaviors\SearchBehavior' => TRUE,
+				'\Flowpack\Expose\QueryBehaviors\FilterBehavior' => TRUE,
+				'\Flowpack\Expose\QueryBehaviors\PaginationBehavior' => TRUE,
+				'\Flowpack\Expose\QueryBehaviors\SortBehavior' => TRUE
+			),
 			'defaultSortBy' => NULL,
 			'defaultOrder' => NULL,
-			'listProcessors' => array(
-				'\Flowpack\Expose\Processors\SearchProcessor' => TRUE,
-				'\Flowpack\Expose\Processors\FilterProcessor' => TRUE,
-				'\Flowpack\Expose\Processors\PaginationProcessor' => TRUE,
-				'\Flowpack\Expose\Processors\SortProcessor' => TRUE
-			)
+			'filterProperties' => array(),
+			'searchProperties' => array()
 		);
 		$propertyNames = $this->reflectionService->getClassPropertyNames($this->className);
 		foreach ($propertyNames as $key => $propertyName) {

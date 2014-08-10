@@ -1,38 +1,27 @@
 <?php
-namespace Flowpack\Expose\Processors;
-
+namespace Flowpack\Expose\QueryBehaviors;
 
 /*                                                                        *
- * This script belongs to the FLow framework.                            *
+ * This script belongs to the TYPO3 Flow package "Flowpack.Expose".       *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
- * the terms of the GNU Lesser General Public License as published by the *
- * Free Software Foundation, either version 3 of the License, or (at your *
- * option) any later version.                                             *
- *                                                                        *
- * This script is distributed in the hope that it will be useful, but     *
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHAN-    *
- * TABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser       *
- * General Public License for more details.                               *
- *                                                                        *
- * You should have received a copy of the GNU Lesser General Public       *
- * License along with the script.                                         *
- * If not, see http://www.gnu.org/licenses/lgpl.html                      *
+ * the terms of the GNU Lesser General Public License, either version 3   *
+ * of the License, or (at your option) any later version.                 *
  *                                                                        *
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
 use Doctrine\ORM\Mapping as ORM;
+use Flowpack\Expose\Core\QueryBehaviors\AbstractQueryBehavior;
 use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Configuration\ConfigurationManager;
-use TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3\Flow\Reflection\ReflectionService;
 
 /**
  */
-class FilterProcessor extends AbstractProcessor {
+class FilterBehavior extends AbstractQueryBehavior {
 
 	/**
-	 * @var \TYPO3\Flow\Reflection\ReflectionService
+	 * @var ReflectionService
 	 * @Flow\Inject
 	 */
 	protected $reflectionService;
@@ -43,9 +32,7 @@ class FilterProcessor extends AbstractProcessor {
 	 * @return string Rendered string
 	 * @api
 	 */
-	public function process($query) {
-		$this->request = $this->controllerContext->getRequest();
-
+	public function run($query) {
 		$schema = $this->templateVariableContainer->get('schema');
 		$properties = $schema->getFilterProperties();
 		$className = $this->templateVariableContainer->get('className');
@@ -69,14 +56,12 @@ class FilterProcessor extends AbstractProcessor {
 			));
 		}
 
-
-
-		$this->viewHelperVariableContainer->add('Flowpack\Expose\Processor\FilterProcessor', 'filter', $filter);
+		$this->viewHelperVariableContainer->add('Flowpack\Expose\QueryBehaviors\FilterBehavior', 'filter', $filter);
 		$content = $this->viewHelperVariableContainer->getView()->renderPartial('Filter', NULL, array(
 			'filter' => $filter,
 			'properties' => $properties
 		));
-		$this->viewHelperVariableContainer->remove('Flowpack\Expose\Processor\FilterProcessor', 'filter');
+		$this->viewHelperVariableContainer->remove('Flowpack\Expose\QueryBehaviors\FilterBehavior', 'filter');
 		$this->addToBlock('sidebar', $content);
 	}
 }

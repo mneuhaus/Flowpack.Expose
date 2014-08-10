@@ -152,8 +152,8 @@ class ClassSchema {
 		return $this->schema['defaultOrder'];
 	}
 
-	public function getListProcessors() {
-		return $this->schema['listProcessors'];
+	public function getListBehaviors() {
+		return $this->schema['listBehaviors'];
 	}
 
 	public function getSources() {
@@ -172,25 +172,6 @@ class ClassSchema {
 		foreach ($this->getSources() as $key => $source) {
 			$schema = \TYPO3\Flow\Utility\Arrays::arrayMergeRecursiveOverrule($schema, $source->compileSchema());
 		}
-
-		// $package = $this->getPackageByClassName($this->getClassName());
-		// $translatables = array('label', 'infotext', 'confirmationLabel');
-
-		// foreach ($schema['properties'] as $propertyName => $propertySchema) {
-		// 	foreach ($propertySchema as $key => $value) {
-		// 		if (in_array($key, $translatables) && empty($value) === FALSE) {
-		// 			$id = str_replace('\\', '.', ltrim($this->getClassName(), '\\')) . '.' . $propertyName . '.' . $key;
-		// 			$originalLabel = $schema['properties'][$propertyName][$key];
-		// 			$translation = $this->translator->reset()
-		// 				->setSourceName('Expose')
-		// 				->setPackageKey($package)
-		// 				->translate($id, $originalLabel);
-		// 			if ($translation !== $originalLabel) {
-		// 				$schema['properties'][$propertyName][$key] = $translation;
-		// 			}
-		// 		}
-		// 	}
-		// }
 
 		$arraySorter = new PositionalArraySorter($schema['properties'], 'position');
 		try {
