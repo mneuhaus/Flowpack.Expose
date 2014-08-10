@@ -15,10 +15,26 @@ use TYPO3\Flow\Annotations as Flow;
 use Flowpack\Expose\Core\OptionsProvider\AbstractOptionsProvider;
 
 /**
- * OptionsProvider for related Beings
- *
+ * This OptionsProvider is used to fetch entities based on the orm relation of a property.
  */
 class RelationOptionsProvider extends AbstractOptionsProvider {
+	/**
+	 * This contains the supported settings, their default values, descriptions and types.
+	 *
+	 * @var array
+	 */
+	protected $supportedSettings = array(
+		'QueryMethod' => array(
+			'default' => 'createQuery',
+			'description' => 'Method to call on the Repository to create a query',
+			'required' => FALSE
+		),
+		'EmptyOption' => array(
+			'default' => NULL,
+			'description' => 'Set this setting to add an emtpy option to the beginning of the options',
+			'required' => FALSE
+		)
+	);
 
 	/**
 	 * @var \TYPO3\Flow\Persistence\PersistenceManagerInterface
@@ -38,17 +54,24 @@ class RelationOptionsProvider extends AbstractOptionsProvider {
 	 */
 	protected $objectManager;
 
-
 	/**
 	*/
 	public function getOptions() {
 		$classSchema = $this->reflectionService->getClassSchema($this->getRelationClass());
 		if ($classSchema->getRepositoryClassName() !== NULL) {
-			$query = $this->objectManager->get($classSchema->getRepositoryClassName())->createQuery();
+			$repository = $this->objectManager->get($classSchema->getRepositoryClassName());
+			$query = call_user_func(array($repository, $this->settings['QueryMethod']));
 		} else {
 			$query = $this->persistenceManager->createQueryForType($this->getRelationClass());
 		}
-		return $query->execute();
+
+		$options = $query->execute()->toArray();
+
+		if ($this->settings['EmptyOption'] !== NULL) {
+			array_unshift($options, $this->settings['EmptyOption']);
+		}
+
+		return $options;
 	}
 
 	public function getRelationClass() {

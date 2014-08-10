@@ -118,16 +118,6 @@ class PropertySchema {
 	}
 
 	public function getOptionsProvider() {
-		if (class_exists($this->getType())) {
-			if ($this->reflectionService->isClassAnnotatedWith($this->getType(), '\TYPO3\Flow\Annotations\Entity')) {
-				return new \Flowpack\Expose\OptionsProvider\RelationOptionsProvider($this);
-			}
-		}
-
-		if (($this->getType() === 'array' || $this->getType() === 'SplObjectStorage' || $this->getType() === '\Doctrine\Common\Collections\Collection' || $this->getType() === '\Doctrine\Common\Collections\ArrayCollection')) {
-			return new \Flowpack\Expose\OptionsProvider\RelationOptionsProvider($this);
-		}
-
 		if (isset($this->schema['optionsProvider'])) {
 			$settings = $this->schema['optionsProvider'];
 			$className = $this->schema['optionsProvider']['Name'];

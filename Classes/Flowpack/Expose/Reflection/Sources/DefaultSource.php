@@ -52,7 +52,10 @@ class DefaultSource extends AbstractSchemaSource {
 				'label' => $this->inflector->humanizeCamelCase($propertyName, FALSE),
 				'parentClassName' => $this->className,
 				'position' => ( $key + 1 ) * 100,
-				'infotext' => ''
+				'infotext' => '',
+				'optionsProvider' => array(
+					'Name' => 'Relation'
+				)
 			);
 		}
 		return $schema;

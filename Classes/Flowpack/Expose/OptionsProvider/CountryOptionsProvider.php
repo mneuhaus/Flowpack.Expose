@@ -12,37 +12,18 @@ namespace Flowpack\Expose\OptionsProvider;
  *                                                                        */
 
 use Flowpack\Expose\Core\OptionsProvider\AbstractOptionsProvider;
+use TYPO3\Flow\Annotations as Flow;
 
 /**
- *
- * This OptionsProvider is used to load options from an Entities class
- * by using a regular expression to match existing constants
- *
- * Example
- * -------
- *
- * .. code-block:: yaml
- *      TYPO3\Party\Domain\Model\ElectronicAddress:
- *          Properties:
- *              type:
- *                  Element: TYPO3.Form:SingleSelectDropdown
- *                  OptionsProvider:
- *                      Name: ConstOptionsProvider
- *                      Regex: TYPE_.+
- *
+ * This OptionsProvider is provides a localized list of countries
  */
-class ConstantOptionsProvider extends AbstractOptionsProvider {
+class CountryOptionsProvider extends AbstractOptionsProvider {
 	/**
 	 * This contains the supported settings, their default values, descriptions and types.
 	 *
 	 * @var array
 	 */
 	protected $supportedSettings = array(
-		'Regex' => array(
-			'default' => array(),
-			'description' => 'Contains a Regular Expression to filter the class constants',
-			'required' => TRUE
-		),
 		'EmptyOption' => array(
 			'default' => NULL,
 			'description' => 'Set this setting to add an emtpy option to the beginning of the options',
@@ -51,25 +32,31 @@ class ConstantOptionsProvider extends AbstractOptionsProvider {
 	);
 
 	/**
-	 * Load the Options by searching the Entities constants based on the specified regular
-	 * expression
+	 * @var \TYPO3\Flow\I18n\Service
+	 * @Flow\Inject;
+	 */
+	protected $i18nService;
+
+	/**
+	 * This functions returns the Options defined by a internal property
+	 * or Annotations
 	 *
 	 * @return array $options
 	 */
 	public function getOptions() {
-		$className = $this->propertySchema->getClassName();
-		$reflection = new \ReflectionClass($className);
-		$regex = $this->settings['Regex'];
-		$constants = array();
+		$options = array();
+
 		if ($this->settings['EmptyOption'] !== NULL) {
 			$constants[] = $this->settings['EmptyOption'];
 		}
-		foreach ($reflection->getConstants() as $key => $value) {
-			if (preg_match(('/' . $regex) . '/', $key)) {
-				$constants[constant(($className . '::') . $key)] = $value;
+
+		$territories = $this->i18nService->getTerritory();
+		foreach ($territories as $key => $value) {
+			if (!is_numeric($key)) {
+				$options[$key] = $value;
 			}
 		}
-		return $constants;
+		return $options;
 	}
 
 }
