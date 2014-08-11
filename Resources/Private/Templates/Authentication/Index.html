@@ -12,9 +12,12 @@
         <f:form.password  name="__authentication[TYPO3][Flow][Security][Authentication][Token][UsernamePassword][password]" placeholder="Passwort" tabindex="2" class="form-control" />
       </div>
       <button type="submit" class="btn btn-default pull-right">Anmelden</button>
-<!--               <f:link.action action="forgotPassword">
-              <span class="glyphicon glyphicon-envelope"></span> &nbsp; Passwort vergessen
-            </f:link.action> -->
+      <f:link.action action="forgotPassword">
+        <span class="glyphicon glyphicon-envelope"></span> &nbsp; Passwort vergessen
+      </f:link.action><br />
+      <f:link.action action="index" controller="Registration" package="Flowpack.Expose">
+        <span class="glyphicon glyphicon-user"></span> &nbsp; Registrieren
+      </f:link.action>
     </f:form>
   </div>
 </f:section>

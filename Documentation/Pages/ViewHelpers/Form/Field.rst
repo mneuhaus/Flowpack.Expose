@@ -1,5 +1,5 @@
-Field
------
+Form/Field
+----------
 
 
 You can use this ViewHelper to create complete form fields for your form.
@@ -18,7 +18,7 @@ To make this easier and reduce the fluid code needed you can use this viewhelper
 Basic usage
 ===========
 
-.. code-block:: html
+.. code-block:: xml
 
   <e:form.field name="foo" control="Textfield" wrap="Default" value="bar" />
 
@@ -51,7 +51,8 @@ Usage with an object bound form
 
 To make things even easier you can use it in combinatin with the binding of objects to you form like this:
 
-.. code-block:: html
+.. code-block:: xml
+
   <f:form action="create" object="myObject" name="myObject">
     <e:form.field property="someString" />
     <e:form.field property="someRelation" />

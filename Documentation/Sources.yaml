@@ -5,3 +5,17 @@
   filePattern: 'Pages/ViewHelpers/{dirname}{basename}.rst'
   scraper: ViewHelperDocumentationScraper
   template: resource://Flowpack.DocumentationScraper/Private/Templates/ViewHelper.rst
+
+'OptionsProvider':
+  path: Classes/Flowpack/Expose/OptionsProvider
+  namespace: Flowpack\Expose\OptionsProvider
+  filePattern: 'Pages/OptionsProvider.rst'
+  scraper: OptionsProviderDocumentationScraper
+  template: resource://Flowpack.DocumentationScraper/Private/Templates/OptionsProvider.rst
+
+# 'YamlSource':
+#   path: Classes/Flowpack/Expose/Reflection/Sources/YamlSource.php
+#   namespace: Flowpack\Expose\Reflection\Sources
+#   filePattern: 'Pages/Configuration.rst'
+#   scraper: GenericDocumentationScraper
+#   template: resource://Flowpack.DocumentationScraper/Private/Templates/Configuration.rst

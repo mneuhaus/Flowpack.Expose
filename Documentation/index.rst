@@ -1,22 +1,23 @@
 Flowpack Expose Documentation
 =============================
 
-.. note::
+What is Expose ?
+----------------
 
-  We'd love to get your feedback on this documentation! Please share
-  your thoughts in the `TYPO3 Flow mailing list <http://lists.typo3.org/cgi-bin/mailman/listinfo/flow>`_,
-  `the forum <http://forum.typo3.org/index.php/f/22/>`_ or the `#typo3-flow channel <irc://irc.freenode.net/#typo3-flow>`_
-  on irc.freenode.net.
-
-  Help is always greatly appreciated, read :ref:`ch-contributing` to find out how
-  you can improve TYPO3 Flow.
+Expose provides various components to quickly build tables, forms and whole cruds
+for Doctrine Entities. The general aim and focus is to reduce the boilerplate code you
+currently have to write for things like forms, lists, etc. to as little as possible
+while still retaining as much flexibility as possible.
 
 .. toctree::
   :maxdepth: 2
   :glob:
 
-  Pages/Quickstart
+  Pages/Overview
+  Pages/Installation
+  Pages/Configuration
   Pages/OptionsProvider
+  Pages/HowTo/Index
   Pages/ViewHelpers/Index
 
 *This version of the documentation has been rendered at:* |today|

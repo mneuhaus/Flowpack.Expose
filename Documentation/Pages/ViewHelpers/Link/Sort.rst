@@ -1,5 +1,5 @@
-Sort
-----
+Link/Sort
+---------
 
 
 This viewhelper only works in conjunction with the SortProcessor.

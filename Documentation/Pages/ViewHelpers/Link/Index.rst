@@ -1,8 +1,0 @@
-Link
-====
-
-.. toctree::
-  :titlesonly:
-  :glob:
-
-  *

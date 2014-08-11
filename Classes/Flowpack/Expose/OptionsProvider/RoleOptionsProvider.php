@@ -16,7 +16,6 @@ use TYPO3\Flow\Annotations as Flow;
 
 /**
  * OptionsProvider for Policy Roles
- *
  */
 class RoleOptionsProvider extends AbstractOptionsProvider {
 

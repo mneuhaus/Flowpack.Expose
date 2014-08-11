@@ -1,5 +1,5 @@
-Ucfirst
--------
+Format/Ucfirst
+--------------
 
 
 returns the string with the first character capitalized

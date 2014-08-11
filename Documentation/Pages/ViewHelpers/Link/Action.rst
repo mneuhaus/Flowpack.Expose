@@ -1,5 +1,5 @@
-Action
-------
+Link/Action
+-----------
 
 
 A view helper for creating links to actions.

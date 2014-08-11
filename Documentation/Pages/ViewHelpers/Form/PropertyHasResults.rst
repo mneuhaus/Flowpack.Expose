@@ -1,5 +1,5 @@
-PropertyHasResults
-------------------
+Form/PropertyHasResults
+-----------------------
 
 
 You can use this viewhelper to check if a property has validation errors.

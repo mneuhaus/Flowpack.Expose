@@ -18,10 +18,8 @@ use Flowpack\Expose\Core\OptionsProvider\AbstractOptionsProvider;
  * This OptionsProvider is used to load options from an Entities class
  * by using a regular expression to match existing constants
  *
- * Example
- * -------
- *
  * .. code-block:: yaml
+ *
  *      TYPO3\Party\Domain\Model\ElectronicAddress:
  *          Properties:
  *              type:
