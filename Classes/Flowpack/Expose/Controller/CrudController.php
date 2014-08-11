@@ -33,8 +33,8 @@ class CrudController extends ActionController {
 	protected $repository;
 
 	/**
-	 * @var \TYPO3\Flow\Reflection\ReflectionService
 	 * @Flow\Inject
+	 * @var \TYPO3\Flow\Reflection\ReflectionService
 	 */
 	protected $reflectionService;
 

@@ -39,7 +39,6 @@ class ConstantOptionsProvider extends AbstractOptionsProvider {
 	 */
 	protected $supportedSettings = array(
 		'Regex' => array(
-			'default' => array(),
 			'description' => 'Contains a Regular Expression to filter the class constants',
 			'required' => TRUE
 		),

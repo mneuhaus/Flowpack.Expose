@@ -14,6 +14,8 @@ namespace Flowpack\Expose\Reflection;
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Cache\CacheManager;
 use TYPO3\Flow\Configuration\ConfigurationManager;
+use TYPO3\Flow\Reflection\ObjectAccess;
+use TYPO3\Flow\Reflection\ReflectionService;
 use TYPO3\Flow\Utility\Exception\InvalidPositionException;
 use TYPO3\Flow\Utility\PositionalArraySorter;
 
@@ -26,6 +28,11 @@ class ClassSchema {
 	 * @param ConfigurationManager
 	 */
 	protected $configurationManager;
+
+	/**
+	 * @var ReflectionService
+	 */
+	protected $reflectionService;
 
 	/**
 	 * the class name to build the form for
@@ -50,17 +57,25 @@ class ClassSchema {
 	protected $propertyPrefix;
 
 	/**
+	 * @var object
+	 */
+	protected $object;
+
+	/**
 	 *
 	 * @param string $className
-	 * @param strign $propertyPrefix
-	 * @param strign $scope
+	 * @param string $propertyPrefix
+	 * @param string $scope
+	 * @param object $object
 	 * @param CacheManager $cacheManager
 	 * @param ConfigurationManager $configurationManager
+	 * @param ReflectionService $reflectionService
 	 * @return void
 	 */
-	public function __construct($className, $propertyPrefix = NULL, $scope = NULL, CacheManager $cacheManager, ConfigurationManager $configurationManager) {
-		$this->className = $className;
+	public function __construct($className, $propertyPrefix = NULL, $scope = NULL, CacheManager $cacheManager, ConfigurationManager $configurationManager, ReflectionService $reflectionService) {
+		$this->className = '\\' . ltrim($className, '\\');
 		$this->propertyPrefix = $propertyPrefix;
+		$this->reflectionService = $reflectionService;
 
 		$cache = $cacheManager->getCache('Flowpack_Expose_SchemaCache');
 		$identifier = md5($className . $scope);
@@ -72,6 +87,10 @@ class ClassSchema {
 
 		$this->schema = $cache->get($identifier);
 		$this->properties = $this->schema['properties'];
+	}
+
+	public function setObject($object) {
+		$this->object = $object;
 	}
 
 	public function getPropertyNames() {
@@ -108,15 +127,26 @@ class ClassSchema {
 			$parts = explode('.', $propertyName);
 			$propertyPrefix = array_shift($parts);
 			$property = new PropertySchema($this->properties[$propertyPrefix], $this, $this->propertyPrefix);
+
 			if ($property->getElementType() !== NULL) {
+				$propertyClassName = $property->getElementType();
 				$propertyPrefix.= '.' . array_shift($parts);
-				$propertyClassSchema = new ClassSchema($property->getElementType(), $propertyPrefix);
+
 			} else {
-				$propertyClassSchema = new ClassSchema($property->getType(), $propertyPrefix);
+				$propertyClassName = $property->getType();
 			}
+
+			if (is_object($this->object)) {
+				$propertyValue = ObjectAccess::getPropertyPath($this->object, $propertyPrefix);
+				if (is_object($propertyValue)) {
+					$propertyClassName = $this->reflectionService->getClassNameByObject($propertyValue);
+				}
+			}
+
+			$propertyClassSchema = new ClassSchema($propertyClassName, $propertyPrefix);
+
 			return $propertyClassSchema->getProperty(implode('.', $parts));
 		}
-
 		return new PropertySchema($this->properties[$propertyName], $this, $this->propertyPrefix);
 	}
 

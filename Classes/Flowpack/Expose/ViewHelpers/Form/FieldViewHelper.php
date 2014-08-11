@@ -35,7 +35,7 @@ use TYPO3\Fluid\ViewHelpers\Form\AbstractFormFieldViewHelper;
  * Basic usage
  * ===========
  *
- * .. code-block:: html
+ * .. code-block:: xml
  *
  *   <e:form.field name="foo" control="Textfield" wrap="Default" value="bar" />
  *
@@ -68,7 +68,8 @@ use TYPO3\Fluid\ViewHelpers\Form\AbstractFormFieldViewHelper;
  *
  * To make things even easier you can use it in combinatin with the binding of objects to you form like this:
  *
- * .. code-block:: html
+ * .. code-block:: xml
+ *
  *   <f:form action="create" object="myObject" name="myObject">
  *     <e:form.field property="someString" />
  *     <e:form.field property="someRelation" />
@@ -173,6 +174,10 @@ class FieldViewHelper extends AbstractFormFieldViewHelper {
 		if (empty($this->arguments['property']) === FALSE) {
 			$className = $this->templateVariableContainer->get('className');
 			$classSchema = new ClassSchema($className);
+			if ($this->viewHelperVariableContainer->exists('TYPO3\Fluid\ViewHelpers\FormViewHelper', 'formObject')) {
+				$formObject = $this->viewHelperVariableContainer->get('TYPO3\Fluid\ViewHelpers\FormViewHelper', 'formObject');
+				$classSchema->setObject($formObject);
+			}
 			$property = $classSchema->getProperty($this->arguments['property']);
 		} else {
 			$property = new PropertySchema(array(
