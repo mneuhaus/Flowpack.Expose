@@ -4,7 +4,7 @@
 	<div class="col-sm-9">
 		{control -> f:format.raw()}
 
-		<f:if condition="{propertySchema.intotext}"><p class="help-block">{propertySchema.intotext}</p></f:if>
+		<f:if condition="{propertySchema.infotext}"><p class="help-block">{propertySchema.infotext}</p></f:if>
 
 		<e:form.propertyResults property="{propertySchema.formName}">
 			<f:for each="{errors}" as="error">
