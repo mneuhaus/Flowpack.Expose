@@ -16,16 +16,7 @@ use Flowpack\Expose\Reflection\ClassSchema;
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Mvc\Controller\ActionController;
 
-class CrudController extends ActionController {
-	/**
-	 * @var string
-	 */
-	protected $entity;
-
-	/**
-	 * @var string
-	 */
-	protected $layout = 'Default';
+class CrudController extends AbstractExposeController {
 
 	/**
 	 * @var \TYPO3\Flow\Persistence\Repository
@@ -43,39 +34,6 @@ class CrudController extends ActionController {
 	 * @var \TYPO3\Flow\Configuration\ConfigurationManager
 	 */
 	protected $configurationManager;
-
-	/**
-	 * @return void
-	 */
-	protected function initializeActionMethodArguments() {
-		parent::initializeActionMethodArguments();
-
-		if ($this->request->hasArgument('entityClassName') && $this->entity === NULL) {
-			$this->entity = $this->request->getArgument('entityClassName');
-		}
-
-		if (isset($this->arguments['entity'])) {
-			$this->arguments['entity']->setDataType($this->entity);
-			$this->arguments['entity']->getPropertyMappingConfiguration()->allowAllProperties();
-		}
-
-		$this->schema = new ClassSchema($this->entity);
-	}
-
-	/**
-	 * Initializes the view before invoking an action method.
-	 *
-	 * Override this method to solve assign variables common for all actions
-	 * or prepare the view in another way before the action is called.
-	 *
-	 * @param \TYPO3\Flow\Mvc\View\ViewInterface $view The view to be initialized
-	 * @return void
-	 * @api
-	 */
-	protected function initializeView(\TYPO3\Flow\Mvc\View\ViewInterface $view) {
-		$view->assign('className', $this->entity);
-		$view->assign('layout', $this->layout);
-	}
 
 	/**
 	 * @return void
@@ -128,15 +86,6 @@ class CrudController extends ActionController {
 	public function editAction($entity) {
 		$this->view->assign('entity', $entity);
 		$this->view->assign('fieldsets', $this->getFieldsets());
-	}
-
-	public function getFieldsets() {
-		if (empty($this->fields)) {
-			return array(array(
-				'name' => '',
-				'fields' => $this->schema->getPropertyNames()
-			));
-		}
 	}
 
 	/**
