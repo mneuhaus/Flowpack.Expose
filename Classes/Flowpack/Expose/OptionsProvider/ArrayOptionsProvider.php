@@ -52,7 +52,7 @@ class ArrayOptionsProvider extends AbstractOptionsProvider {
 	 * @return array $options
 	 */
 	public function getOptions() {
-		return $this->settings['options'];
+		return $this->settings['Options'];
 	}
 
 }
