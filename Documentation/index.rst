@@ -13,11 +13,10 @@ while still retaining as much flexibility as possible.
   :maxdepth: 2
   :glob:
 
-  Pages/Overview
   Pages/Installation
+  Pages/CrudController
   Pages/Configuration
   Pages/OptionsProvider
-  Pages/HowTo/Index
   Pages/ViewHelpers/Index
 
 *This version of the documentation has been rendered at:* |today|
