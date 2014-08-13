@@ -1,0 +1,8 @@
+{namespace e=Flowpack\Expose\ViewHelpers}
+<e:actions type="local">
+<ul class="list-inline">
+	<f:for each="{actions}" key="action" as="actionAnnotation" iteration="actionIteration">
+		<li><e:link.action action="{action}" controller="{controller}" arguments="{entity: entity}" class="text-{actionAnnotation.class}" >{actionAnnotation.label}</e:link.action></li>
+	</f:for>
+</ul>
+</e:actions>

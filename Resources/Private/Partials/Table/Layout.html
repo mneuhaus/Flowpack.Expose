@@ -1,0 +1,28 @@
+{namespace e=Flowpack\Expose\ViewHelpers}
+<e:behavior objects="{entities}" behaviors="{schema.listBehaviors}">
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="row expose-toolbar">
+				<div class="col-xs-4">
+					<div class="expose-batch-control">
+						<f:form action="batch">
+							<e:actions type="batch">
+								<f:form.select name="batchAction" options="{actions}" optionLabelField="label" optionValueField="action" class="form-control" />
+							</e:actions>
+							<button type="submit" class="btn btn-default pull-left">Execute</button>
+						</f:form>
+					</div>
+				</div>
+				<div class="col-xs-8">
+					<e:block name="top"/>
+				</div>
+			</div>
+			<table class="table table-bordered table-striped expose-table">
+				<e:render partial="Table/Header" />
+				<e:render partial="Table/Body" />
+			</table>
+			<e:block name="bottom" />
+		</div>
+		<e:block name="sidebar" />
+	</div>
+</e:behavior>

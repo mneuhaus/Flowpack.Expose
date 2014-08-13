@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<f:base />
+		{namespace e=Flowpack\Expose\ViewHelpers}
+
+		<link rel="stylesheet" type="text/css" href="{f:uri.resource(path: 'Components/bootstrap/dist/css/bootstrap.min.css')}" />
+		<link rel="stylesheet" type="text/css" href="{f:uri.resource(path: 'Styles/Main.css', package: 'Flowpack.Expose')}" />
+
+		<script src="{f:uri.resource(path: 'Components/jquery/dist/jquery.js', package: 'Flowpack.Expose')}"></script>
+	</head>
+	<body class="layout-login">
+
+		<div class="container">
+			<f:render section="Content" />
+		</div>
+
+		<script src="{f:uri.resource(path: 'Components/bootstrap/dist/js/bootstrap.js', package: 'Flowpack.Expose')}"></script>
+	</body>
+</html>

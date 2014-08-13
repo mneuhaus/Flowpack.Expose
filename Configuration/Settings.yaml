@@ -1,14 +1,27 @@
-#                                                                        #
-# Settings Configuration for the Expose package                          #
-#                                                                        #
+Flowpack:
+  Expose:
+    Pagination:
+      DefaultLimit: 10
+      MaxPages: 10
+      Limits:
+        - 10
+        - 20
+        - 30
+        - 50
+        - 100
 
-TYPO3:
-  TypoScript:
-    # We need to Disable this, because otherwise it catches redirect Exceptions
-    catchRuntimeExceptions: FALSE
+    Controls:
+      string: 'Textfield'
+      integer: 'Textfield'
+      float: 'Textfield'
+      boolean: 'Checkbox'
+      array: 'Select'
+      '\DateTime': 'DateTime'
 
-  Flow:
-    security:
-      authorization:
-        accessDecisionVoters:
-          TYPO3.Expose: TYPO3\Expose\Security\Voter
+    Menu: []
+
+    ClassSchemaSources:
+      - '\Flowpack\Expose\Reflection\Sources\DefaultSource'
+      - '\Flowpack\Expose\Reflection\Sources\PhpSource'
+      # - '\Flowpack\Expose\Reflection\Sources\AnnotationSource'
+      - '\Flowpack\Expose\Reflection\Sources\YamlSource'

@@ -1,0 +1,4 @@
+'\Flowpack\Expose\Tests\Functional\Fixtures\DummyEntity':
+  listProperties: 'name'
+  searchProperties: 'name'
+  filterProperties: 'dummyChildEntity'

@@ -1,0 +1,23 @@
+<f:layout name="{layout}" />
+{namespace e=Flowpack\Expose\ViewHelpers}
+
+<f:section name="Title">
+</f:section>
+
+<f:section name="Content">
+	<div class="actions">
+		<e:actions type="global">
+			<f:for each="{actions}" key="action" as="actionAnnotation">
+				<e:link.action action="{action}" class="btn btn-primary pull-right {actionAnnotation.class}">{actionAnnotation.label}</e:link.action>
+			</f:for>
+		</e:actions>
+	</div>
+	<f:if condition="{entities}">
+		<f:then>
+			<e:render partial="Table/Layout"/>
+		</f:then>
+		<f:else>
+			<p>No entities found.</p>
+		</f:else>
+	</f:if>
+</f:section>

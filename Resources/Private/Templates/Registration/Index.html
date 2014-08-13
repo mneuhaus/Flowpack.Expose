@@ -1,0 +1,20 @@
+<f:layout name="{layout}" />
+{namespace e=Flowpack\Expose\ViewHelpers}
+
+<f:section name="Title">
+</f:section>
+
+<f:section name="Content">
+	<f:form action="create" object="{entity}" objectName="entity" class="form-horizontal">
+
+		<f:for each="{schema.propertyNames}" as="propertyName">
+			<e:form.field property="{propertyName}"/>
+		</f:for>
+
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+				<f:form.submit value="Register" class="btn btn-default" />
+			</div>
+		</div>
+	</f:form>
+</f:section>

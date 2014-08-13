@@ -1,19 +1,11 @@
-TYPO3_Expose_SchemaCache:
+Flowpack_Expose_SchemaCache:
   affectedFiles:
     -
-      path: 'Resources/Private'
-      filePattern: '\.ts2$'
+      path: 'Configuration'
+      filePattern: '\.yaml$'
     -
       path: 'Resources/Private'
       filePattern: '\.xlf$'
     -
       path: 'Classes/'
       filePattern: '\.php$'
-
-TYPO3_Expose_ControllerPartsCache: []
-
-TYPO3_Expose_TypeRoutePartCache:
-  affectedFiles:
-    -
-      path: 'Configuration'
-      filePattern: 'Routes\.yaml$'

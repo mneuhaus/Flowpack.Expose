@@ -1,0 +1,45 @@
+-
+  name: 'Expose Home'
+  uriPattern: ''
+  defaults:
+    '@package': Flowpack.Expose
+    '@controller': Standard
+    '@action': index
+    '@format': html
+
+-
+  name: 'Dynamic Expose CRUD Route'
+  uriPattern: '{entityClassName}/{@action}/{entity}'
+  defaults:
+    '@action': 'index'
+    '@package':    'Flowpack.Expose'
+    '@controller': 'Crud'
+  routeParts:
+    'entityClassName':
+      handler:   'Flowpack\Expose\Routing\ExposeRoutePartHandler'
+  appendExceedingArguments: true
+
+
+-
+  name: 'Dynamic Expose CRUD Route'
+  uriPattern: '{entityClassName}'
+  defaults:
+    '@action': 'index'
+    '@package':    'Flowpack.Expose'
+    '@controller': 'Crud'
+  routeParts:
+    'entityClassName':
+      handler:   'Flowpack\Expose\Routing\ExposeRoutePartHandler'
+  appendExceedingArguments: true
+
+-
+  name: 'Dynamic Expose CRUD Route'
+  uriPattern: '{entityClassName}/{@action}'
+  defaults:
+    '@action': 'index'
+    '@package':    'Flowpack.Expose'
+    '@controller': 'Crud'
+  routeParts:
+    'entityClassName':
+      handler:   'Flowpack\Expose\Routing\ExposeRoutePartHandler'
+  appendExceedingArguments: true

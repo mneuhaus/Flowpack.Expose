@@ -5,14 +5,12 @@
     "license": "LGPL-3.0+",
     "version": "0.1.0-dev",
     "require": {
-        "typo3/flow": "*",
-        "typo3/form": "*",
-        "typo3/typoscript": "*"
+        "typo3/flow": "*"
     },
     "minimum-stability": "dev",
     "autoload": {
         "psr-0": {
-            "TYPO3\\Expose": "Classes"
+            "Flowpack\\Expose": "Classes"
         }
     }
 }

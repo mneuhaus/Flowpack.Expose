@@ -1,0 +1,6 @@
+{namespace e=Flowpack\Expose\ViewHelpers}
+<div class="list-group">
+	<e:link.filter property="{propertyName}" value="1" class="list-group-item">only true</e:link.filter>
+	<e:link.filter property="{propertyName}" value="0" class="list-group-item">only false</e:link.filter>
+	<e:link.filter property="{propertyName}" class="list-group-item">all</e:link.filter>
+</div>

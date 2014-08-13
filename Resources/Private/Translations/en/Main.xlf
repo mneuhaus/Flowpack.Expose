@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-	<file original="" product-name="TYPO3.Expose" source-language="en" datatype="plaintext">
+	<file original="" product-name="Flowpack.Expose" source-language="en" datatype="plaintext">
 		<body>
-			<trans-unit id="submit" xml:space="preserve">
-				<source>Submit</source>
-				<target>Submit</target>
-			</trans-unit>
-			<trans-unit id="New" xml:space="preserve">
-				<source>New</source>
-				<target>New</target>
-			</trans-unit>
 		</body>
 	</file>
 </xliff>

@@ -1,0 +1,24 @@
+<f:layout name="{layout}" />
+{namespace e=Flowpack\Expose\ViewHelpers}
+
+<f:section name="Title">
+</f:section>
+
+<f:section name="Content">
+	<f:form action="update" object="{entity}" objectName="entity" class="form-horizontal">
+		<f:for each="{fieldsets}" as="fieldset">
+		<fieldset>
+			{fieldset.name}
+			<f:for each="{fieldset.fields}" as="field">
+				<e:form.field property="{field}" id="{field}" class="form-control" wrap="Default" />
+			</f:for>
+		</fieldset>
+		</f:for>
+
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+				<f:form.submit value="Update" class="btn btn-default" />
+			</div>
+		</div>
+	</f:form>
+</f:section>
