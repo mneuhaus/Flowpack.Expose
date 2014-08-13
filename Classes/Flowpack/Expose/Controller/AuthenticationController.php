@@ -72,29 +72,6 @@ class AuthenticationController extends AbstractAuthenticationController {
 	 * @return string
 	 */
 	public function indexAction() {
-		if ($this->securityContext->getParty() instanceof \TYPO3\Party\Domain\Model\AbstractParty) {
-			$this->redirectToUri('/');
-		}
-	}
-
-	/**
-	 * Authenticates an account by invoking the Provider based Authentication Manager.
-	 *
-	 * On successful authentication redirects to the list of posts, otherwise returns
-	 * to the login screen.
-	 *
-	 * @return void
-	 * @throws \TYPO3\Flow\Security\Exception\AuthenticationRequiredException
-	 */
-	public function authenticateAction() {
-		try {
-			$this->authenticationManager->authenticate();
-			$this->addFlashMessage('Login successul!');
-			$this->redirect('index');
-		} catch (\TYPO3\Flow\Security\Exception\AuthenticationRequiredException $exception) {
-			$this->addFlashMessage('Wrong username or password.');
-			throw $exception;
-		}
 	}
 
 	/**
@@ -111,6 +88,35 @@ class AuthenticationController extends AbstractAuthenticationController {
 				Please implement onAuthenticationSuccess() in your login controller to handle this case correctly.
 				If you have a template for the authenticate action, simply make sure that onAuthenticationSuccess()
 				returns NULL in your login controller.';
+	}
+
+	/**
+	 * Is called if authentication failed.
+	 *
+	 * Override this method in your login controller to take any
+	 * custom action for this event. Most likely you would want
+	 * to redirect to some action showing the login form again.
+	 *
+	 * @param \TYPO3\Flow\Security\Exception\AuthenticationRequiredException $exception The exception thrown while the authentication process
+	 * @return void
+	 */
+	protected function onAuthenticationFailure(\TYPO3\Flow\Security\Exception\AuthenticationRequiredException $exception = NULL) {
+		$this->flashMessageContainer->addMessage(new \TYPO3\Flow\Error\Error('Authentication failed!', ($exception === NULL ? 1347016771 : $exception->getCode())));
+	}
+
+	/**
+	 * A template method for displaying custom error flash messages, or to
+	 * display no flash message at all on errors. Override this to customize
+	 * the flash message in your action controller.
+	 *
+	 * Note: If you implement a nice redirect in the onAuthenticationFailure()
+	 * method of you login controller, this message should never be displayed.
+	 *
+	 * @return \TYPO3\Flow\Error\Error The flash message
+	 * @api
+	 */
+	protected function getErrorFlashMessage() {
+		return FALSE;
 	}
 
 	/**
