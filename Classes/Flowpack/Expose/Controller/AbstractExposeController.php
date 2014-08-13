@@ -58,6 +58,7 @@ abstract class AbstractExposeController extends ActionController {
 	protected function initializeView(\TYPO3\Flow\Mvc\View\ViewInterface $view) {
 		$view->assign('className', $this->entity);
 		$view->assign('layout', $this->layout);
+		$view->assign('schema', $this->schema);
 	}
 
 	/**

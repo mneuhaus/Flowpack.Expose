@@ -6,7 +6,7 @@
 
 <f:section name="Content">
 	<f:form action="create" object="{entity}" objectName="entity" class="form-horizontal">
-		<f:for each="{fieldsets}" as="fieldset">
+		<f:for each="{schema.fieldsets}" as="fieldset">
 		<fieldset>
 			{fieldset.name}
 			<f:for each="{fieldset.fields}" as="field">

@@ -40,7 +40,6 @@ class CrudController extends AbstractExposeController {
 	 */
 	public function indexAction() {
 		$this->view->assign('entities', $this->getEntities());
-		$this->view->assign('schema', $this->schema);
 		$this->view->assign('controller', NULL);
 	}
 
@@ -65,7 +64,6 @@ class CrudController extends AbstractExposeController {
 	public function newAction() {
 		$entity = new $this->entity();
 		$this->view->assign('entity', $entity);
-		$this->view->assign('fieldsets', $this->getFieldsets());
 	}
 
 	/**
@@ -85,7 +83,6 @@ class CrudController extends AbstractExposeController {
 	 */
 	public function editAction($entity) {
 		$this->view->assign('entity', $entity);
-		$this->view->assign('fieldsets', $this->getFieldsets());
 	}
 
 	/**

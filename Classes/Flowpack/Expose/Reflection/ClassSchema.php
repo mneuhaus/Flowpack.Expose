@@ -186,6 +186,15 @@ class ClassSchema {
 		return $this->schema['listBehaviors'];
 	}
 
+	public function getFieldsets() {
+		return array(
+			array(
+				'name' => '',
+				'fields' => $this->getPropertyNames()
+			)
+		);
+	}
+
 	public function getSources() {
 		$sources = $this->configurationManager->getConfiguration('Settings', 'Flowpack.Expose.ClassSchemaSources');
 		foreach ($sources as $key => $sourceClassName) {
