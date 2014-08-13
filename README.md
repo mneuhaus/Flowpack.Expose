@@ -1,4 +1,10 @@
-# Expose Module for TYPO3.Flow using TYPO3.Form
+# Flowpack.Expose
+
+WIP Documentation: http://flowpackexpose.readthedocs.org/en/latest/
+
+**Example ListView:**
+
+![](http://dl.dropbox.com/u/314491/Screenshots/vv6gdteg95ea.png)
 
 ## Installation
 
@@ -7,12 +13,12 @@ add this repository to your composer.json:
 ```
     {
         "type": "vcs",
-        "url": "git@github.com:mneuhaus/TYPO3.Expose.git"
+        "url": "git@github.com:mneuhaus/Flowpack.Expose.git"
     }
 ```
 
 ```
-composer require typo3/expose
+composer require flowpack/expose
 ```
 
 ## Required pending ChangeSets
@@ -22,12 +28,10 @@ create an 'gerrit.json' file with this content in your project root:
 ```
 {
 	"TYPO3.Flow": {
-		"[WIP][FEATURE] Add an isDefaultView matcher for ViewConfiguration": "25147",
-		"[WIP][FEATURE] Add a way to clear caches by Path + FilePattern": "25078",
-		"[WIP][FEATURE] Improve Translator API": "28897"
+		"[WIP][FEATURE] Add a way to clear caches by Path + FilePattern": "25078"
 	},
 	"TYPO3.Fluid": {
-		"[WIP][FEATURE] Refactor TranslateViewHelper to use new translate method": "28899"
+		"!!![WIP][FEATURE] ControllerInheritence Fallbacks": "31939"
 	}
 }
 ```
