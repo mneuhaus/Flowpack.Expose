@@ -24,6 +24,18 @@ abstract class AbstractSchemaSource implements SchemaSourceInterface {
 	public function __construct($className) {
 		$this->className = $className;
 	}
+
+	public function propertyShouldBeIgnored($propertyName) {
+		if ($this->reflectionService->isPropertyAnnotatedWith($this->className, $propertyName, 'TYPO3\Flow\Annotations\Transient')) {
+			return TRUE;
+		}
+
+		if ($this->reflectionService->isPropertyAnnotatedWith($this->className, $propertyName, 'TYPO3\Flow\Annotations\Inject')) {
+			return TRUE;
+		}
+
+		return FALSE;
+	}
 }
 
 ?>

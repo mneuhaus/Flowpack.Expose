@@ -47,6 +47,9 @@ class DefaultSource extends AbstractSchemaSource {
 		);
 		$propertyNames = $this->reflectionService->getClassPropertyNames($this->className);
 		foreach ($propertyNames as $key => $propertyName) {
+			if ($this->propertyShouldBeIgnored($propertyName) === TRUE) {
+				continue;
+			}
 			$schema['properties'][$propertyName] = array(
 				'name' => $propertyName,
 				'label' => $this->inflector->humanizeCamelCase($propertyName, FALSE),

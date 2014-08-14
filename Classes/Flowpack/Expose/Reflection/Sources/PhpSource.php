@@ -34,6 +34,9 @@ class PhpSource extends AbstractSchemaSource {
 		$schema = array('properties' => array());
 		$propertyNames = $this->reflectionService->getClassPropertyNames($this->className);
 		foreach ($propertyNames as $key => $propertyName) {
+			if ($this->propertyShouldBeIgnored($propertyName) === TRUE) {
+				continue;
+			}
 			$propertySchema = $this->getPropertyTypes($propertyName);
 			$propertySchema['control'] = $this->resolveControl($propertySchema);
 			$propertySchema['isCollection'] = $this->isCollection($propertySchema);
