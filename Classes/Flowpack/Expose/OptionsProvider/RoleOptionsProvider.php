@@ -13,6 +13,7 @@ namespace Flowpack\Expose\OptionsProvider;
 
 use Flowpack\Expose\Core\OptionsProvider\AbstractOptionsProvider;
 use TYPO3\Flow\Annotations as Flow;
+use TYPO3\Flow\Security\Context;
 
 /**
  * OptionsProvider for Policy Roles
@@ -20,21 +21,16 @@ use TYPO3\Flow\Annotations as Flow;
 class RoleOptionsProvider extends AbstractOptionsProvider {
 
 	/**
-	 * @var \TYPO3\Flow\Configuration\ConfigurationManager
 	 * @Flow\Inject
+	 * @var Context
 	 */
-	protected $configurationManager;
+	protected $securityContext;
 
 	/**
 	* TODO: Document this Method! ( getOptions )
 	*/
 	public function getOptions() {
-		$roleDefinitions = $this->configurationManager->getConfiguration(\TYPO3\Flow\Configuration\ConfigurationManager::CONFIGURATION_TYPE_POLICY, 'roles');
-		$roles = array();
-		foreach (array_keys($roleDefinitions) as $roleName) {
-			$roles[] = new \TYPO3\Flow\Security\Policy\Role($roleName);;
-		}
-		return $roles;
+		return $this->securityContext->getRoles();
 	}
 
 }
