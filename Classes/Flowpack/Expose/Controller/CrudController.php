@@ -45,6 +45,15 @@ class CrudController extends AbstractExposeController {
 
 	public function getEntities() {
 		$query = $this->persistenceManager->createQueryForType($this->entity);
+
+		$classSchema = $this->reflectionService->getClassSchema($this->entity);
+		if ($classSchema instanceof \TYPO3\Flow\Reflection\ClassSchema) {
+			$repositoryClassName = $classSchema->getRepositoryClassName();
+			if (class_exists($repositoryClassName)) {
+				$repository = new $repositoryClassName();
+				$query = $repository->createQuery();
+			}
+		}
 		return $query->execute();
 	}
 
