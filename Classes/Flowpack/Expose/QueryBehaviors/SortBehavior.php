@@ -27,11 +27,7 @@ class SortBehavior extends AbstractQueryBehavior {
 	public function run($query) {
 		$schema = $this->templateVariableContainer->get('schema');
 		$sortBy = $schema->getDefaultSortBy();
-		$order = $schema->getDefaultOrder();
-
-		if ($sortBy === NULL) {
-			return;
-		}
+		$order = $schema->getDefaultOrder() == 'DESC' ? 'DESC' : 'ASC';
 
 		if( $this->request->hasArgument("sortBy") ){
 			$sortBy = $this->request->getArgument("sortBy");
@@ -55,7 +51,7 @@ class SortBehavior extends AbstractQueryBehavior {
 			"oppositeOrder"=> $order == "ASC" ? "DESC" : "ASC"
 		);
 
-		$this->addWrapper('field', $this);
+		$this->addWrapper('property', $this);
 	}
 
 	public function wrap($content, $arguments) {

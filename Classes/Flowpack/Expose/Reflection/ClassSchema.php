@@ -179,7 +179,7 @@ class ClassSchema {
 	}
 
 	public function getDefaultSortBy() {
-		return $this->schema['defaultOrder'];
+		return $this->schema['defaultSortBy'];
 	}
 
 	public function getListBehaviors() {
