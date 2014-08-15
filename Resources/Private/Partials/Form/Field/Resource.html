@@ -1,0 +1,14 @@
+
+<div class="media">
+	<f:if condition="{value}">
+  		<div class="pull-left">
+    		<img src="{f:uri.resource(resource: value)}" width="100" class="media-object"/>
+  		</div>
+  	</f:if>
+  	<div class="media-body">
+    	<h4 class="media-heading">current file: {value.filename}</h4>
+
+    	<label>replace: </label>
+    	<f:form.upload property="{propertySchema.path}" id="{propertySchema.formId}" class="{class}" value="{value}" />
+  	</div>
+</div>
