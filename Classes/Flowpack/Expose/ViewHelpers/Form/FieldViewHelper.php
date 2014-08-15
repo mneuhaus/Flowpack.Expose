@@ -150,7 +150,8 @@ class FieldViewHelper extends AbstractFormFieldViewHelper {
 
 		$property = $this->getProperty();
 		$this->arguments['propertySchema'] = $property;
-		$this->arguments['value'] = $this->getValue();
+		$this->arguments['value'] = $this->getValue(FALSE);
+
 
 		if ($this->arguments['control'] !== NULL) {
 			$property->setControl($this->arguments['control']);
@@ -190,7 +191,7 @@ class FieldViewHelper extends AbstractFormFieldViewHelper {
 	}
 
 	public function resolveTypeByValue() {
-		$value = $this->getValue();
+		$value = $this->getValue(FALSE);
 
 		if (is_string($value) || is_null($value)) {
 			return 'string';
