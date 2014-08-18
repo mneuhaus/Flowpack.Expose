@@ -99,7 +99,7 @@ class ClassSchema {
 
 	public function getProperties($properyNames = NULL) {
 		if ($properyNames === NULL) {
-			$properyNames = $this->getPropertyNames;
+			$properyNames = $this->getPropertyNames();
 		}
 
 		$properties = array();

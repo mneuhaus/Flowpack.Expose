@@ -68,6 +68,9 @@ class YamlSource extends AbstractSchemaSource {
 		'control' => array(
 			'description' => 'Contains properties that should be display as columns in the list view'
 		),
+		'handler' => array(
+			'description' => 'Contains a handler that is invoked during the form submission process to validate + modify submitted data'
+		),
 		'infotext' => array(
 			'description' => 'Description that will be places under the form control'
 		),

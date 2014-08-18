@@ -42,7 +42,6 @@ class PropertyResultsViewHelper extends AbstractViewHelper {
 	public function render($property, $as = 'errors') {
 		$request = $this->controllerContext->getRequest();
 		$validationResults = $request->getInternalArgument('__submittedArgumentValidationResults');
-		$formObjectName = $this->viewHelperVariableContainer->get('TYPO3\Fluid\ViewHelpers\FormViewHelper', 'formObjectName');
 
 		if ($validationResults === NULL || $property === '') {
 			return;

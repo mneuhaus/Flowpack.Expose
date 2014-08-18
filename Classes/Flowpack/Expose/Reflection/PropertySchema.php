@@ -58,10 +58,12 @@ class PropertySchema {
 	 * @param strign $prefix
 	 * @return void
 	 */
-	public function __construct($schema, $classSchema, $prefix = NULL) {
+	public function __construct($schema, $classSchema = NULL, $prefix = NULL) {
 		$this->schema = $schema;
-		$this->className = $classSchema->getClassName();
-		$this->classSchema = $classSchema;
+		if ($classSchema !== NULL) {
+			$this->className = $classSchema->getClassName();
+			$this->classSchema = $classSchema;
+		}
 		$this->prefix = $prefix;
 	}
 
@@ -103,6 +105,13 @@ class PropertySchema {
 
 	public function getControl() {
 		return $this->schema['control'];
+	}
+
+	public function getHandler() {
+		if (isset($this->schema['handler'])) {
+			return $this->schema['handler'];
+		}
+		return NULL;
 	}
 
 	public function setControl($control) {

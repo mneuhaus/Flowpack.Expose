@@ -183,7 +183,9 @@ class FieldViewHelper extends AbstractFormFieldViewHelper {
 		} else {
 			$property = new PropertySchema(array(
 				'control' => $this->resolveTypeByValue(),
-				'label' => $this->inflector->humanizeCamelCase($this->arguments['name'], FALSE)
+				'label' => $this->inflector->humanizeCamelCase($this->arguments['name'], FALSE),
+				'name' => $this->arguments['name'],
+				'infotext' => ''
 			));
 		}
 		$property->setFormName($this->getName());
