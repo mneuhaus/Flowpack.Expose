@@ -13,6 +13,7 @@ namespace Flowpack\Expose\Core;
 
 use Flowpack\Expose\Reflection\ClassSchema;
 use TYPO3\Flow\Annotations as Flow;
+use TYPO3\Flow\Error\Result;
 use TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter;
 
 /**
@@ -62,21 +63,61 @@ class PropertyHandlingConverter extends PersistentObjectConverter {
 	 */
 	public function getSourceChildPropertiesToBeConverted($source) {
 		$targetType = array_pop($this->targetTypes);
-
-		$originalObject = $this->fetchObjectFromPersistence($source['__identity'], $targetType);
 		$childProperties = parent::getSourceChildPropertiesToBeConverted($source);
 
 		$schema = new ClassSchema($targetType);
 		foreach ($childProperties as $propertyName => $propertyValue) {
 			$property = $schema->getProperty($propertyName);
 			$handlerClassName = $property->getHandler();
-			if ($handlerClassName === NULL) {
-				continue;
+			if ($handlerClassName !== NULL) {
+				unset($childProperties[$propertyName]);
 			}
-			$handler = new $handlerClassName($originalObject, $propertyName);
-			$childProperties[$propertyName] = $handler->onSubmit($propertyValue);
 		}
 
 		return $childProperties;
+	}
+
+	/**
+	 * Convert an object from $source to an entity or a value object.
+	 *
+	 * @param mixed $source
+	 * @param string $targetType
+	 * @param array $convertedChildProperties
+	 * @param \TYPO3\Flow\Property\PropertyMappingConfigurationInterface $configuration
+	 * @return object the target type
+	 * @throws \TYPO3\Flow\Property\Exception\InvalidTargetException
+	 * @throws \InvalidArgumentException
+	 */
+	public function convertFrom($source, $targetType, array $convertedChildProperties = array(), \TYPO3\Flow\Property\PropertyMappingConfigurationInterface $configuration = NULL) {
+		if (is_array($source)) {
+			if (isset($source['__identity'])) {
+				$originalObject = $this->fetchObjectFromPersistence($source['__identity'], $targetType);
+			}
+
+			$schema = new ClassSchema($targetType);
+			$this->result = new Result();
+			foreach ($source as $propertyName => $propertyValue) {
+				if ($propertyName == '__identity') {
+					continue;
+				}
+				$property = $schema->getProperty($propertyName);
+				$handlerClassName = $property->getHandler();
+				if ($handlerClassName === NULL) {
+					continue;
+				}
+
+				$handler = new $handlerClassName($originalObject, $propertyName);
+				$propertyValue = $handler->onSubmit($propertyValue);
+				if ($propertyValue instanceof \TYPO3\Flow\Error\Error) {
+					$this->result->forProperty($propertyName)->addError($propertyValue);
+				} else {
+					$convertedChildProperties[$propertyName] = $propertyValue;
+				}
+			}
+		}
+
+		$object = parent::convertFrom($source, $targetType, $convertedChildProperties, $configuration);
+
+		return $object;
 	}
 }

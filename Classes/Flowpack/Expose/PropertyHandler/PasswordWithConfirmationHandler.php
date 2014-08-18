@@ -32,8 +32,7 @@ class PasswordWithConfirmationHandler extends AbstractPropertyHandler {
 		if (strlen($propertyValue['password']) > 0) {
 
 			if ($propertyValue['password'] !== $propertyValue['confirmation']) {
-				$this->addError(new \TYPO3\Flow\Validation\Error('Password doesn\'t match confirmation', 1408353010));
-				return;
+				return new \TYPO3\Flow\Validation\Error('Password doesn\'t match confirmation', 1408353010);
 			}
 
 			return $this->hashService->hashPassword($propertyValue['password'], 'default');
