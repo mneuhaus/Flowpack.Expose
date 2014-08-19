@@ -90,6 +90,7 @@ class PropertyHandlingConverter extends PersistentObjectConverter {
 	 */
 	public function convertFrom($source, $targetType, array $convertedChildProperties = array(), \TYPO3\Flow\Property\PropertyMappingConfigurationInterface $configuration = NULL) {
 		if (is_array($source)) {
+			$originalObject = NULL;
 			if (isset($source['__identity'])) {
 				$originalObject = $this->fetchObjectFromPersistence($source['__identity'], $targetType);
 			}
