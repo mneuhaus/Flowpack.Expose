@@ -14,6 +14,7 @@ namespace Flowpack\Expose\ViewHelpers\Form;
 use Doctrine\ORM\Mapping as ORM;
 use Flowpack\Expose\Reflection\ClassSchema;
 use Flowpack\Expose\Reflection\PropertySchema;
+use Flowpack\Expose\Utility\Inflector;
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\Fluid\ViewHelpers\Form\AbstractFormFieldViewHelper;
@@ -120,7 +121,7 @@ class FieldViewHelper extends AbstractFormFieldViewHelper {
 	protected $reflectionService;
 
 	/**
-	 * @var \TYPO3\Kickstart\Utility\Inflector
+	 * @var Inflector
 	 * @Flow\Inject
 	 */
 	protected $inflector;
