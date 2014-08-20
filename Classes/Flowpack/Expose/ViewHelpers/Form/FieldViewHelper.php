@@ -135,6 +135,7 @@ class FieldViewHelper extends AbstractFormFieldViewHelper {
 		parent::initializeArguments();
 		$this->registerArgument('control', 'string', 'Specifies the control to use to render this field', FALSE, NULL);
 		$this->registerArgument('wrap', 'string', 'Specifies the wrap used to render the field', FALSE, 'Default');
+		$this->registerArgument('required', 'boolean', 'Specifies, if this form field is required', FALSE, FALSE);
 		$this->registerUniversalTagAttributes();
 	}
 
@@ -158,6 +159,11 @@ class FieldViewHelper extends AbstractFormFieldViewHelper {
 			$partial = $this->arguments['control'];
 		} else {
 			$partial = $property->getControl();
+		}
+
+		if ($this->arguments['required'] === TRUE) {
+			$this->arguments['additionalAttributes']['required'] = $this->arguments['required'];
+			$this->arguments['requiredString'] = '*';
 		}
 
 		$control = $this->viewHelperVariableContainer->getView()->renderPartial('Form/Field/' . $partial, NULL, $this->arguments);
