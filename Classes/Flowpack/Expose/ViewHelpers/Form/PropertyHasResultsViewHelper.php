@@ -52,7 +52,8 @@ class PropertyHasResultsViewHelper extends AbstractConditionViewHelper {
 		$propertyPath = StringFormatter::formNameToPath($property);
 		$validationResults = $validationResults->forProperty($propertyPath);
 
-		if (!empty($validationResults->getErrors())) {
+		$errors = $validationResults->getErrors();
+		if (!empty($errors)) {
 			return $this->renderThenChild();
 		} else {
 			return $this->renderElseChild();
