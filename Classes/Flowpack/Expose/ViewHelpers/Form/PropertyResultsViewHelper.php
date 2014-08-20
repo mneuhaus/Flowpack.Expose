@@ -51,7 +51,8 @@ class PropertyResultsViewHelper extends AbstractViewHelper {
 		$propertyPath = StringFormatter::formNameToPath($property);
 		$validationResults = $validationResults->forProperty($propertyPath);
 
-		if (empty($validationResults->getErrors())) {
+		$errors = $validationResults->getErrors();
+		if (empty($errors)) {
 			return;
 		}
 
