@@ -59,6 +59,7 @@ class CrudController extends AbstractExposeController {
 
 	/**
 	 * @Expose\Action(type="local", label="Show")
+	 * @Flow\IgnoreValidation(argumentName="entity")
 	 * @param object $entity
 	 * @return void
 	 */
@@ -87,6 +88,7 @@ class CrudController extends AbstractExposeController {
 
 	/**
 	 * @Expose\Action(type="local", label="Edit")
+	 * @Flow\IgnoreValidation(argumentName="entity")
 	 * @param object $entity
 	 * @return void
 	 */
