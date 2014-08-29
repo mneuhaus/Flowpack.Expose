@@ -28,5 +28,9 @@ class StringFormatter {
 	public static function pathToFormId($path) {
 		return str_replace('.', '-', $path);
 	}
+
+	public static function pathToTranslationId($path) {
+		return preg_replace('/\.[0-9]*\./', '.', $path);
+	}
 }
 ?>

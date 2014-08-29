@@ -126,6 +126,10 @@ class PropertySchema {
 		return $this->classSchema;
 	}
 
+	public function getTranslationId() {
+		return StringFormatter::pathToTranslationId($this->getPath());
+	}
+
 	public function getOptionsProvider() {
 		if (isset($this->schema['optionsProvider'])) {
 			$settings = $this->schema['optionsProvider'];

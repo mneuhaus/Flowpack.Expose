@@ -1,14 +1,15 @@
 {namespace e=Flowpack\Expose\ViewHelpers}
 <div class="form-group {e:form.propertyHasResults(property: propertySchema.formName, then: 'has-error')}">
-	<label for="{propertySchema.formId}" class="col-sm-3 control-label">{propertySchema.label}{requiredString}</label>
+	<label for="{propertySchema.formId}" class="col-sm-3 control-label"><f:translate id="{propertySchema.translationId}.label">{propertySchema.label}</f:translate>{requiredString}
+	</label>
 	<div class="col-sm-9">
 		{control -> f:format.raw()}
 
-		<f:if condition="{propertySchema.infotext}"><p class="help-block">{propertySchema.infotext}</p></f:if>
+		<f:if condition="{propertySchema.infotext}"><p class="help-block"><f:translate id="{propertySchema.translationId}.infotext">{propertySchema.infotext}</f:translate></p></f:if>
 
 		<e:form.propertyResults property="{propertySchema.formName}">
 			<f:for each="{errors}" as="error">
-				<p class="help-block">{error.message}</p>
+				<p class="help-block"><f:translate id="{propertySchema.translationId}.error.{error.code}"{error.message}</p>
 			</f:for>
 		</e:form.propertyResults>
 	</div>
