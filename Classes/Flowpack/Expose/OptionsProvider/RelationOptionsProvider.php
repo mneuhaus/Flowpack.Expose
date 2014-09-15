@@ -11,8 +11,9 @@ namespace Flowpack\Expose\OptionsProvider;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
-use TYPO3\Flow\Annotations as Flow;
 use Flowpack\Expose\Core\OptionsProvider\AbstractOptionsProvider;
+use TYPO3\Flow\Annotations as Flow;
+use TYPO3\Flow\Reflection\ObjectAccess;
 
 /**
  * This OptionsProvider is used to fetch entities based on the orm relation of a property.
@@ -32,6 +33,11 @@ class RelationOptionsProvider extends AbstractOptionsProvider {
 		'EmptyOption' => array(
 			'default' => NULL,
 			'description' => 'Set this setting to add an emtpy option to the beginning of the options',
+			'required' => FALSE
+		),
+		'LabelPath' => array(
+			'default' => NULL,
+			'description' => 'Set this setting to fetch the displayed label by a specific property/path',
 			'required' => FALSE
 		)
 	);
@@ -67,8 +73,21 @@ class RelationOptionsProvider extends AbstractOptionsProvider {
 
 		$options = $query->execute()->toArray();
 
+		if ($this->settings['LabelPath'] !== NULL) {
+			$options = array();
+			foreach ($query->execute() as $option) {
+				$identifier = $this->persistenceManager->getIdentifierByObject($option);
+				$label = ObjectAccess::getPropertyPath($option, $this->settings['LabelPath']);
+				$options[$identifier] = $label;
+			}
+		}
+
 		if ($this->settings['EmptyOption'] !== NULL) {
-			array_unshift($options, $this->settings['EmptyOption']);
+			$newOptions = array('' => $this->settings['EmptyOption']);
+			foreach ($options as $key => $value) {
+				$newOptions[$key] = $value;
+			}
+			$options = $newOptions;
 		}
 
 		return $options;
