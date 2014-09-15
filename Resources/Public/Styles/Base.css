@@ -87,3 +87,7 @@ body.layout-login {
 .sort-desc i:before {
   content: "\e156";
 }
+
+body .ms-container {
+  width: 100%;
+}
