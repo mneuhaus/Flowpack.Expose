@@ -28,9 +28,10 @@ class FlashMessagesViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractTagBa
 	 * Render method.
 	 *
 	 * @param string $class
+	 * @param string $translationPackage
 	 * @return string rendered Flash Messages, if there are any.
 	 */
-	public function render($class = '') {
+	public function render($class = '', $translationPackage = 'TYPO3.Flow') {
 		$flashMessages = $this->controllerContext->getFlashMessageContainer()->getMessagesAndFlush();
 		if (count($flashMessages) > 0) {
 			$tagContent = '';
@@ -60,7 +61,7 @@ class FlashMessagesViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractTagBa
 
 				// put it all together
 				$tagContent .= '<div class="alert ' . $severity . ' ' . $class . '"><strong>' . $title . '</strong>' .
-					$this->translate(NULL, $singleFlashMessage->getMessage())  . '</div>';
+					$this->translate(NULL, $singleFlashMessage->getMessage(), $translationPackage)  . '</div>';
 			}
 
 			$this->tag->setContent($tagContent);
@@ -69,11 +70,12 @@ class FlashMessagesViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractTagBa
 		return '';
 	}
 
-	public function translate($id, $default) {
+	public function translate($id, $default, $packageKey) {
 		if (method_exists('\TYPO3\Flow\I18n\Translator', 'translate')) {
 			return $this->translator->translate($id, $default);
 		}
-		return $default;
+
+		return $this->translator->translateByOriginalLabel($default, array(), NULL, NULL, 'Main', $packageKey);
 	}
 }
 ?>
