@@ -9,7 +9,7 @@
 
 		<e:form.propertyResults property="{propertySchema.formName}">
 			<f:for each="{errors}" as="error">
-				<p class="help-block"><f:translate id="{propertySchema.translationId}.error.{error.code}"{error.message}</p>
+				<p class="help-block"><f:translate id="{propertySchema.translationId}.error.{error.code}">{error.message}</f:translate></p>
 			</f:for>
 		</e:form.propertyResults>
 	</div>
