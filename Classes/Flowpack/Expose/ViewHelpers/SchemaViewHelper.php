@@ -24,9 +24,20 @@ class SchemaViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 	 */
 	public function render($className, $as = 'schema') {
 		$schema = new ClassSchema($className);
+
+		$existingSchema = NULL;
+		if ($this->templateVariableContainer->exists($as)) {
+			$existingSchema = $this->templateVariableContainer->get($as);
+			$this->templateVariableContainer->remove($as);
+		}
+
 		$this->templateVariableContainer->add($as, $schema);
 		$content = $this->renderChildren();
 		$this->templateVariableContainer->remove($as);
+
+		if ($existingSchema !== NULL) {
+			$this->templateVariableContainer->add($as, $existingSchema);
+		}
 		return $content;
 	}
 }
