@@ -180,12 +180,16 @@ class FieldViewHelper extends AbstractFormFieldViewHelper {
 
 	public function getProperty() {
 		if (empty($this->arguments['property']) === FALSE) {
-			$className = $this->templateVariableContainer->get('className');
-			$classSchema = new ClassSchema($className);
 			if ($this->viewHelperVariableContainer->exists('TYPO3\Fluid\ViewHelpers\FormViewHelper', 'formObject')) {
 				$formObject = $this->viewHelperVariableContainer->get('TYPO3\Fluid\ViewHelpers\FormViewHelper', 'formObject');
-				$classSchema->setObject($formObject);
+				$className = $this->reflectionService->getClassNameByObject($formObject);
+			} else if ($this->templateVariableContainer->exists('className')) {
+				$className = $this->templateVariableContainer->get('className');
+				$formObject = new $className();
 			}
+
+			$classSchema = new ClassSchema($className);
+			$classSchema->setObject($formObject);
 			$property = $classSchema->getProperty($this->arguments['property']);
 		} else {
 			$property = new PropertySchema(array(
