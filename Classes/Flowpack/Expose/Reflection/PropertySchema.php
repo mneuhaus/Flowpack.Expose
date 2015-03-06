@@ -126,6 +126,15 @@ class PropertySchema {
 		return $this->classSchema;
 	}
 
+	public function getPrefix() {
+		return $this->prefix;
+	}
+
+	public function getElementClassSchema() {
+		var_dump($this->getPath());
+		return $this->classSchema->getPropertyClassShema($this->getPath());
+	}
+
 	public function getTranslationId() {
 		return StringFormatter::pathToTranslationId($this->getPath());
 	}

@@ -1,0 +1,29 @@
+<fieldset class="t3-expose-inline t3-expose-inline-tabular t3-expose-inline-multiple" data-mode='multiple' data-counter="{inline.nextKey}">
+	<tr class="t3-expose-inline-item-template">
+		<f:render section="item" arguments="{item: item}" />
+	</tr>
+
+	<f:for each="{inline.elements}" as="element">
+		<tr class="t3-expose-inline-item">
+			<!-- <form:renderRenderable renderable="{element}" /> -->
+		</tr>
+	</f:for>
+
+	<tr class="t3-expose-inline-item t3-expose-inline-item-unused">
+		<!-- <form:renderRenderable renderable="{inline.unusedElement}" /> -->
+	</tr>
+</fieldset>
+
+<f:section name="Item">
+	<fieldset class="well">
+		<f:for each="{schema.fieldsets}" as="fieldset">
+			<fieldset>
+				{fieldset.name}
+				<f:for each="{fieldset.fields}" as="field">
+					<e:form.field property="{field}" id="{field}" class="form-control" wrap="Default" />
+				</f:for>
+			</fieldset>
+		</f:for>
+	</fieldset>
+	<a class="close">x</a>
+</f:section>

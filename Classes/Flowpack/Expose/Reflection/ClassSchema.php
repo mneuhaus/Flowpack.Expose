@@ -150,6 +150,36 @@ class ClassSchema {
 		return new PropertySchema($this->properties[$propertyName], $this, $this->propertyPrefix);
 	}
 
+	public function getPrefix() {
+		return $this->propertyPrefix;
+	}
+
+	public function getPropertyClassShema($propertyName) {
+		$parts = explode('.', $propertyName);
+		$propertyPrefix = array_shift($parts);
+		$propertySchema = new PropertySchema($this->properties[$propertyPrefix], $this, $this->propertyPrefix);
+
+		if ($propertySchema->getElementType() !== NULL) {
+			$propertyClassName = $propertySchema->getElementType();
+			$propertyPrefix.= '.' . array_shift($parts);
+		} else {
+			$propertyClassName = $propertySchema->getType();
+		}
+
+		if (count($parts) == 0) {
+			return new ClassSchema($propertyClassName, $propertyPrefix);
+		}
+
+		if (is_object($this->object)) {
+			$propertyValue = ObjectAccess::getPropertyPath($this->object, $propertyPrefix);
+			if (is_object($propertyValue)) {
+				$propertyClassName = $this->reflectionService->getClassNameByObject($propertyValue);
+			}
+		}
+
+		return new ClassSchema($propertyClassName, $propertyPrefix);
+	}
+
 	public function getListPropertyNames() {
 		return $this->schema['listProperties'];
 	}

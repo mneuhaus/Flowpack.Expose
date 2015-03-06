@@ -1,8 +1,7 @@
 /*!
- * $ lightweight plugin boilerplate
- * Original author: @ajpiano
- * Further changes, comments: @addyosmani
- * Licensed under the MIT license
+ *
+ * Helper to create rows based on a template whenever the last unused row is
+ * edited
  */
 
 // the semi-colon before the function invocation is a safety
@@ -31,8 +30,8 @@
 
 	Plugin.prototype.init = function () {
 		// Create new row after the last one is used
-		this.element.find("input, select, textarea").live("keyup", handleChange);
-		this.element.find("input, select, textarea").live("change", handleChange);
+		this.element.find("input, select, textarea").on("keyup", handleChange);
+		this.element.find("input, select, textarea").on("change", handleChange);
 
 		this.element.find('[data-property="__identity"] input').each(function(){
 			var identity = $(this);
@@ -45,7 +44,7 @@
 		//this.element.find(".t3-expose-inline-item-unused .close").hide();
 
 		// Remove the item and create a new one if it was the last one
-		$(".t3-expose-inline-item .close").live("click", function(){
+		$(".t3-expose-inline-item .close").on("click", function(){
 			var e = $(this);
 			var container = e.parents(".t3-expose-inline");
 			removeItem(e.parents(".t3-expose-inline-item"));
@@ -95,6 +94,8 @@
 		var counter = Number(container.attr("data-counter"));
 		var tpl = container.find(".t3-expose-inline-item-template");
 		var newRow = tpl.clone().removeClass("t3-expose-inline-item-template").addClass("t3-expose-inline-item");
+
+		console.log(container, tpl, newRow);
 
 		newRow.find("input:hidden, select:hidden, textarea:hidden").removeAttr("disabled");
 		newRow.html(newRow.html().replace(/000/g, counter).replace(/\[_template\]/g, ""));
