@@ -1,0 +1,4 @@
+Flowpack\Expose\View\InheritanceTemplateView:
+  properties:
+    renderingContext:
+      object: TYPO3\Fluid\Core\Rendering\RenderingContext
