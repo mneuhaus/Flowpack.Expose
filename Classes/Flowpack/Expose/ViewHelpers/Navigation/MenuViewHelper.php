@@ -18,13 +18,14 @@ use TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper;
 /**
  */
 class MenuViewHelper extends AbstractViewHelper {
-	
+
 	/**
 	 * NOTE: This property has been introduced via code migration to ensure backwards-compatibility.
 	 * @see AbstractViewHelper::isOutputEscapingEnabled()
 	 * @var boolean
 	 */
 	protected $escapeOutput = FALSE;
+
 	/**
 	 * @var \TYPO3\Flow\Configuration\ConfigurationManager
 	 * @Flow\Inject
@@ -37,7 +38,7 @@ class MenuViewHelper extends AbstractViewHelper {
 	 * @var \TYPO3\Flow\Security\Authorization\AccessDecisionVoterManager
 	 * @Flow\Inject
 	 */
-	protected $accessDecisionVoterManager;
+	// protected $accessDecisionVoterManager;
 
 	/**
 	 * The policyService
@@ -109,16 +110,16 @@ class MenuViewHelper extends AbstractViewHelper {
 				}
 
 				$className = str_replace(array_keys($searchAndReplace), array_values($searchAndReplace), $classTemplate);
-				if ($this->policyService->hasPolicyEntryForMethod($className, $route['defaults']['@action'] . 'Action')) {
-					try {
-						$joinPoint = new \Famelo\Navigation\Aop\VirtualJoinPoint();
-						$joinPoint->setClassName($className);
-						$joinPoint->setMethodName($route['defaults']['@action'] . 'Action');
-						$vote = $this->accessDecisionVoterManager->decideOnJoinPoint($joinPoint);
-					} catch (\TYPO3\Flow\Security\Exception\AccessDeniedException $e) {
-						continue;
-					}
-				}
+				// if ($this->policyService->hasPolicyEntryForMethod($className, $route['defaults']['@action'] . 'Action')) {
+				// 	try {
+				// 		$joinPoint = new \Famelo\Navigation\Aop\VirtualJoinPoint();
+				// 		$joinPoint->setClassName($className);
+				// 		$joinPoint->setMethodName($route['defaults']['@action'] . 'Action');
+				// 		$vote = $this->accessDecisionVoterManager->decideOnJoinPoint($joinPoint);
+				// 	} catch (\TYPO3\Flow\Security\Exception\AccessDeniedException $e) {
+				// 		continue;
+				// 	}
+				// }
 
 				$items[] = $item;
 			}
