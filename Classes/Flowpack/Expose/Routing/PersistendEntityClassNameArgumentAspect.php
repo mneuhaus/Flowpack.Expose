@@ -24,11 +24,11 @@ class PersistendEntityClassNameArgumentAspect {
     protected $objectManager;
 
     /**
-     * @param \TYPO3\Flow\AOP\JoinPointInterface $joinPoint
+     * @param \TYPO3\Flow\Aop\JoinPointInterface $joinPoint
      * @Flow\Before("method(TYPO3\Flow\Mvc\Routing\UriBuilder->uriFor())")
      * @return void
      */
-    public function addEntityClassName(\TYPO3\Flow\AOP\JoinPointInterface $joinPoint) {
+    public function addEntityClassName(\TYPO3\Flow\Aop\JoinPointInterface $joinPoint) {
         if ($this->isExposeController($joinPoint) === FALSE) {
             return;
         }
