@@ -28,6 +28,13 @@ use TYPO3\Flow\Reflection\ObjectAccess;
  *
  */
 class PropertyViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
+	
+	/**
+	 * NOTE: This property has been introduced via code migration to ensure backwards-compatibility.
+	 * @see AbstractViewHelper::isOutputEscapingEnabled()
+	 * @var boolean
+	 */
+	protected $escapeOutput = FALSE;
 	/**
 	 *
 	 * @param object $object Object to get the property or propertyPath from

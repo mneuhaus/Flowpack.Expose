@@ -20,6 +20,14 @@ use TYPO3\Flow\Annotations as Flow;
  */
 class UserViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 
+	
+	/**
+	 * NOTE: This property has been introduced via code migration to ensure backwards-compatibility.
+	 * @see AbstractViewHelper::isOutputEscapingEnabled()
+	 * @var boolean
+	 */
+	protected $escapeOutput = FALSE;
+
 	/**
 	 * @var \TYPO3\Flow\Security\Context
 	 * @Flow\Inject

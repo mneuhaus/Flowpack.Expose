@@ -32,6 +32,13 @@ use TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper;
  *
  */
 class PropertyResultsViewHelper extends AbstractViewHelper {
+	
+	/**
+	 * NOTE: This property has been introduced via code migration to ensure backwards-compatibility.
+	 * @see AbstractViewHelper::isOutputEscapingEnabled()
+	 * @var boolean
+	 */
+	protected $escapeOutput = FALSE;
 	/**
 	 *
 	 * @param string $property Name of the propert to check for Validation errors

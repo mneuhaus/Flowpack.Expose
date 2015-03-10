@@ -17,6 +17,13 @@ use TYPO3\Flow\Annotations as Flow;
 /**
  */
 class UuidViewHelper extends AbstractViewHelper {
+	
+	/**
+	 * NOTE: This property has been introduced via code migration to ensure backwards-compatibility.
+	 * @see AbstractViewHelper::isOutputEscapingEnabled()
+	 * @var boolean
+	 */
+	protected $escapeOutput = FALSE;
 	/**
 	 * @Flow\Inject
 	 * @var \TYPO3\Flow\Persistence\Doctrine\PersistenceManager
