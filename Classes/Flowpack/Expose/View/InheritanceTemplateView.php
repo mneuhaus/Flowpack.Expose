@@ -14,6 +14,7 @@ namespace Flowpack\Expose\View;
 use TYPO3\Flow\Mvc\ActionRequest;
 use TYPO3\Flow\Mvc\Controller\ControllerContext;
 use TYPO3\Flow\Utility\Files;
+use TYPO3\Fluid\View\Exception\InvalidTemplateResourceException;
 use TYPO3\Fluid\View\TemplateView;
 
 /**
@@ -79,7 +80,7 @@ class InheritanceTemplateView extends TemplateView {
 	 *
 	 * @param string $actionName Name of the action. If NULL, will be taken from request.
 	 * @return string Full path to template
-	 * @throws Exception\InvalidTemplateResourceException
+	 * @throws InvalidTemplateResourceException
 	 */
 	protected function getTemplatePathAndFilename($actionName = NULL) {
 		if ($this->options['templatePathAndFilename'] !== NULL) {
@@ -101,7 +102,7 @@ class InheritanceTemplateView extends TemplateView {
 				return $templatePathAndFilename;
 			}
 		}
-		throw new Exception\InvalidTemplateResourceException('Template could not be loaded. I tried "' . implode('", "', $tried) . '"', 1225709595);
+		throw new InvalidTemplateResourceException('Template could not be loaded. I tried "' . implode('", "', $tried) . '"', 1225709595);
 	}
 
 
@@ -115,7 +116,7 @@ class InheritanceTemplateView extends TemplateView {
 	 *
 	 * @param string $layoutName Name of the layout to use. If none given, use "Default"
 	 * @return string Path and filename of layout files
-	 * @throws Exception\InvalidTemplateResourceException
+	 * @throws InvalidTemplateResourceException
 	 */
 	protected function getLayoutPathAndFilename($layoutName = 'Default') {
 		if ($this->options['layoutPathAndFilename'] !== NULL) {
@@ -131,7 +132,7 @@ class InheritanceTemplateView extends TemplateView {
 				return $layoutPathAndFilename;
 			}
 		}
-		throw new Exception\InvalidTemplateResourceException('The layout files "' . implode('", "', $tried) . '" could not be loaded.', 1225709595);
+		throw new InvalidTemplateResourceException('The layout files "' . implode('", "', $tried) . '" could not be loaded.', 1225709595);
 	}
 
 	/**
@@ -139,7 +140,7 @@ class InheritanceTemplateView extends TemplateView {
 	 *
 	 * @param string $partialName The name of the partial
 	 * @return string the full path which should be used. The path definitely exists.
-	 * @throws Exception\InvalidTemplateResourceException
+	 * @throws InvalidTemplateResourceException
 	 */
 	protected function getPartialPathAndFilename($partialName) {
 		$paths = $this->expandGenericPathPattern($this->options['partialPathAndFilenamePattern'], TRUE, TRUE);
@@ -151,7 +152,7 @@ class InheritanceTemplateView extends TemplateView {
 				return $partialPathAndFilename;
 			}
 		}
-		throw new Exception\InvalidTemplateResourceException('The partial files "' . implode('", "', $tried) . '" could not be loaded.', 1225709595);
+		throw new InvalidTemplateResourceException('The partial files "' . implode('", "', $tried) . '" could not be loaded.', 1225709595);
 	}
 
 	/**

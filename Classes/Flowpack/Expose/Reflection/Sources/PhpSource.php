@@ -71,7 +71,7 @@ class PhpSource extends AbstractSchemaSource {
 			}
 		}
 
-		if (($property['type'] === 'array' || $property['type'] === 'SplObjectStorage' || $property['type'] === '\Doctrine\Common\Collections\Collection' || $property['type'] === '\Doctrine\Common\Collections\ArrayCollection')) {
+		if (($property['type'] === 'array' || $property['type'] === 'SplObjectStorage' || ltrim($property['type'], '\\') === 'Doctrine\Common\Collections\Collection' || ltrim($property['type'], '\\') === 'Doctrine\Common\Collections\ArrayCollection')) {
 			return 'MultiSelect';
 		}
 
