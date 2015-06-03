@@ -137,6 +137,8 @@ class FieldViewHelper extends AbstractFormFieldViewHelper {
 		$this->registerArgument('control', 'string', 'Specifies the control to use to render this field', FALSE, NULL);
 		$this->registerArgument('wrap', 'string', 'Specifies the wrap used to render the field', FALSE, 'Default');
 		$this->registerArgument('required', 'boolean', 'Specifies, if this form field is required', FALSE, FALSE);
+		$this->registerArgument('arguments', 'array', 'additional arguments for the control', FALSE, array());
+		$this->registerArgument('label', 'string', 'custom label for the field', FALSE, NULL);
 		$this->registerUniversalTagAttributes();
 	}
 
@@ -154,6 +156,9 @@ class FieldViewHelper extends AbstractFormFieldViewHelper {
 		$this->arguments['propertySchema'] = $property;
 		$this->arguments['value'] = $this->getValue(FALSE);
 
+		if ($this->arguments['label'] === NULL) {
+			$this->arguments['label'] = $this->inflector->humanizeCamelCase($this->arguments['name'], FALSE);
+		}
 
 		if ($this->arguments['control'] !== NULL) {
 			$property->setControl($this->arguments['control']);
@@ -166,6 +171,9 @@ class FieldViewHelper extends AbstractFormFieldViewHelper {
 			$this->arguments['additionalAttributes']['required'] = $this->arguments['required'];
 			$this->arguments['requiredString'] = '*';
 		}
+
+		$this->arguments = array_merge($this->arguments['arguments'], $this->arguments);
+		unset($this->arguments['arguments']);
 
 		$control = $this->viewHelperVariableContainer->getView()->renderPartial('Form/Field/' . $partial, NULL, $this->arguments);
 		if (empty($this->arguments['wrap'])) {
@@ -194,7 +202,7 @@ class FieldViewHelper extends AbstractFormFieldViewHelper {
 		} else {
 			$property = new PropertySchema(array(
 				'control' => $this->resolveTypeByValue(),
-				'label' => $this->inflector->humanizeCamelCase($this->arguments['name'], FALSE),
+				'label' => $this->arguments['label'],
 				'name' => $this->arguments['name'],
 				'infotext' => ''
 			));
