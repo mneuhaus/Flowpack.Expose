@@ -93,6 +93,10 @@ class ClassSchema {
 		$this->object = $object;
 	}
 
+	public function getObject() {
+		return $this->object;
+	}
+
 	public function getPropertyNames() {
 		return array_keys($this->properties);
 	}
@@ -217,6 +221,11 @@ class ClassSchema {
 			$schema['properties'] = $arraySorter->toArray();
 		} catch (InvalidPositionException $exception) {
 			throw new TypoScript\Exception('Invalid position string', 1345126502, $exception);
+		}
+
+		if (isset($schema['properties']['Persistence_object_identifier'])) {
+			var_dump($schema['properties']['Persistence_object_identifier']);
+			unset($schema['properties']['Persistence_object_identifier']);
 		}
 
 		return $schema;
