@@ -14,6 +14,7 @@ namespace Flowpack\Expose\ViewHelpers\Link;
 use Doctrine\ORM\Mapping as ORM;
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
+use TYPO3\Fluid\Core\ViewHelper\Exception;
 
 /**
  */
@@ -55,7 +56,7 @@ class FilterViewHelper extends AbstractTagBasedViewHelper {
 	 * @param boolean $useParentRequest If set, the parent Request will be used instead of the current one
 	 * @param boolean $absolute By default this ViewHelper renders links with absolute URIs. If this is FALSE, a relative URI is created instead
 	 * @return string The rendered link
-	 * @throws ViewHelper\Exception
+	 * @throws Exception
 	 * @api
 	 */
 	public function render($property, $value = NULL, $action = NULL, $arguments = array(), $controller = NULL, $package = NULL, $subpackage = NULL, $section = '', $format = '',  array $additionalParams = array(), $addQueryString = TRUE, array $argumentsToBeExcludedFromQueryString = array(), $useParentRequest = FALSE, $absolute = TRUE) {
@@ -85,7 +86,7 @@ class FilterViewHelper extends AbstractTagBasedViewHelper {
 		if ($useParentRequest) {
 			$request = $this->controllerContext->getRequest();
 			if ($request->isMainRequest()) {
-				throw new ViewHelper\Exception('You can\'t use the parent Request, you are already in the MainRequest.', 1360163536);
+				throw new Exception('You can\'t use the parent Request, you are already in the MainRequest.', 1360163536);
 			}
 			$uriBuilder = clone $uriBuilder;
 			$uriBuilder->setRequest($request->getParentRequest());
@@ -102,7 +103,7 @@ class FilterViewHelper extends AbstractTagBasedViewHelper {
 		try {
 			$uri = $uriBuilder->uriFor($action, $arguments, $controller, $package, $subpackage);
 		} catch (\Exception $exception) {
-			throw new ViewHelper\Exception($exception->getMessage(), $exception->getCode(), $exception);
+			throw new Exception($exception->getMessage(), $exception->getCode(), $exception);
 		}
 
 		$this->tag->addAttribute('href', $uri);

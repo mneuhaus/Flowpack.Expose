@@ -12,7 +12,7 @@ namespace Flowpack\Expose\ViewHelpers\Link;
  *                                                                        */
 
 use TYPO3\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
-use TYPO3\Fluid\Core\ViewHelper;
+use TYPO3\Fluid\Core\ViewHelper\Exception;
 
 
 /**
@@ -75,7 +75,7 @@ class ActionViewHelper extends \TYPO3\Fluid\ViewHelpers\Link\ActionViewHelper {
 	 * @param boolean $useParentRequest If set, the parent Request will be used instead of the current one
 	 * @param boolean $absolute By default this ViewHelper renders links with absolute URIs. If this is FALSE, a relative URI is created instead
 	 * @return string The rendered link
-	 * @throws ViewHelper\Exception
+	 * @throws Exception
 	 * @api
 	 */
 	public function render($action, $arguments = array(), $controller = NULL, $package = NULL, $subpackage = NULL, $section = '', $format = '',  array $additionalParams = array(), $addQueryString = FALSE, array $argumentsToBeExcludedFromQueryString = array(), $useParentRequest = FALSE, $absolute = TRUE) {
