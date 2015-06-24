@@ -38,8 +38,8 @@ If you want to change a template all you need to do is to copy the
 template that you want to use over to your CompanyController.
 
 For example, if you want to change the edit template you need to copy
-the file ``Flowpack.Expose/Private/Resources/Templates/Crud/Edit.html``
-to ``My.Package/Private/Resources/Templates/Company/Edit.html`` the view
+the file ``Flowpack.Expose/Resources/Private/Templates/Crud/Edit.html``
+to ``My.Package/Resources/Private/Templates/Company/Edit.html`` the view
 will automatically use your edit template instead of the default expose template.
 
 
