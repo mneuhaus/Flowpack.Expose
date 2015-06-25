@@ -56,7 +56,7 @@ class FlashMessagesViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractTagBa
 				// check if there's a title and use it then
 				$title = '';
 				if ($singleFlashMessage->getTitle() != '') {
-					$title = '<strong>' . $this->translate(NULL, $singleFlashMessage->getTitle()) . '</strong>&nbsp;';
+					$title = '<strong>' . $this->translate(NULL, $singleFlashMessage->getTitle(), $translationPackage) . '</strong>&nbsp;';
 				}
 
 				// put it all together
