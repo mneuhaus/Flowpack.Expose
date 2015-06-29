@@ -13,17 +13,22 @@ namespace Flowpack\Expose\ViewHelpers;
 
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Reflection\ObjectAccess;
+use Flowpack\Expose\OptionsProvider\ArrayOptionsProvider;
+use Flowpack\Expose\Reflection\PropertySchema;
 
 /**
- * You can use this viewHelper to retrieve a property from ab object based on the name of the property stored in a variabl
- *
+ * You can use this viewHelper to retrieve a property´s value from ab object based on the name or the schema of the property.
+ * Properties with an Array OptionProvider defined, will be mapped to the option label with the current value used as index
+ * Properties with a Relation OptionProvider defined, will show up with the value of the property defined on the LabelPath
+ * (the last feature is only supported when you pass the propertyschema instead of the properties name)
+ * 
  * Example
  * =======
  *
  * .. code-block:: html
  *
  *   <f:for each="{properties}" as="property">
- *     <e:property object="{object}" name="{property}" />
+ *     <e:property object="{object}" property="{property}" />
  *   </f:for>
  *
  */
@@ -35,16 +40,41 @@ class PropertyViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper
 	 * @var boolean
 	 */
 	protected $escapeOutput = FALSE;
+	
 	/**
 	 *
 	 * @param object $object Object to get the property or propertyPath from
 	 * @param string $name Name of the property or propertyPath
+	 * @param PropertySchema $property The property´s schema
 	 * @return string
 	 */
-	public function render($object, $name) {
-		if (method_exists($object, $name)) {
-			return $object->$name();
+	public function render($object, $name = null, PropertySchema $property = null) {
+		if (null === $name && $property instanceof PropertySchema) {
+			$name = $property->getPath();
 		}
-		return ObjectAccess::getPropertyPath($object, $name);
+		if (method_exists($object, $name)) {
+			$value = $object->$name();
+		} else {
+			$value = ObjectAccess::getPropertyPath($object, $name);
+		}
+
+		if ($property instanceof PropertySchema) {
+			$schema = $property->getSchema();
+			if (true === is_object($value) && true === isset($schema['optionsProvider']['LabelPath'])) {
+				$value = ObjectAccess::getPropertyPath($value, $schema['optionsProvider']['LabelPath']);
+			}
+		}
+
+		/* @var \Flowpack\Expose\Core\OptionsProvider\OptionsProviderInterface $optionsProvider */
+		$optionsProvider = $property->getOptionsProvider();
+		if ($optionsProvider instanceof ArrayOptionsProvider) {
+			$options = $optionsProvider->getOptions();
+			if (true === isset($options[$value])) {
+				return $options[$value];
+			}
+		}
+
+		return $value;
 	}
+	
 }
