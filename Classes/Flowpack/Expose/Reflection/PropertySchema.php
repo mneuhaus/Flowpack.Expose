@@ -71,6 +71,10 @@ class PropertySchema {
 		return $this->getName();
 	}
 
+	public function getSchema() {
+		return $this->schema;
+	}
+
 	public function getName() {
 		return $this->schema['name'];
 	}
