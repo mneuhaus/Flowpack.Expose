@@ -6,7 +6,7 @@
 		</td>
 		<f:for each="{schema.listProperties}" as="property" iteration="iteration">
 			<td>
-				<e:property object="{entity}" name="{property.path}" />
+				<e:property object="{entity}" property="{property}" />
 				<f:if condition="{iteration.isFirst}">
 					<div class="expose-actions">
 						<f:render partial="Table/Actions" arguments="{entity: entity, controller: controller}" />
