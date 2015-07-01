@@ -65,6 +65,9 @@ class YamlSource extends AbstractSchemaSource {
 		'label' => array(
 			'description' => 'Description that will be places under the form control'
 		),
+		'transient' => array(
+			'description' => 'Use this to mark properties that do not really exist (fx when you want the approx getter to be called only for list view)'
+		),
 		'control' => array(
 			'description' => 'Contains properties that should be display as columns in the list view'
 		),

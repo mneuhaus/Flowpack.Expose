@@ -151,6 +151,12 @@ class ClassSchema {
 
 			return $propertyClassSchema->getProperty(implode('.', $parts));
 		}
+
+		if (false === isset($this->properties[$propertyName]) || true === isset($this->properties[$propertyName]['transient'])) {
+			$propertySchema = (true === isset($this->properties[$propertyName])) ? $this->properties[$propertyName] : array();
+			return new TransientPropertySchema($propertyName, $propertySchema, $this, $this->propertyPrefix);
+		}
+
 		return new PropertySchema($this->properties[$propertyName], $this, $this->propertyPrefix);
 	}
 

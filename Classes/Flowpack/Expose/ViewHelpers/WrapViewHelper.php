@@ -46,8 +46,11 @@ class WrapViewHelper extends AbstractViewHelper {
 		$content = $this->renderChildren();
 		if ($this->viewHelperVariableContainer->exists('Flowpack\Expose\ViewHelpers\WrapViewHelper', $name)) {
 			$wraps = $this->viewHelperVariableContainer->get('Flowpack\Expose\ViewHelpers\WrapViewHelper', $name);
+			/* @var $wrap \Flowpack\Expose\Core\QueryBehaviors\AbstractQueryBehavior */
 			foreach ($wraps as $wrap) {
-				$content = $wrap->wrap($content, $arguments);
+				if (false === $arguments['property'] instanceof TransientPropertySchema || true === $wrap::$appliedOnTransientProperties) {
+					$content = $wrap->wrap($content, $arguments);
+				}
 			}
 		}
 		return $content;
