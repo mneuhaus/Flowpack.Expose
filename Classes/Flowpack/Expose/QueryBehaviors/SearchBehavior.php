@@ -39,7 +39,7 @@ class SearchBehavior extends AbstractQueryBehavior {
 			if (!empty($search)) {
 				$constraints = array();
 				foreach ($properties as $property) {
-					$constraints[] = $query->like($property, '%' . $search . '%', FALSE);
+					$constraints[] = $query->like($property->getPath(), '%' . $search . '%', FALSE);
 				}
 				$query->matching($query->logicalAnd(
 					$query->getConstraint(),
