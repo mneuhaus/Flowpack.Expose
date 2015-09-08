@@ -21,7 +21,7 @@ use Flowpack\Expose\Reflection\PropertySchema;
  * Properties with an Array OptionProvider defined, will be mapped to the option label with the current value used as index
  * Properties with a Relation OptionProvider defined, will show up with the value of the property defined on the LabelPath
  * (the last feature is only supported when you pass the propertyschema instead of the properties name)
- * 
+ *
  * Example
  * =======
  *
@@ -33,14 +33,14 @@ use Flowpack\Expose\Reflection\PropertySchema;
  *
  */
 class PropertyViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
-	
+
 	/**
 	 * NOTE: This property has been introduced via code migration to ensure backwards-compatibility.
 	 * @see AbstractViewHelper::isOutputEscapingEnabled()
 	 * @var boolean
 	 */
 	protected $escapeOutput = FALSE;
-	
+
 	/**
 	 *
 	 * @param object $object Object to get the property or propertyPath from
@@ -49,6 +49,10 @@ class PropertyViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper
 	 * @return string
 	 */
 	public function render($object, $name = null, PropertySchema $property = null) {
+		if (null === $name && $property === null) {
+			return;
+		}
+
 		if (null === $name && $property instanceof PropertySchema) {
 			$name = $property->getPath();
 		}
@@ -63,18 +67,18 @@ class PropertyViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper
 			if (true === is_object($value) && true === isset($schema['optionsProvider']['LabelPath'])) {
 				$value = ObjectAccess::getPropertyPath($value, $schema['optionsProvider']['LabelPath']);
 			}
-		}
 
-		/* @var \Flowpack\Expose\Core\OptionsProvider\OptionsProviderInterface $optionsProvider */
-		$optionsProvider = $property->getOptionsProvider();
-		if ($optionsProvider instanceof ArrayOptionsProvider) {
-			$options = $optionsProvider->getOptions();
-			if (true === isset($options[$value])) {
-				return $options[$value];
+			/* @var \Flowpack\Expose\Core\OptionsProvider\OptionsProviderInterface $optionsProvider */
+			$optionsProvider = $property->getOptionsProvider();
+			if ($optionsProvider instanceof ArrayOptionsProvider) {
+				$options = $optionsProvider->getOptions();
+				if (true === isset($options[$value])) {
+					return $options[$value];
+				}
 			}
 		}
 
 		return $value;
 	}
-	
+
 }
