@@ -6,7 +6,7 @@
 		</td>
 		<f:for each="{schema.listProperties}" as="property">
 			<th>
-				<e:wrap name="property" arguments="{property: property.name}">
+				<e:wrap name="property" arguments="{property: property}">
 					<i class="fa"></i> <f:translate id="{property.translationId}.label">{property.label -> f:format.raw()}</f:translate>
 				</e:wrap>
 			</th>

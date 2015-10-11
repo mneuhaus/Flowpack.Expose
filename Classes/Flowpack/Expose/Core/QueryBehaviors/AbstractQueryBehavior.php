@@ -22,6 +22,12 @@ use TYPO3\Fluid\Core\ViewHelper\ViewHelperVariableContainer;
 abstract class AbstractQueryBehavior implements QueryBehaviorInterface {
 
 	/**
+	 * Defines whether or not this behaviour is applied on transient properties
+	 * @var boolean
+	 */
+	public static $appliedOnTransientProperties = false;
+
+	/**
 	 * Controller Context to use
 	 * @var ActionRequest
 	 * @api
